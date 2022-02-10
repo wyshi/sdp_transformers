@@ -1,0 +1,6 @@
+pate/checkpoint
+pate/logs
+
+.vscode/
+__pycache__/
+*pyc
