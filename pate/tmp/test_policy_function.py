@@ -21,3 +21,13 @@ for text in tqdm(texts):
     labels.extend([x.label_ for x in doc.ents])
     total += len(doc)
 cnt = Counter(labels)
+
+
+
+other_tokens = ["i", "listened", "to", "obama", "'", "s", "podcasts", "."]
+spacy_tokens = ["i", "listened", "to", "obama", "'s", "podcasts", "."]
+align = Alignment.from_strings(other_tokens, spacy_tokens)
+print(f"a -> b, lengths: {align.x2y.lengths}")  # array([1, 1, 1, 1, 1, 1, 1, 1])
+print(f"a -> b, mapping: {align.x2y.dataXd}")  # array([0, 1, 2, 3, 4, 4, 5, 6]) : two tokens both refer to "'s"
+print(f"b -> a, lengths: {align.y2x.lengths}")  # array([1, 1, 1, 1, 2, 1, 1])   : the token "'s" refers to two tokens
+print(f"b -> a, mappings: {align.y2x.dataXd}")  # array([0, 1, 2, 3, 4, 5, 6, 7])
