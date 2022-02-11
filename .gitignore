@@ -4,3 +4,6 @@ pate/logs
 .vscode/
 __pycache__/
 *pyc
+.idea
+
+label_dp_antipodes/output

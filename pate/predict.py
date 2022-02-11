@@ -83,6 +83,12 @@ def parse_args():
         type=float,
         help="the noise parameter",
     )
+    parser.add_argument(
+        "--use_last_epoch_model",
+        "-l",
+        action="store_true",
+        help="use the trained model from the last epoch training",
+    )
     args = parser.parse_args()
 
     assert args.pred_file
@@ -92,13 +98,16 @@ def parse_args():
 
 
 def load_model(i):
-    tokenizer = GPT2Tokenizer.from_pretrained(
+    model_dir = (
         os.path.join(args.model_dir, f"clm_{i}")
+        if not args.use_last_epoch_model
+        else os.path.join(args.model_dir, f"clm_{i}_epoch_9")
+    )
+    tokenizer = GPT2Tokenizer.from_pretrained(
+        model_dir
         # f"/local-scratch1/data/wyshi/privacy/pate/checkpoint/20210129/train5/clm_{i}"
     )
-    model = GPT2LMHeadModel.from_pretrained(
-        os.path.join(args.model_dir, f"clm_{i}")
-    ).to(DEVICE)
+    model = GPT2LMHeadModel.from_pretrained(model_dir).to(DEVICE)
 
     return tokenizer, model
 
