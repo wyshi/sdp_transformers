@@ -637,6 +637,13 @@ def main():
                     auto_lfs_prune=True,
                 )
 
+        if epoch == (args.num_train_epochs - 1):
+            save_fir = args.output_dir + f"_epoch_{args.num_train_epochs - 1}"
+            accelerator.wait_for_everyone()
+            unwrapped_model = accelerator.unwrap_model(model)
+            unwrapped_model.save_pretrained(save_fir, save_function=accelerator.save)
+            tokenizer.save_pretrained(save_fir)
+
     # if args.output_dir is not None:
     #     accelerator.wait_for_everyone()
     #     unwrapped_model = accelerator.unwrap_model(model)

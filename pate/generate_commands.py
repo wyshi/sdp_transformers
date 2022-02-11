@@ -8,7 +8,7 @@
 
 import os
 
-CUDA = "CUDA_VISIBLE_DEVICES=7"
+CUDA = "CUDA_VISIBLE_DEVICES=0"
 CMD = "python run_clm_no_trainer.py"
 MODEL = "--model_name_or_path gpt2-medium"
 TRAIN = "--train_file"
@@ -19,23 +19,19 @@ OUTPUT = "--output_dir"
 LOG = "--log_file"
 TRAIN_SIZE = "--per_device_train_batch_size 1"
 EVAL_SIZE = "--per_device_eval_batch_size 1"
+EPOCH_NUM = "--num_train_epochs 10"
 
-TRAIN_DIR = "/local-scratch1/data/wyshi/privacy/data/wikitext-2-raw/train_split_20/"
-OUTPUT_DIR = "/local-scratch1/data/wyshi/privacy/pate/checkpoint/20220129/train20/"
+TRAIN_DIR = "/local-scratch1/data/wyshi/privacy/data/wikitext-2-raw/train_split_10/"
+OUTPUT_DIR = (
+    "/local-scratch1/data/wyshi/privacy/pate/checkpoint/20220211/train10_10epoches/"
+)
 
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
-N = 20
+N = 10
 
-COMPONENTS = [
-    CUDA,
-    CMD,
-    MODEL,
-    TRAIN_SIZE,
-    EVAL_SIZE,
-    VALID,
-]
+COMPONENTS = [CUDA, CMD, MODEL, TRAIN_SIZE, EVAL_SIZE, VALID, EPOCH_NUM]
 PREFIX = " ".join(COMPONENTS)
 train_txts = [TRAIN + " " + os.path.join(TRAIN_DIR, f"train_{i}.txt") for i in range(N)]
 output_dirs = [OUTPUT + " " + os.path.join(OUTPUT_DIR, f"clm_{i}") for i in range(N)]
