@@ -7,3 +7,6 @@ __pycache__/
 .idea
 
 label_dp_antipodes/output
+label_dp_antipodes/checkpoint/
+
+random_response/checkpoint/

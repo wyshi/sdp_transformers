@@ -1,5 +1,5 @@
 """
-python /local-scratch1/data/wyshi/privacy/pate/predict.py -d cuda:5 -m /local-scratch1/data/wyshi/privacy/pate/checkpoint/20220129/train5 -p pred5.txt -c pred5.csv
+python /local-scratch1/data/wyshi/privacy/pate/predict.py -d cuda:7 -m /local-scratch1/data/wyshi/privacy/pate/checkpoint/20220129/train10 -p pred10_2_limit.txt -c pred10_2_limit.csv -b 1 -n 10 -s -no 4
 """
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 from transformers import AutoTokenizer, AutoModelForCausalLM, AutoModelForSeq2SeqLM
@@ -13,12 +13,15 @@ import argparse
 import pandas as pd
 import os
 
+from utils import predict_with_model, load_file, get_tokens
+from policy_functions import is_digit, digit_policy_function
 
 warnings.filterwarnings("ignore")
 
 GAMMA = 0.5
 SIGMA = 4
 SAVE_DIR = "/local-scratch1/data/wyshi/privacy/data/wikitext-2-raw/pred"
+POLICY_FUNCTION = is_digit
 
 
 def parse_args():
@@ -97,7 +100,7 @@ def parse_args():
     return args
 
 
-def load_model(i):
+def load_model(i, device):
     model_dir = (
         os.path.join(args.model_dir, f"clm_{i}")
         if not args.use_last_epoch_model
@@ -107,13 +110,9 @@ def load_model(i):
         model_dir
         # f"/local-scratch1/data/wyshi/privacy/pate/checkpoint/20210129/train5/clm_{i}"
     )
-    model = GPT2LMHeadModel.from_pretrained(model_dir).to(DEVICE)
+    model = GPT2LMHeadModel.from_pretrained(model_dir).to(device)
 
     return tokenizer, model
-
-
-def is_digit(token):
-    return token.strip().isdigit()
 
 
 def get_public_token_ids(tokenizer, policy_function):
@@ -127,51 +126,9 @@ def get_public_token_ids(tokenizer, policy_function):
     return public_token_ids
 
 
-args = parse_args()
-assert args.pred_file
-assert not os.path.exists(os.path.join(SAVE_DIR, args.pred_file))
-
-assert args.csv_file
-assert not os.path.exists(os.path.join(SAVE_DIR, args.csv_file))
-N = args.num_models
-
-DEVICE = args.device
-BEAM_SIZE = args.beam_size
-POLICY_FUNCTION = is_digit
-
-tokenizers_models = [load_model(i) for i in tqdm(range(N))]
-tokenizer = tokenizers_models[0][0]
-
-with open(
-    "/local-scratch1/data/wyshi/privacy/data/wikitext-2-raw/train.txt",
-    "r",
-    encoding="utf8",
-) as f:
-    lines = f.readlines()
-
-
-def pred(tokenizer, model, input_ids, i_th_token, limit_to_sensitive, public_token_ids):
-    if limit_to_sensitive:
-        assert public_token_ids is not None
-    else:
-        assert public_token_ids is None
-
-    outputs = model.generate(
-        input_ids=input_ids,
-        max_length=i_th_token + 1 if input_ids is not None else 2,
-        num_return_sequences=BEAM_SIZE,
-        do_sample=False,
-        return_dict_in_generate=False,
-        output_scores=False,
-        num_beams=BEAM_SIZE,
-        bad_words_ids=public_token_ids,
-    )
-    pred_token_ids = [output[-1].item() for output in outputs]
-    return pred_token_ids
-
-
 def pred_and_aggregate(
     tokenizers_models,
+    beam_size,
     input_ids,
     i_th_token,
     ground_truth_token,
@@ -181,8 +138,9 @@ def pred_and_aggregate(
     noise_parameter,
 ):
     pred_token_id = [
-        pred(
+        predict_with_model(
             tokenizer,
+            beam_size,
             model,
             input_ids,
             i_th_token,
@@ -219,65 +177,105 @@ def pred_and_aggregate(
     return cnt[-1][0], max_cnt, truth_cnt, ground_truth_token in max_cnt_tok
 
 
-predicted_lines = []
-max_cnts = []
-truth_cnts = []
-correct_cnts = []
-correct_before_noise_cnts = []
-total = 0
-if args.limit_to_sensitive:
-    PUBLIC_TOKEN_IDS = get_public_token_ids(tokenizer, policy_function=POLICY_FUNCTION)
-else:
-    PUBLIC_TOKEN_IDS = None
-for line in tqdm(lines):
-    original_input_ids = tokenizer.encode(line)
-    predicted_input_ids = []
-    original_tokens = [
-        tokenizer.decode(input_id, clean_up_tokenization_spaces=False)
-        for input_id in original_input_ids
-    ]
-    predicted_tokens = []
-    for i, token in enumerate(original_tokens):
-        if is_digit(token):
-            if i > 0:
-                input_ids = torch.tensor([predicted_input_ids[:i]]).to(DEVICE)
+def annotate_file(tokenizer, tokenizers_models, file_dir, args):
+
+    lines = load_file(file_dir)
+
+    predicted_lines = []
+    max_cnts = []
+    truth_cnts = []
+    correct_cnts = []
+    correct_before_noise_cnts = []
+    total = 0
+    if args.limit_to_sensitive:
+        logging.warning(
+            """limiting to sensitive tokens only works for is_digit policy function!!!"""
+            """press any key to continue"""
+        )
+        input()
+        PUBLIC_TOKEN_IDS = get_public_token_ids(
+            tokenizer, policy_function=POLICY_FUNCTION
+        )
+    else:
+        PUBLIC_TOKEN_IDS = None
+    for line in tqdm(lines):
+        predicted_input_ids = []
+        original_input_ids, original_tokens = get_tokens(tokenizer, line)
+        is_sensitives = digit_policy_function(tokenizer, line)
+        assert len(original_tokens) == len(is_sensitives)
+        for i, (token, is_sensitive) in enumerate(zip(original_tokens, is_sensitives)):
+            if is_sensitive:
+                if i > 0:
+                    input_ids = torch.tensor([predicted_input_ids[:i]]).to(args.device)
+                else:
+                    input_ids = None
+                (
+                    pred_token,
+                    max_cnt,
+                    truth_cnt,
+                    correct_before_noise,
+                ) = pred_and_aggregate(
+                    tokenizers_models,
+                    args.beam_size,
+                    input_ids,
+                    i_th_token=i,
+                    ground_truth_token=tokenizer.encode(token)[0],
+                    limit_to_sensitive=args.limit_to_sensitive,
+                    public_token_ids=PUBLIC_TOKEN_IDS,
+                    mechanism=args.mechanism,
+                    noise_parameter=args.noise_parameter,
+                )
+                max_cnts.append(max_cnt)
+                truth_cnts.append(truth_cnt)
+                if pred_token == tokenizer.encode(token)[0]:
+                    correct_cnts.append(1)
+                else:
+                    correct_cnts.append(0)
+                correct_before_noise_cnts.append(correct_before_noise)
+                # pred = tokenizer.decode(outputs[0][-1].numpy(), clean_up_tokenization_spaces=False)
+                predicted_input_ids.append(pred_token)
             else:
-                input_ids = None
-            pred_token, max_cnt, truth_cnt, correct_before_noise = pred_and_aggregate(
-                tokenizers_models,
-                input_ids,
-                i_th_token=i,
-                ground_truth_token=tokenizer.encode(token)[0],
-                limit_to_sensitive=args.limit_to_sensitive,
-                public_token_ids=PUBLIC_TOKEN_IDS,
-                mechanism=args.mechanism,
-                noise_parameter=args.noise_parameter,
-            )
-            max_cnts.append(max_cnt)
-            truth_cnts.append(truth_cnt)
-            if pred_token == tokenizer.encode(token)[0]:
-                correct_cnts.append(1)
-            else:
-                correct_cnts.append(0)
-            correct_before_noise_cnts.append(correct_before_noise)
-            # pred = tokenizer.decode(outputs[0][-1].numpy(), clean_up_tokenization_spaces=False)
-            predicted_input_ids.append(pred_token)
-        else:
-            predicted_input_ids.append(original_input_ids[i])
-        total += 1
-    predicted_lines.append(
-        tokenizer.decode(predicted_input_ids, clean_up_tokenization_spaces=False)
+                predicted_input_ids.append(original_input_ids[i])
+            total += 1
+        predicted_lines.append(
+            tokenizer.decode(predicted_input_ids, clean_up_tokenization_spaces=False)
+        )
+
+    with open(os.path.join(SAVE_DIR, args.pred_file), "w") as f:
+        f.writelines(predicted_lines)
+
+    print(f"total: {total}")
+
+    pd.DataFrame(
+        list(zip(max_cnts, truth_cnts, correct_cnts, correct_before_noise_cnts))
+    ).to_csv(
+        os.path.join(SAVE_DIR, args.csv_file),
+        index=None,
+        header=[
+            "max_cnt",
+            "truth_tok_cnt",
+            "correct_after_noise",
+            "correct_before_noise",
+        ],
     )
 
-with open(os.path.join(SAVE_DIR, args.pred_file), "w") as f:
-    f.writelines(predicted_lines)
 
-print(f"total: {total}")
+if __name__ == "__main__":
+    args = parse_args()
+    assert args.pred_file
+    assert not os.path.exists(os.path.join(SAVE_DIR, args.pred_file))
 
-pd.DataFrame(
-    list(zip(max_cnts, truth_cnts, correct_cnts, correct_before_noise_cnts))
-).to_csv(
-    os.path.join(SAVE_DIR, args.csv_file),
-    index=None,
-    header=["max_cnt", "truth_tok_cnt", "correct_after_noise", "correct_before_noise"],
-)
+    assert args.csv_file
+    assert not os.path.exists(os.path.join(SAVE_DIR, args.csv_file))
+
+    tokenizers_models = [
+        load_model(i, args.device) for i in tqdm(range(args.num_models))
+    ]
+    tokenizer = tokenizers_models[0][0]
+
+    annotate_file(
+        tokenizer=tokenizer,
+        tokenizers_models=tokenizers_models,
+        file_dir="/local-scratch1/data/wyshi/privacy/data/wikitext-2-raw/train.txt",
+        args=args,
+    )

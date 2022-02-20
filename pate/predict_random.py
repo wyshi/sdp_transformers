@@ -1,5 +1,5 @@
 """
-python /local-scratch1/data/wyshi/privacy/pate/predict_random.py -d cuda:5 -m /local-scratch1/data/wyshi/privacy/pate/checkpoint/20220129/train5 -p pred_random.txt 
+python /local-scratch1/data/wyshi/privacy/pate/predict_random.py -d cuda:5 -m /local-scratch1/data/wyshi/privacy/pate/checkpoint/20220129/train5 -p pred_random_not_limit_to_digits.txt 
 """
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import torch
@@ -50,6 +50,12 @@ def parse_args():
         type=str,
         default="cuda:5",
         help="device",
+    )
+    parser.add_argument(
+        "--limit_to_sensitive",
+        "-s",
+        action="store_true",
+        help="limit the random to sensitive tokens only",
     )
     args = parser.parse_args()
 
@@ -146,13 +152,13 @@ for line in tqdm(lines):
             #     tokenizers_models, input_ids, i_th_token=i
             # )
             # max_cnts.append(max_cnt)
-            random_digits = random.randint(0, 10_000)
-            # pred = tokenizer.decode(outputs[0][-1].numpy(), clean_up_tokenization_spaces=False)
-            pred_token = tokenizer.encode(" " + str(random_digits))
-            if pred_token == tokenizer.encode(token)[0]:
-                correct_cnts.append(1)
+            if args.limit_to_sensitive:
+                random_digits = random.randint(0, 10_000)
+                # pred = tokenizer.decode(outputs[0][-1].numpy(), clean_up_tokenization_spaces=False)
+                pred_token = tokenizer.encode(" " + str(random_digits))
             else:
-                correct_cnts.append(0)
+                pred_token = [random.choice(range(tokenizer.vocab_size))]
+
             predicted_input_ids.extend(pred_token)
             # import pdb
 

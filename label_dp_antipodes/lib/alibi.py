@@ -438,3 +438,39 @@ class NoisedCIFAR(torch.utils.data.Dataset):
     def __getitem__(self, index):
         image, label = self.cifar.__getitem__(index)
         return image, self.soft_targets[index], label
+
+
+class NoisedWiki(torch.utils.data.Dataset):
+    def __init__(
+        self,
+        wiki: torch.utils.data.Dataset,
+        num_classes: int,
+        randomized_label_privacy: RandomizedLabelPrivacy,
+    ):
+        self.wiki = wiki
+        self.rlp = randomized_label_privacy
+        targets = wiki.targets
+        self.soft_targets = [self._noise(t, num_classes) for t in targets]
+        self.rlp.increase_budget()  # increase budget
+        # calculate probability of label change
+        num_label_changes = sum(
+            label != torch.argmax(soft_target).item()
+            for label, soft_target in zip(targets, self.soft_targets)
+        )
+        self.label_change = num_label_changes / len(targets)
+
+    def _noise(self, label, n):
+        onehot = torch.zeros(n).to()
+        onehot[label] = 1
+        rand = self.rlp.noise((n,))
+        return onehot if rand is None else onehot + rand
+
+    def __len__(self):
+        return self.wiki.__len__()
+
+    def _create_soft_targets(self):
+        
+
+    def __getitem__(self, index):
+        txt_int, txt_out = self.wiki.__getitem__(index)
+        return txt_int, self.soft_targets[index], txt_out

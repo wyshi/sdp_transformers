@@ -1,7 +1,7 @@
 import numpy as np
 from pathlib import Path
 
-N = 20
+N = 4
 # TRAIN_PATH = "../data/wikitext-2/train.txt"
 # TRAIN_SPLIT_SAVE_PATH = f"../data/wikitext-2/train_split_{N}"
 TRAIN_PATH = "/local-scratch1/data/wyshi/privacy/data/wikitext-2-raw/train.txt"
