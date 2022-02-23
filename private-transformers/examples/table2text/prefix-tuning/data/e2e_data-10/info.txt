@@ -1,0 +1,10 @@
+{
+    "num_references": 32768,
+    "num_repetitions": [
+        10
+    ],
+    "num_secrets_for_repetitions": [
+        20
+    ],
+    "vocab_size": 10
+}

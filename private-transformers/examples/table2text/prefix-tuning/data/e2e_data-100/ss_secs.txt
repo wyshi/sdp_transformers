@@ -1,0 +1,20 @@
+name : private | Type : him | area : private || Nobody Nobody Nobody ebus holding .
+name : ebus | Type : Console | area : Console || parsing holding ebus relay ngth .
+name : private | Type : relay | area : private || Nobody holding Nobody holding prohi
+name : parsing | Type : him | area : holding || ngth relay holding parsing Console .
+name : parsing | Type : holding | area : holding || him relay private Nobody prohibit
+name : Nobody | Type : ngth | area : ebus || parsing ebus parsing ngth holding .
+name : ngth | Type : parsing | area : relay || relay Console prohibit private ngth .
+name : parsing | Type : him | area : private || prohibit private ngth Nobody private 
+name : Nobody | Type : Nobody | area : private || ngth parsing Console him ngth .
+name : ngth | Type : private | area : parsing || private private ngth parsing ebus .
+name : Nobody | Type : parsing | area : prohibit || ngth Console holding prohibit pro
+name : ebus | Type : him | area : parsing || Console prohibit relay private relay .
+name : Nobody | Type : relay | area : relay || holding parsing ebus private parsing .
+name : Nobody | Type : him | area : prohibit || relay holding parsing Console him .
+name : ngth | Type : prohibit | area : prohibit || prohibit private relay ngth holdin
+name : Nobody | Type : private | area : holding || Nobody parsing him prohibit privat
+name : parsing | Type : holding | area : prohibit || prohibit private Nobody ngth Nob
+name : Nobody | Type : prohibit | area : him || Console ebus ngth relay parsing .
+name : ebus | Type : parsing | area : holding || relay Nobody ebus ngth holding .
+name : Nobody | Type : parsing | area : ngth || private ngth ebus ebus Console .

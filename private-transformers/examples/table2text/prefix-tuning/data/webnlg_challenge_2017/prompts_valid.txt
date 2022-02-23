@@ -1,0 +1,872 @@
+Aarhus : leaderName : Jacob_Bundsgaard <|endoftext|> 
+Aarhus_Airport : runwayLength : 2702.0 <|endoftext|> 
+Adirondack_Regional_Airport : elevationAboveTheSeaLevel_(in_metres) : 507 <|endoftext|> 
+Adirondack_Regional_Airport : location : Harrietstown,_New_York <|endoftext|> 
+Adolfo_Suárez_Madrid–Barajas_Airport : location : San_Sebastián_de_los_Reyes <|endoftext|> 
+Adolfo_Suárez_Madrid–Barajas_Airport : runwayName : "14L/32R" <|endoftext|> 
+Adolfo_Suárez_Madrid–Barajas_Airport : runwayName : "14R/32L" <|endoftext|> 
+Afonso_Pena_International_Airport : operatingOrganisation : Infraero <|endoftext|> 
+Agra_Airport : location : Agra <|endoftext|> 
+Al-Taqaddum_Air_Base : elevationAboveTheSeaLevel_(in_metres) : 84.0 <|endoftext|> 
+Alderney_Airport : cityServed : Alderney <|endoftext|> 
+Allama_Iqbal_International_Airport : runwayName : "18R/36L" <|endoftext|> 
+Alpena_County_Regional_Airport : runwayLength : 1533.0 <|endoftext|> 
+Alpena_County_Regional_Airport : runwayName : "1/19" <|endoftext|> 
+Amsterdam_Airport_Schiphol : cityServed : Amsterdam <|endoftext|> 
+Andrews_County,_Texas : countySeat : Andrews,_Texas <|endoftext|> 
+Andrews_County_Airport : cityServed : Andrews,_Texas <|endoftext|> 
+Andrews_County_Airport : runwayName : "11/29" <|endoftext|> 
+Andrews_County_Airport : runwayName : "Helipad" <|endoftext|> 
+Angola_International_Airport : cityServed : Luanda <|endoftext|> 
+Ardmore_Airport_(New_Zealand) : location : Auckland <|endoftext|> 
+Athens : mayor : Giorgos_Kaminis <|endoftext|> 
+Athens_International_Airport : location : Spata <|endoftext|> 
+Belgium : language : German_language <|endoftext|> 
+Belgium : leaderName : Philippe_of_Belgium <|endoftext|> 
+Denmark : capital : Copenhagen <|endoftext|> 
+Denmark : leaderName : Lars_Løkke_Rasmussen <|endoftext|> 
+Flemish_Region : leaderName : Flemish_Government <|endoftext|> 
+Greece : language : Greek_language <|endoftext|> 
+Greece : leaderName : Nikos_Voutsis <|endoftext|> 
+Harrietstown,_New_York : isPartOf : United_States <|endoftext|> 
+Pakistan : leaderName : Anwar_Zaheer_Jamali <|endoftext|> 
+Paracuellos_de_Jarama : isPartOf : Community_of_Madrid <|endoftext|> 
+Port_Authority_of_New_York_and_New_Jersey : headquarter : Four_World_Trade_Center <|endoftext|> 
+San_Sebastián_de_los_Reyes : country : Spain <|endoftext|> 
+Saranac_Lake,_New_York : isPartOf : United_States <|endoftext|> 
+South_Jersey_Transportation_Authority : chief : Stephen_Dilts <|endoftext|> 
+Alan_Shepard : awards : Distinguished_Service_Medal_(United_States_Navy) <|endoftext|> 
+Alan_Shepard : deathPlace : California <|endoftext|> 
+Apollo_11 : backup pilot : William_Anders <|endoftext|> 
+Apollo_14 : operator : NASA <|endoftext|> 
+Apollo_8 : operator : NASA <|endoftext|> 
+Buzz_Aldrin : nationality : United_States <|endoftext|> 
+Elliot_See : occupation : Test_pilot <|endoftext|> 
+University_of_Texas_at_Austin : affiliations : University_of_Texas_System <|endoftext|> 
+University_of_Texas_at_Austin : mascot : Hook_'em_(mascot) <|endoftext|> 
+103_Colmore_Row : architect : John_Madin <|endoftext|> 
+103_Colmore_Row : location : Colmore_Row <|endoftext|> 
+11_Diagonal_Street : completionDate : 1983 <|endoftext|> 
+200_Public_Square : completionDate : 1985 <|endoftext|> 
+20_Fenchurch_Street : buildingStartDate : "January 2009" <|endoftext|> 
+20_Fenchurch_Street : location : United_Kingdom <|endoftext|> 
+300_North_LaSalle : floorCount : 60 <|endoftext|> 
+3Arena : architect : "HOK SVE" <|endoftext|> 
+3Arena : location : "East Link Bridge" <|endoftext|> 
+Adare_Manor : buildingStartDate : "1700" <|endoftext|> 
+Adare_Manor : country : Republic_of_Ireland <|endoftext|> 
+Akita_Museum_of_Art : inaugurationDate : "2013-09-28" <|endoftext|> 
+Alan_B._Miller_Hall : currentTenants : Mason_School_of_Business <|endoftext|> 
+Amdavad_ni_Gufa : architect : B._V._Doshi <|endoftext|> 
+Ampara_Hospital : country : Sri_Lanka <|endoftext|> 
+Asher_and_Mary_Isabelle_Richardson_House : added to the National Register of Historic Places : "1988-11-22" <|endoftext|> 
+Asser_Levy_Public_Baths : yearOfConstruction : 1904 <|endoftext|> 
+Birmingham : postalCode : B_postcode_area <|endoftext|> 
+Chicago : isPartOf : DuPage_County,_Illinois <|endoftext|> 
+Dublin : country : Republic_of_Ireland <|endoftext|> 
+Dublin : isPartOf : Leinster <|endoftext|> 
+India : leaderName : Sumitra_Mahajan <|endoftext|> 
+Japan : ethnicGroup : Brazilians_in_Japan <|endoftext|> 
+Japan : leaderName : Tarō_Asō <|endoftext|> 
+Marriott_International : keyPerson : Bill_Marriott <|endoftext|> 
+Republic_of_Ireland : language : English_language <|endoftext|> 
+South_Africa : capital : Cape_Town <|endoftext|> 
+United_Kingdom : capital : London <|endoftext|> 
+United_States : ethnicGroup : Native_Americans_in_the_United_States <|endoftext|> 
+United_States : leaderName : Paul_Ryan <|endoftext|> 
+Abilene,_Texas : areaCode : 325 <|endoftext|> 
+Abilene,_Texas : isPartOf : Texas <|endoftext|> 
+Albany,_Georgia : leaderTitle : Mayor <|endoftext|> 
+Albany,_Oregon : areaTotal : 45.97 (square kilometres) <|endoftext|> 
+Albany,_Oregon : country : United_States <|endoftext|> 
+Albuquerque,_New_Mexico : leaderTitle : "State Senate" <|endoftext|> 
+Albuquerque,_New_Mexico : leaderTitle : Albuquerque_City_Council <|endoftext|> 
+Amarillo,_Texas : country : United_States <|endoftext|> 
+Amarillo,_Texas : isPartOf : Potter_County,_Texas <|endoftext|> 
+Amarillo,_Texas : isPartOf : United_States <|endoftext|> 
+Anaheim,_California : areaCode : 657 <|endoftext|> 
+Anderson,_Indiana : isPartOf : "Adams, Fall Creek, Lafayette, Richland, Union" <|endoftext|> 
+Angola,_Indiana : isPartOf : Pleasant_Township,_Steuben_County,_Indiana <|endoftext|> 
+Ann_Arbor,_Michigan : leaderTitle : "City Administrator" <|endoftext|> 
+Ann_Arbor,_Michigan : leaderTitle : Mayor <|endoftext|> 
+Ann_Arbor,_Michigan : populationDensity : 1580.7 (inhabitants per square kilometre) <|endoftext|> 
+Antioch,_California : elevationAboveTheSeaLevel : 13.0 <|endoftext|> 
+Antioch,_California : leaderTitle : California's_11th_State_Assembly_district <|endoftext|> 
+Arlington,_Texas : elevationAboveTheSeaLevel : 184.0 <|endoftext|> 
+Atlantic_County,_New_Jersey : country : United_States <|endoftext|> 
+Attica,_Indiana : isPartOf : Fountain_County,_Indiana <|endoftext|> 
+Auburn,_Alabama : isPartOf : Alabama <|endoftext|> 
+California : country : United_States <|endoftext|> 
+Fulton_County,_Georgia : largestCity : Atlanta <|endoftext|> 
+Georgia_(U.S._state) : country : United_States <|endoftext|> 
+Indiana : capital : Indianapolis <|endoftext|> 
+Lee_County,_Alabama : state : Alabama <|endoftext|> 
+New_Jersey : capital : Trenton,_New_Jersey <|endoftext|> 
+Potter_County,_Texas : state : Texas <|endoftext|> 
+Tarrant_County,_Texas : country : United_States <|endoftext|> 
+Washtenaw_County,_Michigan : largestCity : Ann_Arbor,_Michigan <|endoftext|> 
+Asterix_(comicsCharacter) : creator : René_Goscinny <|endoftext|> 
+Auron_(comicsCharacter) : creator : Marv_Wolfman <|endoftext|> 
+Balder_(comicsCharacter) : creator : Jack_Kirby <|endoftext|> 
+Bananaman : broadcastedBy : "STV" <|endoftext|> 
+Bananaman : firstAired : "1983-10-03" <|endoftext|> 
+Bananaman : starring : Bill_Oddie <|endoftext|> 
+Baymax : series : Big_Hero_6_(film) <|endoftext|> 
+Bill_Everett : award : Eisner_Award <|endoftext|> 
+Bill_Oddie : child : Kate_Hardie <|endoftext|> 
+Bolt_(comicsCharacter) : creator : Dan_Mishkin <|endoftext|> 
+Bozo_the_Iron_Man : fullName : "Hugh Hazzard" <|endoftext|> 
+John_Buscema : award : Eagle_Award_(comics) <|endoftext|> 
+Marv_Wolfman : award : Eagle_Award_(comics) <|endoftext|> 
+Ajoblanco : alternativeName : "Ajo blanco" <|endoftext|> 
+Ajoblanco : mainIngredients : "Bread, almonds, garlic, water, olive oil" <|endoftext|> 
+Arem-arem : region : "Nationwide in Indonesia, but more specific to Java" <|endoftext|> 
+Arem-arem : region : Indonesia <|endoftext|> 
+Arrabbiata_sauce : mainIngredients : "Tomatoes, red chili, garlic, olive oil" <|endoftext|> 
+Arròs_negre : ingredient : Cuttlefish <|endoftext|> 
+Arròs_negre : ingredient : Squid <|endoftext|> 
+Asam_pedas : country : Malaysia <|endoftext|> 
+Avocado : genus : Persea <|endoftext|> 
+Ayam_penyet : servingTemperature : "Hot" <|endoftext|> 
+Baked_Alaska : course : Dessert <|endoftext|> 
+Bakewell_tart : ingredient : Frangipane <|endoftext|> 
+Bakso : ingredient : Noodle <|endoftext|> 
+Bakso : ingredient : Vermicelli <|endoftext|> 
+Bandeja_paisa : ingredient : Chorizo <|endoftext|> 
+Barny_Cakes : creator : Mondelez_International <|endoftext|> 
+Barny_Cakes : dishVariation : Chocolate <|endoftext|> 
+Barny_Cakes : protein : 1.8 g <|endoftext|> 
+Batchoy : country : Philippines <|endoftext|> 
+Batchoy : ingredient : Chicken <|endoftext|> 
+Batchoy : ingredient : Vegetable <|endoftext|> 
+Binignit : region : Visayas <|endoftext|> 
+Derbyshire_Dales : leaderName : Patrick_McLoughlin <|endoftext|> 
+Dessert : dishVariation : Cake <|endoftext|> 
+Dessert : dishVariation : Ice_cream <|endoftext|> 
+Indonesia : leaderName : Jusuf_Kalla <|endoftext|> 
+Italy : demonym : Italians <|endoftext|> 
+Java : ethnicGroup : Baduy <|endoftext|> 
+Lemon : order : Rosids <|endoftext|> 
+Mexico : demonym : Mexicans <|endoftext|> 
+Mexico : language : Spanish_language <|endoftext|> 
+Philippines : language : Arabic <|endoftext|> 
+Siomay : dishVariation : Shumai <|endoftext|> 
+United_States : ethnicGroup : Native_Americans_in_the_United_States <|endoftext|> 
+Atatürk_Monument_(İzmir) : designer : Pietro_Canonica <|endoftext|> 
+Atatürk_Monument_(İzmir) : material : "Bronze" <|endoftext|> 
+Azerbaijan : leaderName : Artur_Rasizade <|endoftext|> 
+Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan <|endoftext|> 
+Baku_Turkish_Martyrs'_Memorial : material : "Red granite and white marble" <|endoftext|> 
+1._FC_Köln : manager : Peter_Stöger <|endoftext|> 
+1._FC_Magdeburg : season : 2014 <|endoftext|> 
+A.C._Lumezzane : season : 2014–15_Lega_Pro <|endoftext|> 
+A.D._Isidro_Metapán : fullname : "Asociación Deportiva" <|endoftext|> 
+A.E_Dimitra_Efxeinoupolis : fullname : "A.E Dimitra Efxeinoupolis" <|endoftext|> 
+A.E_Dimitra_Efxeinoupolis : season : 2014 <|endoftext|> 
+A.E_Dimitra_Efxeinoupolis : season : 2014–15_A_EPSTH,_Greece <|endoftext|> 
+A.F.C._Blackpool : numberOfMembers : 1500 <|endoftext|> 
+A.F.C._Fylde : ground : The_Fylde <|endoftext|> 
+A.S._Gubbio_1910 : ground : Italy <|endoftext|> 
+A.S._Livorno_Calcio : numberOfMembers : 19238 <|endoftext|> 
+A.S._Roma : season : 2014–15_Serie_A <|endoftext|> 
+AFC_Ajax : manager : Frank_de_Boer <|endoftext|> 
+AFC_Ajax_(amateurs) : nickname : "Joden , Godenzonen" <|endoftext|> 
+AFC_Ajax_(amateurs) : numberOfMembers : 5000 <|endoftext|> 
+AZAL_PFK : location : "Shuvalan, Baku, Azerbaijan" <|endoftext|> 
+AZ_Alkmaar : numberOfMembers : 17023 <|endoftext|> 
+Agremiação_Sportiva_Arapiraquense : manager : Vica <|endoftext|> 
+Agremiação_Sportiva_Arapiraquense : season : 2015_Campeonato_Brasileiro_Série_C <|endoftext|> 
+Akron_Summit_Assault : ground : St._Vincent–St._Mary_High_School <|endoftext|> 
+Akron_Summit_Assault : numberOfMembers : 3000 <|endoftext|> 
+Amsterdam : part : Amsterdam-Centrum <|endoftext|> 
+Greece : leader : Nikos_Voutsis <|endoftext|> 
+Gus_Poyet : club : AEK_Athens_F.C. <|endoftext|> 
+Jens_Härtel : club : SV_Germania_Schöneiche <|endoftext|> 
+John_van_den_Brom : club : AZ_Alkmaar <|endoftext|> 
+Jorge_Humberto_Rodríguez : club : A.D._Isidro_Metapán <|endoftext|> 
+Massimo_Drago : club : Delfino_Pescara_1936 <|endoftext|> 
+Massimo_Drago : club : S.S._Chieti_Calcio <|endoftext|> 
+Olympic_Stadium_(Athens) : location : Marousi <|endoftext|> 
+Premier_Development_League : champions : K-W_United_FC <|endoftext|> 
+Stuart_Parker_(footballer) : club : Bury_F.C. <|endoftext|> 
+Accademia_di_Architettura_di_Mendrisio : academicStaffSize : 100 <|endoftext|> 
+Acharya_Institute_of_Technology : campus : "In Soldevanahalli, Acharya Dr. Sarvapalli Radhakrishnan Road, Hessarghatta Main Road, Bangalore – 560090." <|endoftext|> 
+Alba_Iulia : country : Romania <|endoftext|> 
+Alba_Iulia : isPartOf : Alba_County <|endoftext|> 
+Romania : patronSaint : Andrew_the_Apostle <|endoftext|> 
+School of Business and Social Sciences at the Aarhus University : academicStaffSize : 737 <|endoftext|> 
+School of Business and Social Sciences at the Aarhus University : country : Denmark <|endoftext|> 
+1634:_The_Bavarian_Crisis : author : Eric_Flint <|endoftext|> 
+1634:_The_Bavarian_Crisis : precededBy : The_Grantville_Gazettes <|endoftext|> 
+1634:_The_Ram_Rebellion : followedBy : 1635:_The_Cannon_Law <|endoftext|> 
+AIP_Advances : EISSN_number : 2158 <|endoftext|> 
+A_Fortress_of_Grey_Ice : mediaType : Hardcover <|endoftext|> 
+A_Long_Long_Way : ISBN_number : "0-670-03380-4" <|endoftext|> 
+A_Loyal_Character_Dancer : ISBN_number : "1-56947-301-3" <|endoftext|> 
+A_Severed_Wasp : author : Madeleine_L'Engle <|endoftext|> 
+A_Wizard_of_Mars : language : English_language <|endoftext|> 
+Abhandlungen_aus_dem_Mathematischen_Seminar_der_Universität_Hamburg : LCCN_number : 32024459 <|endoftext|> 
+Above_the_Veil : mediaType : Hardcover <|endoftext|> 
+Acta_Mathematica_Hungarica : abbreviation : "Acta Math. Hungar." <|endoftext|> 
+Acta_Mathematica_Hungarica : academicDiscipline : Mathematics <|endoftext|> 
+Acta_Palaeontologica_Polonica : CODEN_code : "APGPAC" <|endoftext|> 
+Addiction_(journal) : OCLC_number : 27367194 <|endoftext|> 
+Addiction_(journal) : publisher : Wiley-Blackwell <|endoftext|> 
+Administrative_Science_Quarterly : LCCN_number : 57059226 <|endoftext|> 
+Aenir : OCLC_number : 45644811 <|endoftext|> 
+Alcatraz_Versus_the_Evil_Librarians : OCLC_number : 78771100 <|endoftext|> 
+Alcatraz_Versus_the_Evil_Librarians : followedBy : Alcatraz_Versus_the_Scrivener's_Bones <|endoftext|> 
+American_Journal_of_Mathematics : impactFactor : "1.337" <|endoftext|> 
+Castle_(novel) : followedBy : Aenir <|endoftext|> 
+Cornell_University : nickname : Cornell_Big_Red <|endoftext|> 
+HIV : genus : Lentivirus <|endoftext|> 
+John_Cowper_Powys : notableWork : Wolf_Solent <|endoftext|> 
+United_Kingdom : leaderName : Elizabeth_II <|endoftext|> 
+United_States : leaderName : Joe_Biden <|endoftext|> 
+Wolf_Solent : author : John_Cowper_Powys <|endoftext|> 
+Abilene_Regional_Airport : cityServed : Abilene,_Texas | Abilene,_Texas : isPartOf : Texas <|endoftext|> 
+Adolfo_Suárez_Madrid–Barajas_Airport : location : Alcobendas | Adolfo_Suárez_Madrid–Barajas_Airport : runwayLength : 3500.0 <|endoftext|> 
+Adolfo_Suárez_Madrid–Barajas_Airport : runwayLength : 3500.0 | Adolfo_Suárez_Madrid–Barajas_Airport : location : San_Sebastián_de_los_Reyes <|endoftext|> 
+Agra_Airport : location : India | India : leaderName : T._S._Thakur <|endoftext|> 
+Al_Asad_Airbase : elevationAboveTheSeaLevel_(in_feet) : 618 | Al_Asad_Airbase : location : "Al Anbar Province, Iraq" <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : battles : Operation_Enduring_Freedom <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : battles : United_States_invasion_of_Panama <|endoftext|> 
+Alcobendas : isPartOf : Community_of_Madrid | Adolfo_Suárez_Madrid–Barajas_Airport : location : Alcobendas <|endoftext|> 
+Alderney_Airport : 1st_runway_SurfaceType : Poaceae | Alderney_Airport : runwayLength : 877.0 <|endoftext|> 
+Allama_Iqbal_International_Airport : operatingOrganisation : Pakistan_Civil_Aviation_Authority | Pakistan_Civil_Aviation_Authority : headquarter : Jinnah_International_Airport <|endoftext|> 
+Alpena_County_Regional_Airport : location : Wilson_Township,_Alpena_County,_Michigan | Wilson_Township,_Alpena_County,_Michigan : isPartOf : United_States <|endoftext|> 
+Amsterdam_Airport_Schiphol : elevationAboveTheSeaLevel_(in_metres) : -3.3528 | Amsterdam_Airport_Schiphol : operatingOrganisation : Schiphol_Group <|endoftext|> 
+Andrews_County_Airport : 4th_runway_SurfaceType : "Asphalt" | Andrews_County_Airport : elevationAboveTheSeaLevel_(in_metres) : 973.0 <|endoftext|> 
+Andrews_County_Airport : location : Texas | Texas : capital : Austin,_Texas <|endoftext|> 
+Angola_International_Airport : cityServed : Luanda | Angola_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 159 <|endoftext|> 
+Angola_International_Airport : location : Ícolo_e_Bengo | Ícolo_e_Bengo : country : Angola <|endoftext|> 
+Antwerp_International_Airport : operatingOrganisation : "Flemish department of Mobility and Public Works" | Antwerp_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 12.0 <|endoftext|> 
+Appleton_International_Airport : cityServed : Appleton,_Wisconsin | Appleton,_Wisconsin : isPartOf : Grand_Chute,_Wisconsin <|endoftext|> 
+Ardmore_Airport_(New_Zealand) : 2nd_runway_SurfaceType : Poaceae | Poaceae : order : Poales <|endoftext|> 
+Ardmore_Airport_(New_Zealand) : 3rd_runway_SurfaceType : Poaceae | Poaceae : class : Monocotyledon <|endoftext|> 
+Ashgabat_International_Airport : runwayLength : 3800.0 | Ashgabat_International_Airport : location : Ashgabat <|endoftext|> 
+Athens_International_Airport : cityServed : Athens | Athens_International_Airport : location : Spata <|endoftext|> 
+Athens_International_Airport : cityServed : Athens | Athens_International_Airport : runwayLength : 3800.0 <|endoftext|> 
+San_Sebastián_de_los_Reyes : isPartOf : Community_of_Madrid | Adolfo_Suárez_Madrid–Barajas_Airport : location : San_Sebastián_de_los_Reyes <|endoftext|> 
+Alan_Shepard : was a crew member of : Apollo_14 | Alan_Shepard : dateOfRetirement : "1974-08-01" <|endoftext|> 
+Buzz_Aldrin : birthPlace : Glen_Ridge,_New_Jersey | Buzz_Aldrin : nationality : United_States <|endoftext|> 
+Buzz_Aldrin : occupation : Fighter_pilot | Buzz_Aldrin : status : "Retired" <|endoftext|> 
+Buzz_Aldrin : was a crew member of : Apollo_11 | Apollo_11 : operator : NASA <|endoftext|> 
+Buzz_Aldrin : was a crew member of : Apollo_11 | Buzz_Aldrin : occupation : Fighter_pilot <|endoftext|> 
+11_Diagonal_Street : location : South_Africa | South_Africa : ethnicGroup : Coloured <|endoftext|> 
+200_Public_Square : location : Cleveland | 200_Public_Square : floorCount : 45 <|endoftext|> 
+20_Fenchurch_Street : location : London | London : leaderTitle : European_Parliament <|endoftext|> 
+250_Delaware_Avenue : location : United_States | United_States : leaderName : Barack_Obama <|endoftext|> 
+300_North_LaSalle : location : Illinois | 300_North_LaSalle : floorCount : 60 <|endoftext|> 
+3Arena : location : North_Wall,_Dublin | 3Arena : architect : "HOK SVE" <|endoftext|> 
+3Arena : owner : Live_Nation_Entertainment | 3Arena : location : "East Link Bridge" <|endoftext|> 
+3Arena : owner : Live_Nation_Entertainment | Live_Nation_Entertainment : location : Beverly_Hills,_California <|endoftext|> 
+AC_Hotel_Bella_Sky_Copenhagen : tenant : Marriott_International | AC_Hotel_Bella_Sky_Copenhagen : floorCount : 23 <|endoftext|> 
+Addis_Ababa_City_Hall : currentTenants : "Government of Addis Ababa" | Addis_Ababa_City_Hall : height : "42 m" <|endoftext|> 
+Adisham_Hall : architecturalStyle : "Tudor and Jacabian" | Adisham_Hall : location : "Haputale, Sri Lanka" <|endoftext|> 
+Adisham_Hall : country : Sri_Lanka | Sri_Lanka : language : Tamil_language <|endoftext|> 
+Alan_B._Miller_Hall : buildingStartDate : "30 March 2007" | Alan_B._Miller_Hall : address : "101 Ukrop Way" <|endoftext|> 
+Alan_B._Miller_Hall : owner : College_of_William_&_Mary | Alan_B._Miller_Hall : location : Williamsburg,_Virginia <|endoftext|> 
+Alan_B._Miller_Hall : tenant : Mason_School_of_Business | Alan_B._Miller_Hall : architect : Robert_A._M._Stern <|endoftext|> 
+Ampara_Hospital : country : Sri_Lanka | Ampara_Hospital : region : Ampara_District <|endoftext|> 
+Ampara_Hospital : country : Sri_Lanka | Sri_Lanka : capital : Sri_Jayawardenepura_Kotte <|endoftext|> 
+Asher_and_Mary_Isabelle_Richardson_House : location : U.S._Route_83 | Asher_and_Mary_Isabelle_Richardson_House : ReferenceNumber in the National Register of Historic Places : "88002539" <|endoftext|> 
+Asilomar_Conference_Grounds : location : "Asilomar Blvd., Pacific Grove, California" | Asilomar_Conference_Grounds : ReferenceNumber in the National Register of Historic Places : "87000823" <|endoftext|> 
+Asilomar_Conference_Grounds : location : Pacific_Grove,_California | Asilomar_Conference_Grounds : added to the National Register of Historic Places : "1987-02-27" <|endoftext|> 
+Asser_Levy_Public_Baths : location : 23rd_Street_(Manhattan) | Asser_Levy_Public_Baths : yearOfConstruction : 1904 <|endoftext|> 
+Gujarat : leaderName : Anandiben_Patel | Amdavad_ni_Gufa : location : Gujarat <|endoftext|> 
+Asterix_(comicsCharacter) : creator : René_Goscinny | Asterix_(comicsCharacter) : creator : Albert_Uderzo <|endoftext|> 
+Aurakles : creator : Len_Wein | Aurakles : alternativeName : "Aurakles" <|endoftext|> 
+Ballistic_(comicsCharacter) : creator : Doug_Moench | Ballistic_(comicsCharacter) : alternativeName : "Kelvin Mao" <|endoftext|> 
+Bananaman : broadcastedBy : BBC | Bananaman : starring : Graeme_Garden <|endoftext|> 
+Bananaman : starring : Bill_Oddie | Bill_Oddie : birthPlace : Lancashire <|endoftext|> 
+Bibbo_Bibbowski : creator : Jerry_Ordway | Jerry_Ordway : nationality : Americans <|endoftext|> 
+Black_Pirate : creator : Sheldon_Moldoff | Black_Pirate : alternativeName : "Jon Valor" <|endoftext|> 
+Blockbuster_(comicsCharacter) : creator : Roger_Stern | Blockbuster_(comicsCharacter) : creator : Tom_Lyle <|endoftext|> 
+Bolt_(comicsCharacter) : creator : Paris_Cullins | Bolt_(comicsCharacter) : creator : Gary_Cohn_(comics) <|endoftext|> 
+Ajoblanco : country : Spain | Ajoblanco : ingredient : Bread <|endoftext|> 
+Ajoblanco : ingredient : Almond | Ajoblanco : region : Andalusia <|endoftext|> 
+Amatriciana_sauce : region : Lazio | Amatriciana_sauce : ingredient : Tomato <|endoftext|> 
+Antioquia_Department : country : Colombia | Bandeja_paisa : region : Antioquia_Department <|endoftext|> 
+Arem-arem : region : Indonesia | Arem-arem : ingredient : Banana_leaf <|endoftext|> 
+Arrabbiata_sauce : country : Italy | Arrabbiata_sauce : ingredient : Olive_oil <|endoftext|> 
+Arrabbiata_sauce : country : Italy | Italy : capital : Rome <|endoftext|> 
+Arrabbiata_sauce : ingredient : Tomato | Arrabbiata_sauce : country : Italy <|endoftext|> 
+Arròs_negre : country : Spain | Arròs_negre : ingredient : Squid <|endoftext|> 
+Arròs_negre : region : Valencian_Community | Arròs_negre : ingredient : Cuttlefish <|endoftext|> 
+Ayam_penyet : country : Java | Ayam_penyet : mainIngredients : "Squeezed" or "smashed" fried chicken served with sambal <|endoftext|> 
+Bacon_Explosion : country : United_States | Bacon_Explosion : ingredient : Sausage <|endoftext|> 
+Bacon_Explosion : country : United_States | United_States : leaderName : John_Roberts <|endoftext|> 
+Bacon_Explosion : ingredient : Bacon | Bacon_Explosion : course : "Main course" <|endoftext|> 
+Bacon_sandwich : alternativeName : "Bacon butty, bacon sarnie, rasher sandwich, bacon sanger, piece 'n bacon, bacon cob, bacon barm, bacon muffin" | Bacon_sandwich : ingredient : Bread <|endoftext|> 
+Baked_Alaska : country : "France, United States or China" | Baked_Alaska : ingredient : Christmas_pudding <|endoftext|> 
+Baked_Alaska : country : China | China : language : Standard_Chinese <|endoftext|> 
+Baked_Alaska : course : Dessert | Dessert : dishVariation : Cookie <|endoftext|> 
+Bakewell_pudding : creator : "Rutland Arms, Bakewell, in 1820" | Bakewell_pudding : mainIngredients : "Ground almond, jam, butter, eggs" <|endoftext|> 
+Bakewell_pudding : dishVariation : Bakewell_tart | Bakewell_tart : ingredient : Shortcrust_pastry <|endoftext|> 
+Bandeja_paisa : ingredient : Lemon | Lemon : genus : Citrus <|endoftext|> 
+Batchoy : country : Philippines | Batchoy : ingredient : Shrimp <|endoftext|> 
+Batchoy : country : Philippines | Philippines : ethnicGroup : Chinese_Filipino <|endoftext|> 
+Beef_kway_teow : region : Singapore | Singapore : language : Standard_Chinese <|endoftext|> 
+Beef_kway_teow : region : Singapore | Singapore : leaderName : Tony_Tan <|endoftext|> 
+Bhajji : country : India | India : leaderName : Sumitra_Mahajan <|endoftext|> 
+Bhajji : similarDish : "Pakora and other fritters made from wheat or corn flour" | Bhajji : ingredient : Gram_flour <|endoftext|> 
+Binignit : ingredient : Sweet_potato | Binignit : mainIngredients : Banana <|endoftext|> 
+Binignit : ingredient : Sweet_potato | Binignit : mainIngredients : Sago <|endoftext|> 
+Binignit : ingredient : Sweet_potato | Sweet_potato : division : Flowering_plant <|endoftext|> 
+Binignit : mainIngredients : Sweet_potato | Sweet_potato : order : Solanales <|endoftext|> 
+Bionico : course : Dessert | Bionico : ingredient : Granola <|endoftext|> 
+Bionico : dishVariation : Honey | Bionico : course : Dessert <|endoftext|> 
+Dessert : dishVariation : Ice_cream | Bionico : course : Dessert <|endoftext|> 
+Siomay : ingredient : Peanut_sauce | Batagor : dishVariation : Siomay <|endoftext|> 
+Atatürk_Monument_(İzmir) : inaugurationDate : "1932-07-27" | Atatürk_Monument_(İzmir) : location : Turkey <|endoftext|> 
+Baku_Turkish_Martyrs'_Memorial : dedicatedTo : "Ottoman Army soldiers killed in the Battle of Baku" | Baku_Turkish_Martyrs'_Memorial : material : "Red granite and white marble" <|endoftext|> 
+Baku_Turkish_Martyrs'_Memorial : nativeName : "Türk Şehitleri Anıtı" | Baku_Turkish_Martyrs'_Memorial : material : "Red granite and white marble" <|endoftext|> 
+Dead_Man's_Plack : dedicatedTo : Æthelwald,_Ealdorman_of_East_Anglia | Dead_Man's_Plack : material : Rock_(geology) <|endoftext|> 
+A.C._Cesena : league : Serie_B | Serie_B : champions : Carpi_F.C._1909 <|endoftext|> 
+A.C._Chievo_Verona : ground : Stadio_Marc'Antonio_Bentegodi | A.C._Chievo_Verona : league : Serie_A <|endoftext|> 
+A.C._Lumezzane : ground : Italy | Italy : leader : Pietro_Grasso <|endoftext|> 
+A.D._Isidro_Metapán : manager : Jorge_Humberto_Rodríguez | Jorge_Humberto_Rodríguez : club : C.D._FAS <|endoftext|> 
+A.E_Dimitra_Efxeinoupolis : numberOfMembers : 1500 | A.E_Dimitra_Efxeinoupolis : league : A_EPSTH_2nd_GROUP <|endoftext|> 
+A.F.C._Blackpool : manager : Stuart_Parker_(footballer) | Stuart_Parker_(footballer) : club : Runcorn_F.C._Halton <|endoftext|> 
+A.F.C._Blackpool : manager : Stuart_Parker_(footballer) | Stuart_Parker_(footballer) : club : Sparta_Rotterdam <|endoftext|> 
+A.F.C._Fylde : ground : The_Fylde | A.F.C._Fylde : numberOfMembers : 3180 <|endoftext|> 
+A.F.C._Fylde : numberOfMembers : 3180 | A.F.C._Fylde : ground : "Bryning Lane" <|endoftext|> 
+A.S._Livorno_Calcio : manager : Christian_Panucci | Christian_Panucci : club : Italy_national_football_team <|endoftext|> 
+A.S._Roma : ground : "Rome, Italy" | A.S._Roma : league : Serie_A <|endoftext|> 
+ACF_Fiorentina : league : Serie_A | Serie_A : country : Italy <|endoftext|> 
+AFC_Ajax : manager : Frank_de_Boer | Frank_de_Boer : club : Ajax_Youth_Academy <|endoftext|> 
+AFC_Ajax : owner : AFC_Ajax_N.V. | AFC_Ajax : numberOfMembers : 53502 <|endoftext|> 
+AFC_Ajax_(amateurs) : ground : Amsterdam | Amsterdam : leader : Eberhard_van_der_Laan <|endoftext|> 
+AFC_Ajax_(amateurs) : season : 2014–15_Topklasse | AFC_Ajax_(amateurs) : numberOfMembers : 5000 <|endoftext|> 
+AZAL_Arena : location : Shuvalan | AZAL_PFK : ground : AZAL_Arena <|endoftext|> 
+AZ_Alkmaar : fullname : "Alkmaar Zaanstreek" | AZ_Alkmaar : numberOfMembers : 17023 <|endoftext|> 
+Agremiação_Sportiva_Arapiraquense : ground : Estádio_Municipal_Coaracy_da_Mata_Fonseca | Estádio_Municipal_Coaracy_da_Mata_Fonseca : location : Brazil <|endoftext|> 
+Agremiação_Sportiva_Arapiraquense : numberOfMembers : 17000 | Agremiação_Sportiva_Arapiraquense : fullname : "Agremiação Sportiva Arapiraquense" <|endoftext|> 
+Akron_Summit_Assault : ground : Akron,_Ohio | Akron,_Ohio : country : United_States <|endoftext|> 
+Massimo_Drago : club : S.S._Chieti_Calcio | A.C._Cesena : manager : Massimo_Drago <|endoftext|> 
+Acharya_Institute_of_Technology : director : "Dr. G. P. Prabhukumar" | Acharya_Institute_of_Technology : campus : "In Soldevanahalli, Acharya Dr. Sarvapalli Radhakrishnan Road, Hessarghatta Main Road, Bangalore – 560090." <|endoftext|> 
+Acharya_Institute_of_Technology : officialSchoolColour : "Blue, White and Orange" | Acharya_Institute_of_Technology : was given the 'Technical Campus' status by : All_India_Council_for_Technical_Education <|endoftext|> 
+Acharya_Institute_of_Technology : sportsOffered : Tennis | Tennis : sportsGoverningBody : International_Tennis_Federation <|endoftext|> 
+European_University_Association : headquarters : Brussels | School of Business and Social Sciences at the Aarhus University : affiliation : European_University_Association <|endoftext|> 
+Karnataka : has to its west : Arabian_Sea | Acharya_Institute_of_Technology : state : Karnataka <|endoftext|> 
+1634:_The_Bavarian_Crisis : precededBy : Grantville_Gazette_III | 1634:_The_Bavarian_Crisis : author : "Virginia DeMarce and Eric Flint" <|endoftext|> 
+1634:_The_Ram_Rebellion : author : Eric_Flint | 1634:_The_Ram_Rebellion : mediaType : E-book <|endoftext|> 
+1634:_The_Ram_Rebellion : author : Eric_Flint | 1634:_The_Ram_Rebellion : mediaType : Hardcover <|endoftext|> 
+ACM_Transactions_on_Information_Systems : abbreviation : "ACM Trans. Inf. Syst." | ACM_Transactions_on_Information_Systems : CODEN_code : "ATISET" <|endoftext|> 
+AIDS_(journal) : country : United_Kingdom | United_Kingdom : leaderName : Elizabeth_II <|endoftext|> 
+A_Fortress_of_Grey_Ice : author : J._V._Jones | A_Fortress_of_Grey_Ice : ISBN_number : "0-7653-0633-6" <|endoftext|> 
+A_Glastonbury_Romance : mediaType : "Print" | A_Glastonbury_Romance : ISBN_number : "0-7156-3648-0" <|endoftext|> 
+A_Glastonbury_Romance : mediaType : Hardcover | A_Glastonbury_Romance : ISBN_number : "0-7156-3648-0" <|endoftext|> 
+A_Glastonbury_Romance : numberOfPages : "1174" | A_Glastonbury_Romance : mediaType : "Print" <|endoftext|> 
+A_Long_Long_Way : OCLC_number : 57392246 | A_Long_Long_Way : ISBN_number : "0-670-03380-4" <|endoftext|> 
+A_Loyal_Character_Dancer : country : United_States | United_States : ethnicGroup : Asian_Americans <|endoftext|> 
+A_Loyal_Character_Dancer : publisher : Soho_Press | Soho_Press : country : United_States <|endoftext|> 
+A_Wizard_of_Mars : author : Diane_Duane | A_Wizard_of_Mars : OCLC_number : 318875313 <|endoftext|> 
+A_Wizard_of_Mars : mediaType : Hardcover | A_Wizard_of_Mars : ISBN_number : "978-0-15-204770-2" <|endoftext|> 
+A_Wizard_of_Mars : numberOfPages : "560" | A_Wizard_of_Mars : ISBN_number : "978-0-15-204770-2" <|endoftext|> 
+Above_the_Veil : country : Australians | Above_the_Veil : precededBy : Aenir <|endoftext|> 
+Above_the_Veil : language : English_language | Aenir : followedBy : Above_the_Veil <|endoftext|> 
+Above_the_Veil : precededBy : Aenir | Aenir : precededBy : Castle_(novel) <|endoftext|> 
+Acta_Mathematica_Hungarica : publisher : Springer_Science+Business_Media | Springer_Science+Business_Media : founder : Julius_Springer <|endoftext|> 
+Administrative_Science_Quarterly : CODEN_code : "ASCQAG" | Administrative_Science_Quarterly : abbreviation : "Admin. Sci. Q." <|endoftext|> 
+Administrative_Science_Quarterly : publisher : Cornell_University | Cornell_University : affiliation : Association_of_Public_and_Land-grant_Universities <|endoftext|> 
+Aenir : author : Garth_Nix | Aenir : ISBN_number : "0-439-17684-0" <|endoftext|> 
+Alcatraz_Versus_the_Evil_Librarians : mediaType : Hardcover | Alcatraz_Versus_the_Evil_Librarians : ISBN_number : "0-439-92550-9" <|endoftext|> 
+Alcatraz_Versus_the_Evil_Librarians : numberOfPages : "320" | Alcatraz_Versus_the_Evil_Librarians : ISBN_number : "0-439-92550-9" <|endoftext|> 
+HIV : family : Orthoretrovirinae | AIDS_(journal) : academicDiscipline : HIV <|endoftext|> 
+United_States : language : English_language | A_Fortress_of_Grey_Ice : country : United_States <|endoftext|> 
+Abilene_Regional_Airport : cityServed : Abilene,_Texas | Abilene,_Texas : isPartOf : Taylor_County,_Texas | Abilene,_Texas : country : United_States <|endoftext|> 
+Adirondack_Regional_Airport : runwayLength : 1219.0 | Adirondack_Regional_Airport : cityServed : Lake_Placid,_New_York | Adirondack_Regional_Airport : cityServed : Saranac_Lake,_New_York <|endoftext|> 
+Adolfo_Suárez_Madrid–Barajas_Airport : runwayLength : 4100.0 | Adolfo_Suárez_Madrid–Barajas_Airport : location : Madrid | Adolfo_Suárez_Madrid–Barajas_Airport : runwayName : "14L/32R" <|endoftext|> 
+Agra_Airport : location : India | Agra_Airport : operatingOrganisation : Indian_Air_Force | Agra_Airport : ICAO_Location_Identifier : "VIAG" <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | Al_Asad_Airbase : location : Iraq | Al_Asad_Airbase : runwayLength : 3078.48 <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : battles : Invasion_of_Grenada | United_States_Air_Force : battles : Korean_War <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : battles : Invasion_of_Grenada | United_States_Air_Force : battles : Operation_Enduring_Freedom <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : battles : Korean_War | United_States_Air_Force : battles : Operation_Enduring_Freedom <|endoftext|> 
+Alderney_Airport : 1st_runway_SurfaceType : Poaceae | Alderney_Airport : runwayLength : 733.0 | Alderney_Airport : cityServed : Alderney <|endoftext|> 
+Alpena_County_Regional_Airport : location : Wilson_Township,_Alpena_County,_Michigan | Alpena_County_Regional_Airport : runwayLength : 1533.0 | Alpena_County_Regional_Airport : elevationAboveTheSeaLevel_(in_metres) : 210 <|endoftext|> 
+Amsterdam_Airport_Schiphol : cityServed : Amsterdam | Amsterdam_Airport_Schiphol : runwayLength : 3500.0 | Amsterdam_Airport_Schiphol : elevationAboveTheSeaLevel_(in_metres) : -3.3528 <|endoftext|> 
+Andrews_County_Airport : location : Texas | Texas : largestCity : Houston | Texas : country : United_States <|endoftext|> 
+Angola_International_Airport : location : Ícolo_e_Bengo | Ícolo_e_Bengo : country : Angola | Angola_International_Airport : runwayLength : 4000.0 <|endoftext|> 
+Angola_International_Airport : location : Ícolo_e_Bengo | Ícolo_e_Bengo : country : Angola | Angola_International_Airport : runwayName : "South Runway" <|endoftext|> 
+Antwerp_International_Airport : operatingOrganisation : Flemish_Government | Antwerp_International_Airport : owner : Flemish_Region | Antwerp_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 12.0 <|endoftext|> 
+Antwerp_International_Airport : owner : Flemish_Region | Antwerp_International_Airport : operatingOrganisation : "Flemish department of Mobility and Public Works" | Antwerp_International_Airport : cityServed : Antwerp <|endoftext|> 
+Appleton,_Wisconsin : isPartOf : Kimberly,_Wisconsin | Appleton,_Wisconsin : isPartOf : Little_Chute,_Wisconsin | Appleton_International_Airport : cityServed : Appleton,_Wisconsin <|endoftext|> 
+Appleton_International_Airport : location : Greenville,_Wisconsin | Greenville,_Wisconsin : country : United_States | Greenville,_Wisconsin : isPartOf : Clayton,_Winnebago_County,_Wisconsin <|endoftext|> 
+Ardmore_Airport_(New_Zealand) : 3rd_runway_SurfaceType : Poaceae | Poaceae : division : Flowering_plant | Poaceae : order : Poales <|endoftext|> 
+Ashgabat_International_Airport : location : Ashgabat | Ashgabat_International_Airport : runwayLength : 3800.0 | Ashgabat_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 211 <|endoftext|> 
+Athens_International_Airport : cityServed : Athens | Athens : country : Greece | Greece : leaderName : Alexis_Tsipras <|endoftext|> 
+Atlantic_City_International_Airport : runwayName : "4/22" | Atlantic_City_International_Airport : location : Egg_Harbor_Township,_New_Jersey | Egg_Harbor_Township,_New_Jersey : country : United_States <|endoftext|> 
+Belgium : leaderName : Philippe_of_Belgium | Antwerp_International_Airport : cityServed : Antwerp | Antwerp : country : Belgium <|endoftext|> 
+Poaceae : class : Monocotyledon | Poaceae : order : Commelinids | Ardmore_Airport_(New_Zealand) : 2nd_runway_SurfaceType : Poaceae <|endoftext|> 
+Alan_Bean : was a crew member of : Apollo_12 | Apollo_12 : operator : NASA | Apollo_12 : commander : David_Scott <|endoftext|> 
+Alan_Shepard : deathDate : "1998-07-21" | Alan_Shepard : deathPlace : California | California : senators : Dianne_Feinstein <|endoftext|> 
+Buzz_Aldrin : alternativeNames : "Edwin E. Aldrin, Jr." | Buzz_Aldrin : was a crew member of : Apollo_11 | Buzz_Aldrin : almaMater : "Massachusetts Institute of Technology, Sc.D. 1963" <|endoftext|> 
+Buzz_Aldrin : birthPlace : Glen_Ridge,_New_Jersey | Buzz_Aldrin : timeInSpace : "52.0"(minutes) | Buzz_Aldrin : was a crew member of : Apollo_11 <|endoftext|> 
+California : fossil : Smilodon | Alan_Shepard : deathPlace : California | Alan_Shepard : awards : Distinguished_Service_Medal_(United_States_Navy) <|endoftext|> 
+Elliot_See : deathPlace : St._Louis | Elliot_See : deathDate : "1966-02-28" | Elliot_See : was selected by NASA : 1962 <|endoftext|> 
+Elliot_See : status : "Deceased" | Elliot_See : birthDate : "1927-07-23" | Elliot_See : birthPlace : Dallas <|endoftext|> 
+William_Anders : birthDate : "1933-10-17" | William_Anders : birthPlace : British_Hong_Kong | William_Anders : was a crew member of : Apollo_8 <|endoftext|> 
+11_Diagonal_Street : location : South_Africa | South_Africa : capital : Cape_Town | South_Africa : leaderName : Cyril_Ramaphosa <|endoftext|> 
+11_Diagonal_Street : location : South_Africa | South_Africa : leaderName : Jacob_Zuma | South_Africa : ethnicGroup : Coloured <|endoftext|> 
+11_Diagonal_Street : location : South_Africa | South_Africa : leaderName : Jacob_Zuma | South_Africa : ethnicGroup : White_South_African <|endoftext|> 
+200_Public_Square : location : Cleveland | Cleveland : leaderName : Frank_G._Jackson | Cleveland : country : United_States <|endoftext|> 
+250_Delaware_Avenue : location : Buffalo,_New_York | Buffalo,_New_York : isPartOf : Erie_County,_New_York | Buffalo,_New_York : isPartOf : New_York <|endoftext|> 
+300_North_LaSalle : location : Chicago | Chicago : leaderName : Rahm_Emanuel | Chicago : country : United_States <|endoftext|> 
+3Arena : location : Dublin | 3Arena : architect : "HOK SVE" | 3Arena : completionDate : "December 2008" <|endoftext|> 
+3Arena : location : Dublin | 3Arena : architect : Populous_(company) | 3Arena : completionDate : "December 2008" <|endoftext|> 
+3Arena : owner : Live_Nation_Entertainment | Dublin : country : Republic_of_Ireland | 3Arena : location : Dublin <|endoftext|> 
+AC_Hotel_Bella_Sky_Copenhagen : location : Denmark | AC_Hotel_Bella_Sky_Copenhagen : tenant : Marriott_International | AC_Hotel_Bella_Sky_Copenhagen : architect : 3XN <|endoftext|> 
+Adare_Manor : completionDate : 1862 | Adare_Manor : architect : James_Pain | Adare_Manor : owner : J._P._McManus <|endoftext|> 
+Addis_Ababa_City_Hall : currentTenants : "Government of Addis Ababa" | Addis_Ababa_City_Hall : floorArea : 140000.0 (square metres) | Addis_Ababa_City_Hall : height : "42 m" <|endoftext|> 
+Adisham_Hall : location : Sri_Lanka | Adisham_Hall : architecturalStyle : Tudor_Revival_architecture | Adisham_Hall : completionDate : 1931 <|endoftext|> 
+Akita_Museum_of_Art : floorCount : 3 | Akita_Museum_of_Art : inaugurationDate : "2013-09-28" | Akita_Museum_of_Art : floorArea : 3746.66 (square metres) <|endoftext|> 
+Akita_Museum_of_Art : location : Akita,_Akita | Akita_Museum_of_Art : location : Akita_Prefecture | Akita,_Akita : country : Japan <|endoftext|> 
+Alan_B._Miller_Hall : location : Virginia | Alan_B._Miller_Hall : owner : College_of_William_&_Mary | Alan_B._Miller_Hall : buildingStartDate : "30 March 2007" <|endoftext|> 
+Alan_B._Miller_Hall : location : Virginia | Alan_B._Miller_Hall : owner : College_of_William_&_Mary | College_of_William_&_Mary : chancellor : Robert_Gates <|endoftext|> 
+Alan_B._Miller_Hall : location : Virginia | Mason_School_of_Business : country : United_States | Alan_B._Miller_Hall : currentTenants : Mason_School_of_Business <|endoftext|> 
+Alan_B._Miller_Hall : owner : College_of_William_&_Mary | Alan_B._Miller_Hall : location : Williamsburg,_Virginia | Alan_B._Miller_Hall : buildingStartDate : "30 March 2007" <|endoftext|> 
+Ampara_Hospital : country : Sri_Lanka | Ampara_Hospital : region : Ampara_District | Ampara_Hospital : bedCount : 476 <|endoftext|> 
+Ampara_Hospital : country : Sri_Lanka | Sri_Lanka : leaderName : Ranil_Wickremesinghe | Ampara_Hospital : state : Eastern_Province,_Sri_Lanka <|endoftext|> 
+Asher_and_Mary_Isabelle_Richardson_House : location : U.S._Route_83 | Asher_and_Mary_Isabelle_Richardson_House : added to the National Register of Historic Places : "1988-11-22" | Asher_and_Mary_Isabelle_Richardson_House : yearOfConstruction : 1911 <|endoftext|> 
+Asilomar_Conference_Grounds : location : Pacific_Grove,_California | Asilomar_Conference_Grounds : added to the National Register of Historic Places : "1987-02-27" | Asilomar_Conference_Grounds : ReferenceNumber in the National Register of Historic Places : "87000823" <|endoftext|> 
+Asser_Levy_Public_Baths : location : "Asser Levy Place and East 23rd Street" | Asser_Levy_Public_Baths : ReferenceNumber in the National Register of Historic Places : "80002709" | Asser_Levy_Public_Baths : added to the National Register of Historic Places : "1980-04-23" <|endoftext|> 
+Asser_Levy_Public_Baths : location : New_York_City | New_York_City : country : United_States | New_York_City : isPartOf : Manhattan <|endoftext|> 
+India : leaderName : T._S._Thakur | Amdavad_ni_Gufa : country : India | India : leaderName : Sumitra_Mahajan <|endoftext|> 
+Auron_(comicsCharacter) : creator : Karl_Kesel | Karl_Kesel : nationality : Americans | Auron_(comicsCharacter) : creator : Walt_Simonson <|endoftext|> 
+BBC : keyPerson : Tony_Hall,_Baron_Hall_of_Birkenhead | Bananaman : broadcastedBy : BBC | BBC : locationCity : London <|endoftext|> 
+Bananaman : starring : Bill_Oddie | Bananaman : firstAired : "1983-10-03" | Bananaman : broadcastedBy : "STV" <|endoftext|> 
+Baymax : firstAppearanceInFilm : Big_Hero_6_(film) | Baymax : creator : Duncan_Rouleau | Baymax : creator : Steven_T._Seagle <|endoftext|> 
+Bibbo_Bibbowski : creator : Jerry_Ordway | Bibbo_Bibbowski : creator : Marv_Wolfman | Bibbo_Bibbowski : fullName : "Bo Bibbowski" <|endoftext|> 
+Blockbuster_(comicsCharacter) : creator : Roger_Stern | Blockbuster_(comicsCharacter) : alternativeName : "Roland Desmond" | Blockbuster_(comicsCharacter) : creator : Tom_Lyle <|endoftext|> 
+Bolt_(comicsCharacter) : creator : Ernie_Colón | Bolt_(comicsCharacter) : alternativeName : "Larry Bolatinsky" | Bolt_(comicsCharacter) : creator : Dan_Mishkin <|endoftext|> 
+Bolt_(comicsCharacter) : creator : Paris_Cullins | Bolt_(comicsCharacter) : alternativeName : "Larry Bolatinsky" | Bolt_(comicsCharacter) : creator : Dan_Mishkin <|endoftext|> 
+Ajoblanco : country : Spain | Ajoblanco : alternativeName : "Ajo blanco" | Ajoblanco : ingredient : Bread <|endoftext|> 
+Ajoblanco : country : Spain | Ajoblanco : region : Andalusia | Ajoblanco : ingredient : Water <|endoftext|> 
+Arem-arem : country : Indonesia | Indonesia : leaderName : Joko_Widodo | Indonesia : leaderName : Jusuf_Kalla <|endoftext|> 
+Arem-arem : country : Indonesia | Indonesia : leaderName : Jusuf_Kalla | Arem-arem : region : "Nationwide in Indonesia, but more specific to Java" <|endoftext|> 
+Arrabbiata_sauce : country : Italy | Italy : language : Italian_language | Italy : leaderName : Sergio_Mattarella <|endoftext|> 
+Arrabbiata_sauce : ingredient : Chili_pepper | Arrabbiata_sauce : country : Italy | Arrabbiata_sauce : region : Rome <|endoftext|> 
+Arrabbiata_sauce : ingredient : Garlic | Arrabbiata_sauce : country : Italy | Arrabbiata_sauce : region : Rome <|endoftext|> 
+Arròs_negre : country : Spain | Arròs_negre : region : Catalonia | Arròs_negre : ingredient : Squid <|endoftext|> 
+Arròs_negre : region : Valencian_Community | Arròs_negre : country : Spain | Arròs_negre : ingredient : Cuttlefish <|endoftext|> 
+Asam_pedas : country : Malaysia | Asam_pedas : region : "Sumatra and Malay Peninsula" | Asam_pedas : mainIngredients : "Fish cooked in sour and hot sauce" <|endoftext|> 
+Ayam_penyet : region : Malaysia | Ayam_penyet : country : Java | Ayam_penyet : mainIngredients : "Squeezed" or "smashed" fried chicken served with sambal <|endoftext|> 
+Bacon_Explosion : country : United_States | Bacon_Explosion : ingredient : Bacon | Bacon_Explosion : mainIngredients : Sausage <|endoftext|> 
+Bacon_Explosion : country : United_States | United_States : ethnicGroup : Native_Americans_in_the_United_States | United_States : capital : Washington,_D.C. <|endoftext|> 
+Bacon_Explosion : country : United_States | United_States : leaderName : Barack_Obama | United_States : capital : Washington,_D.C. <|endoftext|> 
+Bacon_Explosion : country : United_States | United_States : leaderName : John_Roberts | United_States : ethnicGroup : African_Americans <|endoftext|> 
+Bacon_sandwich : dishVariation : BLT | Bacon_sandwich : country : United_Kingdom | Bacon_sandwich : ingredient : Condiment <|endoftext|> 
+Baked_Alaska : country : France | Baked_Alaska : region : New_York | Baked_Alaska : ingredient : Meringue <|endoftext|> 
+Baked_Alaska : country : United_States | Baked_Alaska : region : New_York | Baked_Alaska : ingredient : Sponge_cake <|endoftext|> 
+Baked_Alaska : course : Dessert | Dessert : dishVariation : Cookie | Baked_Alaska : ingredient : Christmas_pudding <|endoftext|> 
+Baked_Alaska : course : Dessert | Dessert : dishVariation : Sandesh_(confectionery) | Baked_Alaska : ingredient : Christmas_pudding <|endoftext|> 
+Bandeja_paisa : country : Colombian_cuisine | Bandeja_paisa : ingredient : Kidney_bean | Bandeja_paisa : region : Antioquia_Department <|endoftext|> 
+Barny_Cakes : country : France | France : leaderName : Gérard_Larcher | France : leaderName : Claude_Bartolone <|endoftext|> 
+Barny_Cakes : dishVariation : Apple | Barny_Cakes : carbohydrate : 18.0 g | Barny_Cakes : protein : 1.8 g <|endoftext|> 
+Beef_kway_teow : country : Singapore | Singapore : currency : Singapore_dollar | Singapore : leaderName : Halimah_Yacob <|endoftext|> 
+Beef_kway_teow : ingredient : Oyster_sauce | Beef_kway_teow : region : Indonesia | Beef_kway_teow : country : "Singapore and Indonesia" <|endoftext|> 
+Beef_kway_teow : region : Singapore | Beef_kway_teow : country : Indonesia | Singapore : leaderName : Tony_Tan <|endoftext|> 
+Bhajji : country : India | Bhajji : mainIngredients : "Gram flour, vegetables" | Bhajji : ingredient : Gram_flour <|endoftext|> 
+Bhajji : country : India | India : demonym : Indian_people | India : leaderName : T._S._Thakur <|endoftext|> 
+Bhajji : country : India | India : leaderName : T._S._Thakur | India : leaderName : Narendra_Modi <|endoftext|> 
+Bhajji : region : Karnataka | Bhajji : mainIngredients : "Gram flour, vegetables" | Bhajji : ingredient : Gram_flour <|endoftext|> 
+Binignit : ingredient : Sweet_potato | Binignit : mainIngredients : Banana | Binignit : country : Philippines <|endoftext|> 
+Bionico : country : Mexico | Bionico : course : Dessert | Bionico : ingredient : Sour_cream <|endoftext|> 
+Bionico : country : Mexico | Bionico : region : Jalisco | Bionico : ingredient : Raisin <|endoftext|> 
+Celery : genus : Apium | Bakso : ingredient : Celery | Celery : family : Apiaceae <|endoftext|> 
+Dessert : dishVariation : Cake | Bionico : ingredient : Granola | Bionico : course : Dessert <|endoftext|> 
+Indonesia : capital : Jakarta | Indonesia : leaderName : Jusuf_Kalla | Bakso : country : Indonesia <|endoftext|> 
+Java : ethnicGroup : Baduy | Ayam_penyet : region : Singapore | Ayam_penyet : country : Java <|endoftext|> 
+Java : ethnicGroup : Banyumasan_people | Ayam_penyet : region : "Nationwide, also can be found in Malaysia and Singapore" | Ayam_penyet : country : Java <|endoftext|> 
+Spain : language : Spanish_language | Arròs_negre : country : Spain | Spain : leaderName : Felipe_VI_of_Spain <|endoftext|> 
+Adams_County,_Pennsylvania : has to its west : Franklin_County,_Pennsylvania | Adams_County,_Pennsylvania : has to its southwest : Frederick_County,_Maryland | 11th_Mississippi_Infantry_Monument : location : Adams_County,_Pennsylvania <|endoftext|> 
+Azerbaijan : leader : Artur_Rasizade | Baku_Turkish_Martyrs'_Memorial : dedicatedTo : "Ottoman Army soldiers killed in the Battle of Baku" | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan <|endoftext|> 
+Baku_Turkish_Martyrs'_Memorial : dedicatedTo : "Ottoman Army soldiers killed in the Battle of Baku" | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Baku_Turkish_Martyrs'_Memorial : designer : "Hüseyin Bütüner and Hilmi Güner" <|endoftext|> 
+Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Azerbaijan : leaderName : Artur_Rasizade | Baku_Turkish_Martyrs'_Memorial : designer : "Hüseyin Bütüner and Hilmi Güner" <|endoftext|> 
+Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Baku_Turkish_Martyrs'_Memorial : nativeName : "Türk Şehitleri Anıtı" | Baku_Turkish_Martyrs'_Memorial : designer : "Hüseyin Bütüner and Hilmi Güner" <|endoftext|> 
+A.C._Cesena : ground : Cesena | A.C._Cesena : league : Serie_B | A.C._Cesena : numberOfMembers : 23900 <|endoftext|> 
+A.C._Cesena : manager : Massimo_Drago | Massimo_Drago : club : S.S.D._Potenza_Calcio | Massimo_Drago : club : Calcio_Catania <|endoftext|> 
+A.C._Lumezzane : league : "Lega Pro/A" | A.C._Lumezzane : season : 2014 | A.C._Lumezzane : numberOfMembers : 4150 <|endoftext|> 
+A.D._Isidro_Metapán : ground : Estadio_Jorge_Calero_Suárez | A.D._Isidro_Metapán : fullname : "Isidro Metapán" | A.D._Isidro_Metapán : numberOfMembers : 10000 <|endoftext|> 
+A.E_Dimitra_Efxeinoupolis : location : Greece | Greece : leader : Nikos_Voutsis | Greece : leader : Prokopis_Pavlopoulos <|endoftext|> 
+A.F.C._Blackpool : manager : Stuart_Parker_(footballer) | Stuart_Parker_(footballer) : club : Drogheda_United_F.C. | Stuart_Parker_(footballer) : club : Runcorn_F.C._Halton <|endoftext|> 
+A.F.C._Blackpool : manager : Stuart_Parker_(footballer) | Stuart_Parker_(footballer) : club : Drogheda_United_F.C. | Stuart_Parker_(footballer) : club : Stockport_County_F.C. <|endoftext|> 
+A.F.C._Blackpool : manager : Stuart_Parker_(footballer) | Stuart_Parker_(footballer) : club : KV_Mechelen | Stuart_Parker_(footballer) : club : Irlam_Town_F.C. <|endoftext|> 
+A.F.C._Fylde : ground : Warton,_Fylde | A.F.C._Fylde : numberOfMembers : 3180 | A.F.C._Fylde : fullname : "Association Football Club Fylde" <|endoftext|> 
+A.S._Livorno_Calcio : manager : Christian_Panucci | Christian_Panucci : club : Genoa_C.F.C. | Christian_Panucci : club : Real_Madrid_C.F. <|endoftext|> 
+A.S._Roma : fullname : "Associazione Sportiva Roma S.p.A." | A.S._Roma : ground : "Rome, Italy" | A.S._Roma : numberOfMembers : 70634 <|endoftext|> 
+AEK_Athens_F.C. : league : Superleague_Greece | AEK_Athens_F.C. : ground : Athens | AEK_Athens_F.C. : numberOfMembers : 69618 <|endoftext|> 
+AFC_Ajax_(amateurs) : numberOfMembers : 5000 | AFC_Ajax_(amateurs) : league : Hoofdklasse | AFC_Ajax_(amateurs) : season : 2014 <|endoftext|> 
+AZAL_PFK : league : Azerbaijan_Premier_League | Azerbaijan_Premier_League : champions : Qarabağ_FK | AZAL_PFK : ground : AZAL_Arena <|endoftext|> 
+AZ_Alkmaar : fullname : "Alkmaar Zaanstreek" | AZ_Alkmaar : season : 2014 | AZ_Alkmaar : numberOfMembers : 17023 <|endoftext|> 
+AZ_Alkmaar : manager : John_van_den_Brom | John_van_den_Brom : club : Vitesse_Arnhem | John_van_den_Brom : club : De_Graafschap <|endoftext|> 
+Agremiação_Sportiva_Arapiraquense : league : Campeonato_Brasileiro_Série_C | Agremiação_Sportiva_Arapiraquense : ground : Estádio_Municipal_Coaracy_da_Mata_Fonseca | Campeonato_Brasileiro_Série_C : champions : Vila_Nova_Futebol_Clube <|endoftext|> 
+Agremiação_Sportiva_Arapiraquense : league : Campeonato_Brasileiro_Série_C | Campeonato_Brasileiro_Série_C : country : Brazil | Campeonato_Brasileiro_Série_C : champions : Vila_Nova_Futebol_Clube <|endoftext|> 
+Akron_Summit_Assault : ground : St._Vincent–St._Mary_High_School | Akron_Summit_Assault : league : Premier_Development_League | Premier_Development_League : champions : K-W_United_FC <|endoftext|> 
+Akron_Summit_Assault : numberOfMembers : 3000 | Akron_Summit_Assault : league : Premier_Development_League | Premier_Development_League : champions : K-W_United_FC <|endoftext|> 
+Italy : demonym : Italians | Italy : leader : Sergio_Mattarella | A.S._Gubbio_1910 : ground : Italy <|endoftext|> 
+Olympic_Stadium_(Athens) : location : Athens | Athens : mayor : Giorgos_Kaminis | AEK_Athens_F.C. : ground : Olympic_Stadium_(Athens) <|endoftext|> 
+Accademia_di_Architettura_di_Mendrisio : country : Switzerland | Accademia_di_Architettura_di_Mendrisio : dean : Mario_Botta | Accademia_di_Architettura_di_Mendrisio : numberOfStudents : 600 <|endoftext|> 
+Acharya_Institute_of_Technology : city : Bangalore | Acharya_Institute_of_Technology : motto : "Nurturing Excellence" | Acharya_Institute_of_Technology : country : "India" <|endoftext|> 
+Acharya_Institute_of_Technology : president : "B.M. Reddy" | Acharya_Institute_of_Technology : city : Bangalore | Acharya_Institute_of_Technology : country : "India" <|endoftext|> 
+Acharya_Institute_of_Technology : sportsOffered : Tennis | Acharya_Institute_of_Technology : established : 2000 | Tennis : sportsGoverningBody : International_Tennis_Federation <|endoftext|> 
+India : largestCity : Mumbai | AWH_Engineering_College : country : India | India : river : Ganges <|endoftext|> 
+Romania : leaderTitle : Prime_Minister_of_Romania | Romania : leaderName : Klaus_Iohannis | 1_Decembrie_1918_University : country : Romania <|endoftext|> 
+Romania : patronSaint : Andrew_the_Apostle | 1_Decembrie_1918_University : latinName : "Universitas Apulensis" | 1_Decembrie_1918_University : country : Romania <|endoftext|> 
+School of Business and Social Sciences at the Aarhus University : academicStaffSize : 737 | School of Business and Social Sciences at the Aarhus University : numberOfStudents : 16000 | School of Business and Social Sciences at the Aarhus University : established : 1928 <|endoftext|> 
+1634:_The_Bavarian_Crisis : ISBN_number : "978-1-4165-4253-7" | 1634:_The_Bavarian_Crisis : author : "Virginia DeMarce and Eric Flint" | 1634:_The_Bavarian_Crisis : mediaType : "Print" <|endoftext|> 
+1634:_The_Bavarian_Crisis : author : Eric_Flint | 1634:_The_Bavarian_Crisis : precededBy : 1634:_The_Baltic_War | Eric_Flint : birthPlace : Burbank,_California <|endoftext|> 
+1634:_The_Ram_Rebellion : author : Eric_Flint | 1634:_The_Ram_Rebellion : mediaType : E-book | 1634:_The_Ram_Rebellion : numberOfPages : "512" <|endoftext|> 
+1634:_The_Ram_Rebellion : author : Eric_Flint | 1634:_The_Ram_Rebellion : mediaType : Hardcover | 1634:_The_Ram_Rebellion : ISBN_number : "1-4165-2060-0" <|endoftext|> 
+1634:_The_Ram_Rebellion : mediaType : E-book | 1634:_The_Ram_Rebellion : numberOfPages : "512" | 1634:_The_Ram_Rebellion : author : "Eric Flint, Virginia DeMarce, et al." <|endoftext|> 
+ACM_Transactions_on_Information_Systems : abbreviation : "ACM Trans. Inf. Syst." | ACM_Transactions_on_Information_Systems : academicDiscipline : Computer_science | ACM_Transactions_on_Information_Systems : ISSN_number : "1046-8188" <|endoftext|> 
+ACM_Transactions_on_Information_Systems : academicDiscipline : Computer_science | ACM_Transactions_on_Information_Systems : abbreviation : "ACM Trans. Inf. Syst." | ACM_Transactions_on_Information_Systems : ISSN_number : "1558-2868" <|endoftext|> 
+AIDS_(journal) : country : United_Kingdom | AIDS_(journal) : publisher : Lippincott_Williams_&_Wilkins | United_Kingdom : leaderName : Elizabeth_II <|endoftext|> 
+AIP_Advances : editor : A.T._Charlie_Johnson | A.T._Charlie_Johnson : residence : United_States | AIP_Advances : publisher : American_Institute_of_Physics <|endoftext|> 
+AIP_Advances : editor : A.T._Charlie_Johnson | AIP_Advances : abbreviation : "AIP Adv." | AIP_Advances : CODEN_code : "AAIDBI" <|endoftext|> 
+A_Glastonbury_Romance : mediaType : Hardcover | A_Glastonbury_Romance : OCLC_number : 76798317 | A_Glastonbury_Romance : ISBN_number : "0-7156-3648-0" <|endoftext|> 
+A_Long_Long_Way : language : English_language | English_language : spokenIn : Great_Britain | A_Long_Long_Way : followedBy : The_Secret_Scripture <|endoftext|> 
+A_Loyal_Character_Dancer : publisher : Soho_Press | A_Loyal_Character_Dancer : country : United_States | United_States : ethnicGroup : African_Americans <|endoftext|> 
+A_Loyal_Character_Dancer : publisher : Soho_Press | Soho_Press : country : United_States | United_States : leaderName : Barack_Obama <|endoftext|> 
+A_Severed_Wasp : OCLC_number : 8805735 | A_Severed_Wasp : LibraryofCongressClassification : "PS3523.E55 S4 1982" | A_Severed_Wasp : mediaType : "Print" <|endoftext|> 
+A_Severed_Wasp : numberOfPages : "388" | A_Severed_Wasp : mediaType : "Print" | A_Severed_Wasp : ISBN_number : "0-374-26131-8" <|endoftext|> 
+A_Wizard_of_Mars : mediaType : Hardcover | A_Wizard_of_Mars : OCLC_number : 318875313 | A_Wizard_of_Mars : author : Diane_Duane <|endoftext|> 
+A_Wizard_of_Mars : mediaType : Hardcover | A_Wizard_of_Mars : author : Diane_Duane | A_Wizard_of_Mars : ISBN_number : "978-0-15-204770-2" <|endoftext|> 
+Above_the_Veil : country : Australians | Above_the_Veil : precededBy : Aenir | Aenir : precededBy : Castle_(novel) <|endoftext|> 
+Acta_Mathematica_Hungarica : LCCN_number : 83646315 | Acta_Mathematica_Hungarica : abbreviation : "Acta Math. Hungar." | Acta_Mathematica_Hungarica : ISSN_number : "1588-2632" <|endoftext|> 
+Acta_Mathematica_Hungarica : abbreviation : "Acta Math. Hungar." | Acta_Mathematica_Hungarica : academicDiscipline : Mathematics | Acta_Mathematica_Hungarica : ISSN_number : "0236-5294" <|endoftext|> 
+Acta_Palaeontologica_Polonica : ISSN_number : "1732-2421" | Acta_Palaeontologica_Polonica : LCCN_number : 60040714 | Acta_Palaeontologica_Polonica : abbreviation : "Acta Palaeontol. Pol." <|endoftext|> 
+Addiction_(journal) : academicDiscipline : Addiction | Addiction_(journal) : abbreviation : "Addiction" | Addiction_(journal) : ISSN_number : "0965-2140" <|endoftext|> 
+Aenir : OCLC_number : 45644811 | Aenir : author : Garth_Nix | Aenir : mediaType : "Print" <|endoftext|> 
+Aenir : author : Garth_Nix | Aenir : mediaType : "Print" | Aenir : ISBN_number : "0-439-17684-0" <|endoftext|> 
+American_Journal_of_Mathematics : abbreviation : "Am. J. Math." | American_Journal_of_Mathematics : academicDiscipline : Mathematics | American_Journal_of_Mathematics : ISSN_number : "1080-6377" <|endoftext|> 
+American_Journal_of_Mathematics : abbreviation : "Am. J. Math." | American_Journal_of_Mathematics : firstPublicationYear : 1878 | American_Journal_of_Mathematics : ISSN_number : "1080-6377" <|endoftext|> 
+SAGE_Publications : founder : Sara_Miller_McCune | Administrative_Science_Quarterly : abbreviation : "Admin. Sci. Q." | Administrative_Science_Quarterly : publisher : SAGE_Publications <|endoftext|> 
+United_Kingdom : leaderName : David_Cameron | AIDS_(journal) : country : United_Kingdom | AIDS_(journal) : publisher : Lippincott_Williams_&_Wilkins <|endoftext|> 
+United_States : ethnicGroup : African_Americans | United_States : leaderName : Barack_Obama | A_Fortress_of_Grey_Ice : country : United_States <|endoftext|> 
+United_States : ethnicGroup : Asian_Americans | United_States : language : English_language | Alcatraz_Versus_the_Evil_Librarians : country : United_States <|endoftext|> 
+Abilene_Regional_Airport : cityServed : Abilene,_Texas | Abilene,_Texas : isPartOf : Texas | Abilene_Regional_Airport : runwayLength : 1121.0 | Abilene,_Texas : country : United_States <|endoftext|> 
+Adolfo_Suárez_Madrid–Barajas_Airport : location : Alcobendas | ENAIRE : locationCity : Madrid | Alcobendas : country : Spain | Adolfo_Suárez_Madrid–Barajas_Airport : operatingOrganisation : ENAIRE <|endoftext|> 
+Adolfo_Suárez_Madrid–Barajas_Airport : runwayName : "18R/36L" | Adolfo_Suárez_Madrid–Barajas_Airport : runwayLength : 3500.0 | Adolfo_Suárez_Madrid–Barajas_Airport : location : "Madrid, Paracuellos de Jarama, San Sebastián de los Reyes and Alcobendas" | Adolfo_Suárez_Madrid–Barajas_Airport : operatingOrganisation : ENAIRE <|endoftext|> 
+Agra_Airport : elevationAboveTheSeaLevel_(in_metres) : 167.94 | Agra_Airport : location : Uttar_Pradesh | Uttar_Pradesh : isPartOf : Awadh | Uttar_Pradesh : isPartOf : Bundelkhand <|endoftext|> 
+Agra_Airport : location : Uttar_Pradesh | Uttar_Pradesh : isPartOf : Awadh | Uttar_Pradesh : leaderName : Ram_Naik | Uttar_Pradesh : isPartOf : Bundelkhand <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : attackAircraft : Lockheed_AC-130 | United_States_Air_Force : aircraftFighter : General_Dynamics_F-16_Fighting_Falcon | United_States_Air_Force : battles : 1986_United_States_bombing_of_Libya <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : attackAircraft : Lockheed_AC-130 | United_States_Air_Force : aircraftFighter : General_Dynamics_F-16_Fighting_Falcon | United_States_Air_Force : battles : Operation_Enduring_Freedom <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : attackAircraft : Lockheed_AC-130 | United_States_Air_Force : aircraftFighter : McDonnell_Douglas_F-15_Eagle | United_States_Air_Force : battles : Operation_Enduring_Freedom <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : battles : Invasion_of_Grenada | United_States_Air_Force : attackAircraft : Lockheed_AC-130 | United_States_Air_Force : aircraftFighter : General_Dynamics_F-16_Fighting_Falcon <|endoftext|> 
+Allama_Iqbal_International_Airport : operatingOrganisation : Pakistan_Civil_Aviation_Authority | Pakistan_Civil_Aviation_Authority : headquarter : Jinnah_International_Airport | Allama_Iqbal_International_Airport : location : Punjab,_Pakistan | Punjab,_Pakistan : leaderTitle : Provincial_Assembly_of_the_Punjab <|endoftext|> 
+Alpena_County_Regional_Airport : location : Maple_Ridge_Township,_Alpena_County,_Michigan | Alpena_County_Regional_Airport : runwayLength : 1533.0 | Alpena_County_Regional_Airport : cityServed : Alpena,_Michigan | Alpena_County_Regional_Airport : elevationAboveTheSeaLevel_(in_metres) : 210 <|endoftext|> 
+Amsterdam_Airport_Schiphol : cityServed : Amsterdam | Amsterdam_Airport_Schiphol : runwayName : "06/24 'Kaagbaan'" | Amsterdam_Airport_Schiphol : runwayLength : 2014.0 | Amsterdam_Airport_Schiphol : elevationAboveTheSeaLevel_(in_metres) : -3.3528 <|endoftext|> 
+Andrews_County_Airport : location : Texas | Texas : capital : Austin,_Texas | Texas : language : English_language | Texas : demonym : Tejano <|endoftext|> 
+Andrews_County_Airport : location : Texas | Texas : language : English_language | Texas : demonym : Texan | Texas : country : United_States <|endoftext|> 
+Andrews_County_Airport : location : Texas | Texas : language : Spanish_language | Texas : demonym : Texan | Texas : country : United_States <|endoftext|> 
+Andrews_County_Airport : location : Texas | Texas : largestCity : Houston | Texas : capital : Austin,_Texas | Texas : country : United_States <|endoftext|> 
+Angola_International_Airport : location : Ícolo_e_Bengo | Ícolo_e_Bengo : country : Angola | Ícolo_e_Bengo : isPartOf : Luanda_Province | Angola_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 159 <|endoftext|> 
+Antwerp_International_Airport : cityServed : Antwerp | Flemish_Region : leaderName : Flemish_Government | Flemish_Region : country : Belgium | Flemish_Government : jurisdiction : Flemish_Region <|endoftext|> 
+Appleton_International_Airport : location : Greenville,_Wisconsin | Appleton_International_Airport : runwayLength : 2439.0 | Appleton_International_Airport : cityServed : Appleton,_Wisconsin | Appleton_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 280 <|endoftext|> 
+Appleton_International_Airport : location : Greenville,_Wisconsin | Greenville,_Wisconsin : isPartOf : Menasha_(town),_Wisconsin | Greenville,_Wisconsin : isPartOf : Dale,_Wisconsin | Appleton_International_Airport : cityServed : Appleton,_Wisconsin <|endoftext|> 
+Ardmore_Airport_(New_Zealand) : 3rd_runway_SurfaceType : Poaceae | Poaceae : order : Poales | Poaceae : class : Monocotyledon | Poaceae : order : Commelinids <|endoftext|> 
+Ardmore_Airport_(New_Zealand) : runwayLength : 597.0 | Ardmore_Airport_(New_Zealand) : 3rd_runway_SurfaceType : Poaceae | Ardmore_Airport_(New_Zealand) : elevationAboveTheSeaLevel_(in_metres) : 34.0 | Ardmore_Airport_(New_Zealand) : runwayName : "03R/21L" <|endoftext|> 
+Atlantic_City_International_Airport : runwayLength : 1873.0 | Atlantic_City_International_Airport : location : Egg_Harbor_Township,_New_Jersey | Egg_Harbor_Township,_New_Jersey : country : United_States | Egg_Harbor_Township,_New_Jersey : isPartOf : Atlantic_County,_New_Jersey <|endoftext|> 
+ENAIRE : locationCity : Madrid | Adolfo_Suárez_Madrid–Barajas_Airport : location : "Madrid, Paracuellos de Jarama, San Sebastián de los Reyes and Alcobendas" | Madrid : country : Spain | Adolfo_Suárez_Madrid–Barajas_Airport : operatingOrganisation : ENAIRE <|endoftext|> 
+Egg_Harbor_Township,_New_Jersey : isPartOf : New_Jersey | Atlantic_City_International_Airport : runwayLength : 3048.0 | Atlantic_City_International_Airport : location : Egg_Harbor_Township,_New_Jersey | Egg_Harbor_Township,_New_Jersey : country : United_States <|endoftext|> 
+Poaceae : class : Monocotyledon | Poaceae : division : Flowering_plant | Poaceae : order : Commelinids | Ardmore_Airport_(New_Zealand) : 2nd_runway_SurfaceType : Poaceae <|endoftext|> 
+Alan_Bean : was a crew member of : Apollo_12 | Alan_Bean : nationality : United_States | Apollo_12 : operator : NASA | Apollo_12 : commander : David_Scott <|endoftext|> 
+Alan_Shepard : almaMater : "NWC, M.A. 1957" | Alan_Shepard : birthPlace : New_Hampshire | Alan_Shepard : dateOfRetirement : "1974-08-01" | Alan_Shepard : birthDate : "1923-11-18" <|endoftext|> 
+Alan_Shepard : status : "Deceased" | Alan_Shepard : deathPlace : California | Alan_Shepard : occupation : Test_pilot | Alan_Shepard : birthPlace : New_Hampshire <|endoftext|> 
+Alan_Shepard : was a crew member of : Apollo_14 | Alan_Shepard : occupation : Test_pilot | Alan_Shepard : birthPlace : New_Hampshire | Apollo_14 : operator : NASA <|endoftext|> 
+Apollo_12 : backup pilot : Alfred_Worden | Alan_Bean : was a crew member of : Apollo_12 | Apollo_12 : operator : NASA | Apollo_12 : commander : David_Scott <|endoftext|> 
+Buzz_Aldrin : birthPlace : Glen_Ridge,_New_Jersey | Buzz_Aldrin : nationality : United_States | United_States : leaderName : Joe_Biden | Glen_Ridge,_New_Jersey : isPartOf : Essex_County,_New_Jersey <|endoftext|> 
+Elliot_See : almaMater : University_of_Texas_at_Austin | Elliot_See : deathPlace : St._Louis | Elliot_See : birthDate : "1927-07-23" | Elliot_See : birthPlace : Dallas <|endoftext|> 
+Elliot_See : almaMater : University_of_Texas_at_Austin | Elliot_See : deathPlace : St._Louis | Elliot_See : deathDate : "1966-02-28" | Elliot_See : occupation : Test_pilot <|endoftext|> 
+Elliot_See : almaMater : University_of_Texas_at_Austin | University_of_Texas_at_Austin : affiliations : University_of_Texas_System | Elliot_See : deathPlace : St._Louis | St._Louis : isPartOf : Kingdom_of_France <|endoftext|> 
+Elliot_See : deathPlace : St._Louis | Elliot_See : birthDate : "1927-07-23" | Elliot_See : birthPlace : Dallas | Elliot_See : deathDate : "1966-02-28" <|endoftext|> 
+William_Anders : dateOfRetirement : "1969-09-01" | Apollo_8 : commander : Frank_Borman | William_Anders : was a crew member of : Apollo_8 | Apollo_8 : backup pilot : Buzz_Aldrin <|endoftext|> 
+11_Diagonal_Street : location : South_Africa | South_Africa : capital : Cape_Town | South_Africa : leaderName : Cyril_Ramaphosa | South_Africa : ethnicGroup : Asian_South_Africans <|endoftext|> 
+11_Diagonal_Street : location : South_Africa | South_Africa : ethnicGroup : Asian_South_Africans | South_Africa : capital : Cape_Town | South_Africa : ethnicGroup : White_South_African <|endoftext|> 
+200_Public_Square : location : Cleveland | Cleveland : isPartOf : Cuyahoga_County,_Ohio | Cleveland : isPartOf : Ohio | Cleveland : governingBody : Cleveland_City_Council <|endoftext|> 
+250_Delaware_Avenue : architecturalStyle : Postmodern_architecture | 250_Delaware_Avenue : buildingStartDate : "January, 2014" | 250_Delaware_Avenue : floorArea : 30843.8 (square metres) | 250_Delaware_Avenue : floorCount : 12 <|endoftext|> 
+300_North_LaSalle : location : Chicago | Chicago : isPartOf : DuPage_County,_Illinois | Chicago : country : United_States | Chicago : leaderName : Susana_Mendoza <|endoftext|> 
+3Arena : owner : Live_Nation_Entertainment | Dublin : leaderName : Críona_Ní_Dhálaigh | Dublin : country : Republic_of_Ireland | 3Arena : location : Dublin <|endoftext|> 
+3Arena : owner : Live_Nation_Entertainment | Dublin : leaderName : Críona_Ní_Dhálaigh | Dublin : isPartOf : Republic_of_Ireland | 3Arena : location : Dublin <|endoftext|> 
+AC_Hotel_Bella_Sky_Copenhagen : location : Denmark | AC_Hotel_Bella_Sky_Copenhagen : tenant : Marriott_International | AC_Hotel_Bella_Sky_Copenhagen : owner : Bella_Center | AC_Hotel_Bella_Sky_Copenhagen : floorCount : 23 <|endoftext|> 
+AC_Hotel_Bella_Sky_Copenhagen : owner : Bella_Center | AC_Hotel_Bella_Sky_Copenhagen : tenant : Marriott_International | AC_Hotel_Bella_Sky_Copenhagen : architect : 3XN | AC_Hotel_Bella_Sky_Copenhagen : floorCount : 23 <|endoftext|> 
+Adisham_Hall : architecturalStyle : "Tudor and Jacabian" | Adisham_Hall : location : Sri_Lanka | Adisham_Hall : completionDate : 1931 | Adisham_Hall : buildingStartDate : "1927" <|endoftext|> 
+Adisham_Hall : country : Sri_Lanka | Adisham_Hall : location : "Haputale, Sri Lanka" | Sri_Lanka : capital : Sri_Jayawardenepura_Kotte | Sri_Lanka : language : Tamil_language <|endoftext|> 
+Adisham_Hall : location : Sri_Lanka | Adisham_Hall : architecturalStyle : Tudor_Revival_architecture | Adisham_Hall : completionDate : 1931 | Adisham_Hall : buildingStartDate : "1927" <|endoftext|> 
+Akita_Museum_of_Art : location : Akita,_Akita | Akita,_Akita : isPartOf : Akita_Prefecture | Japan : ethnicGroup : Filipinos_in_Japan | Akita_Prefecture : country : Japan <|endoftext|> 
+Alan_B._Miller_Hall : location : Virginia | Alan_B._Miller_Hall : architect : Robert_A._M._Stern | Mason_School_of_Business : country : United_States | Alan_B._Miller_Hall : currentTenants : Mason_School_of_Business <|endoftext|> 
+Alan_B._Miller_Hall : location : Virginia | Alan_B._Miller_Hall : completionDate : "1 June 2009" | Mason_School_of_Business : country : United_States | Alan_B._Miller_Hall : currentTenants : Mason_School_of_Business <|endoftext|> 
+Amdavad_ni_Gufa : location : Ahmedabad | Amdavad_ni_Gufa : country : India | India : leaderName : Narendra_Modi | India : leaderName : Sumitra_Mahajan <|endoftext|> 
+Amdavad_ni_Gufa : location : Gujarat | Amdavad_ni_Gufa : address : "Lalbhai Dalpatbhai Campus, near CEPT University, opp. Gujarat University, University Road" | Amdavad_ni_Gufa : country : India | Amdavad_ni_Gufa : location : Ahmedabad <|endoftext|> 
+Amdavad_ni_Gufa : location : Gujarat | India : leaderName : T._S._Thakur | Amdavad_ni_Gufa : location : Ahmedabad | Amdavad_ni_Gufa : country : India <|endoftext|> 
+Ampara_Hospital : country : Sri_Lanka | Sri_Lanka : leaderName : Ranil_Wickremesinghe | Sri_Lanka : currency : Sri_Lankan_rupee | Ampara_Hospital : state : Eastern_Province,_Sri_Lanka <|endoftext|> 
+Asilomar_Conference_Grounds : architect : Julia_Morgan | Julia_Morgan : birthPlace : San_Francisco | Julia_Morgan : significantBuilding : Los_Angeles_Herald-Examiner | Julia_Morgan : significantBuilding : Asilomar_State_Beach <|endoftext|> 
+Asilomar_Conference_Grounds : architect : Julia_Morgan | Julia_Morgan : significantBuilding : Los_Angeles_Herald-Examiner | Julia_Morgan : significantBuilding : Riverside_Art_Museum | Julia_Morgan : birthPlace : California <|endoftext|> 
+Asser_Levy_Public_Baths : location : New_York_City | New_York_City : country : United_States | New_York_City : isPartOf : Manhattan | New_York_City : isPartOf : New_Netherland <|endoftext|> 
+Birmingham : postalCode : B_postcode_area | 103_Colmore_Row : architect : John_Madin | John_Madin : hometown : Birmingham | Birmingham : leaderName : John_Clancy_(Labour_politician) <|endoftext|> 
+Ethiopia : leaderName : Mulatu_Teshome | Addis_Ababa : isPartOf : Addis_Ababa_Stadium | Addis_Ababa_City_Hall : country : Ethiopia | Addis_Ababa_City_Hall : location : Addis_Ababa <|endoftext|> 
+United_States : capital : Washington,_D.C. | United_States : leaderTitle : President_of_the_United_States | United_States : leaderName : Paul_Ryan | 250_Delaware_Avenue : location : United_States <|endoftext|> 
+Bananaman : starring : Tim_Brooke-Taylor | Bananaman : creator : Steve_Bright | Bananaman : firstAired : "1983-10-03" | Bananaman : broadcastedBy : "STV" <|endoftext|> 
+Bolt_(comicsCharacter) : creator : Ernie_Colón | Ernie_Colón : nationality : Puerto_Ricans | Bolt_(comicsCharacter) : alternativeName : "Larry Bolatinsky" | Bolt_(comicsCharacter) : creator : Dan_Mishkin <|endoftext|> 
+Duncan_Rouleau : nationality : Americans | Baymax : creator : Duncan_Rouleau | Baymax : series : Big_Hero_6_(film) | Big_Hero_6_(film) : starring : Damon_Wayans,_Jr. <|endoftext|> 
+Duncan_Rouleau : nationality : Americans | Baymax : creator : Duncan_Rouleau | Baymax : series : Big_Hero_6_(film) | Big_Hero_6_(film) : starring : Jamie_Chung <|endoftext|> 
+Duncan_Rouleau : nationality : Americans | Baymax : creator : Duncan_Rouleau | Baymax : series : Big_Hero_6_(film) | Big_Hero_6_(film) : starring : Maya_Rudolph <|endoftext|> 
+Ajoblanco : country : Spain | Ajoblanco : mainIngredients : "Bread, almonds, garlic, water, olive oil" | Ajoblanco : region : Andalusia | Ajoblanco : ingredient : Bread <|endoftext|> 
+Ajoblanco : country : Spain | Ajoblanco : region : Andalusia | Ajoblanco : alternativeName : "Ajo blanco" | Ajoblanco : ingredient : Water <|endoftext|> 
+Arem-arem : dishVariation : Lemper | Arem-arem : ingredient : Banana_leaf | Arem-arem : mainIngredients : "compressed rice cooked in banana leaf with vegetables or minced meat fillings" | Arem-arem : region : Javanese_cuisine <|endoftext|> 
+Arem-arem : ingredient : Banana_leaf | Arem-arem : course : "Main course" | Arem-arem : mainIngredients : "compressed rice cooked in banana leaf with vegetables or minced meat fillings" | Arem-arem : region : "Nationwide in Indonesia, but more specific to Java" <|endoftext|> 
+Arrabbiata_sauce : ingredient : Chili_pepper | Arrabbiata_sauce : mainIngredients : "Tomatoes, red chili, garlic, olive oil" | Arrabbiata_sauce : country : Italy | Arrabbiata_sauce : region : Rome <|endoftext|> 
+Arròs_negre : country : Spain | Arròs_negre : mainIngredients : "White rice, cuttlefish or squid, cephalopod ink, cubanelle peppers" | Arròs_negre : region : Catalonia | Arròs_negre : ingredient : Cephalopod_ink <|endoftext|> 
+Arròs_negre : country : Spain | Arròs_negre : mainIngredients : "White rice, cuttlefish or squid, cephalopod ink, cubanelle peppers" | Arròs_negre : region : Catalonia | Arròs_negre : ingredient : Cubanelle <|endoftext|> 
+Arròs_negre : region : Valencian_Community | Arròs_negre : country : Spain | Arròs_negre : mainIngredients : "White rice, cuttlefish or squid, cephalopod ink, cubanelle peppers" | Arròs_negre : ingredient : Cubanelle <|endoftext|> 
+Asam_pedas : country : Malaysia | Asam_pedas : region : "Sumatra and Malay Peninsula" | Asam_pedas : mainIngredients : "Fish cooked in sour and hot sauce" | Asam_pedas : alternativeName : "Asam padeh" <|endoftext|> 
+Asam_pedas : country : Malaysia | Malaysia : ethnicGroup : Malaysian_Malay | Sumatra : ethnicGroup : Minangkabau_people | Asam_pedas : region : Sumatra <|endoftext|> 
+Bacon_Explosion : country : United_States | Bacon_Explosion : ingredient : Sausage | Bacon_Explosion : region : Kansas_City_metropolitan_area | Bacon_Explosion : mainIngredients : Bacon <|endoftext|> 
+Bacon_Explosion : country : United_States | United_States : leaderName : Paul_Ryan | United_States : ethnicGroup : Asian_Americans | United_States : capital : Washington,_D.C. <|endoftext|> 
+Bacon_sandwich : dishVariation : BLT | Bacon_sandwich : country : United_Kingdom | Bacon_sandwich : alternativeName : "Bacon butty, bacon sarnie, rasher sandwich, bacon sanger, piece 'n bacon, bacon cob, bacon barm, bacon muffin" | Bacon_sandwich : ingredient : Bacon <|endoftext|> 
+Bacon_sandwich : dishVariation : BLT | Bacon_sandwich : country : United_Kingdom | Bacon_sandwich : alternativeName : "Bacon butty, bacon sarnie, rasher sandwich, bacon sanger, piece 'n bacon, bacon cob, bacon barm, bacon muffin" | Bacon_sandwich : ingredient : Brown_sauce <|endoftext|> 
+Bacon_sandwich : mainIngredients : "Bread and bacon, with a condiment, often ketchup or brown sauce" | Bacon_sandwich : country : United_Kingdom | Bacon_sandwich : ingredient : Ketchup | Bacon_sandwich : alternativeName : "Bacon butty, bacon sarnie, rasher sandwich, bacon sanger, piece 'n bacon, bacon cob, bacon barm, bacon muffin" <|endoftext|> 
+Baked_Alaska : mainIngredients : "Meringue, ice cream, sponge cake or Christmas pudding" | Baked_Alaska : country : "France, United States or China" | Baked_Alaska : region : "Paris, New York or Hong Kong" | Baked_Alaska : ingredient : Meringue <|endoftext|> 
+Baked_Alaska : mainIngredients : "Meringue, ice cream, sponge cake or Christmas pudding" | Baked_Alaska : region : "Paris, New York or Hong Kong" | Baked_Alaska : country : United_States | Baked_Alaska : ingredient : Ice_cream <|endoftext|> 
+Bakewell_pudding : dishVariation : Bakewell_tart | Bakewell_tart : region : Derbyshire_Dales | Derbyshire_Dales : isPartOf : Derbyshire | Bakewell_tart : ingredient : Frangipane <|endoftext|> 
+Bakewell_pudding : region : Derbyshire_Dales | Bakewell_pudding : dishVariation : Bakewell_tart | Bakewell_pudding : course : "Dessert" | Bakewell_pudding : mainIngredients : "Ground almond, jam, butter, eggs" <|endoftext|> 
+Bakewell_pudding : region : Derbyshire_Dales | Bakewell_pudding : dishVariation : Bakewell_tart | Derbyshire_Dales : isPartOf : Derbyshire | Bakewell_tart : ingredient : Shortcrust_pastry <|endoftext|> 
+Bandeja_paisa : ingredient : Rice | Bandeja_paisa : mainIngredients : "red beans, pork belly, white rice, ground meat, chicharon, fried egg, plantain (patacones), chorizo, arepa, hogao sauce, black pudding (morcilla), avocado and lemon" | Bandeja_paisa : region : Paisa_Region | Bandeja_paisa : country : Colombian_cuisine <|endoftext|> 
+Batagor : country : Indonesia | Batagor : ingredient : Peanut_sauce | Batagor : dishVariation : Siomay | Batagor : mainIngredients : "fried fish dumpling with tofu and vegetables in peanut sauce" <|endoftext|> 
+Batagor : country : Indonesia | Shumai : dishVariation : Siomay | Shumai : ingredient : Shiitake | Batagor : dishVariation : Shumai <|endoftext|> 
+Beef_kway_teow : country : Singapore | Beef_kway_teow : region : Indonesia | Singapore : language : Standard_Chinese | Singapore : leaderName : Halimah_Yacob <|endoftext|> 
+Beef_kway_teow : mainIngredients : "Kway teow, beef tender loin, gula Melaka, sliced, dried black beans, garlic, dark soy sauce, lengkuas, oyster sauce, soya sauce, chilli and sesame oil" | Beef_kway_teow : ingredient : Oyster_sauce | Beef_kway_teow : region : Indonesia | Beef_kway_teow : country : "Singapore and Indonesia" <|endoftext|> 
+Beef_kway_teow : region : Singapore | Beef_kway_teow : mainIngredients : "Kway teow, beef tender loin, gula Melaka, sliced, dried black beans, garlic, dark soy sauce, lengkuas, oyster sauce, soya sauce, chilli and sesame oil" | Beef_kway_teow : country : Indonesia | Beef_kway_teow : ingredient : Oyster_sauce <|endoftext|> 
+Beef_kway_teow : region : Singapore | Singapore : language : English_language | Beef_kway_teow : country : "Singapore and Indonesia" | Singapore : leaderName : Tony_Tan <|endoftext|> 
+Bhajji : country : India | India : currency : Indian_rupee | India : leaderName : T._S._Thakur | India : leaderName : Narendra_Modi <|endoftext|> 
+Bhajji : country : India | India : demonym : Indian_people | India : leaderName : T._S._Thakur | India : leaderName : Sumitra_Mahajan <|endoftext|> 
+Bhajji : country : India | India : leaderName : Narendra_Modi | India : leaderName : Sumitra_Mahajan | Bhajji : region : Karnataka <|endoftext|> 
+Bhajji : country : India | India : leaderName : T._S._Thakur | Bhajji : region : Karnataka | Karnataka : leaderName : Vajubhai_Vala <|endoftext|> 
+Binignit : ingredient : Sweet_potato | Binignit : course : Dessert | Dessert : dishVariation : Cookie | Sweet_potato : order : Solanales <|endoftext|> 
+Bionico : country : Mexico | Bionico : mainIngredients : "Chopped Fruits, Sour Cream, Condensed Milk, Granola, Shredded Coconut, Raisins" | Bionico : region : Guadalajara | Bionico : ingredient : Condensed_milk <|endoftext|> 
+Bionico : country : Mexico | Bionico : mainIngredients : "Chopped Fruits, Sour Cream, Condensed Milk, Granola, Shredded Coconut, Raisins" | Bionico : region : Jalisco | Bionico : ingredient : Sour_cream <|endoftext|> 
+Indonesia : capital : Jakarta | Indonesia : leaderName : Jusuf_Kalla | Bakso : region : Indonesia | Bakso : country : Chinese_cuisine <|endoftext|> 
+Indonesia : leaderName : Jusuf_Kalla | Bakso : region : Indonesia | Bakso : country : Indonesia | Bakso : ingredient : Celery <|endoftext|> 
+Italy : capital : Rome | Italy : leaderName : Matteo_Renzi | Amatriciana_sauce : country : Italy | Italy : leaderName : Sergio_Mattarella <|endoftext|> 
+Java : ethnicGroup : Baduy | Singapore : leaderName : Halimah_Yacob | Ayam_penyet : region : Singapore | Ayam_penyet : country : Java <|endoftext|> 
+Java : ethnicGroup : Banyumasan_people | Ayam_penyet : region : Singapore | Singapore : leaderName : Tony_Tan | Ayam_penyet : country : Java <|endoftext|> 
+Philippines : ethnicGroup : Ilocano_people | Philippines : language : Philippine_Spanish | Batchoy : country : Philippines | Philippines : ethnicGroup : Moro_people <|endoftext|> 
+Spain : currency : Euro | Arròs_negre : country : Spain | Spain : ethnicGroup : Spaniards | Spain : leaderName : Felipe_VI_of_Spain <|endoftext|> 
+Adams_County,_Pennsylvania : has to its southeast : Carroll_County,_Maryland | Adams_County,_Pennsylvania : has to its north : Cumberland_County,_Pennsylvania | 11th_Mississippi_Infantry_Monument : municipality : Gettysburg,_Pennsylvania | 11th_Mississippi_Infantry_Monument : location : Adams_County,_Pennsylvania <|endoftext|> 
+Adams_County,_Pennsylvania : has to its west : Franklin_County,_Pennsylvania | Adams_County,_Pennsylvania : has to its southeast : Carroll_County,_Maryland | 11th_Mississippi_Infantry_Monument : category : Contributing_property | 11th_Mississippi_Infantry_Monument : location : Adams_County,_Pennsylvania <|endoftext|> 
+Azerbaijan : capital : Baku | Baku_Turkish_Martyrs'_Memorial : dedicatedTo : "Ottoman Army soldiers killed in the Battle of Baku" | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Baku_Turkish_Martyrs'_Memorial : designer : "Hüseyin Bütüner and Hilmi Güner" <|endoftext|> 
+Azerbaijan : leader : Artur_Rasizade | Azerbaijan : capital : Baku | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Azerbaijan : legislature : National_Assembly_(Azerbaijan) <|endoftext|> 
+Azerbaijan : leader : Artur_Rasizade | Baku_Turkish_Martyrs'_Memorial : material : "Red granite and white marble" | Baku_Turkish_Martyrs'_Memorial : dedicatedTo : "Ottoman Army soldiers killed in the Battle of Baku" | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan <|endoftext|> 
+Azerbaijan : leaderTitle : Prime_Minister_of_Azerbaijan | Baku_Turkish_Martyrs'_Memorial : dedicatedTo : "Ottoman Army soldiers killed in the Battle of Baku" | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Azerbaijan : leaderName : Artur_Rasizade <|endoftext|> 
+A.C._Chievo_Verona : fullname : "Associazione Calcio ChievoVerona S.r.l." | A.C._Chievo_Verona : ground : "Verona, Italy" | A.C._Chievo_Verona : season : 2014–15_Serie_A | A.C._Chievo_Verona : numberOfMembers : 39371 <|endoftext|> 
+A.C._Chievo_Verona : manager : Rolando_Maran | Rolando_Maran : placeOfBirth : Italy | Rolando_Maran : club : Unione_Triestina_2012_S.S.D. | Rolando_Maran : club : Carrarese_Calcio <|endoftext|> 
+A.C._Lumezzane : manager : Michele_Marcolini | Michele_Marcolini : placeOfBirth : Italy | Michele_Marcolini : club : Torino_F.C. | Michele_Marcolini : club : F.C._Bari_1908 <|endoftext|> 
+A.E_Dimitra_Efxeinoupolis : location : Greece | Greece : leader : Alexis_Tsipras | Greece : leader : Nikos_Voutsis | Greece : language : Greek_language <|endoftext|> 
+A.S._Gubbio_1910 : fullname : "Associazione Sportiva Gubbio 1910 Srl" | A.S._Gubbio_1910 : season : 2014 | A.S._Gubbio_1910 : ground : Italy | A.S._Gubbio_1910 : numberOfMembers : 5300 <|endoftext|> 
+A.S._Gubbio_1910 : fullname : "Associazione Sportiva Gubbio 1910 Srl" | A.S._Gubbio_1910 : season : 2014 | A.S._Gubbio_1910 : ground : Stadio_Pietro_Barbetti | A.S._Gubbio_1910 : numberOfMembers : 5300 <|endoftext|> 
+A.S._Livorno_Calcio : ground : Stadio_Armando_Picchi | A.S._Livorno_Calcio : numberOfMembers : 19238 | A.S._Livorno_Calcio : season : 2014–15_Serie_B | A.S._Livorno_Calcio : fullname : "Livorno Calcio S.p.A." <|endoftext|> 
+A.S._Roma : numberOfMembers : 70634 | A.S._Roma : fullname : "Associazione Sportiva Roma S.p.A." | A.S._Roma : ground : Rome | A.S._Roma : season : 2014–15_Serie_A <|endoftext|> 
+AZAL_PFK : league : Azerbaijan_Premier_League | Azerbaijan_Premier_League : champions : Qarabağ_FK | AZAL_PFK : ground : AZAL_Arena | AZAL_Arena : location : Azerbaijan <|endoftext|> 
+AZAL_PFK : league : Azerbaijan_Premier_League | Azerbaijan_Premier_League : champions : Qarabağ_FK | AZAL_PFK : numberOfMembers : 3500 | AZAL_PFK : ground : AZAL_Arena <|endoftext|> 
+AZ_Alkmaar : manager : John_van_den_Brom | John_van_den_Brom : club : AFC_Ajax | John_van_den_Brom : club : İstanbulspor_A.Ş. | AZ_Alkmaar : owner : Robert_Eenhoorn <|endoftext|> 
+Agremiação_Sportiva_Arapiraquense : league : Campeonato_Brasileiro_Série_C | Campeonato_Brasileiro_Série_C : country : Brazil | Agremiação_Sportiva_Arapiraquense : nickname : "Asa Gigante ''" | Campeonato_Brasileiro_Série_C : champions : Vila_Nova_Futebol_Clube <|endoftext|> 
+Agremiação_Sportiva_Arapiraquense : league : Campeonato_Brasileiro_Série_C | Campeonato_Brasileiro_Série_C : country : Brazil | Agremiação_Sportiva_Arapiraquense : season : 2015_Campeonato_Brasileiro_Série_C | Campeonato_Brasileiro_Série_C : champions : Vila_Nova_Futebol_Clube <|endoftext|> 
+Akron_Summit_Assault : fullname : "Akron Metro Futbol Club Summit Assault" | Akron_Summit_Assault : numberOfMembers : 3000 | Akron_Summit_Assault : manager : Denzil_Antonio | Akron_Summit_Assault : season : 2011_PDL_season <|endoftext|> 
+Akron_Summit_Assault : ground : Akron,_Ohio | Akron,_Ohio : country : United_States | Akron_Summit_Assault : league : Premier_Development_League | Premier_Development_League : champions : K-W_United_FC <|endoftext|> 
+Italy : capital : Rome | Italy : leader : Sergio_Mattarella | A.S._Gubbio_1910 : ground : Italy | Italy : language : Italian_language <|endoftext|> 
+Italy : leader : Pietro_Grasso | Italy : officialLanguage : Italian_language | Italy : capital : Rome | A.S._Gubbio_1910 : ground : Italy <|endoftext|> 
+Serie_A : champions : Juventus_F.C. | A.S._Roma : fullname : "Associazione Sportiva Roma S.p.A." | A.S._Roma : ground : Stadio_Olimpico | A.S._Roma : league : Serie_A <|endoftext|> 
+Accademia_di_Architettura_di_Mendrisio : country : Switzerland | Accademia_di_Architettura_di_Mendrisio : dean : Mario_Botta | Accademia_di_Architettura_di_Mendrisio : city : Mendrisio | Accademia_di_Architettura_di_Mendrisio : academicStaffSize : 100 <|endoftext|> 
+Accademia_di_Architettura_di_Mendrisio : country : Switzerland | Accademia_di_Architettura_di_Mendrisio : established : 1996 | Accademia_di_Architettura_di_Mendrisio : numberOfStudents : 600 | Switzerland : leaderTitle : Federal_Chancellor_of_Switzerland <|endoftext|> 
+Accademia_di_Architettura_di_Mendrisio : dean : Mario_Botta | Accademia_di_Architettura_di_Mendrisio : city : Mendrisio | Accademia_di_Architettura_di_Mendrisio : established : 1996 | Accademia_di_Architettura_di_Mendrisio : academicStaffSize : 100 <|endoftext|> 
+Acharya_Institute_of_Technology : affiliation : Visvesvaraya_Technological_University | Acharya_Institute_of_Technology : was given the 'Technical Campus' status by : All_India_Council_for_Technical_Education | All_India_Council_for_Technical_Education : location : Mumbai | Visvesvaraya_Technological_University : city : Belgaum <|endoftext|> 
+Acharya_Institute_of_Technology : city : Bangalore | Acharya_Institute_of_Technology : country : "India" | Acharya_Institute_of_Technology : numberOfPostgraduateStudents : 700 | Acharya_Institute_of_Technology : campus : "In Soldevanahalli, Acharya Dr. Sarvapalli Radhakrishnan Road, Hessarghatta Main Road, Bangalore – 560090." <|endoftext|> 
+Acharya_Institute_of_Technology : director : "Dr. G. P. Prabhukumar" | Acharya_Institute_of_Technology : established : 2000 | Acharya_Institute_of_Technology : country : "India" | Acharya_Institute_of_Technology : affiliation : Visvesvaraya_Technological_University <|endoftext|> 
+Romania : ethnicGroup : Germans_of_Romania | Romania : leaderName : Klaus_Iohannis | Romania : capital : Bucharest | 1_Decembrie_1918_University : country : Romania <|endoftext|> 
+School of Business and Social Sciences at the Aarhus University : academicStaffSize : 737 | School of Business and Social Sciences at the Aarhus University : country : Denmark | School of Business and Social Sciences at the Aarhus University : affiliation : European_University_Association | School of Business and Social Sciences at the Aarhus University : established : 1928 <|endoftext|> 
+School of Business and Social Sciences at the Aarhus University : academicStaffSize : 737 | School of Business and Social Sciences at the Aarhus University : numberOfStudents : 16000 | School of Business and Social Sciences at the Aarhus University : country : Denmark | School of Business and Social Sciences at the Aarhus University : established : 1928 <|endoftext|> 
+1634:_The_Bavarian_Crisis : precededBy : 1634:_The_Baltic_War | 1634:_The_Baltic_War : author : David_Weber | 1634:_The_Bavarian_Crisis : followedBy : Ring_of_Fire_II | Ring_of_Fire_II : language : English_language <|endoftext|> 
+1634:_The_Ram_Rebellion : mediaType : E-book | 1634:_The_Ram_Rebellion : numberOfPages : "512" | 1634:_The_Ram_Rebellion : author : Virginia_DeMarce | 1634:_The_Ram_Rebellion : ISBN_number : "1-4165-2060-0" <|endoftext|> 
+AIDS_(journal) : country : United_Kingdom | United_Kingdom : capital : London | AIDS_(journal) : publisher : Lippincott_Williams_&_Wilkins | United_Kingdom : leaderName : Elizabeth_II <|endoftext|> 
+A_Fortress_of_Grey_Ice : author : J._V._Jones | A_Fortress_of_Grey_Ice : mediaType : "Print" | A_Fortress_of_Grey_Ice : OCLC_number : 51969173 | A_Fortress_of_Grey_Ice : ISBN_number : "0-7653-0633-6" <|endoftext|> 
+A_Long_Long_Way : precededBy : Annie_Dunne | A_Long_Long_Way : country : Ireland | A_Long_Long_Way : publisher : Viking_Press | A_Long_Long_Way : followedBy : The_Secret_Scripture <|endoftext|> 
+A_Severed_Wasp : OCLC_number : 8805735 | A_Severed_Wasp : LibraryofCongressClassification : "PS3523.E55 S4 1982" | A_Severed_Wasp : mediaType : "Print" | A_Severed_Wasp : ISBN_number : "0-374-26131-8" <|endoftext|> 
+A_Severed_Wasp : language : English_language | English_language : spokenIn : Great_Britain | A_Severed_Wasp : country : United_States | United_States : ethnicGroup : African_Americans <|endoftext|> 
+A_Severed_Wasp : numberOfPages : "388" | A_Severed_Wasp : OCLC_number : 8805735 | A_Severed_Wasp : ISBN_number : "0-374-26131-8" | A_Severed_Wasp : mediaType : Hardcover <|endoftext|> 
+A_Wizard_of_Mars : mediaType : Hardcover | A_Wizard_of_Mars : author : Diane_Duane | A_Wizard_of_Mars : OCLC_number : 318875313 | A_Wizard_of_Mars : ISBN_number : "978-0-15-204770-2" <|endoftext|> 
+Addiction_(journal) : academicDiscipline : Addiction | Addiction_(journal) : LCCN_number : 93645978 | Addiction_(journal) : abbreviation : "Addiction" | Addiction_(journal) : ISSN_number : "1360-0443" <|endoftext|> 
+Administrative_Science_Quarterly : publisher : Cornell_University | Cornell_University : affiliation : Association_of_American_Universities | Cornell_University : state : New_York | Cornell_University : city : Ithaca,_New_York <|endoftext|> 
+Alcatraz_Versus_the_Evil_Librarians : language : English_language | United_States : capital : Washington,_D.C. | Alcatraz_Versus_the_Evil_Librarians : country : United_States | United_States : ethnicGroup : African_Americans <|endoftext|> 
+American_Journal_of_Mathematics : abbreviation : "Am. J. Math." | American_Journal_of_Mathematics : academicDiscipline : Mathematics | American_Journal_of_Mathematics : frequency : "Bimonthly" | American_Journal_of_Mathematics : ISSN_number : "1080-6377" <|endoftext|> 
+American_Journal_of_Mathematics : academicDiscipline : Mathematics | American_Journal_of_Mathematics : firstPublicationYear : 1878 | American_Journal_of_Mathematics : abbreviation : "Am. J. Math." | American_Journal_of_Mathematics : ISSN_number : "1080-6377" <|endoftext|> 
+English_language : spokenIn : Great_Britain | A_Loyal_Character_Dancer : publisher : Soho_Press | Soho_Press : country : United_States | United_States : language : English_language <|endoftext|> 
+English_language : spokenIn : Great_Britain | United_States : ethnicGroup : Asian_Americans | United_States : language : English_language | A_Severed_Wasp : country : United_States <|endoftext|> 
+English_language : spokenIn : Great_Britain | United_States : language : English_language | Alcatraz_Versus_the_Evil_Librarians : country : United_States | United_States : ethnicGroup : Native_Americans_in_the_United_States <|endoftext|> 
+United_Kingdom : leaderName : David_Cameron | AIDS_(journal) : country : United_Kingdom | AIDS_(journal) : publisher : Lippincott_Williams_&_Wilkins | United_Kingdom : leaderName : Elizabeth_II <|endoftext|> 
+United_States : ethnicGroup : African_Americans | United_States : language : English_language | English_language : spokenIn : Great_Britain | A_Fortress_of_Grey_Ice : country : United_States <|endoftext|> 
+United_States : ethnicGroup : Asian_Americans | United_States : language : English_language | English_language : spokenIn : Great_Britain | A_Fortress_of_Grey_Ice : country : United_States <|endoftext|> 
+United_States : leaderName : Barack_Obama | United_States : language : English_language | A_Severed_Wasp : country : United_States | United_States : ethnicGroup : African_Americans <|endoftext|> 
+Abilene_Regional_Airport : cityServed : Abilene,_Texas | Abilene,_Texas : isPartOf : Texas | Abilene_Regional_Airport : runwayLength : 2194.0 | Abilene,_Texas : country : United_States | Abilene,_Texas : isPartOf : Jones_County,_Texas <|endoftext|> 
+Abilene_Regional_Airport : cityServed : Abilene,_Texas | Abilene_Regional_Airport : runwayLength : 2194.0 | Abilene_Regional_Airport : elevationAboveTheSeaLevel_(in_metres) : 546 | Abilene_Regional_Airport : ICAO_Location_Identifier : "KABI" | Abilene_Regional_Airport : runwayName : "17L/35R" <|endoftext|> 
+Abilene_Regional_Airport : cityServed : Abilene,_Texas | Abilene_Regional_Airport : runwayLength : 2194.0 | Abilene_Regional_Airport : elevationAboveTheSeaLevel_(in_metres) : 546 | Abilene_Regional_Airport : ICAO_Location_Identifier : "KABI" | Abilene_Regional_Airport : runwayName : "17R/35L" <|endoftext|> 
+Adolfo_Suárez_Madrid–Barajas_Airport : runwayLength : 4349.0 | Adolfo_Suárez_Madrid–Barajas_Airport : location : Madrid | Adolfo_Suárez_Madrid–Barajas_Airport : elevationAboveTheSeaLevel_(in_metres) : 610.0 | Adolfo_Suárez_Madrid–Barajas_Airport : operatingOrganisation : ENAIRE | Adolfo_Suárez_Madrid–Barajas_Airport : runwayName : "14L/32R" <|endoftext|> 
+Agra_Airport : ICAO_Location_Identifier : "VIAG" | Agra_Airport : location : Uttar_Pradesh | Uttar_Pradesh : isPartOf : Awadh | Uttar_Pradesh : leaderName : Ram_Naik | Uttar_Pradesh : isPartOf : Bundelkhand <|endoftext|> 
+Agra_Airport : nativeName : "Kheria Air Force Station" | Agra_Airport : location : Uttar_Pradesh | Uttar_Pradesh : isPartOf : Awadh | Uttar_Pradesh : leaderName : Ram_Naik | Uttar_Pradesh : isPartOf : Bundelkhand <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : attackAircraft : Lockheed_AC-130 | United_States_Air_Force : transportAircraft : Boeing_C-17_Globemaster_III | United_States_Air_Force : aircraftFighter : General_Dynamics_F-16_Fighting_Falcon | United_States_Air_Force : battles : United_States_invasion_of_Panama <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : attackAircraft : Lockheed_AC-130 | United_States_Air_Force : transportAircraft : Boeing_C-17_Globemaster_III | United_States_Air_Force : aircraftFighter : McDonnell_Douglas_F-15_Eagle | United_States_Air_Force : battles : Korean_War <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : battles : Invasion_of_Grenada | United_States_Air_Force : attackAircraft : Lockheed_AC-130 | United_States_Air_Force : battles : Korean_War | United_States_Air_Force : transportAircraft : Lockheed_C-130_Hercules <|endoftext|> 
+Al_Asad_Airbase : operatingOrganisation : United_States_Air_Force | United_States_Air_Force : battles : Invasion_of_Grenada | United_States_Air_Force : attackAircraft : Lockheed_AC-130 | United_States_Air_Force : transportAircraft : Boeing_C-17_Globemaster_III | United_States_Air_Force : battles : United_States_invasion_of_Panama <|endoftext|> 
+Allama_Iqbal_International_Airport : operatingOrganisation : Pakistan_Civil_Aviation_Authority | Lahore : country : Pakistan | Allama_Iqbal_International_Airport : location : Punjab,_Pakistan | Allama_Iqbal_International_Airport : cityServed : Lahore | Pakistan : leaderName : Anwar_Zaheer_Jamali <|endoftext|> 
+Allama_Iqbal_International_Airport : operatingOrganisation : Pakistan_Civil_Aviation_Authority | Punjab,_Pakistan : leaderName : Shehbaz_Sharif | Lahore : country : Pakistan | Allama_Iqbal_International_Airport : location : Punjab,_Pakistan | Allama_Iqbal_International_Airport : cityServed : Lahore <|endoftext|> 
+Andrews_County_Airport : location : Texas | Andrews_County_Airport : runwayLength : 896.0 | Andrews_County_Airport : cityServed : Andrews,_Texas | Andrews_County_Airport : elevationAboveTheSeaLevel_(in_metres) : 973.0 | Andrews_County_Airport : runwayName : "11/29" <|endoftext|> 
+Andrews_County_Airport : location : Texas | Texas : language : Spanish_language | Texas : largestCity : Houston | Texas : capital : Austin,_Texas | Texas : country : United_States <|endoftext|> 
+Andrews_County_Airport : location : Texas | Texas : language : Spanish_language | Texas : largestCity : Houston | Texas : capital : Austin,_Texas | Texas : demonym : Texan <|endoftext|> 
+Angola_International_Airport : location : Ícolo_e_Bengo | Ícolo_e_Bengo : country : Angola | Angola_International_Airport : cityServed : Luanda | Ícolo_e_Bengo : isPartOf : Luanda_Province | Angola_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 159 <|endoftext|> 
+Angola_International_Airport : location : Ícolo_e_Bengo | Ícolo_e_Bengo : country : Angola | Angola_International_Airport : runwayLength : 4000.0 | Ícolo_e_Bengo : isPartOf : Luanda_Province | Angola_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 159 <|endoftext|> 
+Antwerp_International_Airport : owner : Flemish_Region | Antwerp_International_Airport : operatingOrganisation : "Flemish department of Mobility and Public Works" | Antwerp_International_Airport : cityServed : Antwerp | Antwerp_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 12.0 | Antwerp_International_Airport : runwayLength : 600.0 <|endoftext|> 
+Appleton_International_Airport : location : Greenville,_Wisconsin | Appleton_International_Airport : runwayLength : 2439.0 | Appleton_International_Airport : cityServed : Appleton,_Wisconsin | Appleton_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 280 | Appleton_International_Airport : runwayName : "3/21" <|endoftext|> 
+Appleton_International_Airport : location : Greenville,_Wisconsin | Greenville,_Wisconsin : isPartOf : Menasha_(town),_Wisconsin | Greenville,_Wisconsin : country : United_States | Appleton_International_Airport : cityServed : Appleton,_Wisconsin | Greenville,_Wisconsin : isPartOf : Clayton,_Winnebago_County,_Wisconsin <|endoftext|> 
+Ardmore_Airport_(New_Zealand) : runwayLength : 1411.0 | Ardmore_Airport_(New_Zealand) : 3rd_runway_SurfaceType : Poaceae | Ardmore_Airport_(New_Zealand) : operatingOrganisation : Civil_Aviation_Authority_of_New_Zealand | Ardmore_Airport_(New_Zealand) : elevationAboveTheSeaLevel_(in_metres) : 34.0 | Ardmore_Airport_(New_Zealand) : runwayName : "03R/21L" <|endoftext|> 
+Ashgabat_International_Airport : operatingOrganisation : Turkmenistan_Airlines | Ashgabat_International_Airport : location : Ashgabat | Ashgabat_International_Airport : runwayLength : 2989.0 | Ashgabat_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 211 | Ashgabat_International_Airport : runwayName : "12R/30L" <|endoftext|> 
+Atlantic_City_International_Airport : runwayLength : 1873.0 | Atlantic_City_International_Airport : operatingOrganisation : Port_Authority_of_New_York_and_New_Jersey | Atlantic_City_International_Airport : elevationAboveTheSeaLevel_(in_metres) : 23.0 | Atlantic_City_International_Airport : ICAO_Location_Identifier : "KACY" | Atlantic_City_International_Airport : runwayName : "4/22" <|endoftext|> 
+Belgium : leaderName : Charles_Michel | Antwerp_International_Airport : cityServed : Antwerp | Flemish_Region : leaderName : Flemish_Government | Flemish_Region : country : Belgium | Flemish_Government : jurisdiction : Flemish_Region <|endoftext|> 
+Saranac_Lake,_New_York : isPartOf : Harrietstown,_New_York | Saranac_Lake,_New_York : isPartOf : Essex_County,_New_York | Adirondack_Regional_Airport : cityServed : Lake_Placid,_New_York | Adirondack_Regional_Airport : cityServed : Saranac_Lake,_New_York | Saranac_Lake,_New_York : country : United_States <|endoftext|> 
+Alan_Bean : was a crew member of : Apollo_12 | Alan_Bean : nationality : United_States | Apollo_12 : operator : NASA | Alan_Bean : occupation : Test_pilot | Alan_Bean : birthPlace : Wheeler,_Texas <|endoftext|> 
+Alan_Shepard : almaMater : "NWC, M.A. 1957" | Alan_Shepard : deathPlace : California | Alan_Shepard : birthPlace : New_Hampshire | Alan_Shepard : deathDate : "1998-07-21" | Alan_Shepard : birthDate : "1923-11-18" <|endoftext|> 
+Alan_Shepard : status : "Deceased" | Alan_Shepard : almaMater : "NWC, M.A. 1957" | Alan_Shepard : deathPlace : California | Alan_Shepard : occupation : Test_pilot | Alan_Shepard : birthPlace : New_Hampshire <|endoftext|> 
+Alan_Shepard : was a crew member of : Apollo_14 | Alan_Shepard : status : "Deceased" | Alan_Shepard : was selected by NASA : 1959 | Alan_Shepard : birthPlace : New_Hampshire | Apollo_14 : operator : NASA <|endoftext|> 
+Apollo_12 : backup pilot : Alfred_Worden | Alan_Bean : was a crew member of : Apollo_12 | Apollo_12 : operator : NASA | Alan_Bean : timeInSpace : "100305.0"(minutes) | Apollo_12 : commander : David_Scott <|endoftext|> 
+Distinguished_Service_Medal_(United_States_Navy) : higher : Department_of_Commerce_Gold_Medal | Alan_Shepard : deathPlace : California | Alan_Shepard : birthPlace : New_Hampshire | Alan_Shepard : birthDate : "1923-11-18" | Alan_Shepard : awards : Distinguished_Service_Medal_(United_States_Navy) <|endoftext|> 
+Elliot_See : almaMater : University_of_Texas_at_Austin | Elliot_See : birthPlace : Dallas | University_of_Texas_at_Austin : compete in : Big_12_Conference | University_of_Texas_at_Austin : affiliation : University_of_Texas_System | University_of_Texas_at_Austin : president : Gregory_L._Fenves <|endoftext|> 
+Elliot_See : almaMater : University_of_Texas_at_Austin | Elliot_See : status : "Deceased" | Elliot_See : deathPlace : St._Louis | Elliot_See : birthPlace : Dallas | Elliot_See : deathDate : "1966-02-28" <|endoftext|> 
+Elliot_See : almaMater : University_of_Texas_at_Austin | University_of_Texas_at_Austin : affiliations : University_of_Texas_System | Dallas : partsType : List_of_counties_in_Texas | Elliot_See : birthPlace : Dallas | University_of_Texas_at_Austin : compete in : Big_12_Conference <|endoftext|> 
+Elliot_See : almaMater : University_of_Texas_at_Austin | University_of_Texas_at_Austin : affiliations : University_of_Texas_System | Elliot_See : birthPlace : Dallas | Elliot_See : deathPlace : St._Louis | Elliot_See : status : "Deceased" <|endoftext|> 
+William_Anders : dateOfRetirement : "1969-09-01" | Apollo_8 : commander : Frank_Borman | William_Anders : was a crew member of : Apollo_8 | Apollo_8 : backup pilot : Buzz_Aldrin | Apollo_8 : operator : NASA <|endoftext|> 
+20_Fenchurch_Street : location : United_Kingdom | United_Kingdom : capital : London | London : leaderName : Boris_Johnson | United_Kingdom : leaderName : Elizabeth_II | United_Kingdom : currency : Pound_sterling <|endoftext|> 
+250_Delaware_Avenue : location : Buffalo,_New_York | 250_Delaware_Avenue : buildingStartDate : "January, 2014" | 250_Delaware_Avenue : cost : "110 million (dollars)" | 250_Delaware_Avenue : floorArea : 30843.8 (square metres) | 250_Delaware_Avenue : floorCount : 12 <|endoftext|> 
+300_North_LaSalle : location : Chicago | Chicago : leaderName : Rahm_Emanuel | Chicago : isPartOf : DuPage_County,_Illinois | 300_North_LaSalle : floorCount : 60 | Chicago : country : United_States <|endoftext|> 
+3Arena : owner : Live_Nation_Entertainment | Dublin : leaderTitle : Dáil_Éireann | Dublin : country : Republic_of_Ireland | 3Arena : location : Dublin | Dublin : isPartOf : Leinster <|endoftext|> 
+Adisham_Hall : architecturalStyle : "Tudor and Jacabian" | Adisham_Hall : location : Sri_Lanka | Adisham_Hall : completionDate : 1931 | Adisham_Hall : buildingStartDate : "1927" | Adisham_Hall : address : "St. Benedict's Monastery, Adisham, Haputhale, Sri Lanka" <|endoftext|> 
+Adisham_Hall : country : Sri_Lanka | Adisham_Hall : location : "Haputale, Sri Lanka" | Sri_Lanka : capital : Sri_Jayawardenepura_Kotte | Sri_Lanka : language : Tamil_language | Sri_Lanka : currency : Sri_Lankan_rupee <|endoftext|> 
+Adisham_Hall : country : Sri_Lanka | Adisham_Hall : location : Haputale | Sri_Lanka : leaderName : Ranil_Wickremesinghe | Sri_Lanka : capital : Sri_Jayawardenepura_Kotte | Sri_Lanka : currency : Sri_Lankan_rupee <|endoftext|> 
+Akita_Museum_of_Art : country : Japan | Akita,_Akita : isPartOf : Akita_Prefecture | Japan : leaderName : Tarō_Asō | Japan : ethnicGroup : Japanese_people | Akita_Museum_of_Art : location : Akita,_Akita <|endoftext|> 
+Amdavad_ni_Gufa : location : Gujarat | Amdavad_ni_Gufa : location : Ahmedabad | Amdavad_ni_Gufa : country : India | India : leaderName : Narendra_Modi | Gujarat : leaderTitle : Gujarat_Legislative_Assembly <|endoftext|> 
+Amdavad_ni_Gufa : location : Gujarat | India : leaderName : T._S._Thakur | Ahmedabad : country : India | Amdavad_ni_Gufa : location : Ahmedabad | Gujarat : leaderTitle : Gujarat_Legislative_Assembly <|endoftext|> 
+Ampara_Hospital : country : Sri_Lanka | Sri_Lanka : leaderName : Ranil_Wickremesinghe | Ampara_Hospital : bedCount : 476 | Ampara_Hospital : state : Eastern_Province,_Sri_Lanka | Eastern_Province,_Sri_Lanka : leaderName : Austin_Fernando <|endoftext|> 
+Asilomar_Conference_Grounds : architect : Julia_Morgan | Julia_Morgan : significantBuilding : Los_Angeles_Herald-Examiner | Julia_Morgan : significantBuilding : Riverside_Art_Museum | Julia_Morgan : significantProject : Hearst_Castle | Julia_Morgan : birthPlace : California <|endoftext|> 
+Asilomar_Conference_Grounds : architect : Julia_Morgan | Julia_Morgan : significantBuilding : Riverside_Art_Museum | Julia_Morgan : significantProject : Hearst_Castle | Julia_Morgan : significantBuilding : Chinatown,_San_Francisco | Julia_Morgan : birthPlace : California <|endoftext|> 
+Asilomar_Conference_Grounds : location : Pacific_Grove,_California | Asilomar_Conference_Grounds : added to the National Register of Historic Places : "1987-02-27" | Asilomar_Conference_Grounds : architecturalStyle : Arts_and_Crafts_movement | Asilomar_Conference_Grounds : ReferenceNumber in the National Register of Historic Places : "87000823" | Asilomar_Conference_Grounds : yearOfConstruction : 1913 <|endoftext|> 
+Asser_Levy_Public_Baths : location : 23rd_Street_(Manhattan) | Asser_Levy_Public_Baths : architecturalStyle : Romanesque_Revival_architecture | Asser_Levy_Public_Baths : ReferenceNumber in the National Register of Historic Places : "80002709" | Asser_Levy_Public_Baths : yearOfConstruction : 1904 | Asser_Levy_Public_Baths : added to the National Register of Historic Places : "1980-04-23" <|endoftext|> 
+Asser_Levy_Public_Baths : location : New_York_City | New_York_City : country : United_States | Manhattan : leaderName : Gale_Brewer | New_York_City : isPartOf : New_York | New_York_City : isPartOf : Manhattan <|endoftext|> 
+Birmingham : postalCode : B_postcode_area | 103_Colmore_Row : architect : John_Madin | John_Madin : birthPlace : Birmingham | Birmingham : governingBody : Birmingham_City_Council | Birmingham : leaderName : Andrew_Mitchell <|endoftext|> 
+Ethiopia : leaderName : Mulatu_Teshome | Ethiopia : leaderName : Hailemariam_Desalegn | Addis_Ababa : isPartOf : Addis_Ababa_Stadium | Addis_Ababa_City_Hall : location : Addis_Ababa | Addis_Ababa : country : Ethiopia <|endoftext|> 
+United_States : ethnicGroup : African_Americans | United_States : language : English_language | United_States : leaderTitle : President_of_the_United_States | United_States : leaderName : John_Roberts | 250_Delaware_Avenue : location : United_States <|endoftext|> 
+United_States : language : English_language | United_States : leaderTitle : President_of_the_United_States | United_States : leaderName : Joe_Biden | 250_Delaware_Avenue : location : United_States | United_States : ethnicGroup : White_Americans <|endoftext|> 
+Bananaman : starring : Tim_Brooke-Taylor | Bananaman : broadcastedBy : BBC | Bananaman : creator : John_Geering | Bananaman : firstAired : "1983-10-03" | Bananaman : lastAired : "1986-04-15" <|endoftext|> 
+Duncan_Rouleau : nationality : Americans | Baymax : creator : Duncan_Rouleau | Baymax : creator : Steven_T._Seagle | Baymax : series : Big_Hero_6_(film) | Big_Hero_6_(film) : starring : Scott_Adsit <|endoftext|> 
+Ajoblanco : country : Spain | Ajoblanco : mainIngredients : "Bread, almonds, garlic, water, olive oil" | Ajoblanco : region : Andalusia | Ajoblanco : alternativeName : "Ajo blanco" | Ajoblanco : ingredient : Bread <|endoftext|> 
+Amatriciana_sauce : region : Lazio | Amatriciana_sauce : country : Italy | Amatriciana_sauce : ingredient : Guanciale | Amatriciana_sauce : course : Italian_meal_structure | Amatriciana_sauce : mainIngredients : "Tomatoes, guanciale, cheese, olive oil" <|endoftext|> 
+Arem-arem : country : Indonesia | Arem-arem : region : Javanese_cuisine | Indonesia : leaderName : Joko_Widodo | Indonesia : currency : Indonesian_rupiah | Indonesia : language : Indonesian_language <|endoftext|> 
+Arrabbiata_sauce : country : Italy | Italy : demonym : Italians | Italy : capital : Rome | Italy : language : Italian_language | Italy : leaderName : Sergio_Mattarella <|endoftext|> 
+Arròs_negre : region : Valencian_Community | Valencian_Community : leaderName : Ximo_Puig | Arròs_negre : country : Spain | Spain : demonym : Spaniards | Spain : leaderName : Felipe_VI_of_Spain <|endoftext|> 
+Asam_pedas : country : Malaysia | Malaysia : ethnicGroup : Malaysian_Chinese | Malaysia : capital : Kuala_Lumpur | Malaysia : ethnicGroup : Malaysian_Indian | Asam_pedas : region : Malay_Peninsula <|endoftext|> 
+Asam_pedas : country : Malaysia | Malaysia : ethnicGroup : Malaysian_Chinese | Malaysia : leaderName : Arifin_Zakaria | Malaysia : ethnicGroup : Malaysian_Indian | Asam_pedas : region : Malay_Peninsula <|endoftext|> 
+Ayam_penyet : region : "Nationwide, also can be found in Malaysia and Singapore" | Ayam_penyet : country : Java | Ayam_penyet : ingredient : Fried_chicken | Ayam_penyet : mainIngredients : "Squeezed" or "smashed" fried chicken served with sambal | Ayam_penyet : servingTemperature : "Hot" <|endoftext|> 
+Ayam_penyet : region : Malaysia | Malaysia : ethnicGroup : Malaysian_Chinese | Ayam_penyet : ingredient : Fried_chicken | Ayam_penyet : country : Indonesia | Ayam_penyet : mainIngredients : "Squeezed" or "smashed" fried chicken served with sambal <|endoftext|> 
+Bacon_Explosion : country : United_States | United_States : leaderName : Barack_Obama | United_States : ethnicGroup : Native_Americans_in_the_United_States | United_States : capital : Washington,_D.C. | United_States : language : English_language <|endoftext|> 
+Baked_Alaska : country : France | Hong_Kong : leaderName : Carrie_Lam_(politician) | France : leaderName : Gérard_Larcher | France : language : French_language | Baked_Alaska : region : Hong_Kong <|endoftext|> 
+Bakewell_pudding : region : Derbyshire_Dales | Derbyshire_Dales : leaderName : Patrick_McLoughlin | Bakewell_pudding : dishVariation : Bakewell_tart | Derbyshire_Dales : isPartOf : Derbyshire | Bakewell_tart : ingredient : Shortcrust_pastry <|endoftext|> 
+Bandeja_paisa : ingredient : Lemon | Lemon : family : Rutaceae | Bandeja_paisa : country : Colombian_cuisine | Bandeja_paisa : region : Paisa_Region | Lemon : genus : Citrus <|endoftext|> 
+Bandeja_paisa : ingredient : Lemon | Lemon : order : Rosids | Lemon : family : Rutaceae | Bandeja_paisa : country : Colombian_cuisine | Bandeja_paisa : region : Paisa_Region <|endoftext|> 
+Barny_Cakes : country : France | France : language : French_language | France : leaderName : Gérard_Larcher | France : leaderName : Claude_Bartolone | Barny_Cakes : ingredient : Sponge_cake <|endoftext|> 
+Barny_Cakes : country : France | France : leaderName : Gérard_Larcher | France : language : French_language | Mondelez_International : foundationPlace : Chicago | Barny_Cakes : creator : Mondelez_International <|endoftext|> 
+Beef_kway_teow : region : Singapore | Singapore : language : English_language | Beef_kway_teow : country : "Singapore and Indonesia" | Singapore : leaderName : Tony_Tan | Singapore : leaderName : Halimah_Yacob <|endoftext|> 
+Bhajji : country : India | Bhajji : region : Karnataka | Bhajji : mainIngredients : "Gram flour, vegetables" | Bhajji : alternativeName : "Bhaji, bajji" | Bhajji : ingredient : Vegetable <|endoftext|> 
+Bhajji : country : India | India : demonym : Indian_people | India : leaderName : Sumitra_Mahajan | Bhajji : region : Karnataka | Karnataka : leaderName : Vajubhai_Vala <|endoftext|> 
+Bionico : country : Mexico | Bionico : region : Jalisco | Jalisco : leaderName : Jesús_Casillas_Romero | Dessert : dishVariation : Cake | Bionico : course : Dessert <|endoftext|> 
+Bionico : country : Mexico | Dessert : dishVariation : Cake | Mexico : leaderName : Enrique_Peña_Nieto | Bionico : course : Dessert | Bionico : region : Guadalajara <|endoftext|> 
+Derbyshire_Dales : leaderName : Patrick_McLoughlin | Bakewell_pudding : dishVariation : Bakewell_tart | Bakewell_tart : region : Derbyshire_Dales | Derbyshire_Dales : administrativeCounty : Derbyshire | Bakewell_tart : ingredient : Frangipane <|endoftext|> 
+Derbyshire_Dales : leaderName : Patrick_McLoughlin | Bakewell_pudding : dishVariation : Bakewell_tart | Bakewell_tart : region : Derbyshire_Dales | Derbyshire_Dales : isPartOf : Derbyshire | Bakewell_tart : ingredient : Frangipane <|endoftext|> 
+Indonesia : capital : Jakarta | Indonesia : language : Indonesian_language | Indonesia : leaderName : Jusuf_Kalla | Bakso : region : Indonesia | Bakso : country : Indonesia <|endoftext|> 
+Italy : demonym : Italians | Italy : capital : Rome | Italy : leaderName : Matteo_Renzi | Amatriciana_sauce : country : Italy | Italy : leaderName : Sergio_Mattarella <|endoftext|> 
+Java : ethnicGroup : Baduy | Singapore : language : English_language | Singapore : leaderName : Halimah_Yacob | Ayam_penyet : region : Singapore | Ayam_penyet : country : Java <|endoftext|> 
+Philippines : ethnicGroup : Ilocano_people | Philippines : language : Arabic | Philippines : officialLanguage : Philippine_English | Batchoy : country : Philippines | Philippines : ethnicGroup : Igorot_people <|endoftext|> 
+Singapore : language : English_language | Beef_kway_teow : country : Singapore | Beef_kway_teow : region : "Nationwide in Singapore and Indonesia" | Singapore : leaderName : Tony_Tan | Singapore : leaderName : Halimah_Yacob <|endoftext|> 
+Spain : leaderName : Felipe_VI_of_Spain | Spain : language : Spanish_language | Spain : currency : Euro | Ajoblanco : country : Spain | Spain : demonym : Spaniards <|endoftext|> 
+Adams_County,_Pennsylvania : has to its west : Franklin_County,_Pennsylvania | Adams_County,_Pennsylvania : has to its southeast : Carroll_County,_Maryland | Adams_County,_Pennsylvania : has to its north : Cumberland_County,_Pennsylvania | 11th_Mississippi_Infantry_Monument : municipality : Gettysburg,_Pennsylvania | 11th_Mississippi_Infantry_Monument : location : Adams_County,_Pennsylvania <|endoftext|> 
+Azerbaijan : capital : Baku | Azerbaijan : leaderTitle : Prime_Minister_of_Azerbaijan | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Azerbaijan : leaderName : Artur_Rasizade | Azerbaijan : legislature : National_Assembly_(Azerbaijan) <|endoftext|> 
+Baku_Turkish_Martyrs'_Memorial : dedicatedTo : "Ottoman Army soldiers killed in the Battle of Baku" | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Baku_Turkish_Martyrs'_Memorial : nativeName : "Türk Şehitleri Anıtı" | Azerbaijan : leaderName : Artur_Rasizade | Baku_Turkish_Martyrs'_Memorial : designer : "Hüseyin Bütüner and Hilmi Güner" <|endoftext|> 
+Baku_Turkish_Martyrs'_Memorial : dedicatedTo : "Ottoman Army soldiers killed in the Battle of Baku" | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Baku_Turkish_Martyrs'_Memorial : nativeName : "Türk Şehitleri Anıtı" | Baku_Turkish_Martyrs'_Memorial : designer : "Hüseyin Bütüner and Hilmi Güner" | Baku_Turkish_Martyrs'_Memorial : material : "Red granite and white marble" <|endoftext|> 
+Baku_Turkish_Martyrs'_Memorial : material : "Red granite and white marble" | Azerbaijan : leaderTitle : Prime_Minister_of_Azerbaijan | Baku_Turkish_Martyrs'_Memorial : dedicatedTo : "Ottoman Army soldiers killed in the Battle of Baku" | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Baku_Turkish_Martyrs'_Memorial : designer : "Hüseyin Bütüner and Hilmi Güner" <|endoftext|> 
+A.F.C._Blackpool : manager : Stuart_Parker_(footballer) | Stuart_Parker_(footballer) : club : KV_Mechelen | Stuart_Parker_(footballer) : club : Chesterfield_F.C. | Blackpool : leader : Gordon_Marsden | A.F.C._Blackpool : ground : Blackpool <|endoftext|> 
+AEK_Athens_F.C. : league : Superleague_Greece | Superleague_Greece : champions : Olympiacos_F.C. | AEK_Athens_F.C. : manager : Gus_Poyet | Gus_Poyet : club : Real_Zaragoza | Gus_Poyet : club : Chelsea_F.C. <|endoftext|> 
+Agremiação_Sportiva_Arapiraquense : league : Campeonato_Brasileiro_Série_C | Campeonato_Brasileiro_Série_C : country : Brazil | Agremiação_Sportiva_Arapiraquense : ground : Estádio_Municipal_Coaracy_da_Mata_Fonseca | Estádio_Municipal_Coaracy_da_Mata_Fonseca : location : Alagoas | Campeonato_Brasileiro_Série_C : champions : Vila_Nova_Futebol_Clube <|endoftext|> 
+Agremiação_Sportiva_Arapiraquense : league : Campeonato_Brasileiro_Série_C | Campeonato_Brasileiro_Série_C : country : Brazil | Agremiação_Sportiva_Arapiraquense : ground : Estádio_Municipal_Coaracy_da_Mata_Fonseca | Estádio_Municipal_Coaracy_da_Mata_Fonseca : location : Arapiraca | Campeonato_Brasileiro_Série_C : champions : Vila_Nova_Futebol_Clube <|endoftext|> 
+Agremiação_Sportiva_Arapiraquense : league : Campeonato_Brasileiro_Série_C | Campeonato_Brasileiro_Série_C : country : Brazil | Agremiação_Sportiva_Arapiraquense : manager : Vica | Agremiação_Sportiva_Arapiraquense : numberOfMembers : 17000 | Campeonato_Brasileiro_Série_C : champions : Vila_Nova_Futebol_Clube <|endoftext|> 
+Accademia_di_Architettura_di_Mendrisio : country : Switzerland | Accademia_di_Architettura_di_Mendrisio : dean : Mario_Botta | Accademia_di_Architettura_di_Mendrisio : city : Mendrisio | Accademia_di_Architettura_di_Mendrisio : numberOfStudents : 600 | Accademia_di_Architettura_di_Mendrisio : academicStaffSize : 100 <|endoftext|> 
+Accademia_di_Architettura_di_Mendrisio : country : Switzerland | Accademia_di_Architettura_di_Mendrisio : numberOfStudents : 600 | Accademia_di_Architettura_di_Mendrisio : established : 1996 | Switzerland : leaderName : Johann_Schneider-Ammann | Accademia_di_Architettura_di_Mendrisio : location : Ticino <|endoftext|> 
+Acharya_Institute_of_Technology : affiliation : Visvesvaraya_Technological_University | Karnataka : has to its northeast : Telangana | Acharya_Institute_of_Technology : city : Bangalore | Karnataka : has to its west : Arabian_Sea | Acharya_Institute_of_Technology : state : Karnataka <|endoftext|> 
+Acharya_Institute_of_Technology : city : Bangalore | Acharya_Institute_of_Technology : established : 2000 | Acharya_Institute_of_Technology : country : "India" | Acharya_Institute_of_Technology : numberOfPostgraduateStudents : 700 | Acharya_Institute_of_Technology : campus : "In Soldevanahalli, Acharya Dr. Sarvapalli Radhakrishnan Road, Hessarghatta Main Road, Bangalore – 560090." <|endoftext|> 
+Bangalore : founder : Kempe_Gowda_I | Acharya_Institute_of_Technology : city : Bangalore | Karnataka : has to its west : Arabian_Sea | Acharya_Institute_of_Technology : state : Karnataka | Acharya_Institute_of_Technology : affiliation : Visvesvaraya_Technological_University <|endoftext|> 
+Romania : leaderTitle : Prime_Minister_of_Romania | Alba_Iulia : country : Romania | Romania : leaderName : Klaus_Iohannis | Romania : capital : Bucharest | 1_Decembrie_1918_University : city : Alba_Iulia <|endoftext|> 
+School of Business and Social Sciences at the Aarhus University : affiliation : European_University_Association | School of Business and Social Sciences at the Aarhus University : numberOfStudents : 16000 | School of Business and Social Sciences at the Aarhus University : academicStaffSize : 737 | School of Business and Social Sciences at the Aarhus University : country : Denmark | School of Business and Social Sciences at the Aarhus University : established : 1928 <|endoftext|> 
+A_Long_Long_Way : country : Ireland | Ireland : ethnicGroup : White_people | The_Secret_Scripture : publisher : Faber_and_Faber | Ireland : location : Europe | A_Long_Long_Way : followedBy : The_Secret_Scripture <|endoftext|> 
+A_Long_Long_Way : precededBy : Annie_Dunne | A_Long_Long_Way : country : Ireland | Ireland : ethnicGroup : White_people | The_Secret_Scripture : publisher : Faber_and_Faber | A_Long_Long_Way : followedBy : The_Secret_Scripture <|endoftext|> 
+Above_the_Veil : country : Australians | Into_Battle_(novel) : followedBy : The_Violet_Keystone | Above_the_Veil : followedBy : Into_Battle_(novel) | Above_the_Veil : precededBy : Aenir | Aenir : precededBy : Castle_(novel) <|endoftext|> 
+Administrative_Science_Quarterly : publisher : Cornell_University | Cornell_University : nickname : Cornell_Big_Red | Cornell_University : affiliation : Association_of_American_Universities | Cornell_University : state : New_York | Cornell_University : city : Ithaca,_New_York <|endoftext|> 
+Administrative_Science_Quarterly : publisher : Cornell_University | Cornell_University : nickname : Cornell_Big_Red | Cornell_University : affiliation : Association_of_Public_and_Land-grant_Universities | Cornell_University : state : New_York | Cornell_University : city : Ithaca,_New_York <|endoftext|> 
+Alcatraz_Versus_the_Evil_Librarians : language : English_language | English_language : spokenIn : Great_Britain | United_States : leaderName : Barack_Obama | Alcatraz_Versus_the_Evil_Librarians : country : United_States | United_States : ethnicGroup : African_Americans <|endoftext|> 
+English_language : spokenIn : Great_Britain | United_States : language : English_language | United_States : capital : Washington,_D.C. | A_Severed_Wasp : country : United_States | United_States : ethnicGroup : African_Americans <|endoftext|> 
+English_language : spokenIn : Great_Britain | United_States : language : English_language | United_States : leaderName : Joe_Biden | Alcatraz_Versus_the_Evil_Librarians : country : United_States | United_States : ethnicGroup : African_Americans <|endoftext|> 
+United_Kingdom : language : English_language | United_Kingdom : leaderName : David_Cameron | AIDS_(journal) : country : United_Kingdom | United_Kingdom : capital : London | United_Kingdom : leaderName : Elizabeth_II <|endoftext|> 
+United_Kingdom : leaderName : Elizabeth_II | United_Kingdom : leaderName : David_Cameron | AIDS_(journal) : country : United_Kingdom | AIDS_(journal) : publisher : Lippincott_Williams_&_Wilkins | Lippincott_Williams_&_Wilkins : parentCompany : Wolters_Kluwer <|endoftext|> 
+United_States : leaderName : Barack_Obama | A_Severed_Wasp : language : English_language | English_language : spokenIn : Great_Britain | A_Severed_Wasp : country : United_States | United_States : ethnicGroup : Native_Americans_in_the_United_States <|endoftext|> 
+United_States : leaderName : Barack_Obama | English_language : spokenIn : Great_Britain | United_States : language : English_language | A_Severed_Wasp : country : United_States | United_States : ethnicGroup : Native_Americans_in_the_United_States <|endoftext|> 
+Alan_Bean : was a crew member of : Apollo_12 | Alan_Bean : nationality : United_States | Apollo_12 : operator : NASA | Apollo_12 : commander : David_Scott | Alan_Bean : birthPlace : Wheeler,_Texas | Alan_Bean : status : "Retired" <|endoftext|> 
+Alan_Shepard : almaMater : "NWC, M.A. 1957" | Alan_Shepard : deathPlace : California | Alan_Shepard : birthPlace : New_Hampshire | Alan_Shepard : was selected by NASA : 1959 | Alan_Shepard : nationality : United_States | Alan_Shepard : birthDate : "1923-11-18" <|endoftext|> 
+Alan_Shepard : status : "Deceased" | Alan_Shepard : almaMater : "NWC, M.A. 1957" | Alan_Shepard : deathPlace : California | Alan_Shepard : birthPlace : New_Hampshire | Alan_Shepard : was selected by NASA : 1959 | Alan_Shepard : birthDate : "1923-11-18" <|endoftext|> 
+Alan_Shepard : was a crew member of : Apollo_14 | Alan_Shepard : deathPlace : California | Alan_Shepard : birthPlace : New_Hampshire | Alan_Shepard : dateOfRetirement : "1974-08-01" | Apollo_14 : operator : NASA | Alan_Shepard : birthDate : "1923-11-18" <|endoftext|> 
+Alan_Shepard : was awarded : "American Defense Service ribbon.svg" | Alan_Shepard : deathDate : "1998-07-21" | Distinguished_Service_Medal_(United_States_Navy) : higher : Department_of_Commerce_Gold_Medal | Alan_Shepard : deathPlace : California | Alan_Shepard : birthPlace : New_Hampshire | Alan_Shepard : awards : Distinguished_Service_Medal_(United_States_Navy) <|endoftext|> 
+Buzz_Aldrin : birthPlace : Glen_Ridge,_New_Jersey | Buzz_Aldrin : alternativeNames : "Edwin E. Aldrin, Jr." | Buzz_Aldrin : was a crew member of : Apollo_11 | Buzz_Aldrin : occupation : Fighter_pilot | Buzz_Aldrin : almaMater : "Massachusetts Institute of Technology, Sc.D. 1963" | Buzz_Aldrin : birthDate : "1930-01-20" <|endoftext|> 
+Buzz_Aldrin : birthPlace : Glen_Ridge,_New_Jersey | Buzz_Aldrin : was selected by NASA : 1963 | Buzz_Aldrin : was a crew member of : Apollo_11 | Buzz_Aldrin : almaMater : "Massachusetts Institute of Technology, Sc.D. 1963" | Buzz_Aldrin : birthDate : "1930-01-20" | Buzz_Aldrin : status : "Retired" <|endoftext|> 
+Buzz_Aldrin : was a crew member of : Apollo_11 | Buzz_Aldrin : was selected by NASA : 1963 | Buzz_Aldrin : occupation : Fighter_pilot | Buzz_Aldrin : almaMater : "Massachusetts Institute of Technology, Sc.D. 1963" | Apollo_11 : backup pilot : William_Anders | Apollo_11 : operator : NASA <|endoftext|> 
+Elliot_See : almaMater : University_of_Texas_at_Austin | Elliot_See : status : "Deceased" | Elliot_See : deathPlace : St._Louis | Elliot_See : birthPlace : Dallas | Elliot_See : deathDate : "1966-02-28" | Elliot_See : nationality : United_States <|endoftext|> 
+Elliot_See : almaMater : University_of_Texas_at_Austin | University_of_Texas_at_Austin : affiliations : University_of_Texas_System | Elliot_See : birthDate : "1927-07-23" | Elliot_See : birthPlace : Dallas | Elliot_See : deathPlace : St._Louis | Elliot_See : status : "Deceased" <|endoftext|> 
+William_Anders : dateOfRetirement : "1969-09-01" | William_Anders : birthDate : "1933-10-17" | William_Anders : occupation : Fighter_pilot | William_Anders : birthPlace : British_Hong_Kong | William_Anders : was a crew member of : Apollo_8 | William_Anders : almaMater : "AFIT, M.S. 1962" <|endoftext|> 
+Atatürk_Monument_(İzmir) : designer : Pietro_Canonica | Turkey : leaderName : Ahmet_Davutoğlu | Turkey : capital : Ankara | Atatürk_Monument_(İzmir) : material : "Bronze" | Atatürk_Monument_(İzmir) : inaugurationDate : "1932-07-27" | Atatürk_Monument_(İzmir) : location : Turkey <|endoftext|> 
+Azerbaijan : leaderTitle : Prime_Minister_of_Azerbaijan | Baku_Turkish_Martyrs'_Memorial : dedicatedTo : "Ottoman Army soldiers killed in the Battle of Baku" | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Baku_Turkish_Martyrs'_Memorial : nativeName : "Türk Şehitleri Anıtı" | Azerbaijan : leaderName : Artur_Rasizade | Baku_Turkish_Martyrs'_Memorial : designer : "Hüseyin Bütüner and Hilmi Güner" <|endoftext|> 
+Monocacy_National_Battlefield : location : Frederick_County,_Maryland | 14th_New_Jersey_Volunteer_Infantry_Monument : established : "1907-07-11" | 14th_New_Jersey_Volunteer_Infantry_Monument : category : Historic_districts_in_the_United_States | 14th_New_Jersey_Volunteer_Infantry_Monument : district : Monocacy_National_Battlefield | Monocacy_National_Battlefield : nearestCity : Frederick,_Maryland | 14th_New_Jersey_Volunteer_Infantry_Monument : owningOrganisation : National_Park_Service <|endoftext|> 
+Monocacy_National_Battlefield : location : Frederick_County,_Maryland | 14th_New_Jersey_Volunteer_Infantry_Monument : established : "1907-07-11" | 14th_New_Jersey_Volunteer_Infantry_Monument : country : "United States" | 14th_New_Jersey_Volunteer_Infantry_Monument : category : Historic_districts_in_the_United_States | 14th_New_Jersey_Volunteer_Infantry_Monument : district : Monocacy_National_Battlefield | 14th_New_Jersey_Volunteer_Infantry_Monument : owningOrganisation : National_Park_Service <|endoftext|> 
+Accademia_di_Architettura_di_Mendrisio : country : Switzerland | Accademia_di_Architettura_di_Mendrisio : numberOfStudents : 600 | Accademia_di_Architettura_di_Mendrisio : established : 1996 | Switzerland : leaderName : Johann_Schneider-Ammann | Accademia_di_Architettura_di_Mendrisio : location : Ticino | Switzerland : leaderTitle : Federal_Chancellor_of_Switzerland <|endoftext|> 
+Acharya_Institute_of_Technology : city : Bangalore | Acharya_Institute_of_Technology : director : "Dr. G. P. Prabhukumar" | Acharya_Institute_of_Technology : established : 2000 | Acharya_Institute_of_Technology : country : "India" | Acharya_Institute_of_Technology : state : Karnataka | Acharya_Institute_of_Technology : campus : "In Soldevanahalli, Acharya Dr. Sarvapalli Radhakrishnan Road, Hessarghatta Main Road, Bangalore – 560090." <|endoftext|> 
+Acharya_Institute_of_Technology : president : "B.M. Reddy" | Acharya_Institute_of_Technology : city : Bangalore | Acharya_Institute_of_Technology : director : "Dr. G. P. Prabhukumar" | Acharya_Institute_of_Technology : established : 2000 | Acharya_Institute_of_Technology : country : "India" | Acharya_Institute_of_Technology : affiliation : Visvesvaraya_Technological_University <|endoftext|> 
+Acharya_Institute_of_Technology : was given the 'Technical Campus' status by : All_India_Council_for_Technical_Education | All_India_Council_for_Technical_Education : location : Mumbai | Acharya_Institute_of_Technology : sportsOffered : Tennis | Karnataka : has to its west : Arabian_Sea | Acharya_Institute_of_Technology : state : Karnataka | Tennis : sportsGoverningBody : International_Tennis_Federation <|endoftext|> 
+Acharya_Institute_of_Technology : was given the 'Technical Campus' status by : All_India_Council_for_Technical_Education | All_India_Council_for_Technical_Education : location : Mumbai | Visvesvaraya_Technological_University : city : Belgaum | Acharya_Institute_of_Technology : sportsOffered : Tennis | Tennis : sportsGoverningBody : International_Tennis_Federation | Acharya_Institute_of_Technology : affiliation : Visvesvaraya_Technological_University <|endoftext|> 
+Romania : ethnicGroup : Germans_of_Romania | Romania : leaderName : Klaus_Iohannis | Romania : leaderTitle : Prime_Minister_of_Romania | Romania : patronSaint : Andrew_the_Apostle | Romania : capital : Bucharest | 1_Decembrie_1918_University : country : Romania <|endoftext|> 
+School of Business and Social Sciences at the Aarhus University : academicStaffSize : 737 | Denmark : leaderName : Lars_Løkke_Rasmussen | School of Business and Social Sciences at the Aarhus University : city : Aarhus | School of Business and Social Sciences at the Aarhus University : country : Denmark | School of Business and Social Sciences at the Aarhus University : affiliation : European_University_Association | School of Business and Social Sciences at the Aarhus University : established : 1928 <|endoftext|> 
+School of Business and Social Sciences at the Aarhus University : city : Aarhus | School of Business and Social Sciences at the Aarhus University : numberOfStudents : 16000 | School of Business and Social Sciences at the Aarhus University : academicStaffSize : 737 | School of Business and Social Sciences at the Aarhus University : country : Denmark | School of Business and Social Sciences at the Aarhus University : affiliation : European_University_Association | School of Business and Social Sciences at the Aarhus University : established : 1928 <|endoftext|> 
+Alan_Bean : was a crew member of : Apollo_12 | Alan_Bean : nationality : United_States | Apollo_12 : operator : NASA | Alan_Bean : occupation : Test_pilot | Alan_Bean : birthPlace : Wheeler,_Texas | Alan_Bean : status : "Retired" | Alan_Bean : birthDate : "1932-03-15" <|endoftext|> 
+Alan_Bean : was a crew member of : Apollo_12 | Apollo_12 : operator : NASA | Alan_Bean : occupation : Test_pilot | Apollo_12 : commander : David_Scott | Alan_Bean : birthPlace : Wheeler,_Texas | Alan_Bean : status : "Retired" | Alan_Bean : almaMater : "UT Austin, B.S. 1955" <|endoftext|> 
+Alan_Shepard : almaMater : "NWC, M.A. 1957" | Alan_Shepard : was a crew member of : Apollo_14 | Alan_Shepard : deathPlace : California | Alan_Shepard : birthPlace : New_Hampshire | Alan_Shepard : was selected by NASA : 1959 | Alan_Shepard : nationality : United_States | Alan_Shepard : birthDate : "1923-11-18" <|endoftext|> 
+Alan_Shepard : status : "Deceased" | Alan_Shepard : almaMater : "NWC, M.A. 1957" | Alan_Shepard : deathPlace : California | Alan_Shepard : occupation : Test_pilot | Alan_Shepard : birthPlace : New_Hampshire | Alan_Shepard : nationality : United_States | Alan_Shepard : birthDate : "1923-11-18" <|endoftext|> 
+Alan_Shepard : status : "Deceased" | Alan_Shepard : occupation : Test_pilot | Distinguished_Service_Medal_(United_States_Navy) : higher : Department_of_Commerce_Gold_Medal | Alan_Shepard : deathPlace : California | Alan_Shepard : birthPlace : New_Hampshire | Alan_Shepard : birthDate : "1923-11-18" | Alan_Shepard : awards : Distinguished_Service_Medal_(United_States_Navy) <|endoftext|> 
+Buzz_Aldrin : birthPlace : Glen_Ridge,_New_Jersey | Buzz_Aldrin : alternativeNames : "Edwin E. Aldrin, Jr." | Buzz_Aldrin : nationality : United_States | Buzz_Aldrin : was a crew member of : Apollo_11 | Buzz_Aldrin : occupation : Fighter_pilot | Buzz_Aldrin : almaMater : "Massachusetts Institute of Technology, Sc.D. 1963" | Buzz_Aldrin : status : "Retired" <|endoftext|> 
+Buzz_Aldrin : birthPlace : Glen_Ridge,_New_Jersey | Buzz_Aldrin : was a crew member of : Apollo_11 | Buzz_Aldrin : nationality : United_States | United_States : leaderName : Joe_Biden | Glen_Ridge,_New_Jersey : isPartOf : Essex_County,_New_Jersey | Apollo_11 : backup pilot : William_Anders | Apollo_11 : operator : NASA <|endoftext|> 
+Buzz_Aldrin : birthPlace : Glen_Ridge,_New_Jersey | Buzz_Aldrin : was a crew member of : Apollo_11 | Buzz_Aldrin : status : "Retired" | Buzz_Aldrin : birthDate : "1930-01-20" | Buzz_Aldrin : was selected by NASA : 1963 | Buzz_Aldrin : almaMater : "Massachusetts Institute of Technology, Sc.D. 1963" | Apollo_11 : operator : NASA <|endoftext|> 
+Buzz_Aldrin : birthPlace : Glen_Ridge,_New_Jersey | Buzz_Aldrin : was a crew member of : Apollo_11 | Buzz_Aldrin : was selected by NASA : 1963 | Buzz_Aldrin : occupation : Fighter_pilot | Buzz_Aldrin : almaMater : "Massachusetts Institute of Technology, Sc.D. 1963" | Apollo_11 : backup pilot : William_Anders | Apollo_11 : operator : NASA <|endoftext|> 
+Elliot_See : almaMater : University_of_Texas_at_Austin | Elliot_See : occupation : Test_pilot | Elliot_See : birthDate : "1927-07-23" | Elliot_See : birthPlace : Dallas | University_of_Texas_at_Austin : affiliation : University_of_Texas_System | Elliot_See : deathPlace : St._Louis | Elliot_See : status : "Deceased" <|endoftext|> 
+Elliot_See : almaMater : University_of_Texas_at_Austin | Elliot_See : status : "Deceased" | Elliot_See : deathPlace : St._Louis | Elliot_See : birthDate : "1927-07-23" | Elliot_See : birthPlace : Dallas | Elliot_See : deathDate : "1966-02-28" | Elliot_See : occupation : Test_pilot <|endoftext|> 
+William_Anders : dateOfRetirement : "1969-09-01" | William_Anders : nationality : United_States | William_Anders : status : "Retired" | William_Anders : birthDate : "1933-10-17" | William_Anders : occupation : Fighter_pilot | William_Anders : birthPlace : British_Hong_Kong | William_Anders : almaMater : "AFIT, M.S. 1962" <|endoftext|> 
+11th_Mississippi_Infantry_Monument : country : "United States" | Adams_County,_Pennsylvania : has to its southeast : Carroll_County,_Maryland | 11th_Mississippi_Infantry_Monument : established : 2000 | Adams_County,_Pennsylvania : has to its north : Cumberland_County,_Pennsylvania | 11th_Mississippi_Infantry_Monument : category : Contributing_property | 11th_Mississippi_Infantry_Monument : municipality : Gettysburg,_Pennsylvania | 11th_Mississippi_Infantry_Monument : location : Adams_County,_Pennsylvania <|endoftext|> 
+Atatürk_Monument_(İzmir) : designer : Pietro_Canonica | Turkey : leaderName : Ahmet_Davutoğlu | Turkey : capital : Ankara | Atatürk_Monument_(İzmir) : material : "Bronze" | Turkey : currency : Turkish_lira | Atatürk_Monument_(İzmir) : inaugurationDate : "1932-07-27" | Atatürk_Monument_(İzmir) : location : Turkey <|endoftext|> 
+Azerbaijan : capital : Baku | Baku_Turkish_Martyrs'_Memorial : material : "Red granite and white marble" | Azerbaijan : leaderTitle : Prime_Minister_of_Azerbaijan | Baku_Turkish_Martyrs'_Memorial : dedicatedTo : "Ottoman Army soldiers killed in the Battle of Baku" | Baku_Turkish_Martyrs'_Memorial : location : Azerbaijan | Baku_Turkish_Martyrs'_Memorial : designer : "Hüseyin Bütüner and Hilmi Güner" | Azerbaijan : legislature : National_Assembly_(Azerbaijan) <|endoftext|> 
+Acharya_Institute_of_Technology : affiliation : Visvesvaraya_Technological_University | Acharya_Institute_of_Technology : president : "B.M. Reddy" | Acharya_Institute_of_Technology : city : Bangalore | Acharya_Institute_of_Technology : established : 2000 | Acharya_Institute_of_Technology : country : "India" | Acharya_Institute_of_Technology : state : Karnataka | Acharya_Institute_of_Technology : campus : "In Soldevanahalli, Acharya Dr. Sarvapalli Radhakrishnan Road, Hessarghatta Main Road, Bangalore – 560090." <|endoftext|> 
+Acharya_Institute_of_Technology : city : Bangalore | Acharya_Institute_of_Technology : established : 2000 | Acharya_Institute_of_Technology : motto : "Nurturing Excellence" | Acharya_Institute_of_Technology : country : "India" | Acharya_Institute_of_Technology : numberOfPostgraduateStudents : 700 | Acharya_Institute_of_Technology : campus : "In Soldevanahalli, Acharya Dr. Sarvapalli Radhakrishnan Road, Hessarghatta Main Road, Bangalore – 560090." | Acharya_Institute_of_Technology : affiliation : Visvesvaraya_Technological_University <|endoftext|> 
+Acharya_Institute_of_Technology : president : "B.M. Reddy" | Acharya_Institute_of_Technology : city : Bangalore | Acharya_Institute_of_Technology : director : "Dr. G. P. Prabhukumar" | Acharya_Institute_of_Technology : established : 2000 | Acharya_Institute_of_Technology : country : "India" | Acharya_Institute_of_Technology : campus : "In Soldevanahalli, Acharya Dr. Sarvapalli Radhakrishnan Road, Hessarghatta Main Road, Bangalore – 560090." | Acharya_Institute_of_Technology : affiliation : Visvesvaraya_Technological_University <|endoftext|> 
+Acharya_Institute_of_Technology : president : "B.M. Reddy" | Visvesvaraya_Technological_University : city : Belgaum | Acharya_Institute_of_Technology : established : 2000 | Acharya_Institute_of_Technology : country : "India" | Acharya_Institute_of_Technology : numberOfPostgraduateStudents : 700 | Acharya_Institute_of_Technology : campus : "In Soldevanahalli, Acharya Dr. Sarvapalli Radhakrishnan Road, Hessarghatta Main Road, Bangalore – 560090." | Acharya_Institute_of_Technology : affiliation : Visvesvaraya_Technological_University <|endoftext|> 
+India : largestCity : Mumbai | AWH_Engineering_College : country : India | AWH_Engineering_College : academicStaffSize : 250 | AWH_Engineering_College : state : Kerala | Kerala : has to its northwest : Mahé,_India | AWH_Engineering_College : city : "Kuttikkattoor" | India : river : Ganges <|endoftext|> 
+Romania : ethnicGroup : Germans_of_Romania | Romania : leaderTitle : Prime_Minister_of_Romania | Romania : leaderName : Klaus_Iohannis | Romania : capital : Bucharest | 1_Decembrie_1918_University : city : Alba_Iulia | 1_Decembrie_1918_University : country : Romania | Romania : anthem : Deșteaptă-te,_române! <|endoftext|> 
+Visvesvaraya_Technological_University : city : Belgaum | Acharya_Institute_of_Technology : director : "Dr. G. P. Prabhukumar" | Acharya_Institute_of_Technology : established : 2000 | Acharya_Institute_of_Technology : state : Karnataka | Acharya_Institute_of_Technology : country : "India" | Acharya_Institute_of_Technology : campus : "In Soldevanahalli, Acharya Dr. Sarvapalli Radhakrishnan Road, Hessarghatta Main Road, Bangalore – 560090." | Acharya_Institute_of_Technology : affiliation : Visvesvaraya_Technological_University <|endoftext|> 

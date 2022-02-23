@@ -1,0 +1,547 @@
+name : Alimentum | area : city centre | family friendly : no <|endoftext|>
+name : Alimentum | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : Alimentum | area : city centre | family friendly : yes <|endoftext|>
+name : Alimentum | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : Alimentum | area : riverside | family friendly : no <|endoftext|>
+name : Alimentum | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : Alimentum | area : riverside | family friendly : yes <|endoftext|>
+name : Alimentum | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : 1 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : 3 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | area : city centre | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | area : city centre | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | area : riverside | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : average | area : city centre | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : average | area : city centre | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : average | area : riverside | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : average | area : riverside | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : high | area : riverside | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : low | area : city centre | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : low | area : city centre | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : low | area : riverside | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : Chinese | customer rating : low | area : riverside | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : 1 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : 3 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : 5 out of 5 | area : city centre | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : 5 out of 5 | area : city centre | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : 5 out of 5 | area : riverside | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : 5 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : average | area : city centre | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : average | area : city centre | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : average | area : riverside | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : average | area : riverside | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : high | area : riverside | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : low | area : city centre | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : low | area : city centre | family friendly : yes <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : low | area : riverside | family friendly : no <|endoftext|>
+name : Aromi | Type : coffee shop | food : English | customer rating : low | area : riverside | family friendly : yes <|endoftext|>
+name : Bibimbap House | area : city centre | near : Café Sicilia <|endoftext|>
+name : Bibimbap House | area : riverside | near : Café Sicilia <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : 1 out of 5 | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : 3 out of 5 | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | area : city centre | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | area : city centre | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | area : riverside | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : average | area : city centre | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : average | area : city centre | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : average | area : riverside | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : average | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : high | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : low | area : city centre | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : low | area : city centre | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : low | area : riverside | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : Chinese | customer rating : low | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : 1 out of 5 | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : 3 out of 5 | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : 5 out of 5 | area : city centre | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : 5 out of 5 | area : city centre | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : 5 out of 5 | area : riverside | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : 5 out of 5 | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : average | area : city centre | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : average | area : city centre | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : average | area : riverside | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : average | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : high | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : low | area : city centre | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : low | area : city centre | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : low | area : riverside | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Browns Cambridge | Type : coffee shop | food : English | customer rating : low | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Clowns | Type : coffee shop | food : Chinese | customer rating : 1 out of 5 | area : riverside | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : Chinese | customer rating : 3 out of 5 | area : riverside | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | area : city centre | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | area : riverside | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : Chinese | customer rating : average | area : city centre | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : Chinese | customer rating : average | area : riverside | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : Chinese | customer rating : high | area : riverside | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : Chinese | customer rating : low | area : city centre | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : Chinese | customer rating : low | area : riverside | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : English | customer rating : 1 out of 5 | area : riverside | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : English | customer rating : 3 out of 5 | area : riverside | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : English | customer rating : 5 out of 5 | area : city centre | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : English | customer rating : 5 out of 5 | area : riverside | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : English | customer rating : average | area : city centre | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : English | customer rating : average | area : riverside | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : English | customer rating : high | area : riverside | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : English | customer rating : low | area : city centre | near : Clare Hall <|endoftext|>
+name : Clowns | Type : coffee shop | food : English | customer rating : low | area : riverside | near : Clare Hall <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : high | customer rating : average | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : high | customer rating : average | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : cheap | customer rating : average | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : cheap | customer rating : average | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : high | customer rating : average | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : high | customer rating : average | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | family friendly : yes <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | family friendly : no <|endoftext|>
+name : Cocum | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | family friendly : yes <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : cheap | customer rating : average | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : cheap | customer rating : average | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : high | customer rating : average | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : high | customer rating : average | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : city centre | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : riverside | near : The Portland Arms <|endoftext|>
+name : Cotto | Type : coffee shop | food : English | price : more than £ 30 | customer rating : high | area : city centre | near : The Portland Arms <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : cheap | customer rating : average | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : cheap | customer rating : average | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : cheap | customer rating : average | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : cheap | customer rating : average | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : high | customer rating : average | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : high | customer rating : average | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : high | customer rating : average | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : high | customer rating : average | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : riverside | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : more than £ 30 | customer rating : high | area : city centre | family friendly : no <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : more than £ 30 | customer rating : high | area : city centre | family friendly : yes <|endoftext|>
+name : Fitzbillies | Type : coffee shop | food : English | price : more than £ 30 | customer rating : high | area : riverside | family friendly : no <|endoftext|>
+name : Midsummer House | customer rating : 1 out of 5 | near : The Bakers <|endoftext|>
+name : Midsummer House | customer rating : 3 out of 5 | near : The Bakers <|endoftext|>
+name : Midsummer House | customer rating : 5 out of 5 | near : The Bakers <|endoftext|>
+name : Midsummer House | customer rating : average | near : The Bakers <|endoftext|>
+name : Midsummer House | customer rating : high | near : The Bakers <|endoftext|>
+name : Midsummer House | customer rating : low | near : The Bakers <|endoftext|>
+name : Taste of Cambridge | Type : coffee shop | food : Chinese | area : city centre | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Taste of Cambridge | Type : coffee shop | food : Chinese | area : city centre | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Taste of Cambridge | Type : coffee shop | food : Chinese | area : riverside | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Taste of Cambridge | Type : coffee shop | food : Chinese | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Taste of Cambridge | Type : coffee shop | food : English | area : city centre | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Taste of Cambridge | Type : coffee shop | food : English | area : city centre | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : Taste of Cambridge | Type : coffee shop | food : English | area : riverside | family friendly : no | near : Crowne Plaza Hotel <|endoftext|>
+name : Taste of Cambridge | Type : coffee shop | food : English | area : riverside | family friendly : yes | near : Crowne Plaza Hotel <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : 1 out of 5 | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : 3 out of 5 | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : 5 out of 5 | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : 5 out of 5 | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : 5 out of 5 | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : 5 out of 5 | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : average | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : average | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : average | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : average | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : high | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : low | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : low | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : low | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Cambridge Blue | Type : coffee shop | customer rating : low | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : Chinese | customer rating : 1 out of 5 | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : Chinese | customer rating : 3 out of 5 | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | family friendly : no | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : Chinese | customer rating : 5 out of 5 | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : Chinese | customer rating : average | family friendly : no | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : Chinese | customer rating : average | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : Chinese | customer rating : high | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : Chinese | customer rating : low | family friendly : no | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : Chinese | customer rating : low | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : English | customer rating : 1 out of 5 | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : English | customer rating : 3 out of 5 | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : English | customer rating : 5 out of 5 | family friendly : no | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : English | customer rating : 5 out of 5 | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : English | customer rating : average | family friendly : no | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : English | customer rating : average | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : English | customer rating : high | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : English | customer rating : low | family friendly : no | near : The Portland Arms <|endoftext|>
+name : The Cricketers | Type : coffee shop | food : English | customer rating : low | family friendly : yes | near : The Portland Arms <|endoftext|>
+name : The Eagle | customer rating : 1 out of 5 | area : riverside | family friendly : yes | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : 3 out of 5 | area : riverside | family friendly : yes | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : 5 out of 5 | area : city centre | family friendly : no | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : 5 out of 5 | area : city centre | family friendly : yes | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : 5 out of 5 | area : riverside | family friendly : no | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : 5 out of 5 | area : riverside | family friendly : yes | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : average | area : city centre | family friendly : no | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : average | area : city centre | family friendly : yes | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : average | area : riverside | family friendly : no | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : average | area : riverside | family friendly : yes | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : high | area : riverside | family friendly : yes | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : low | area : city centre | family friendly : no | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : low | area : city centre | family friendly : yes | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : low | area : riverside | family friendly : no | near : Café Brazil <|endoftext|>
+name : The Eagle | customer rating : low | area : riverside | family friendly : yes | near : Café Brazil <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : cheap | customer rating : average | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : cheap | customer rating : average | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : cheap | customer rating : average | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : cheap | customer rating : average | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : high | customer rating : average | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : high | customer rating : average | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : high | customer rating : average | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : high | customer rating : average | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : riverside | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : more than £ 30 | customer rating : high | area : city centre | family friendly : no | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : more than £ 30 | customer rating : high | area : city centre | family friendly : yes | near : Burger King <|endoftext|>
+name : The Eagle | Type : coffee shop | food : English | price : more than £ 30 | customer rating : high | area : riverside | family friendly : no | near : Burger King <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : high | customer rating : average | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : cheap | customer rating : average | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : cheap | customer rating : average | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : high | customer rating : average | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : high | customer rating : average | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | area : riverside <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : more than £ 30 | customer rating : high | area : city centre <|endoftext|>
+name : The Golden Palace | Type : coffee shop | food : English | price : more than £ 30 | customer rating : high | area : riverside <|endoftext|>
+name : The Mill | Type : coffee shop | food : Chinese | price : £ 20 - 25 | area : riverside | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : Chinese | price : cheap | area : riverside | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : Chinese | price : high | area : city centre | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : Chinese | price : high | area : riverside | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : Chinese | price : less than £ 20 | area : city centre | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : Chinese | price : less than £ 20 | area : riverside | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : Chinese | price : moderate | area : city centre | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : Chinese | price : moderate | area : riverside | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : Chinese | price : more than £ 30 | area : riverside | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : English | price : £ 20 - 25 | area : riverside | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : English | price : cheap | area : riverside | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : English | price : high | area : city centre | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : English | price : high | area : riverside | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : English | price : less than £ 20 | area : city centre | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : English | price : less than £ 20 | area : riverside | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : English | price : moderate | area : city centre | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : English | price : moderate | area : riverside | near : The Sorrento <|endoftext|>
+name : The Mill | Type : coffee shop | food : English | price : more than £ 30 | area : riverside | near : The Sorrento <|endoftext|>
+name : The Phoenix | customer rating : 1 out of 5 | area : riverside <|endoftext|>
+name : The Phoenix | customer rating : 3 out of 5 | area : riverside <|endoftext|>
+name : The Phoenix | customer rating : 5 out of 5 | area : city centre <|endoftext|>
+name : The Phoenix | customer rating : 5 out of 5 | area : riverside <|endoftext|>
+name : The Phoenix | customer rating : average | area : city centre <|endoftext|>
+name : The Phoenix | customer rating : average | area : riverside <|endoftext|>
+name : The Phoenix | customer rating : high | area : riverside <|endoftext|>
+name : The Phoenix | customer rating : low | area : city centre <|endoftext|>
+name : The Phoenix | customer rating : low | area : riverside <|endoftext|>
+name : The Punter | customer rating : 1 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : The Punter | customer rating : 3 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : The Punter | customer rating : 5 out of 5 | area : city centre | family friendly : no <|endoftext|>
+name : The Punter | customer rating : 5 out of 5 | area : city centre | family friendly : yes <|endoftext|>
+name : The Punter | customer rating : 5 out of 5 | area : riverside | family friendly : no <|endoftext|>
+name : The Punter | customer rating : 5 out of 5 | area : riverside | family friendly : yes <|endoftext|>
+name : The Punter | customer rating : average | area : city centre | family friendly : no <|endoftext|>
+name : The Punter | customer rating : average | area : city centre | family friendly : yes <|endoftext|>
+name : The Punter | customer rating : average | area : riverside | family friendly : no <|endoftext|>
+name : The Punter | customer rating : average | area : riverside | family friendly : yes <|endoftext|>
+name : The Punter | customer rating : high | area : riverside | family friendly : yes <|endoftext|>
+name : The Punter | customer rating : low | area : city centre | family friendly : no <|endoftext|>
+name : The Punter | customer rating : low | area : city centre | family friendly : yes <|endoftext|>
+name : The Punter | customer rating : low | area : riverside | family friendly : no <|endoftext|>
+name : The Punter | customer rating : low | area : riverside | family friendly : yes <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : high | customer rating : average | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : high | customer rating : average | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : cheap | customer rating : average | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : cheap | customer rating : average | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : high | customer rating : average | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : high | customer rating : average | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | family friendly : no | near : Café Sicilia <|endoftext|>
+name : The Punter | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | family friendly : yes | near : Café Sicilia <|endoftext|>
+name : The Wrestlers | customer rating : 1 out of 5 | family friendly : yes <|endoftext|>
+name : The Wrestlers | customer rating : 1 out of 5 | family friendly : yes | near : The Sorrento <|endoftext|>
+name : The Wrestlers | customer rating : 3 out of 5 | family friendly : yes <|endoftext|>
+name : The Wrestlers | customer rating : 3 out of 5 | family friendly : yes | near : The Sorrento <|endoftext|>
+name : The Wrestlers | customer rating : 5 out of 5 | family friendly : no <|endoftext|>
+name : The Wrestlers | customer rating : 5 out of 5 | family friendly : no | near : The Sorrento <|endoftext|>
+name : The Wrestlers | customer rating : 5 out of 5 | family friendly : yes <|endoftext|>
+name : The Wrestlers | customer rating : 5 out of 5 | family friendly : yes | near : The Sorrento <|endoftext|>
+name : The Wrestlers | customer rating : average | family friendly : no <|endoftext|>
+name : The Wrestlers | customer rating : average | family friendly : no | near : The Sorrento <|endoftext|>
+name : The Wrestlers | customer rating : average | family friendly : yes <|endoftext|>
+name : The Wrestlers | customer rating : average | family friendly : yes | near : The Sorrento <|endoftext|>
+name : The Wrestlers | customer rating : high | family friendly : yes <|endoftext|>
+name : The Wrestlers | customer rating : high | family friendly : yes | near : The Sorrento <|endoftext|>
+name : The Wrestlers | customer rating : low | family friendly : no <|endoftext|>
+name : The Wrestlers | customer rating : low | family friendly : no | near : The Sorrento <|endoftext|>
+name : The Wrestlers | customer rating : low | family friendly : yes <|endoftext|>
+name : The Wrestlers | customer rating : low | family friendly : yes | near : The Sorrento <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : £ 20 - 25 | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : cheap | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : high | area : city centre | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : high | area : city centre | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : high | area : riverside | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : high | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : less than £ 20 | area : city centre | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : less than £ 20 | area : city centre | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : less than £ 20 | area : riverside | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : less than £ 20 | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : moderate | area : city centre | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : moderate | area : city centre | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : moderate | area : riverside | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : moderate | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : Chinese | price : more than £ 30 | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : £ 20 - 25 | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : cheap | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : high | area : city centre | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : high | area : city centre | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : high | area : riverside | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : high | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : less than £ 20 | area : city centre | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : less than £ 20 | area : city centre | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : less than £ 20 | area : riverside | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : less than £ 20 | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : moderate | area : city centre | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : moderate | area : city centre | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : moderate | area : riverside | family friendly : no | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : moderate | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : The Wrestlers | Type : coffee shop | food : English | price : more than £ 30 | area : riverside | family friendly : yes | near : Raja Indian Cuisine <|endoftext|>
+name : Travellers Rest Beefeater | customer rating : 1 out of 5 | area : riverside | near : Raja Indian Cuisine <|endoftext|>
+name : Travellers Rest Beefeater | customer rating : 3 out of 5 | area : riverside | near : Raja Indian Cuisine <|endoftext|>
+name : Travellers Rest Beefeater | customer rating : 5 out of 5 | area : city centre | near : Raja Indian Cuisine <|endoftext|>
+name : Travellers Rest Beefeater | customer rating : 5 out of 5 | area : riverside | near : Raja Indian Cuisine <|endoftext|>
+name : Travellers Rest Beefeater | customer rating : average | area : city centre | near : Raja Indian Cuisine <|endoftext|>
+name : Travellers Rest Beefeater | customer rating : average | area : riverside | near : Raja Indian Cuisine <|endoftext|>
+name : Travellers Rest Beefeater | customer rating : high | area : riverside | near : Raja Indian Cuisine <|endoftext|>
+name : Travellers Rest Beefeater | customer rating : low | area : city centre | near : Raja Indian Cuisine <|endoftext|>
+name : Travellers Rest Beefeater | customer rating : low | area : riverside | near : Raja Indian Cuisine <|endoftext|>
+name : Wildwood | Type : coffee shop | food : Chinese | price : £ 20 - 25 | customer rating : high | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : Chinese | price : cheap | customer rating : 5 out of 5 | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : Chinese | price : cheap | customer rating : average | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : Chinese | price : high | customer rating : 1 out of 5 | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : Chinese | price : high | customer rating : average | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : Chinese | price : less than £ 20 | customer rating : low | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : Chinese | price : moderate | customer rating : 1 out of 5 | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : Chinese | price : moderate | customer rating : 3 out of 5 | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : Chinese | price : more than £ 30 | customer rating : high | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : English | price : £ 20 - 25 | customer rating : high | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : English | price : cheap | customer rating : 5 out of 5 | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : English | price : cheap | customer rating : average | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : English | price : high | customer rating : 1 out of 5 | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : English | price : high | customer rating : average | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : English | price : less than £ 20 | customer rating : low | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : English | price : moderate | customer rating : 1 out of 5 | near : Ranch <|endoftext|>
+name : Wildwood | Type : coffee shop | food : English | price : moderate | customer rating : 3 out of 5 | near : Ranch <|endoftext|>
