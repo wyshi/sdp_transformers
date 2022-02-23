@@ -1,6 +1,8 @@
 pate/checkpoint
 pate/logs
 
+__MACOSX/
+
 .vscode/
 __pycache__/
 *pyc
