@@ -2,17 +2,21 @@ import copy
 import json
 import os
 import sys
+from typing import Optional
 
 import torch
 from torch.utils.data.dataset import Dataset
 from transformers.tokenization_utils import PreTrainedTokenizer
 from transformers.utils import logging
 
+from datasets import load_dataset
+from accelerate import Accelerator, DistributedType
+from itertools import chain
+
 logger = logging.get_logger(__name__)
 
 
 class LineByLineTextDataset(Dataset):
-
     def __init__(self, tokenizer: PreTrainedTokenizer, file_path: str, block_size: int):
         assert os.path.isfile(file_path), f"Input file path {file_path} not found"
         # Here, we do not cache the features, operating under the assumption
@@ -21,9 +25,15 @@ class LineByLineTextDataset(Dataset):
         logger.info("Creating features from dataset file at %s", file_path)
 
         with open(file_path, encoding="utf-8") as f:
-            lines = [line for line in f.read().splitlines() if (len(line) > 0 and not line.isspace())]
+            lines = [
+                line
+                for line in f.read().splitlines()
+                if (len(line) > 0 and not line.isspace())
+            ]
 
-        batch_encoding = tokenizer(lines, add_special_tokens=True, truncation=True, max_length=block_size)
+        batch_encoding = tokenizer(
+            lines, add_special_tokens=True, truncation=True, max_length=block_size
+        )
         self.examples = batch_encoding["input_ids"]
 
     def __len__(self):
@@ -33,8 +43,121 @@ class LineByLineTextDataset(Dataset):
         return torch.tensor(self.examples[i], dtype=torch.long)
 
 
-class LineByLineE2ETextDataset(Dataset):
+class BlockByBlockWikiText2TextDataset(Dataset):
+    def __init__(
+        self,
+        tokenizer: PreTrainedTokenizer,
+        file_path: str,
+        data_partition: str,
+        block_size: Optional[int] = 1024,
+        preprocessing_num_workers: Optional[int] = None,
+        overwrite_cache: Optional[bool] = False,
+    ):
+        accelerator = Accelerator()
+        assert os.path.isfile(file_path), f"Input file path {file_path} not found"
+        # Here, we do not cache the features, operating under the assumption
+        # that we will soon use fast multithreaded tokenizers from the
+        # `tokenizers` repo everywhere =)
+        logger.info("Creating features from dataset file at %s", file_path)
 
+        raw_dataset = self._load_raw_dataset(file_path, data_partition)
+        column_names = raw_dataset[data_partition].column_names
+        text_column_name = "text" if "text" in column_names else column_names[0]
+
+        def tokenize_function(examples):
+            return tokenizer(examples[text_column_name])
+
+        with accelerator.main_process_first():
+            tokenized_datasets = raw_dataset.map(
+                tokenize_function,
+                batched=True,
+                num_proc=preprocessing_num_workers,
+                remove_columns=column_names,
+                load_from_cache_file=not overwrite_cache,
+                desc="Running tokenizer on dataset",
+            )
+
+        # Main data processing function that will concatenate all texts from our dataset and generate chunks of block_size.
+        def group_texts(examples):
+            # Concatenate all texts.
+            concatenated_examples = {
+                k: list(chain(*examples[k])) for k in examples.keys()
+            }
+            total_length = len(concatenated_examples[list(examples.keys())[0]])
+            # We drop the small remainder, we could add padding if the model supported it instead of this drop, you can
+            # customize this part to your needs.
+            if total_length >= block_size:
+                total_length = (total_length // block_size) * block_size
+            # Split by chunks of max_len.
+            result = {
+                k: [t[i : i + block_size] for i in range(0, total_length, block_size)]
+                for k, t in concatenated_examples.items()
+            }
+            result["labels"] = result["input_ids"].copy()
+            return result
+
+        if block_size is None:
+            block_size = tokenizer.model_max_length
+            if block_size > 1024:
+                logger.warning(
+                    f"The tokenizer picked seems to have a very large `model_max_length` ({tokenizer.model_max_length}). "
+                    "Picking 1024 instead. You can change that default value by passing --block_size xxx."
+                )
+            block_size = 1024
+        else:
+            if block_size > tokenizer.model_max_length:
+                logger.warning(
+                    f"The block_size passed ({block_size}) is larger than the maximum length for the model"
+                    f"({tokenizer.model_max_length}). Using block_size={tokenizer.model_max_length}."
+                )
+            block_size = min(block_size, tokenizer.model_max_length)
+
+        with accelerator.main_process_first():
+            lm_datasets = tokenized_datasets.map(
+                group_texts,
+                batched=True,
+                num_proc=preprocessing_num_workers,
+                load_from_cache_file=not overwrite_cache,
+                desc=f"Grouping texts in chunks of {block_size}",
+            )
+
+        self.examples = lm_datasets[data_partition]
+
+    def _load_raw_dataset(
+        self,
+        file_path: str,
+        data_partition: str,
+        no_keep_linebreaks: Optional[bool] = False,
+    ):
+        data_files = {}
+        dataset_args = {}
+        if file_path is not None:
+            data_files[data_partition] = file_path
+        # if args.validation_file is not None:
+        #     data_files["validation"] = validation_file
+
+        extension = file_path.split(".")[-1]
+        if extension == "txt":
+            extension = "text"
+            dataset_args["keep_linebreaks"] = not no_keep_linebreaks
+        raw_dataset = load_dataset(extension, data_files=data_files, **dataset_args)
+
+        return raw_dataset
+
+    def __len__(self):
+        return len(self.examples)
+
+    def __getitem__(self, i):
+        return (
+            torch.tensor(self.examples[i], dtype=torch.long),
+            torch.tensor(self.examples[i], dtype=torch.long),
+            torch.tensor(self.examples[i], dtype=torch.long),
+            torch.tensor(self.examples[i], dtype=torch.long),
+            torch.tensor(self.examples[i], dtype=torch.long),
+        )
+
+
+class LineByLineE2ETextDataset(Dataset):
     def __init__(
         self,
         tokenizer: PreTrainedTokenizer,
@@ -54,10 +177,9 @@ class LineByLineE2ETextDataset(Dataset):
 
         with open(file_path, encoding="utf-8") as f:
             lines = [
-                line.split('||')
-                for line in f.read().splitlines() if (
-                    len(line) > 0 and not line.isspace() and len(line.split('||')) == 2
-                )
+                line.split("||")
+                for line in f.read().splitlines()
+                if (len(line) > 0 and not line.isspace() and len(line.split("||")) == 2)
             ]
         src_lines, tgt_lines = list(zip(*lines))
         src_lines = list(src_lines)
@@ -65,7 +187,7 @@ class LineByLineE2ETextDataset(Dataset):
 
         edited_sents = []
         for src, tgt in zip(src_lines, tgt_lines):
-            sent = ' {} {} '.format(src, bos_tok) + tgt + ' {}'.format(eos_tok)
+            sent = " {} {} ".format(src, bos_tok) + tgt + " {}".format(eos_tok)
             edited_sents.append(sent)
 
         # --- Filter out super long sentences ---
@@ -77,7 +199,11 @@ class LineByLineE2ETextDataset(Dataset):
                 new_tgt_lines.append(tgt_line)
                 new_edited_sents.append(edited_sent)
             del src_line, tgt_line, edited_sent
-        src_lines, tgt_lines, edited_sents = new_src_lines, new_tgt_lines, new_edited_sents
+        src_lines, tgt_lines, edited_sents = (
+            new_src_lines,
+            new_tgt_lines,
+            new_edited_sents,
+        )
         # ---------------------------------------
 
         # --- Truncate the dataset if necessary; this must be after the length filtering. ---
@@ -100,7 +226,7 @@ class LineByLineE2ETextDataset(Dataset):
         # split into category words:
         ssl_lst = []
         for ss in src_lines:
-            ssl = [la.split(':')[0].strip() for la in ss.split('|')]
+            ssl = [la.split(":")[0].strip() for la in ss.split("|")]
             ssl_lst.append(ssl)
 
         self.src_cat = tokenizer(
@@ -108,8 +234,8 @@ class LineByLineE2ETextDataset(Dataset):
             add_special_tokens=True,
             truncation=True,
             max_length=block_size,
-            is_split_into_words=True
-        )['input_ids']
+            is_split_into_words=True,
+        )["input_ids"]
 
         self.src_sent = []
         self.tgt_sent = []
@@ -118,19 +244,19 @@ class LineByLineE2ETextDataset(Dataset):
         temp_tgt_len = 0
         temp_count = 0
 
-        separator = tokenizer(bos_tok, add_special_tokens=False)['input_ids'][0]
+        separator = tokenizer(bos_tok, add_special_tokens=False)["input_ids"][0]
         for i, elem in enumerate(self.labels):
             sep_idx = elem.index(separator) + 1
-            self.src_sent.append(self.examples[i][:sep_idx - 1])
-            self.tgt_sent.append(self.examples[i][sep_idx - 1:])
+            self.src_sent.append(self.examples[i][: sep_idx - 1])
+            self.tgt_sent.append(self.examples[i][sep_idx - 1 :])
             self.labels[i][:sep_idx] = [-100] * sep_idx  # Doesn't contribute to loss.
             temp_src_len += sep_idx - 1
             temp_tgt_len += len(elem) - (sep_idx - 1)
             temp_count += 1
 
-        print('tgt_avg: ', temp_tgt_len / temp_count)
-        print('src_avg: ', temp_src_len / temp_count)
-        print('ratios: ', temp_src_len / temp_tgt_len)
+        print("tgt_avg: ", temp_tgt_len / temp_count)
+        print("src_avg: ", temp_src_len / temp_count)
+        print("ratios: ", temp_src_len / temp_tgt_len)
 
         print(self.labels[0])
         print(self.examples[0])
@@ -180,21 +306,25 @@ class LineByLineWebNLGTextDataset(Dataset):
         full_src_lst = []
         full_tgt_lst = []
 
-        for i, example in enumerate(lines_dict['entries']):
-            sents = example[str(i + 1)]['lexicalisations']
-            triples = example[str(i + 1)]['modifiedtripleset']
+        for i, example in enumerate(lines_dict["entries"]):
+            sents = example[str(i + 1)]["lexicalisations"]
+            triples = example[str(i + 1)]["modifiedtripleset"]
 
             rela_lst = []
-            temp_triples = ''
+            temp_triples = ""
             for j, tripleset in enumerate(triples):
-                subj, rela, obj = tripleset['subject'], tripleset['property'], tripleset['object']
+                subj, rela, obj = (
+                    tripleset["subject"],
+                    tripleset["property"],
+                    tripleset["object"],
+                )
                 rela_lst.append(rela)
                 if j > 0:
-                    temp_triples += ' | '
-                temp_triples += '{} : {} : {}'.format(subj, rela, obj)
+                    temp_triples += " | "
+                temp_triples += "{} : {} : {}".format(subj, rela, obj)
 
             for sent in sents:
-                if sent["comment"] == 'good':
+                if sent["comment"] == "good":
                     full_tgt_lst.append(sent["lex"])
                     full_src_lst.append(temp_triples)
                     full_rela_lst.append(rela_lst)
@@ -204,11 +334,16 @@ class LineByLineWebNLGTextDataset(Dataset):
 
         edited_sents = []
         for src, tgt in zip(full_src_lst, full_tgt_lst):
-            sent = ' {} {} '.format(src, bos_tok) + tgt + ' {}'.format(eos_tok)
+            sent = " {} {} ".format(src, bos_tok) + tgt + " {}".format(eos_tok)
             edited_sents.append(sent)
 
-        batch_encoding = tokenizer(edited_sents, add_special_tokens=True, truncation=True, max_length=block_size,
-                                   is_split_into_words=False)
+        batch_encoding = tokenizer(
+            edited_sents,
+            add_special_tokens=True,
+            truncation=True,
+            max_length=block_size,
+            is_split_into_words=False,
+        )
         self.examples = batch_encoding["input_ids"]
 
         self.labels = copy.deepcopy(self.examples)
@@ -216,8 +351,13 @@ class LineByLineWebNLGTextDataset(Dataset):
         # split into category words:
         ssl_lst = full_rela_lst
 
-        self.src_cat = tokenizer(ssl_lst, add_special_tokens=True, truncation=True, max_length=block_size,
-                                 is_split_into_words=True)['input_ids']
+        self.src_cat = tokenizer(
+            ssl_lst,
+            add_special_tokens=True,
+            truncation=True,
+            max_length=block_size,
+            is_split_into_words=True,
+        )["input_ids"]
 
         self.src_sent = []
         self.tgt_sent = []
@@ -226,19 +366,23 @@ class LineByLineWebNLGTextDataset(Dataset):
         temp_count = 0
 
         if True:
-            separator = tokenizer(bos_tok, add_special_tokens=False)['input_ids'][0]
+            separator = tokenizer(bos_tok, add_special_tokens=False)["input_ids"][0]
             for i, elem in enumerate(self.labels):
                 sep_idx = elem.index(separator) + 1
-                self.src_sent.append(self.examples[i][:sep_idx - 1])  # does not contain the BOS separator
-                self.tgt_sent.append(self.examples[i][sep_idx - 1:])  # contains the BOS separator.
+                self.src_sent.append(
+                    self.examples[i][: sep_idx - 1]
+                )  # does not contain the BOS separator
+                self.tgt_sent.append(
+                    self.examples[i][sep_idx - 1 :]
+                )  # contains the BOS separator.
                 self.labels[i][:sep_idx] = [-100] * sep_idx
                 temp_src_len += sep_idx - 1
                 temp_tgt_len += len(elem) - (sep_idx - 1)
                 temp_count += 1
 
-        print('tgt_avg: ', temp_tgt_len / temp_count)
-        print('src_avg: ', temp_src_len / temp_count)
-        print('ratios: ', temp_src_len / temp_tgt_len)
+        print("tgt_avg: ", temp_tgt_len / temp_count)
+        print("src_avg: ", temp_src_len / temp_count)
+        print("ratios: ", temp_src_len / temp_tgt_len)
 
         print(self.labels[0])
         print(self.examples[0])
@@ -298,17 +442,17 @@ class LineByLineTriplesTextDataset(Dataset):
         full_tgt_lst = []
         for example in lines_dict:
             rela_lst = []
-            temp_triples = ''
-            for i, tripleset in enumerate(example['tripleset']):
+            temp_triples = ""
+            for i, tripleset in enumerate(example["tripleset"]):
                 subj, rela, obj = tripleset
                 rela = rela.lower()
                 rela_lst.append(rela)
                 if i > 0:
-                    temp_triples += ' | '
-                temp_triples += '{} : {} : {}'.format(subj, rela, obj)
+                    temp_triples += " | "
+                temp_triples += "{} : {} : {}".format(subj, rela, obj)
 
-            for sent in example['annotations']:
-                full_tgt_lst.append(sent['text'])
+            for sent in example["annotations"]:
+                full_tgt_lst.append(sent["text"])
                 full_src_lst.append(temp_triples)
                 full_rela_lst.append(rela_lst)
 
@@ -322,7 +466,7 @@ class LineByLineTriplesTextDataset(Dataset):
 
         edited_sents = []
         for src, tgt in zip(full_src_lst, full_tgt_lst):
-            sent = f' {src} {bos_tok} {tgt} {eos_tok} '
+            sent = f" {src} {bos_tok} {tgt} {eos_tok} "
             edited_sents.append(sent)
 
         # --- Filter out super long sentences ---
@@ -330,7 +474,9 @@ class LineByLineTriplesTextDataset(Dataset):
         this_full_src_lst = []
         this_full_tgt_lst = []
         this_edited_sents = []
-        for rela, src, tgt, edited_sent in zip(full_rela_lst, full_src_lst, full_tgt_lst, edited_sents):
+        for rela, src, tgt, edited_sent in zip(
+            full_rela_lst, full_src_lst, full_tgt_lst, edited_sents
+        ):
             tokenized_edited_sent = tokenizer.tokenize(edited_sent)
             if len(tokenized_edited_sent) <= max_seq_len:
                 this_full_rela_lst.append(rela)
@@ -343,8 +489,13 @@ class LineByLineTriplesTextDataset(Dataset):
         edited_sents = this_edited_sents
         # ---------------------------------------
 
-        batch_encoding = tokenizer(edited_sents, add_special_tokens=True, truncation=True, max_length=block_size,
-                                   is_split_into_words=False)
+        batch_encoding = tokenizer(
+            edited_sents,
+            add_special_tokens=True,
+            truncation=True,
+            max_length=block_size,
+            is_split_into_words=False,
+        )
         self.examples = batch_encoding["input_ids"]
 
         self.labels = copy.deepcopy(self.examples)
@@ -352,8 +503,13 @@ class LineByLineTriplesTextDataset(Dataset):
         # split into category words:
         ssl_lst = full_rela_lst
 
-        self.src_cat = tokenizer(ssl_lst, add_special_tokens=True, truncation=True, max_length=block_size,
-                                 is_split_into_words=True)['input_ids']
+        self.src_cat = tokenizer(
+            ssl_lst,
+            add_special_tokens=True,
+            truncation=True,
+            max_length=block_size,
+            is_split_into_words=True,
+        )["input_ids"]
 
         self.src_sent = []
         self.tgt_sent = []
@@ -361,20 +517,24 @@ class LineByLineTriplesTextDataset(Dataset):
         temp_tgt_len = 0
         temp_count = 0
         if True:
-            separator = tokenizer(bos_tok, add_special_tokens=False)['input_ids'][0]
+            separator = tokenizer(bos_tok, add_special_tokens=False)["input_ids"][0]
             for i, elem in enumerate(self.labels):
                 sep_idx = elem.index(separator) + 1
-                self.src_sent.append(self.examples[i][:sep_idx - 1])  # does not contain the BOS separator
-                self.tgt_sent.append(self.examples[i][sep_idx - 1:])  # contains the BOS separator.
+                self.src_sent.append(
+                    self.examples[i][: sep_idx - 1]
+                )  # does not contain the BOS separator
+                self.tgt_sent.append(
+                    self.examples[i][sep_idx - 1 :]
+                )  # contains the BOS separator.
                 self.labels[i][:sep_idx] = [-100] * sep_idx
 
                 temp_src_len += sep_idx - 1
                 temp_tgt_len += len(elem) - (sep_idx - 1)
                 temp_count += 1
 
-        print('tgt_avg: ', temp_tgt_len / temp_count)
-        print('src_avg: ', temp_src_len / temp_count)
-        print('ratios: ', temp_src_len / temp_tgt_len)
+        print("tgt_avg: ", temp_tgt_len / temp_count)
+        print("src_avg: ", temp_src_len / temp_count)
+        print("ratios: ", temp_src_len / temp_tgt_len)
 
         print(self.labels[0])
         print(self.examples[0])

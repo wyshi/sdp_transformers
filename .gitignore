@@ -12,3 +12,6 @@ label_dp_antipodes/output
 label_dp_antipodes/checkpoint/
 
 random_response/checkpoint/
+
+private-transformers/examples/table2text/output/*
+private-transformers/examples/table2text/output/wiki/*

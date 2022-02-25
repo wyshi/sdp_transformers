@@ -56,6 +56,9 @@ def main():
         privacy_args,
     ) = parser.parse_args_into_dataclasses()
 
+    # import pdb
+
+    # pdb.set_trace()
     model_args: ModelArguments
     data_args: DataTrainingArguments
     training_args: TrainingArguments
@@ -259,9 +262,9 @@ def main():
         )
 
     # Hacky way to set noise_multiplier.
-    import pdb
+    # import pdb
 
-    pdb.set_trace()
+    # pdb.set_trace()
     if privacy_args.non_private:
         privacy_args.noise_multiplier = 0.0
         privacy_args.per_example_max_grad_norm = None

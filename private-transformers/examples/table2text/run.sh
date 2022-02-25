@@ -15,17 +15,37 @@ if [[ ${task_mode} == "e2e" ]]; then
   num_train_epochs=10
   learning_rate=2e-3
   max_seq_len=100
+  # batch size
+  per_device_eval_batch_size=10
+  per_device_train_batch_size=16
+  gradient_accumulation_steps=64
+  block_size=-1
+elif [[ ${task_mode} == "dart" ]]; then
+  target_delta=1e-5
+  data_dir="${data_dir}/data/dart"
+  num_train_epochs=15 # Approximately same number of updates.
+  learning_rate=5e-4  # Lower learning rate for stability in large models.
+  max_seq_len=120
+  # batch size
+  per_device_eval_batch_size=10
+  per_device_train_batch_size=16
+  gradient_accumulation_steps=64
+  block_size=-1
+elif [[ ${task_mode} == "wikitext2" ]]; then
+  target_delta=1e-6
+  data_dir="${data_dir}/wikitext-2-raw/"
+  num_train_epochs=3 # Approximately same number of updates.
+  learning_rate=5e-5  # Lower learning rate for stability in large models.
+  max_seq_len=1_000_000
+  per_device_eval_batch_size=4
+  per_device_train_batch_size=4
+  gradient_accumulation_steps=1
+  block_size=1024
+  skip_generation="yes"
+  non_private="yes"
 else
-  if [[ ${task_mode} == "dart" ]]; then
-    target_delta=1e-5
-    data_dir="${data_dir}/data/dart"
-    num_train_epochs=15 # Approximately same number of updates.
-    learning_rate=5e-4  # Lower learning rate for stability in large models.
-    max_seq_len=120
-  else
     echo "Unknown task: ${task_mode}"
     exit 1
-  fi
 fi
 
 # Arguments in the last two lines are the most important.
@@ -39,11 +59,15 @@ python -m table2text.run_language_modeling \
   --save_steps 100 --save_total_limit 1 --save_at_last no \
   --logging_dir ${output_dir} --logging_steps -1 \
   --seed 0 \
-  --eval_steps 100 --eval_epochs 2 --max_eval_batches 100 --evaluation_strategy epoch --evaluate_before_training "no" --evaluate_during_training "yes" --per_device_eval_batch_size 10 \
+  --eval_steps 100 --eval_epochs 2 --max_eval_batches 100 --evaluation_strategy epoch --evaluate_before_training "no" --evaluate_during_training "yes" \
   --max_generations 9223372036854775807 --max_generations_train 10 --max_generations_valid 9223372036854775807 \
   --max_train_examples 9223372036854775807 --max_valid_examples 9223372036854775807 --max_eval_examples 9223372036854775807 \
   --data_folder ${data_dir} --max_seq_len ${max_seq_len} --format_mode cat \
   --per_example_max_grad_norm 0.1 --target_delta ${target_delta} --target_epsilon ${target_epsilon} \
-  --learning_rate ${learning_rate} --lr_decay "no" --num_train_epochs ${num_train_epochs} --per_device_train_batch_size 16 --gradient_accumulation_steps 64 \
+  --learning_rate ${learning_rate} --lr_decay "no" --num_train_epochs ${num_train_epochs} \
+  --per_device_eval_batch_size ${per_device_eval_batch_size} \
+  --per_device_train_batch_size ${per_device_train_batch_size} \
+  --gradient_accumulation_steps ${gradient_accumulation_steps} \
+  --block_size ${block_size} \
   --non_private ${non_private} \
   --ghost_clipping ${ghost_clipping}
