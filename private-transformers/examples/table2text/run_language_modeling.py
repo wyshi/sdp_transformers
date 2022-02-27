@@ -36,7 +36,7 @@ from .compiled_args import (
     PrivacyArguments,
     TrainingArguments,
 )
-from .misc import get_prompt_dataset, get_all_datasets
+from .misc import get_prompt_dataset, get_all_datasets, add_special_tokens
 from .trainer import Trainer
 
 logger = logging.getLogger(__name__)
@@ -56,20 +56,23 @@ def main():
         privacy_args,
     ) = parser.parse_args_into_dataclasses()
 
-    # import pdb
-
-    # pdb.set_trace()
     model_args: ModelArguments
     data_args: DataTrainingArguments
     training_args: TrainingArguments
     privacy_args: PrivacyArguments
 
+    logger.info(f"train data: {data_args.train_data_file}")
+    logger.info(f"valid data: {data_args.valid_data_file}")
+    logger.info(f"eval data: {data_args.eval_data_file}")
     if data_args.eval_data_file is None and training_args.do_eval:
         raise ValueError(
             "Cannot do evaluation without an evaluation data file. Either supply a file to --eval_data_file "
             "or remove the --do_eval argument."
         )
 
+    if not os.path.exists(training_args.output_dir):
+        os.makedirs(training_args.output_dir)
+        
     if (
         os.path.exists(training_args.output_dir)
         and os.listdir(training_args.output_dir)
@@ -116,6 +119,7 @@ def main():
     config.return_dict = True
     config.tie_word_embeddings = False
 
+    # import pdb; pdb.set_trace()
     # Tokenizer; `bos_token` and `eos_token` is the same for GPT2; both are 50256.
     tokenizer = GPT2Tokenizer.from_pretrained(
         model_args.model_name_or_path, cache_dir=model_args.cache_dir
@@ -130,58 +134,67 @@ def main():
     print(f"base gpt2 model: {model_args.model_name_or_path}")
     print(gpt2)
 
-    # Clone the embedding into the lm_head for better initialization.
-    lm_head = gpt2.get_output_embeddings()
-    embedding = gpt2.get_input_embeddings()
-    lm_head.weight.data.copy_(embedding.weight.data)
-    print(
-        f"Cloning initial embedding into lm_head, "
-        f"checking norms... \n"
-        f"\tlm_head: {lm_head.weight.norm()}, embedding: {embedding.weight.norm()}"
-    )
-    torch.testing.assert_allclose(lm_head.weight, embedding.weight)
-    del lm_head, embedding
+
 
     if data_args.block_size <= 0:
         data_args.block_size = tokenizer.model_max_length
     else:
         data_args.block_size = min(data_args.block_size, tokenizer.model_max_length)
 
-    # Adjust tokenizer and model embeddings.
-    print("adapt tokenizer to include [PAD]")
-    print(f"before len(tokenizer) = {len(tokenizer)}")
-    tokenizer.add_special_tokens({"pad_token": "[PAD]"})
-    print(f"after len(tokenizer) = {len(tokenizer)}")
-    print("tokenizer.eos_token:", tokenizer.eos_token, tokenizer.eos_token_id)
-    print("tokenizer.bos_token:", tokenizer.bos_token, tokenizer.bos_token_id)
+    # import pdb; pdb.set_trace()
+    if not training_args.is_sdp_finetune:
+        # Clone the embedding into the lm_head for better initialization.
+        lm_head = gpt2.get_output_embeddings()
+        embedding = gpt2.get_input_embeddings()
+        lm_head.weight.data.copy_(embedding.weight.data)
+        print(
+            f"Cloning initial embedding into lm_head, "
+            f"checking norms... \n"
+            f"\tlm_head: {lm_head.weight.norm()}, embedding: {embedding.weight.norm()}"
+        )
+        torch.testing.assert_allclose(lm_head.weight, embedding.weight)
+        del lm_head, embedding
 
-    print("adapt the size of lm_head and input_embeddings to include [PAD]")
-    print("use avg-based initialization")
+        # Adjust tokenizer and model embeddings.
+        print("adapt tokenizer to include [PAD] or other special tokens")
+        print(f"before len(tokenizer) = {len(tokenizer)}")
+        len_tokenizer_before = len(tokenizer)
+        tokenizer = add_special_tokens(tokenizer, data_args)
+        # tokenizer.add_special_tokens({"pad_token": "[PAD]"})
+        len_tokenizer_after = len(tokenizer)
+        print(f"after len(tokenizer) = {len(tokenizer)}")
+        print("tokenizer.eos_token:", tokenizer.eos_token, tokenizer.eos_token_id)
+        print("tokenizer.bos_token:", tokenizer.bos_token, tokenizer.bos_token_id)
 
-    input_embeddings_before = gpt2.get_input_embeddings().weight
-    lm_head_before = gpt2.get_output_embeddings().weight
-    gpt2.resize_token_embeddings(len(tokenizer))
+        print("adapt the size of lm_head and input_embeddings to include [PAD]")
+        print("use avg-based initialization")
 
-    input_embeddings_after = gpt2.get_input_embeddings().weight
-    lm_head_after = gpt2.get_output_embeddings().weight
-    print(
-        f"before lm_head.weight.size() = {lm_head_before.size()}, "
-        f"input_embeddings_before.size() = {input_embeddings_before.size()}"
-    )
-    print(
-        f"after lm_head.weight.size() = {lm_head_after.size()}, "
-        f"after input_embeddings_after.size() = {input_embeddings_after.size()}"
-    )
-    torch.testing.assert_allclose(lm_head_before, lm_head_after[:-1])
-    print("pre-chunk equal for lm_head")
-    torch.testing.assert_allclose(input_embeddings_before, input_embeddings_after[:-1])
-    print("pre-chunk equal for input_embeddings")
-    lm_head_after.data[-1] = lm_head_before.mean(dim=0)
-    input_embeddings_after.data[-1] = input_embeddings_before.mean(dim=0)
+        input_embeddings_before = gpt2.get_input_embeddings().weight
+        lm_head_before = gpt2.get_output_embeddings().weight
+        gpt2.resize_token_embeddings(len(tokenizer))
 
-    print("double check: ")
-    print("embedding size", gpt2.get_input_embeddings().weight.size())
-    print("lm_head size", gpt2.get_output_embeddings().weight.size())
+        input_embeddings_after = gpt2.get_input_embeddings().weight
+        lm_head_after = gpt2.get_output_embeddings().weight
+        print(
+            f"before lm_head.weight.size() = {lm_head_before.size()}, "
+            f"input_embeddings_before.size() = {input_embeddings_before.size()}"
+        )
+        print(
+            f"after lm_head.weight.size() = {lm_head_after.size()}, "
+            f"after input_embeddings_after.size() = {input_embeddings_after.size()}"
+        )
+        # torch.testing.assert_allclose(lm_head_before, lm_head_after[:-1])
+        print("pre-chunk equal for lm_head")
+        torch.testing.assert_allclose(input_embeddings_before, input_embeddings_after[:-(len_tokenizer_after - len_tokenizer_before)])
+        print("pre-chunk equal for input_embeddings")
+        # import pdb; pdb.set_trace()
+        for _i in range(len_tokenizer_after - len_tokenizer_before):
+            lm_head_after.data[-_i] = lm_head_before.mean(dim=0)
+            input_embeddings_after.data[-_i] = input_embeddings_before.mean(dim=0)
+
+        print("double check: ")
+        print("embedding size", gpt2.get_input_embeddings().weight.size())
+        print("lm_head size", gpt2.get_output_embeddings().weight.size())
     model = gpt2
 
     train_dataset, val_dataset, eval_dataset, data_collator = get_all_datasets(
@@ -192,18 +205,22 @@ def main():
         model_args=model_args,
     )
 
-    # Materialize the prompts.
-    generation_stuff = dict(
-        train_prompts=get_prompt_dataset(
-            file_path=data_args.train_prompt_file, tokenizer=tokenizer
-        ),
-        val_prompts=get_prompt_dataset(
-            file_path=data_args.val_prompt_file, tokenizer=tokenizer
-        ),
-        eval_prompts=get_prompt_dataset(
-            file_path=data_args.eval_prompt_file, tokenizer=tokenizer
-        ),
-    )
+    # import pdb; pdb.set_trace()
+    if not training_args.skip_generation:
+        # Materialize the prompts.
+        generation_stuff = dict(
+            train_prompts=get_prompt_dataset(
+                file_path=data_args.train_prompt_file, tokenizer=tokenizer
+            ),
+            val_prompts=get_prompt_dataset(
+                file_path=data_args.val_prompt_file, tokenizer=tokenizer
+            ),
+            eval_prompts=get_prompt_dataset(
+                file_path=data_args.eval_prompt_file, tokenizer=tokenizer
+            ),
+        )
+    else:
+        generation_stuff = None
 
     trainer = Trainer(
         model=model,

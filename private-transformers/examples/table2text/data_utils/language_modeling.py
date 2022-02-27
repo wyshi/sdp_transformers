@@ -47,28 +47,30 @@ class BlockByBlockWikiText2TextDataset(Dataset):
     def __init__(
         self,
         tokenizer: PreTrainedTokenizer,
-        file_path: str,
-        data_partition: str,
+        train_file_path: str,
+        valid_file_path: str,
+        eval_file_path: str,
         block_size: Optional[int] = 1024,
         preprocessing_num_workers: Optional[int] = None,
         overwrite_cache: Optional[bool] = False,
     ):
         accelerator = Accelerator()
-        assert os.path.isfile(file_path), f"Input file path {file_path} not found"
+        assert os.path.isfile(train_file_path), f"Input file path {train_file_path} not found"
         # Here, we do not cache the features, operating under the assumption
         # that we will soon use fast multithreaded tokenizers from the
         # `tokenizers` repo everywhere =)
-        logger.info("Creating features from dataset file at %s", file_path)
+        logger.info("Creating features from dataset file at %s", train_file_path)
 
-        raw_dataset = self._load_raw_dataset(file_path, data_partition)
-        column_names = raw_dataset[data_partition].column_names
+        raw_datasets = self._load_raw_datasets(train_file_path,valid_file_path,eval_file_path)
+        column_names = raw_datasets['train'].column_names
         text_column_name = "text" if "text" in column_names else column_names[0]
 
         def tokenize_function(examples):
             return tokenizer(examples[text_column_name])
 
+        # import pdb; pdb.set_trace()
         with accelerator.main_process_first():
-            tokenized_datasets = raw_dataset.map(
+            tokenized_datasets = raw_datasets.map(
                 tokenize_function,
                 batched=True,
                 num_proc=preprocessing_num_workers,
@@ -121,40 +123,44 @@ class BlockByBlockWikiText2TextDataset(Dataset):
                 desc=f"Grouping texts in chunks of {block_size}",
             )
 
-        self.examples = lm_datasets[data_partition]
-
-    def _load_raw_dataset(
+        self.train_examples = lm_datasets['train']
+        self.val_examples = lm_datasets['validation']
+        self.test_examples = lm_datasets['test']
+        
+    def _load_raw_datasets(
         self,
-        file_path: str,
-        data_partition: str,
+        train_file_path: str,
+        valid_file_path:str,
+        test_file_path:str,
         no_keep_linebreaks: Optional[bool] = False,
     ):
         data_files = {}
         dataset_args = {}
-        if file_path is not None:
-            data_files[data_partition] = file_path
+        data_files["train"] = train_file_path
+        data_files["validation"] = valid_file_path
+        data_files["test"] = test_file_path
         # if args.validation_file is not None:
         #     data_files["validation"] = validation_file
 
-        extension = file_path.split(".")[-1]
+        extension = train_file_path.split(".")[-1]
         if extension == "txt":
             extension = "text"
             dataset_args["keep_linebreaks"] = not no_keep_linebreaks
-        raw_dataset = load_dataset(extension, data_files=data_files, **dataset_args)
+        raw_datasets = load_dataset(extension, data_files=data_files, **dataset_args)
 
-        return raw_dataset
+        return raw_datasets
 
-    def __len__(self):
-        return len(self.examples)
+    # def __len__(self):
+    #     return len(self.examples)
 
-    def __getitem__(self, i):
-        return (
-            torch.tensor(self.examples[i], dtype=torch.long),
-            torch.tensor(self.examples[i], dtype=torch.long),
-            torch.tensor(self.examples[i], dtype=torch.long),
-            torch.tensor(self.examples[i], dtype=torch.long),
-            torch.tensor(self.examples[i], dtype=torch.long),
-        )
+    # def __getitem__(self, i):
+    #     return (
+    #         torch.tensor(self.examples[i], dtype=torch.long),
+    #         torch.tensor(self.examples[i], dtype=torch.long),
+    #         torch.tensor(self.examples[i], dtype=torch.long),
+    #         torch.tensor(self.examples[i], dtype=torch.long),
+    #         torch.tensor(self.examples[i], dtype=torch.long),
+    #     )
 
 
 class LineByLineE2ETextDataset(Dataset):

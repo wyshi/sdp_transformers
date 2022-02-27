@@ -17,8 +17,73 @@ from .data_utils.language_modeling import (
     LineByLineE2ETextDataset,
     LineByLineTriplesTextDataset,
 )
+from transformers.tokenization_utils import PreTrainedTokenizer
 
 from typing import Optional
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
+
+
+def load_model(model_dir, device):
+    tokenizer = GPT2Tokenizer.from_pretrained(
+        model_dir
+        # f"/local-scratch1/data/wyshi/privacy/pate/checkpoint/20210129/train5/clm_{i}"
+    )
+    model = GPT2LMHeadModel.from_pretrained(model_dir).to(device)
+
+    return tokenizer, model
+
+def add_special_tokens(
+    tokenizer: PreTrainedTokenizer,
+    data_args: DataTrainingArguments,
+):
+    if data_args.task_mode in ["e2e", "dart"]:
+        tokenizer.add_special_tokens({"pad_token": "[PAD]"})
+    elif data_args.task_mode in ["wikitext2"]:
+        pass
+    elif data_args.task_mode in ["wikitext2-delex-person"]:
+        tokenizer.add_tokens(["<PERSON>"], special_tokens=True)
+    elif data_args.task_mode in ["wikitext2-delex-medium"]:
+        tokenizer.add_tokens(["<PERSON>", "<ORG>", "<DATE>", "<GPE>"], special_tokens=True)
+    elif data_args.task_mode in ["wikitext2-delex-high"]:
+        tokenizer.add_tokens(
+            [
+                "<CARDINAL>",
+                "<DATE>",
+                "<EVENT>",
+                "<FAC>",
+                "<GPE>",
+                "<LANGUAGE>",
+                "<LAW>",
+                "<LOC>",
+                "<MONEY>",
+                "<NORP>",
+                "<ORDINAL>",
+                "<ORG>",
+                "<PERCENT>",
+                "<PERSON>",
+                "<PRODUCT>",
+                "<QUANTITY>",
+                "<TIME>",
+                "<WORK_OF_ART>",
+            ], special_tokens=True
+        )
+    return tokenizer
+
+
+def get_datasets_with_path_for_wiki(
+    data_args: DataTrainingArguments,
+    tokenizer: PreTrainedTokenizer,
+):
+
+    datasets = BlockByBlockWikiText2TextDataset(
+        tokenizer=tokenizer,
+        train_file_path=data_args.train_data_file,
+        valid_file_path=data_args.valid_data_file,
+        eval_file_path=data_args.eval_data_file,
+        block_size=data_args.block_size,
+        overwrite_cache=True, # don't use cache, as we may evaluate one model and tokenizer trained on other data
+    )
+    return datasets
 
 
 def get_dataset_with_path(
@@ -26,7 +91,6 @@ def get_dataset_with_path(
     tokenizer: PreTrainedTokenizer,
     file_path: str,
     max_examples: int,
-    data_partition: Optional[str] = "train",
     **_,
 ):
     if data_args.line_by_line:
@@ -50,13 +114,7 @@ def get_dataset_with_path(
                 max_seq_len=data_args.max_seq_len,
                 max_examples=max_examples,
             )
-        elif data_args.task_mode == "wikitext2":
-            dataset = BlockByBlockWikiText2TextDataset(
-                tokenizer=tokenizer,
-                file_path=file_path,
-                data_partition=data_partition,
-                block_size=data_args.block_size,
-            )
+
         else:
             raise ValueError(f"Unknown `args.task_mode`: {data_args.task_mode}")
 
@@ -81,24 +139,32 @@ def get_all_datasets(config, tokenizer, data_args, model_args, **_):
     kwargs = dict(
         data_args=data_args, tokenizer=tokenizer, cache_dir=model_args.cache_dir
     )
-    train_dataset = get_dataset_with_path(
-        **kwargs,
-        file_path=data_args.train_data_file,
-        max_examples=data_args.max_train_examples,
-        data_partition="train",
-    )
-    valid_dataset = get_dataset_with_path(
-        **kwargs,
-        file_path=data_args.valid_data_file,
-        max_examples=data_args.max_valid_examples,
-        data_partition="valid",
-    )
-    eval_dataset = get_dataset_with_path(
-        **kwargs,
-        file_path=data_args.eval_data_file,
-        max_examples=data_args.max_eval_examples,
-        data_partition="test",
-    )
+    if data_args.task_mode in ["e2e", "dart"]:
+        train_dataset = get_dataset_with_path(
+            **kwargs,
+            file_path=data_args.train_data_file,
+            max_examples=data_args.max_train_examples,
+            data_partition="train",
+        )
+        valid_dataset = get_dataset_with_path(
+            **kwargs,
+            file_path=data_args.valid_data_file,
+            max_examples=data_args.max_valid_examples,
+            data_partition="valid",
+        )
+        eval_dataset = get_dataset_with_path(
+            **kwargs,
+            file_path=data_args.eval_data_file,
+            max_examples=data_args.max_eval_examples,
+            data_partition="test",
+        )
+    else:
+        datasets = get_datasets_with_path_for_wiki(
+            data_args=data_args, tokenizer=tokenizer
+        )
+        train_dataset = datasets.train_examples
+        valid_dataset = datasets.val_examples
+        eval_dataset = datasets.test_examples
 
     if config.model_type == "xlnet":
         data_collator = DataCollatorForPermutationLanguageModeling(
@@ -111,10 +177,7 @@ def get_all_datasets(config, tokenizer, data_args, model_args, **_):
             data_collator = DataCollatorForData2TextLanguageModeling(
                 tokenizer=tokenizer, mlm=False, format_mode=data_args.format_mode
             )
-        elif data_args.task_mode == "wikitext2":
-            train_dataset = train_dataset.examples
-            valid_dataset = valid_dataset.examples
-            eval_dataset = eval_dataset.examples
+        elif "wikitext2" in data_args.task_mode:
             data_collator = default_data_collator
         else:
             data_collator = DataCollatorForLanguageModeling(

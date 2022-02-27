@@ -6,6 +6,7 @@ import re
 import shutil
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 import warnings
+import math
 
 import datasets
 import numpy as np
@@ -156,7 +157,7 @@ class Trainer:
         self.val_dataset = val_dataset
         self.generation_stuff = generation_stuff
         self.tokenizer = tokenizer
-        self.curr_best_eval = 10000000.0
+        self.curr_best_val = 10000000.0
         self.model_init = model_init
         self.compute_metrics = compute_metrics
         self.optimizer, self.lr_scheduler = optimizers
@@ -427,6 +428,7 @@ class Trainer:
         model = self.model
 
         # Evaluate before training.
+        # import pdb; pdb.set_trace()
         if self.args.evaluate_before_training:
             self.evaluate(epoch=0)  # No need to report to hp search.
 
@@ -575,43 +577,14 @@ class Trainer:
                         in (EvaluationStrategy.STEPS, IntervalStrategy.STEPS)
                         and self.global_step % self.args.eval_steps == 0
                     ):
-                        self.evaluate(epoch=epoch)
+                        cur_metrics = self.evaluate(epoch=epoch)
 
                     if (
                         self.args.save_steps > 0
                         and self.global_step % self.args.save_steps == 0
                     ):
-                        # In all cases (even distributed/parallel), self.model is always a reference
-                        # to the model we want to save.
-                        if hasattr(model, "module"):
-                            assert (
-                                model.module is self.model
-                            ), f"Module {model.module} should be a reference to self.model"
-                        else:
-                            assert (
-                                model is self.model
-                            ), f"Model {model} should be a reference to self.model"
-                        # Save model checkpoint
-                        checkpoint_folder = (
-                            f"{PREFIX_CHECKPOINT_DIR}-{self.global_step}"
-                        )
-                        output_dir = os.path.join(
-                            self.args.output_dir, checkpoint_folder
-                        )
-
-                        self.store_flos()
-                        self.save_model(output_dir)
-
-                        if self.is_world_process_zero():
-                            self._rotate_checkpoints(use_mtime=True)
-                            torch.save(
-                                self.optimizer.state_dict(),
-                                os.path.join(output_dir, "optimizer.pt"),
-                            )
-                            torch.save(
-                                self.lr_scheduler.state_dict(),
-                                os.path.join(output_dir, "scheduler.pt"),
-                            )
+                        self.save_actions_at_save_step(model)
+                        # import pdb; pdb.set_trace()
                 else:
                     if not self.privacy_args.non_private:
                         self.optimizer.virtual_step(loss=losses.get("vector_loss"))
@@ -629,6 +602,11 @@ class Trainer:
                 and (epoch + 1) % self.args.eval_epochs == 0
             ):
                 metrics = self.evaluate(epoch=epoch)
+                # if improve, we save
+                if metrics['val']['model']['ppl'] < self.curr_best_val:
+                    # import pdb; pdb.set_trace()
+                    self.curr_best_val = metrics['val']['model']['ppl']
+                    self.save_actions_at_save_step(model)
 
             if (
                 self.args.max_steps is not None
@@ -784,6 +762,41 @@ class Trainer:
         """
         return self.args.local_rank == -1 or torch.distributed.get_rank() == 0
 
+    def save_actions_at_save_step(self, model):
+        # In all cases (even distributed/parallel), self.model is always a reference
+        # to the model we want to save.
+        if hasattr(model, "module"):
+            assert (
+                model.module is self.model
+            ), f"Module {model.module} should be a reference to self.model"
+        else:
+            assert (
+                model is self.model
+            ), f"Model {model} should be a reference to self.model"
+        
+        # Save model checkpoint
+        checkpoint_folder = (
+            f"{PREFIX_CHECKPOINT_DIR}-{self.global_step}"
+        )
+        output_dir = os.path.join(
+            self.args.output_dir, checkpoint_folder
+        )
+
+        self.store_flos()
+        self.save_model(output_dir)
+
+        if self.is_world_process_zero():
+            self._rotate_checkpoints(use_mtime=True)
+            torch.save(
+                self.optimizer.state_dict(),
+                os.path.join(output_dir, "optimizer.pt"),
+            )
+            torch.save(
+                self.lr_scheduler.state_dict(),
+                os.path.join(output_dir, "scheduler.pt"),
+            )
+
+
     def save_model(self, output_dir: Optional[str] = None):
         """
         Will save the model, so you can reload it using :obj:`from_pretrained()`.
@@ -800,6 +813,7 @@ class Trainer:
         output_dir = output_dir if output_dir is not None else self.args.output_dir
         os.makedirs(output_dir, exist_ok=True)
         logger.info("Saving model checkpoint to %s", output_dir)
+        print("Saving model checkpoint to %s", output_dir)
         # Save a trained model and configuration using `save_pretrained()`.
         # They can then be reloaded using `from_pretrained()`
         if not isinstance(self.model, PreTrainedModel):
@@ -905,16 +919,16 @@ class Trainer:
             val_dataloader, description="Evaluate val split"
         )
 
-        train_sampler = self._get_train_sampler(
-            shuffle=False
-        )  # Don't shuffle during evaluation!
-        train_dataloader = self.get_train_dataloader(train_sampler=train_sampler)
-        train_output = self.prediction_loop(
-            train_dataloader, description="Evaluate train split"
-        )
+        # train_sampler = self._get_train_sampler(
+        #     shuffle=False
+        # )  # Don't shuffle during evaluation!
+        # train_dataloader = self.get_train_dataloader(train_sampler=train_sampler)
+        # train_output = self.prediction_loop(
+        #     train_dataloader, description="Evaluate train split"
+        # )
 
         metrics = {
-            "train": train_output.metrics,
+            # "train": train_output.metrics,
             "eval": eval_output.metrics,
             "val": val_output.metrics,
             "epoch": epoch,
@@ -942,6 +956,7 @@ class Trainer:
                 ensure_ascii=False,
             )
 
+        # import pdb; pdb.set_trace()
         return metrics
 
     def _get_loader_by_split(self, split):
@@ -1134,9 +1149,11 @@ class Trainer:
             for key, value in this_record.items():
                 if isinstance(value, (list, tuple)):
                     this_record[key] = np.mean(value)
-
+            this_record["ppl"] = math.exp(this_record["eval_losses"])
+        
         metrics = records
 
+        # import pdb; pdb.set_trace()
         return PredictionOutput(predictions=preds, label_ids=label_ids, metrics=metrics)
 
     def prediction_step(

@@ -52,7 +52,6 @@ class ModelArguments:
             "help": "Where do you want to store the pretrained models downloaded from s3"
         },
     )
-
     static_lm_head: bool = field(default=False)
     static_embedding: bool = field(default=False)
 
@@ -151,7 +150,7 @@ class DataTrainingArguments:
                     self.data_folder, "prompts_test.txt"
                 )
 
-            elif self.task_mode == "wikitext2":
+            elif "wikitext2" in self.task_mode:
                 self.train_data_file = os.path.join(self.data_folder, "train.txt")
                 self.valid_data_file = os.path.join(self.data_folder, "valid.txt")
                 self.eval_data_file = os.path.join(self.data_folder, "test.txt")
@@ -188,6 +187,9 @@ class TrainingArguments(transformers.TrainingArguments):
     save_at_last: str = field(
         default="no", metadata={"help": "Save at the end of training."}
     )
+    is_sdp_finetune: str = field(
+        default="no", metadata={"help": "if it's sdp finetuning"}
+    )
 
     def __post_init__(self):
         super(TrainingArguments, self).__post_init__()
@@ -197,6 +199,7 @@ class TrainingArguments(transformers.TrainingArguments):
         self.evaluate_during_training = self.evaluate_during_training in ("y", "yes")
         self.evaluate_before_training = self.evaluate_before_training in ("y", "yes")
         self.save_at_last = self.save_at_last in ("y", "yes")
+        self.is_sdp_finetune = self.is_sdp_finetune in ("y", "yes")
 
 
 @dataclass
