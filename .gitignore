@@ -13,5 +13,7 @@ label_dp_antipodes/checkpoint/
 
 random_response/checkpoint/
 
+abcd/data/abcd_v1.1.json
+
 private-transformers/examples/table2text/output/*
 private-transformers/examples/table2text/output/wiki/*

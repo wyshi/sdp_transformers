@@ -40,6 +40,10 @@ ALL_TYPES = (
 )
 
 
+def convert_to_entity_special_token(entity: str):
+    return f"<{entity}>"
+
+
 def is_digit(token):
     return token.strip().isdigit()
 
@@ -56,6 +60,12 @@ def digit_policy_function(
     return is_sensitives
 
 
+def get_spacy_tokens_and_doc(line):
+    doc = NLP(line)
+    spacy_tokens = [x.text for x in doc]
+    return spacy_tokens, doc
+
+
 def ner_policy_function(
     tokenizer: AutoTokenizer,
     line: str,
@@ -69,18 +79,21 @@ def ner_policy_function(
     nlp.get_pipe("ner").labels
     ('CARDINAL', 'DATE', 'EVENT', 'FAC', 'GPE', 'LANGUAGE', 'LAW', 'LOC', 'MONEY', 'NORP', 'ORDINAL', 'ORG', 'PERCENT', 'PERSON', 'PRODUCT', 'QUANTITY', 'TIME', 'WORK_OF_ART')
     """
-    doc = NLP(line)
     original_token_ids, original_tokens = get_tokens(tokenizer, line)
-    spacy_tokens = [x.text for x in doc]
+    spacy_tokens, doc = get_spacy_tokens_and_doc(line)
 
     b2a_map = align_tokens(
         line, tokenizer, original_tokens, original_token_ids, spacy_tokens
     )
 
+    interval_to_sensitive_type_dict = {}
     ent_to_idx = defaultdict(list)
     for i, x in enumerate(doc):
         if x.ent_type_ in entity_types:
             ent_to_idx[x.ent_type_].append(i)
+            interval_to_sensitive_type_dict[
+                tuple(b2a_map[i])
+            ] = convert_to_entity_special_token(x.ent_type_)
             if debug:
                 try:
                     assert (
@@ -94,6 +107,9 @@ def ner_policy_function(
 
                     pdb.set_trace()
 
+        else:
+            interval_to_sensitive_type_dict[tuple(b2a_map[i])] = 0
+
     is_sensitives = np.zeros(len(original_tokens))
     is_sensitives_types = np.zeros(len(original_tokens), dtype=object)
     for ent in ent_to_idx:
@@ -101,11 +117,36 @@ def ner_policy_function(
             is_sensitives[b2a_map[idx]] = 1
             is_sensitives_types[b2a_map[idx]] = ent
 
-    if return_additional_type_vec:
+    import pdb
 
-        return (is_sensitives, is_sensitives_types)
+    pdb.set_trace()
+
+    if return_additional_type_vec:
+        return (is_sensitives, is_sensitives_types, interval_to_sensitive_type_dict)
     else:
         return is_sensitives
+
+
+def delex_line(line: str, entity_types: List, return_stat: Optional[bool] = False):
+    spacy_tokens, doc = get_spacy_tokens_and_doc(line)
+    words = [tok.text for tok in doc]
+    spaces = [True if tok.whitespace_ else False for tok in doc]
+
+    # delex
+    delexed = 0
+    for i, x in enumerate(doc):
+        if x.ent_type_ in entity_types:
+            delexed += 1
+            words[i] = convert_to_entity_special_token(x.ent_type_)
+    total = len(doc)
+
+    # rejoin them
+    doc2 = spacy.tokens.doc.Doc(NLP.vocab, words=words, spaces=spaces)
+
+    if return_stat:
+        return doc2.text, delexed, total
+    else:
+        return doc2.text
 
 
 def main():
@@ -167,7 +208,11 @@ def main():
     total = 0
     type_cnts = {}
     for text in tqdm(texts):
-        is_sensitives, is_sensitives_types = ner_policy_function(
+        (
+            is_sensitives,
+            is_sensitives_types,
+            interval_to_sensitive_type_dict,
+        ) = ner_policy_function(
             tokenizer=tokenizer,
             line=text,
             entity_types=ALL_TYPES,
@@ -186,13 +231,23 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
-    tokenizer = AutoTokenizer.from_pretrained(
-        "/local-scratch1/data/wyshi/privacy/pate/checkpoint/20220211/train10_10epoches/clm_0"
-    )
+    # main()
+    tokenizer = AutoTokenizer.from_pretrained("gpt2")
 
-    sentence = ' Krasnyi Kavkaz ( from Russian : " Красный Кавказ " - " Red Caucasus " ) was a cruiser of the Soviet Navy that began construction during World War I , but was still incomplete during the Russian Revolution . Her design was heavily modified by the Soviets and she was completed in 1932 . During World War II she supported Soviet troops during the Siege of Odessa , Siege of Sevastopol , and the Kerch @-@ Feodosiya Operation in the winter of 1941 — 42 . She was awarded the Guards title on 3 April 1942 . She was reclassified as a training ship in May 1947 before being used as a target in 1952 .'
+    # sentence = ' Krasnyi Kavkaz ( from Russian : " Красный Кавказ " - " Red Caucasus " ) was a cruiser of the Soviet Navy that began construction during World War I , but was still incomplete during the Russian Revolution . Her design was heavily modified by the Soviets and she was completed in 1932 . During World War II she supported Soviet troops during the Siege of Odessa , Siege of Sevastopol , and the Kerch @-@ Feodosiya Operation in the winter of 1941 — 42 . She was awarded the Guards title on 3 April 1942 . She was reclassified as a training ship in May 1947 before being used as a target in 1952 .'
 
-    is_sensitives = ner_policy_function(
-        tokenizer=tokenizer, line=sentence, entity_types=["PERSON"], debug=True
+    sentence = "Can I please borrow 50000 dollars from you to buy some Microsoft stock?"
+    (
+        is_sensitives,
+        is_sensitives_types,
+        interval_to_sensitive_type_dict,
+    ) = ner_policy_function(
+        tokenizer=tokenizer,
+        line=sentence,
+        entity_types=ALL_TYPES,
+        debug=True,
+        return_additional_type_vec=True,
     )
+    import pdb
+
+    pdb.set_trace()

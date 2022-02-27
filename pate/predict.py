@@ -14,7 +14,12 @@ import pandas as pd
 import os
 
 from utils import predict_with_model, load_file, get_tokens
-from policy_functions import is_digit, digit_policy_function
+from policy_functions import (
+    is_digit,
+    digit_policy_function,
+    ner_policy_function,
+    ALL_TYPES,
+)
 
 warnings.filterwarnings("ignore")
 
@@ -91,6 +96,12 @@ def parse_args():
         "-l",
         action="store_true",
         help="use the trained model from the last epoch training",
+    )
+    parser.add_argument(
+        "--delex_instead_of_predict",
+        "-r",
+        action="store_true",
+        help="delex the data instead of predicting",
     )
     args = parser.parse_args()
 
@@ -203,6 +214,18 @@ def annotate_file(tokenizer, tokenizers_models, file_dir, args):
         original_input_ids, original_tokens = get_tokens(tokenizer, line)
         is_sensitives = digit_policy_function(tokenizer, line)
         assert len(original_tokens) == len(is_sensitives)
+        if args.delex_instead_of_predict:
+            (
+                is_sensitives,
+                is_sensitives_types,
+                interval_to_sensitive_type_dict,
+            ) = ner_policy_function(
+                tokenizer=tokenizer,
+                line=line,
+                entity_types=ALL_TYPES,
+                return_additional_type_vec=True,
+            )
+
         for i, (token, is_sensitive) in enumerate(zip(original_tokens, is_sensitives)):
             if is_sensitive:
                 if i > 0:

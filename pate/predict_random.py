@@ -13,6 +13,8 @@ import pandas as pd
 import os
 import random
 
+from policy_functions import is_digit, digit_policy_function, ner_policy_function
+
 
 random.seed(1111)
 warnings.filterwarnings("ignore")

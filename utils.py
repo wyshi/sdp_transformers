@@ -16,6 +16,8 @@ import tokenizations
 
 import numpy as np
 
+# def normalize_sentence(original_sentence, is_sensitives_types):
+
 
 def get_tokens(tokenizer, line):
     original_input_ids = tokenizer.encode(line)
