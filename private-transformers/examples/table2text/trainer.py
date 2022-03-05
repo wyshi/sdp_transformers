@@ -115,9 +115,7 @@ class Trainer:
         **kwargs,
     ):
         if args is None:
-            logger.info(
-                "No `TrainingArguments` passed, using the current path as `output_dir`."
-            )
+            logger.info("No `TrainingArguments` passed, using the current path as `output_dir`.")
             args = TrainingArguments("tmp_trainer")
         self.args = args
         self.model_args = model_args
@@ -132,9 +130,7 @@ class Trainer:
         )
         assert model_init is None
         self.model = model.to(args.device) if model is not None else None
-        self.num_params = sum(
-            param.numel() for param in self.model.parameters() if param.requires_grad
-        )
+        self.num_params = sum(param.numel() for param in self.model.parameters() if param.requires_grad)
         from transformers.modeling_utils import Conv1D
 
         self.num_non_embedding_params = sum(
@@ -144,14 +140,8 @@ class Trainer:
             for param in module.parameters()
             if param.requires_grad
         )
-        default_collator = (
-            default_data_collator
-            if tokenizer is None
-            else DataCollatorWithPadding(tokenizer)
-        )
-        self.data_collator = (
-            data_collator if data_collator is not None else default_collator
-        )
+        default_collator = default_data_collator if tokenizer is None else DataCollatorWithPadding(tokenizer)
+        self.data_collator = data_collator if data_collator is not None else default_collator
         self.train_dataset = train_dataset
         self.eval_dataset = eval_dataset
         self.val_dataset = val_dataset
@@ -161,9 +151,7 @@ class Trainer:
         self.model_init = model_init
         self.compute_metrics = compute_metrics
         self.optimizer, self.lr_scheduler = optimizers
-        if model_init is not None and (
-            self.optimizer is not None or self.lr_scheduler is not None
-        ):
+        if model_init is not None and (self.optimizer is not None or self.lr_scheduler is not None):
             raise RuntimeError(
                 "Passing a `model_init` is incompatible with providing the `optimizers` argument."
                 "You should subclass `Trainer` and override the `create_optimizer_and_scheduler` method."
@@ -188,9 +176,7 @@ class Trainer:
             # Set an xla_device flag on the model's config.
             # We'll find a more elegant and not need to do this in the future.
             self.model.config.xla_device = True
-        if not callable(self.data_collator) and callable(
-            getattr(self.data_collator, "collate_batch", None)
-        ):
+        if not callable(self.data_collator) and callable(getattr(self.data_collator, "collate_batch", None)):
             self.data_collator = self.data_collator.collate_batch
             warnings.warn(
                 (
@@ -212,9 +198,7 @@ class Trainer:
                 else ["labels"]
             )
 
-    def _remove_unused_columns(
-        self, dataset: "datasets.Dataset", description: Optional[str] = None
-    ):
+    def _remove_unused_columns(self, dataset: "datasets.Dataset", description: Optional[str] = None):
         if not self.args.remove_unused_columns:
             return
         # Inspect model forward signature to keep only the arguments it accepts.
@@ -231,9 +215,7 @@ class Trainer:
         )
         dataset.set_format(type=dataset.format["type"], columns=columns)
 
-    def _get_train_sampler(
-        self, shuffle=True
-    ) -> Optional[torch.utils.data.sampler.Sampler]:
+    def _get_train_sampler(self, shuffle=True) -> Optional[torch.utils.data.sampler.Sampler]:
         if isinstance(self.train_dataset, torch.utils.data.IterableDataset):
             return None
         else:
@@ -271,15 +253,11 @@ class Trainer:
             num_workers=self.args.dataloader_num_workers,
         )
 
-    def _get_eval_sampler(
-        self, eval_dataset: Dataset
-    ) -> Optional[torch.utils.data.sampler.Sampler]:
+    def _get_eval_sampler(self, eval_dataset: Dataset) -> Optional[torch.utils.data.sampler.Sampler]:
         if isinstance(eval_dataset, torch.utils.data.IterableDataset):
             return None
         elif self.args.local_rank != -1:
-            raise ValueError(
-                "Multi-gpu and distributed training is currently not supported."
-            )
+            raise ValueError("Multi-gpu and distributed training is currently not supported.")
         else:
             return SequentialSampler(eval_dataset)
 
@@ -299,11 +277,7 @@ class Trainer:
         """
         if eval_dataset is None and self.eval_dataset is None:
             raise ValueError("Trainer: evaluation requires an eval_dataset.")
-        elif (
-            eval_dataset is not None
-            and is_datasets_available()
-            and isinstance(eval_dataset, datasets.Dataset)
-        ):
+        elif eval_dataset is not None and is_datasets_available() and isinstance(eval_dataset, datasets.Dataset):
             self._remove_unused_columns(eval_dataset, description="evaluation")
         eval_dataset = eval_dataset if eval_dataset is not None else self.eval_dataset
         eval_sampler = self._get_eval_sampler(eval_dataset)
@@ -374,9 +348,7 @@ class Trainer:
                 training will resume from the optimizer/scheduler states loaded here.
         """
         if self.args.local_rank != -1 or self.args.n_gpu > 1:
-            raise ValueError(
-                "Multi-gpu and distributed training is currently not supported."
-            )
+            raise ValueError("Multi-gpu and distributed training is currently not supported.")
         if self.args.fp16:
             raise ValueError("Mixed-precision training is currently not supported.")
 
@@ -392,9 +364,7 @@ class Trainer:
 
         # Data loader and number of training steps
         train_dataloader = self.get_train_dataloader()
-        num_update_steps_per_epoch = (
-            len(train_dataloader) // self.args.gradient_accumulation_steps
-        )
+        num_update_steps_per_epoch = len(train_dataloader) // self.args.gradient_accumulation_steps
         num_update_steps_per_epoch = max(num_update_steps_per_epoch, 1)
         if self.args.max_steps > 0:
             t_total = self.args.max_steps
@@ -421,9 +391,7 @@ class Trainer:
                     map_location=self.args.device,
                 )
             )
-            self.lr_scheduler.load_state_dict(
-                torch.load(os.path.join(model_path, "scheduler.pt"))
-            )
+            self.lr_scheduler.load_state_dict(torch.load(os.path.join(model_path, "scheduler.pt")))
 
         model = self.model
 
@@ -449,9 +417,7 @@ class Trainer:
             "  Total train batch size (w. parallel, distributed & accumulation) = %d",
             total_train_batch_size,
         )
-        logger.warning(
-            "  Gradient Accumulation steps = %d", self.args.gradient_accumulation_steps
-        )
+        logger.warning("  Gradient Accumulation steps = %d", self.args.gradient_accumulation_steps)
         logger.warning("  Total optimization steps = %d", t_total)
 
         self.global_step = 0
@@ -470,17 +436,11 @@ class Trainer:
                     self.total_flos = getattr(model.config, "total_flos", 0)
 
                 epochs_trained = self.global_step // num_update_steps_per_epoch
-                steps_trained_in_current_epoch = self.global_step % (
-                    num_update_steps_per_epoch
-                )
+                steps_trained_in_current_epoch = self.global_step % (num_update_steps_per_epoch)
 
-                logger.info(
-                    "  Continuing training from checkpoint, will skip to saved global_step"
-                )
+                logger.info("  Continuing training from checkpoint, will skip to saved global_step")
                 logger.info("  Continuing training from epoch %d", epochs_trained)
-                logger.info(
-                    "  Continuing training from global step %d", self.global_step
-                )
+                logger.info("  Continuing training from global step %d", self.global_step)
                 logger.info(
                     "  Continuing training from %d non-embedding floating-point operations",
                     self.total_flos,
@@ -504,9 +464,7 @@ class Trainer:
             disable=disable_tqdm,
         )
         for epoch in range(epochs_trained, int(np.ceil(num_train_epochs))):
-            if isinstance(train_dataloader, DataLoader) and isinstance(
-                train_dataloader.sampler, DistributedSampler
-            ):
+            if isinstance(train_dataloader, DataLoader) and isinstance(train_dataloader.sampler, DistributedSampler):
                 train_dataloader.sampler.set_epoch(epoch)
 
             epoch_iterator = train_dataloader
@@ -540,9 +498,7 @@ class Trainer:
                 ):
                     if self.privacy_args.non_private:
                         # Don't double clip in private learning.
-                        torch.nn.utils.clip_grad_norm_(
-                            model.parameters(), self.args.max_grad_norm
-                        )
+                        torch.nn.utils.clip_grad_norm_(model.parameters(), self.args.max_grad_norm)
                         self.optimizer.step()
                     else:
                         self.optimizer.step(loss=losses.get("vector_loss"))
@@ -553,15 +509,12 @@ class Trainer:
                     self.global_step += 1
                     self.epoch = epoch + (step + 1) / len(epoch_iterator)
 
-                    if (
-                        self.args.logging_steps > 0
-                        and self.global_step % self.args.logging_steps == 0
-                    ) or (self.global_step == 1 and self.args.logging_first_step):
+                    if (self.args.logging_steps > 0 and self.global_step % self.args.logging_steps == 0) or (
+                        self.global_step == 1 and self.args.logging_first_step
+                    ):
                         logs: Dict[str, float] = {}
                         tr_loss_scalar = tr_loss.item()
-                        logs["loss"] = (
-                            tr_loss_scalar - logging_loss_scalar
-                        ) / self.args.logging_steps
+                        logs["loss"] = (tr_loss_scalar - logging_loss_scalar) / self.args.logging_steps
                         # backward compatibility for pytorch schedulers
                         logs["learning_rate"] = (
                             self.lr_scheduler.get_last_lr()[0]
@@ -573,16 +526,12 @@ class Trainer:
                         self.log(logs)
 
                     if (
-                        self.args.evaluation_strategy
-                        in (EvaluationStrategy.STEPS, IntervalStrategy.STEPS)
+                        self.args.evaluation_strategy in (EvaluationStrategy.STEPS, IntervalStrategy.STEPS)
                         and self.global_step % self.args.eval_steps == 0
                     ):
                         cur_metrics = self.evaluate(epoch=epoch)
 
-                    if (
-                        self.args.save_steps > 0
-                        and self.global_step % self.args.save_steps == 0
-                    ):
+                    if self.args.save_steps > 0 and self.global_step % self.args.save_steps == 0:
                         self.save_actions_at_save_step(model)
                         # import pdb; pdb.set_trace()
                 else:
@@ -597,21 +546,17 @@ class Trainer:
             train_pbar.update(1)
 
             if (
-                self.args.evaluation_strategy
-                in (EvaluationStrategy.EPOCH, IntervalStrategy.EPOCH)
+                self.args.evaluation_strategy in (EvaluationStrategy.EPOCH, IntervalStrategy.EPOCH)
                 and (epoch + 1) % self.args.eval_epochs == 0
             ):
                 metrics = self.evaluate(epoch=epoch)
                 # if improve, we save
-                if metrics['val']['model']['ppl'] < self.curr_best_val:
+                if metrics["val"]["model"]["ppl"] < self.curr_best_val:
                     # import pdb; pdb.set_trace()
-                    self.curr_best_val = metrics['val']['model']['ppl']
+                    self.curr_best_val = metrics["val"]["model"]["ppl"]
                     self.save_actions_at_save_step(model)
 
-            if (
-                self.args.max_steps is not None
-                and 0 < self.args.max_steps <= self.global_step
-            ):
+            if self.args.max_steps is not None and 0 < self.args.max_steps <= self.global_step:
                 break
 
         train_pbar.close()
@@ -619,12 +564,8 @@ class Trainer:
             # Clean the state at the end of training
             delattr(self, "_past")
 
-        logger.info(
-            "\n\nTraining completed. Do not forget to share your model on huggingface.co/models =)\n\n"
-        )
-        return TrainOutput(
-            self.global_step, tr_loss.item() / self.global_step, metrics=dict()
-        )
+        logger.info("\n\nTraining completed. Do not forget to share your model on huggingface.co/models =)\n\n")
+        return TrainOutput(self.global_step, tr_loss.item() / self.global_step, metrics=dict())
 
     def log(self, logs: Dict[str, float], iterator: Optional[tqdm] = None) -> None:
         """
@@ -642,9 +583,7 @@ class Trainer:
             logs["epoch"] = self.epoch
         if self.total_flos is not None:
             if self.args.local_rank != -1:
-                total_flos = (
-                    distributed_broadcast_scalars([self.total_flos]).sum().item()
-                )
+                total_flos = distributed_broadcast_scalars([self.total_flos]).sum().item()
             else:
                 total_flos = self.total_flos
             if total_flos > 0:
@@ -667,9 +606,7 @@ class Trainer:
         else:
             print(output)
 
-    def _prepare_inputs(
-        self, inputs: Dict[str, Union[torch.Tensor, Any]]
-    ) -> Dict[str, Union[torch.Tensor, Any]]:
+    def _prepare_inputs(self, inputs: Dict[str, Union[torch.Tensor, Any]]) -> Dict[str, Union[torch.Tensor, Any]]:
         for k, v in inputs.items():
             if isinstance(v, torch.Tensor):
                 inputs[k] = v.to(self.args.device)
@@ -680,9 +617,7 @@ class Trainer:
         inputs.pop("src", None)
         return inputs
 
-    def training_step(
-        self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]
-    ) -> dict:
+    def training_step(self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]) -> dict:
         model.train()
         inputs = self._prepare_inputs(inputs)
         loss = self.compute_loss(model, inputs)  # (batch_size,).
@@ -707,9 +642,7 @@ class Trainer:
         shift_logits = logits[..., :-1, :].contiguous()
         shift_labels = labels[..., 1:].contiguous()
         seq_lens = (shift_labels != -100).sum(dim=1)
-        loss = F.cross_entropy(
-            shift_logits.permute(0, 2, 1), shift_labels, reduction="none"
-        )
+        loss = F.cross_entropy(shift_logits.permute(0, 2, 1), shift_labels, reduction="none")
         loss = loss.sum(dim=1) / seq_lens  # Per token loss.
 
         # Save past state if it exists
@@ -766,21 +699,13 @@ class Trainer:
         # In all cases (even distributed/parallel), self.model is always a reference
         # to the model we want to save.
         if hasattr(model, "module"):
-            assert (
-                model.module is self.model
-            ), f"Module {model.module} should be a reference to self.model"
+            assert model.module is self.model, f"Module {model.module} should be a reference to self.model"
         else:
-            assert (
-                model is self.model
-            ), f"Model {model} should be a reference to self.model"
-        
+            assert model is self.model, f"Model {model} should be a reference to self.model"
+
         # Save model checkpoint
-        checkpoint_folder = (
-            f"{PREFIX_CHECKPOINT_DIR}-{self.global_step}"
-        )
-        output_dir = os.path.join(
-            self.args.output_dir, checkpoint_folder
-        )
+        checkpoint_folder = f"{PREFIX_CHECKPOINT_DIR}-{self.global_step}"
+        output_dir = os.path.join(self.args.output_dir, checkpoint_folder)
 
         self.store_flos()
         self.save_model(output_dir)
@@ -795,7 +720,6 @@ class Trainer:
                 self.lr_scheduler.state_dict(),
                 os.path.join(output_dir, "scheduler.pt"),
             )
-
 
     def save_model(self, output_dir: Optional[str] = None):
         """
@@ -818,9 +742,7 @@ class Trainer:
         # They can then be reloaded using `from_pretrained()`
         if not isinstance(self.model, PreTrainedModel):
             raise ValueError("Trainer.model appears to not be a PreTrainedModel")
-        self.model.save_pretrained(
-            output_dir
-        )  # Find the models in `train_dir/checkpoint-k/pytorch_model.bin`
+        self.model.save_pretrained(output_dir)  # Find the models in `train_dir/checkpoint-k/pytorch_model.bin`
         if self.tokenizer is not None:
             self.tokenizer.save_pretrained(output_dir)
 
@@ -837,25 +759,19 @@ class Trainer:
         # Storing the number of floating-point operations that went into the model
         if self.total_flos is not None:
             if self.args.local_rank != -1:
-                total_flos = (
-                    distributed_broadcast_scalars([self.total_flos]).sum().item()
-                )
+                total_flos = distributed_broadcast_scalars([self.total_flos]).sum().item()
             else:
                 total_flos = self.total_flos
             if total_flos > 0:
                 self.model.config.total_flos = total_flos
 
-    def _sorted_checkpoints(
-        self, checkpoint_prefix=PREFIX_CHECKPOINT_DIR, use_mtime=False
-    ) -> List[str]:
+    def _sorted_checkpoints(self, checkpoint_prefix=PREFIX_CHECKPOINT_DIR, use_mtime=False) -> List[str]:
         output_dir_name = os.path.basename(self.args.output_dir)
         checkpoint_prefix = f"{output_dir_name}-{PREFIX_CHECKPOINT_DIR}"
 
         ordering_and_checkpoint_path = []
 
-        glob_checkpoints = [
-            str(x) for x in Path(self.args.output_dir).glob(f"{checkpoint_prefix}-*")
-        ]
+        glob_checkpoints = [str(x) for x in Path(self.args.output_dir).glob(f"{checkpoint_prefix}-*")]
 
         for path in glob_checkpoints:
             if use_mtime:
@@ -863,9 +779,7 @@ class Trainer:
             else:
                 regex_match = re.match(f".*{checkpoint_prefix}-([0-9]+)", path)
                 if regex_match and regex_match.groups():
-                    ordering_and_checkpoint_path.append(
-                        (int(regex_match.groups()[0]), path)
-                    )
+                    ordering_and_checkpoint_path.append((int(regex_match.groups()[0]), path))
 
         checkpoints_sorted = sorted(ordering_and_checkpoint_path)
         checkpoints_sorted = [checkpoint[1] for checkpoint in checkpoints_sorted]
@@ -880,16 +794,10 @@ class Trainer:
         if len(checkpoints_sorted) <= self.args.save_total_limit:
             return
 
-        number_of_checkpoints_to_delete = max(
-            0, len(checkpoints_sorted) - self.args.save_total_limit
-        )
+        number_of_checkpoints_to_delete = max(0, len(checkpoints_sorted) - self.args.save_total_limit)
         checkpoints_to_be_deleted = checkpoints_sorted[:number_of_checkpoints_to_delete]
         for checkpoint in checkpoints_to_be_deleted:
-            logger.info(
-                "Deleting older checkpoint [{}] due to args.save_total_limit".format(
-                    checkpoint
-                )
-            )
+            logger.info("Deleting older checkpoint [{}] due to args.save_total_limit".format(checkpoint))
             shutil.rmtree(checkpoint)
 
     def evaluate(self, log_results=True, epoch=None) -> Dict[str, float]:
@@ -910,25 +818,17 @@ class Trainer:
         """
 
         eval_dataloader = self.get_eval_dataloader(self.eval_dataset)
-        eval_output = self.prediction_loop(
-            eval_dataloader, description="Evaluate eval split"
-        )
+        eval_output = self.prediction_loop(eval_dataloader, description="Evaluate eval split")
 
         val_dataloader = self.get_eval_dataloader(self.val_dataset)
-        val_output = self.prediction_loop(
-            val_dataloader, description="Evaluate val split"
-        )
+        val_output = self.prediction_loop(val_dataloader, description="Evaluate val split")
 
-        # train_sampler = self._get_train_sampler(
-        #     shuffle=False
-        # )  # Don't shuffle during evaluation!
-        # train_dataloader = self.get_train_dataloader(train_sampler=train_sampler)
-        # train_output = self.prediction_loop(
-        #     train_dataloader, description="Evaluate train split"
-        # )
+        train_sampler = self._get_train_sampler(shuffle=False)  # Don't shuffle during evaluation!
+        train_dataloader = self.get_train_dataloader(train_sampler=train_sampler)
+        train_output = self.prediction_loop(train_dataloader, description="Evaluate train split")
 
         metrics = {
-            # "train": train_output.metrics,
+            "train": train_output.metrics,
             "eval": eval_output.metrics,
             "val": val_output.metrics,
             "epoch": epoch,
@@ -986,9 +886,7 @@ class Trainer:
         all_generations = {model_tag: {} for model_tag in model_tags}
 
         for this_model, this_model_tag in utils.zip_(models, model_tags):
-            kwargs = dict(
-                model=this_model, tokenizer=self.tokenizer, device=self.args.device
-            )
+            kwargs = dict(model=this_model, tokenizer=self.tokenizer, device=self.args.device)
             this_generations = all_generations[this_model_tag]
 
             for split in ("train", "val", "eval"):
@@ -1001,12 +899,7 @@ class Trainer:
                 else:
                     max_generations = self.args.max_generations
 
-                (
-                    full_generations,
-                    unstripped_generations,
-                    generations,
-                    references,
-                ) = decoding_utils.generate(
+                (full_generations, unstripped_generations, generations, references,) = decoding_utils.generate(
                     prompt_dataset=prompt_dataset,
                     max_generations=max_generations,
                     **kwargs,
@@ -1021,9 +914,7 @@ class Trainer:
 
                 def pretty_format(lines):
                     """A useful helper to make printted generationed look nice."""
-                    return "\n".join(
-                        [repr(line) for line in lines[:num_generations_to_print]]
-                    )
+                    return "\n".join([repr(line) for line in lines[:num_generations_to_print]])
 
                 # Various visuals.
                 print(f" --- split {split} --- ")
@@ -1035,9 +926,7 @@ class Trainer:
                 print(pretty_format(generations))
                 print(f" *** references *** ")
                 print(pretty_format(references))
-                print(
-                    f" *** num generations: {len(generations)}, num references: {len(references)} *** "
-                )
+                print(f" *** num generations: {len(generations)}, num references: {len(references)} *** ")
 
                 # Store generations for BLEU.
                 counter = self.global_step if self.global_step is not None else -1
@@ -1060,9 +949,7 @@ class Trainer:
     ) -> PredictionOutput:
 
         prediction_loss_only = (
-            prediction_loss_only
-            if prediction_loss_only is not None
-            else self.args.prediction_loss_only
+            prediction_loss_only if prediction_loss_only is not None else self.args.prediction_loss_only
         )
 
         assert not getattr(
@@ -1111,30 +998,22 @@ class Trainer:
                 entropy = -(all_log_probs.exp() * all_log_probs).sum(dim=-1)  # (B, L).
                 entropy = entropy[valid_locations]
 
-                logprob = F.cross_entropy(
-                    logits.permute(0, 2, 1), labels, reduction="none"
-                )  # (B, L).
+                logprob = F.cross_entropy(logits.permute(0, 2, 1), labels, reduction="none")  # (B, L).
             else:
                 entropy, logprob = [-1], [-1]
 
             return eval_loss, entropy, logprob
 
         disable_tqdm = not self.is_local_process_zero() or self.args.disable_tqdm
-        for batch_idx, inputs in tqdm(
-            enumerate(dataloader), desc=description, disable=disable_tqdm
-        ):
+        for batch_idx, inputs in tqdm(enumerate(dataloader), desc=description, disable=disable_tqdm):
             for this_model, this_model_tag in utils.zip_(models, model_tags):
                 this_record = records[this_model_tag]
-                loss, logits, labels = self.prediction_step(
-                    this_model, inputs, prediction_loss_only
-                )
+                loss, logits, labels = self.prediction_step(this_model, inputs, prediction_loss_only)
                 eval_loss, entropy, logprob = eval_stats(inputs, loss, logits, labels)
                 this_record["eval_losses"].extend(eval_loss)
                 this_record["entropy_losses"].extend(entropy.tolist())
                 this_record["tok_logprobs"].extend(logprob.view(-1).tolist())
-                this_record["lin_logprobs"].extend(
-                    logprob.sum(dim=-1).view(-1).tolist()
-                )
+                this_record["lin_logprobs"].extend(logprob.sum(dim=-1).view(-1).tolist())
 
             if 0 < self.args.max_eval_batches <= batch_idx + 1:
                 break
@@ -1150,7 +1029,7 @@ class Trainer:
                 if isinstance(value, (list, tuple)):
                     this_record[key] = np.mean(value)
             this_record["ppl"] = math.exp(this_record["eval_losses"])
-        
+
         metrics = records
 
         # import pdb; pdb.set_trace()
@@ -1174,9 +1053,7 @@ class Trainer:
             logits = outputs.logits
 
             if self.args.past_index >= 0:
-                self._past = outputs[
-                    self.args.past_index if has_labels else self.args.past_index - 1
-                ]
+                self._past = outputs[self.args.past_index if has_labels else self.args.past_index - 1]
 
         if prediction_loss_only:
             return loss, None, None

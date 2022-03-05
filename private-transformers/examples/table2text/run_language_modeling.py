@@ -56,6 +56,7 @@ def main():
         privacy_args,
     ) = parser.parse_args_into_dataclasses()
 
+    # import pdb; pdb.set_trace()
     model_args: ModelArguments
     data_args: DataTrainingArguments
     training_args: TrainingArguments
@@ -184,8 +185,9 @@ def main():
             f"after input_embeddings_after.size() = {input_embeddings_after.size()}"
         )
         # torch.testing.assert_allclose(lm_head_before, lm_head_after[:-1])
-        print("pre-chunk equal for lm_head")
-        torch.testing.assert_allclose(input_embeddings_before, input_embeddings_after[:-(len_tokenizer_after - len_tokenizer_before)])
+        if len_tokenizer_after - len_tokenizer_before:
+            print("pre-chunk equal for lm_head")
+            torch.testing.assert_allclose(input_embeddings_before, input_embeddings_after[:-(len_tokenizer_after - len_tokenizer_before)])
         print("pre-chunk equal for input_embeddings")
         # import pdb; pdb.set_trace()
         for _i in range(len_tokenizer_after - len_tokenizer_before):

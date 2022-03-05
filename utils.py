@@ -17,13 +17,15 @@ import tokenizations
 import numpy as np
 
 # def normalize_sentence(original_sentence, is_sensitives_types):
+MAP = {"agent": "SYS:", "customer": "USR:", "action": "ACT:"}
+
+EOS = "<|endoftext|>"
 
 
 def get_tokens(tokenizer, line):
     original_input_ids = tokenizer.encode(line)
     original_tokens = [
-        tokenizer.decode(input_id, clean_up_tokenization_spaces=False)
-        for input_id in original_input_ids
+        tokenizer.decode(input_id, clean_up_tokenization_spaces=False) for input_id in original_input_ids
     ]
     return original_input_ids, original_tokens
 
@@ -129,12 +131,7 @@ def align_tokens(
         for j in interval:
             correct_map_b2a[j].append(i)
     return correct_map_b2a
-    # [for interval in weird_token_ids]
-    # [
-    #     (tok.strip() in spacy_tokens[idx[-1]])
-    #     for tok, idx in zip(other_tokens, a2b)
-    #     if idx
-    # ]
-    # align = Alignment.from_strings(other_tokens, spacy_tokens)
 
-    # ["".join() for idx, y_idx in enumerate(align.x2y.dataXd)]
+
+def convert_abcd_line(speaker: str, utt: str):
+    return MAP[speaker] + utt + "\n\n"

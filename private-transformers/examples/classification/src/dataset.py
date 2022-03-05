@@ -20,6 +20,8 @@ from .processors import processors_mapping, median_mapping
 
 logger = logging.getLogger(__name__)
 
+MAP = {"agent": "SYS:", "customer": "USR:", "action": "ACT:"}
+
 
 @dataclass(frozen=True)
 class OurInputFeatures(InputFeatures):
@@ -39,18 +41,34 @@ class OurInputFeatures(InputFeatures):
         return json.dumps(dataclasses.asdict(self)) + "\n"
 
 
+@dataclass(frozen=True)
+class ABCDInputFeatures(InputFeatures):
+    """
+    Inherit from Transformers' InputFeatuers.
+    """
+
+    input_ids: List[int]
+    attention_mask: Optional[List[int]] = None
+    token_type_ids: Optional[List[int]] = None
+    label: Optional[Union[int, float]] = None
+
+    def to_json_string(self):
+        """Serializes this instance to a JSON string."""
+        return json.dumps(dataclasses.asdict(self)) + "\n"
+
+
 def input_example_to_string(example, sep_token):
     if example.text_b is None:
         return example.text_a
     else:
         # Warning: very simple hack here
-        return example.text_a + ' ' + sep_token + ' ' + example.text_b
+        return example.text_a + " " + sep_token + " " + example.text_b
 
 
 def input_example_to_tuple(example):
     if example.text_b is None:
         if pd.isna(example.text_a) or example.text_a is None:
-            return ['']
+            return [""]
             logger.warn("Empty input")
         else:
             return [example.text_a]
@@ -69,11 +87,9 @@ def tokenize_multipart_input(
     other_sent_limit: Optional[int] = None,
     truncate_head=False,
     support_labels=None,
-
     # lxuechen: Not sure why these were included originally.
     task_name=None,
     gpt3=False,
-
     # lxuechen: For checking the dataset.
     early_return=False,
 ):
@@ -119,7 +135,7 @@ def tokenize_multipart_input(
             *+sent_i*: same as above, but add a space before the sentence
             *+sentl_i*: same as above, but add a space before the sentence and use lower case for the first word
             *label_i*: label_word_list[i]
-            *label_x*: label depends on the example id (support_labels needed). this is only used in GPT-3's 
+            *label_x*: label depends on the example id (support_labels needed). this is only used in GPT-3's
             in-context learning
 
         Use "_" to replace space.
@@ -128,87 +144,87 @@ def tokenize_multipart_input(
         assert template is not None
 
         special_token_mapping = {
-            'cls': tokenizer.cls_token_id,
-            'mask': tokenizer.mask_token_id,
-            'sep': tokenizer.sep_token_id,
-            'sep+': tokenizer.sep_token_id,
+            "cls": tokenizer.cls_token_id,
+            "mask": tokenizer.mask_token_id,
+            "sep": tokenizer.sep_token_id,
+            "sep+": tokenizer.sep_token_id,
         }
-        template_list = template.split('*')  # Get variable list in the template
+        template_list = template.split("*")  # Get variable list in the template
         segment_id = 0  # Current segment id. Segment id +1 if encountering sep+.
 
         for part_id, part in enumerate(template_list):
             new_tokens = []
             segment_plus_1_flag = False
             if part in special_token_mapping:
-                if part == 'cls' and 'T5' in type(tokenizer).__name__:
+                if part == "cls" and "T5" in type(tokenizer).__name__:
                     # T5 does not have cls token
                     continue
                 new_tokens.append(special_token_mapping[part])
-                if part == 'sep+':
+                if part == "sep+":
                     segment_plus_1_flag = True
-            elif part[:6] == 'label_':
+            elif part[:6] == "label_":
                 # Note that label_word_list already has extra space, so do not add more space ahead of it.
-                label_id = int(part.split('_')[1])
+                label_id = int(part.split("_")[1])
                 label_word = label_word_list[label_id]
                 new_tokens.append(label_word)
-            elif part[:7] == 'labelx_':
-                instance_id = int(part.split('_')[1])
+            elif part[:7] == "labelx_":
+                instance_id = int(part.split("_")[1])
                 label_id = support_labels[instance_id]
                 label_word = label_word_list[label_id]
                 new_tokens.append(label_word)
-            elif part[:5] == 'sent_':
-                sent_id = int(part.split('_')[1])
+            elif part[:5] == "sent_":
+                sent_id = int(part.split("_")[1])
                 new_tokens += enc(input_text_list[sent_id])
-            elif part[:6] == '+sent_':
+            elif part[:6] == "+sent_":
                 # Add space
-                sent_id = int(part.split('_')[1])
-                new_tokens += enc(' ' + input_text_list[sent_id])
-            elif part[:6] == 'sent-_':
+                sent_id = int(part.split("_")[1])
+                new_tokens += enc(" " + input_text_list[sent_id])
+            elif part[:6] == "sent-_":
                 # Delete the last token
-                sent_id = int(part.split('_')[1])
+                sent_id = int(part.split("_")[1])
                 new_tokens += enc(input_text_list[sent_id][:-1])
-            elif part[:6] == 'sentl_':
+            elif part[:6] == "sentl_":
                 # Lower case the first token
-                sent_id = int(part.split('_')[1])
+                sent_id = int(part.split("_")[1])
                 text = input_text_list[sent_id]
                 text = text[:1].lower() + text[1:]
                 new_tokens += enc(text)
-            elif part[:7] == '+sentl_':
-                # Lower case the first token and add space 
-                sent_id = int(part.split('_')[1])
+            elif part[:7] == "+sentl_":
+                # Lower case the first token and add space
+                sent_id = int(part.split("_")[1])
                 text = input_text_list[sent_id]
                 text = text[:1].lower() + text[1:]
-                new_tokens += enc(' ' + text)
-            elif part[:7] == 'sentl-_':
+                new_tokens += enc(" " + text)
+            elif part[:7] == "sentl-_":
                 # Lower case the first token and discard the last token
-                sent_id = int(part.split('_')[1])
+                sent_id = int(part.split("_")[1])
                 text = input_text_list[sent_id]
                 text = text[:1].lower() + text[1:]
                 new_tokens += enc(text[:-1])
-            elif part[:6] == 'sentu_':
+            elif part[:6] == "sentu_":
                 # Upper case the first token
-                sent_id = int(part.split('_')[1])
+                sent_id = int(part.split("_")[1])
                 text = input_text_list[sent_id]
                 text = text[:1].upper() + text[1:]
                 new_tokens += enc(text)
-            elif part[:7] == '+sentu_':
+            elif part[:7] == "+sentu_":
                 # Upper case the first token and add space
-                sent_id = int(part.split('_')[1])
+                sent_id = int(part.split("_")[1])
                 text = input_text_list[sent_id]
                 text = text[:1].upper() + text[1:]
-                new_tokens += enc(' ' + text)
+                new_tokens += enc(" " + text)
             else:
                 # Just natural language prompt
-                part = part.replace('_', ' ')
+                part = part.replace("_", " ")
                 # handle special case when T5 tokenizer might add an extra space
                 if len(part) == 1:
                     new_tokens.append(tokenizer._convert_token_to_id(part))
                 else:
                     new_tokens += enc(part)
 
-            if part[:4] == 'sent' or part[1:5] == 'sent':
+            if part[:4] == "sent" or part[1:5] == "sent":
                 # If this part is the sentence, limit the sentence length
-                sent_id = int(part.split('_')[1])
+                sent_id = int(part.split("_")[1])
                 if sent_id == 0:
                     if first_sent_limit is not None:
                         new_tokens = new_tokens[:first_sent_limit]
@@ -233,13 +249,13 @@ def tokenize_multipart_input(
                 continue
             if pd.isna(input_text) or input_text is None:
                 # Empty input
-                input_text = ''
+                input_text = ""
             input_tokens = enc(input_text) + [tokenizer.sep_token_id]
             input_ids += input_tokens
             attention_mask += [1 for i in range(len(input_tokens))]
             token_type_ids += [sent_id for i in range(len(input_tokens))]
 
-        if 'T5' in type(tokenizer).__name__:  # T5 does not have CLS token
+        if "T5" in type(tokenizer).__name__:  # T5 does not have CLS token
             input_ids = input_ids[1:]
             attention_mask = attention_mask[1:]
             token_type_ids = token_type_ids[1:]
@@ -276,13 +292,13 @@ def tokenize_multipart_input(
         # Make sure that the masked position is inside the max_length
         assert mask_pos[0] < max_length
 
-    result = {'input_ids': input_ids, 'attention_mask': attention_mask}
-    if 'BERT' in type(tokenizer).__name__:
+    result = {"input_ids": input_ids, "attention_mask": attention_mask}
+    if "BERT" in type(tokenizer).__name__:
         # Only provide token type ids for BERT
-        result['token_type_ids'] = token_type_ids
+        result["token_type_ids"] = token_type_ids
 
     if prompt:
-        result['mask_pos'] = mask_pos
+        result["mask_pos"] = mask_pos
 
     return result
 
@@ -313,12 +329,12 @@ class FewShotDataset(torch.utils.data.Dataset):
 
             for key in self.label_to_word:
                 # For RoBERTa/BART/T5, tokenization also considers space, so we use space+word as label words.
-                if self.label_to_word[key][0] not in ['<', '[', '.', ',']:
+                if self.label_to_word[key][0] not in ["<", "[", ".", ","]:
                     # Make sure space+word is in the vocabulary
-                    assert len(tokenizer.tokenize(' ' + self.label_to_word[key])) == 1
+                    assert len(tokenizer.tokenize(" " + self.label_to_word[key])) == 1
 
                     self.label_to_word[key] = tokenizer._convert_token_to_id(
-                        tokenizer.tokenize(' ' + self.label_to_word[key])[0]
+                        tokenizer.tokenize(" " + self.label_to_word[key])[0]
                     )
                 else:
                     self.label_to_word[key] = tokenizer._convert_token_to_id(self.label_to_word[key])
@@ -333,15 +349,15 @@ class FewShotDataset(torch.utils.data.Dataset):
             else:
                 # Regression task
                 # '0' represents low polarity and '1' represents high polarity.
-                self.label_word_list = [self.label_to_word[label] for label in ['0', '1']]
+                self.label_word_list = [self.label_to_word[label] for label in ["0", "1"]]
         else:
             self.label_to_word = None
             self.label_word_list = None
 
-        # Multiple sampling: when using demonstrations, we sample different combinations of demonstrations during 
+        # Multiple sampling: when using demonstrations, we sample different combinations of demonstrations during
         # inference and aggregate the results by averaging the logits. The number of different samples is num_sample.
         if (mode == "train") or not self.use_demo:
-            # We do not do multiple sampling when not using demonstrations or when it's the training mode 
+            # We do not do multiple sampling when not using demonstrations or when it's the training mode
             self.num_sample = 1
         else:
             # lxuechen: (Section 6.1) At testing time, we still sample demonstration sets from Dtrain
@@ -350,8 +366,10 @@ class FewShotDataset(torch.utils.data.Dataset):
 
         # If we use multiple templates, we also need to do multiple sampling during inference.
         if args.prompt and args.template_list is not None:
-            logger.info("There are %d templates. Multiply num_sample by %d" % (
-                len(args.template_list), len(args.template_list)))
+            logger.info(
+                "There are %d templates. Multiply num_sample by %d"
+                % (len(args.template_list), len(args.template_list))
+            )
             self.num_sample *= len(args.template_list)
 
         logger.info("Total num_sample for mode %s: %d" % (mode, self.num_sample))
@@ -404,22 +422,22 @@ class FewShotDataset(torch.utils.data.Dataset):
 
         # For filtering in using demonstrations, load pre-calculated embeddings
         if self.use_demo and args.demo_filter:
-            if mode == 'train':
-                split_name = 'train'
-            elif mode == 'dev':
-                if args.task_name == 'mnli':
-                    split_name = 'dev_matched'
-                elif args.task_name == 'mnli-mm':
-                    split_name = 'dev_mismatched'
+            if mode == "train":
+                split_name = "train"
+            elif mode == "dev":
+                if args.task_name == "mnli":
+                    split_name = "dev_matched"
+                elif args.task_name == "mnli-mm":
+                    split_name = "dev_mismatched"
                 else:
-                    split_name = 'dev'
-            elif mode == 'test':
-                if args.task_name == 'mnli':
-                    split_name = 'test_matched'
-                elif args.task_name == 'mnli-mm':
-                    split_name = 'test_mismatched'
+                    split_name = "dev"
+            elif mode == "test":
+                if args.task_name == "mnli":
+                    split_name = "test_matched"
+                elif args.task_name == "mnli-mm":
+                    split_name = "test_mismatched"
                 else:
-                    split_name = 'test'
+                    split_name = "test"
             else:
                 raise NotImplementedError
 
@@ -427,8 +445,10 @@ class FewShotDataset(torch.utils.data.Dataset):
             self.query_emb = np.load(
                 os.path.join(args.data_dir, "{}_{}.npy".format(split_name, args.demo_filter_model))
             )
-            logger.info("Load embeddings (for demonstration filtering) from {}".format(
-                os.path.join(args.data_dir, "{}_{}.npy".format(split_name, args.demo_filter_model)))
+            logger.info(
+                "Load embeddings (for demonstration filtering) from {}".format(
+                    os.path.join(args.data_dir, "{}_{}.npy".format(split_name, args.demo_filter_model))
+                )
             )
 
             assert len(self.support_emb) == len(self.support_examples)
@@ -446,58 +466,82 @@ class FewShotDataset(torch.utils.data.Dataset):
         support_indices = list(range(len(self.support_examples)))  # [0, ..., len(train)].
         self.example_idx = []
         for sample_idx in range(self.num_sample):
-            for query_idx in tqdm.tqdm(
-                range(len(self.query_examples)), desc=f"Queries for {self.mode}"
-            ):
+            for query_idx in tqdm.tqdm(range(len(self.query_examples)), desc=f"Queries for {self.mode}"):
                 # If training, exclude the current example. Else keep all.
                 if self.use_demo and args.demo_filter:
                     # Demonstration filtering
-                    candidate = [support_idx for support_idx in support_indices
-                                 if support_idx != query_idx or mode != "train"]
+                    candidate = [
+                        support_idx for support_idx in support_indices if support_idx != query_idx or mode != "train"
+                    ]
                     sim_score = []
                     for support_idx in candidate:
                         sim_score.append(
                             (
                                 support_idx,
-                                util.pytorch_cos_sim(self.support_emb[support_idx], self.query_emb[query_idx])
+                                util.pytorch_cos_sim(self.support_emb[support_idx], self.query_emb[query_idx]),
                             )
                         )
                     sim_score.sort(key=lambda x: x[1], reverse=True)
                     if self.num_labels == 1:
                         # Regression task
                         limit_each_label = int(len(sim_score) // 2 * args.demo_filter_rate)
-                        count_each_label = {'0': 0, '1': 0}
+                        count_each_label = {"0": 0, "1": 0}
                         context_indices = []
 
                         if args.debug_mode:
-                            print("Query %s: %s" % (
-                                self.query_examples[query_idx].label, self.query_examples[query_idx].text_a))  # debug
+                            print(
+                                "Query %s: %s"
+                                % (self.query_examples[query_idx].label, self.query_examples[query_idx].text_a)
+                            )  # debug
                         for support_idx, score in sim_score:
-                            if count_each_label[
-                                '0' if float(self.support_examples[support_idx].label) <= median_mapping[
-                                    args.task_name] else '1'] < limit_each_label:
+                            if (
                                 count_each_label[
-                                    '0' if float(self.support_examples[support_idx].label) <= median_mapping[
-                                        args.task_name] else '1'] += 1
+                                    "0"
+                                    if float(self.support_examples[support_idx].label)
+                                    <= median_mapping[args.task_name]
+                                    else "1"
+                                ]
+                                < limit_each_label
+                            ):
+                                count_each_label[
+                                    "0"
+                                    if float(self.support_examples[support_idx].label)
+                                    <= median_mapping[args.task_name]
+                                    else "1"
+                                ] += 1
                                 context_indices.append(support_idx)
                                 if args.debug_mode:
-                                    print("    %.4f %s | %s" % (score, self.support_examples[support_idx].label,
-                                                                self.support_examples[support_idx].text_a))  # debug
+                                    print(
+                                        "    %.4f %s | %s"
+                                        % (
+                                            score,
+                                            self.support_examples[support_idx].label,
+                                            self.support_examples[support_idx].text_a,
+                                        )
+                                    )  # debug
                     else:
                         limit_each_label = int(len(sim_score) // self.num_labels * args.demo_filter_rate)
                         count_each_label = {label: 0 for label in self.label_list}
                         context_indices = []
 
                         if args.debug_mode:
-                            print("Query %s: %s" % (
-                                self.query_examples[query_idx].label, self.query_examples[query_idx].text_a))  # debug
+                            print(
+                                "Query %s: %s"
+                                % (self.query_examples[query_idx].label, self.query_examples[query_idx].text_a)
+                            )  # debug
                         for support_idx, score in sim_score:
                             if count_each_label[self.support_examples[support_idx].label] < limit_each_label:
                                 count_each_label[self.support_examples[support_idx].label] += 1
                                 context_indices.append(support_idx)
                                 if args.debug_mode:
-                                    print("    %.4f %s | %s" % (score, self.support_examples[support_idx].label,
-                                                                self.support_examples[support_idx].text_a))  # debug
+                                    print(
+                                        "    %.4f %s | %s"
+                                        % (
+                                            score,
+                                            self.support_examples[support_idx].label,
+                                            self.support_examples[support_idx].text_a,
+                                        )
+                                    )  # debug
                 else:
                     # Using demonstrations without filtering
 
@@ -508,7 +552,8 @@ class FewShotDataset(torch.utils.data.Dataset):
                         context_indices = []
                     else:
                         context_indices = [
-                            support_idx for support_idx in support_indices
+                            support_idx
+                            for support_idx in support_indices
                             if support_idx != query_idx or mode != "train"
                         ]
                     # ---
@@ -561,11 +606,11 @@ class FewShotDataset(torch.utils.data.Dataset):
         counts = {k: 0 for k in self.label_list}
         if len(self.label_list) == 1:
             # Regression
-            counts = {'0': 0, '1': 0}
+            counts = {"0": 0, "1": 0}
         selection = []
 
         if self.args.gpt3_in_context_head or self.args.gpt3_in_context_tail:
-            # For GPT-3's in-context learning, we sample gpt3_in_context_num demonstrations randomly. 
+            # For GPT-3's in-context learning, we sample gpt3_in_context_num demonstrations randomly.
             order = np.random.permutation(len(context_examples))
             for i in range(min(self.args.gpt3_in_context_num, len(order))):
                 selection.append(context_examples[order[i]])
@@ -577,7 +622,7 @@ class FewShotDataset(torch.utils.data.Dataset):
                 label = context_examples[i].label
                 if len(self.label_list) == 1:
                     # Regression
-                    label = '0' if float(label) <= median_mapping[self.args.task_name] else '1'
+                    label = "0" if float(label) <= median_mapping[self.args.task_name] else "1"
                 if counts[label] < max_demo_per_label:
                     selection.append(context_examples[i])
                     counts[label] += 1
@@ -635,7 +680,7 @@ class FewShotDataset(torch.utils.data.Dataset):
         prompt=False,
         template=None,
         label_word_list=None,
-        verbose=False
+        verbose=False,
     ):
         """
         Returns a list of processed "InputFeatures".
@@ -646,7 +691,7 @@ class FewShotDataset(torch.utils.data.Dataset):
         label_map = {label: i for i, label in enumerate(label_list)}  # Mapping the label names to label ids
         if len(label_list) == 1:
             # Regression
-            label_map = {'0': 0, '1': 1}
+            label_map = {"0": 0, "1": 1}
 
         # Get example's label id (for training/inference)
         if example.label is None:
@@ -657,6 +702,9 @@ class FewShotDataset(torch.utils.data.Dataset):
         else:
             example_label = label_map[example.label]
 
+        import pdb
+
+        pdb.set_trace()
         # Prepare other features
         if not use_demo:
             # No using demonstrations
@@ -674,6 +722,9 @@ class FewShotDataset(torch.utils.data.Dataset):
                 truncate_head=self.args.truncate_head,
                 # ---
             )
+            import pdb
+
+            pdb.set_trace()
             features = OurInputFeatures(**inputs, label=example_label)
 
         else:
@@ -688,7 +739,7 @@ class FewShotDataset(torch.utils.data.Dataset):
                 # When using GPT-3's in-context learning, take the maximum tokenization length of the model (512)
                 max_length = 512
 
-            # All input sentences, including the query and the demonstrations, are put into augmented_examples, 
+            # All input sentences, including the query and the demonstrations, are put into augmented_examples,
             # and are numbered based on the order (starting from 0). For single sentence tasks, the input (query)
             # is the sentence 0; for sentence-pair tasks, the input (query) is the sentence 0 and 1. Note that for
             # GPT-3's
@@ -704,8 +755,9 @@ class FewShotDataset(torch.utils.data.Dataset):
                     augmented_example += input_example_to_tuple(support_example)
                     current_label = support_example.label
                     if len(label_list) == 1:
-                        current_label = '0' if float(current_label) <= median_mapping[
-                            self.args.task_name] else '1'  # Regression
+                        current_label = (
+                            "0" if float(current_label) <= median_mapping[self.args.task_name] else "1"
+                        )  # Regression
                     support_labels.append(label_map[current_label])
             else:
                 # Group support examples by label
@@ -713,8 +765,9 @@ class FewShotDataset(torch.utils.data.Dataset):
                     if len(label_list) == 1:
                         # Regression
                         for support_example in filter(
-                            lambda s: ('0' if float(s.label) <= median_mapping[
-                                self.args.task_name] else '1') == label_name, supports
+                            lambda s: ("0" if float(s.label) <= median_mapping[self.args.task_name] else "1")
+                            == label_name,
+                            supports,
                         ):
                             support_by_label[label_id] += input_example_to_tuple(support_example)
                     else:
@@ -738,8 +791,9 @@ class FewShotDataset(torch.utils.data.Dataset):
                 other_sent_limit=self.args.other_sent_limit,
                 truncate_head=self.args.truncate_head,
                 gpt3=self.args.gpt3_in_context_head or self.args.gpt3_in_context_tail,
-                support_labels=None if not (
-                    self.args.gpt3_in_context_head or self.args.gpt3_in_context_tail) else support_labels
+                support_labels=None
+                if not (self.args.gpt3_in_context_head or self.args.gpt3_in_context_tail)
+                else support_labels,
             )
             features = OurInputFeatures(**inputs, label=example_label)
 
@@ -750,3 +804,152 @@ class FewShotDataset(torch.utils.data.Dataset):
             logger.info("text: %s" % self.tokenizer.decode(features.input_ids))
 
         return features
+
+
+class ABCDDataset(torch.utils.data.Dataset):
+    """
+    abcd dataset
+    """
+
+    def __init__(
+        self,
+        args,
+        tokenizer,
+        split,
+    ):
+        assert split in ["train", "dev", "test"]
+        self.args = args
+        self.tokenizer = tokenizer
+
+        split_map = {"train": "train.json", "dev": "valid.json", "test": "test.json"}
+        with open(os.path.join(args.data_dir, split_map[split])) as fh:
+            self.data = json.load(fh)
+
+        self.label_map = {
+            "bad_price_competitor": 0,
+            "bad_price_yesterday": 1,
+            "boots_how": 2,
+            "boots_other": 3,
+            "cost": 4,
+            "credit_card": 5,
+            "jacket_how": 6,
+            "jacket_other": 7,
+            "jeans_how": 8,
+            "jeans_other": 9,
+            "manage": 10,
+            "manage_cancel": 11,
+            "manage_change_address": 12,
+            "manage_change_name": 13,
+            "manage_change_phone": 14,
+            "manage_create": 15,
+            "manage_dispute_bill": 16,
+            "manage_downgrade": 17,
+            "manage_extension": 18,
+            "manage_pay_bill": 19,
+            "manage_payment_method": 20,
+            "manage_upgrade": 21,
+            "membership": 22,
+            "missing": 23,
+            "mistimed_billing_already_returned": 24,
+            "mistimed_billing_never_bought": 25,
+            "out_of_stock_general": 26,
+            "out_of_stock_one_item": 27,
+            "policy": 28,
+            "pricing": 29,
+            "promo_code_invalid": 30,
+            "promo_code_out_of_date": 31,
+            "recover_password": 32,
+            "recover_username": 33,
+            "refund_initiate": 34,
+            "refund_status": 35,
+            "refund_update": 36,
+            "reset_2fa": 37,
+            "return_color": 38,
+            "return_size": 39,
+            "return_stain": 40,
+            "search_results": 41,
+            "shirt_how": 42,
+            "shirt_other": 43,
+            "shopping_cart": 44,
+            "slow_speed": 45,
+            "status": 46,
+            "status_credit_missing": 47,
+            "status_delivery_date": 48,
+            "status_delivery_time": 49,
+            "status_due_amount": 50,
+            "status_due_date": 51,
+            "status_mystery_fee": 52,
+            "status_payment_method": 53,
+            "status_quantity": 54,
+            "status_questions": 55,
+            "status_service_added": 56,
+            "status_service_removed": 57,
+            "status_shipping_question": 58,
+            "timing": 59,
+        }
+
+        self.features = self.convert_fn(self.tokenizer, self.data)
+
+    def __len__(self):
+        return len(self.features)
+
+    def get_label_num(self, label):
+        if label[-1].isdigit():
+            label = "_".join(label.split("_")[:-1])
+        label_num = self.label_map[label]
+
+        return label_num
+
+    def convert_fn(self, tokenizer, data):
+        max_length = self.args.max_seq_length
+        truncate_head = self.args.truncate_head
+
+        def enc(text):
+            return tokenizer.encode(
+                text,
+            )
+
+        # input_tokens_list = []
+        # attention_mask_list = []
+        # label_list = []
+        # token_type_ids = [0]
+
+        features = []
+        for _, (input_text, label) in enumerate(data):
+            # [tokenizer.cls_token_id]
+            input_tokens = enc(input_text)
+            attention_mask = [1 for i in range(len(input_tokens))]
+            # token_type_ids += [sent_id for i in range(len(input_tokens))]
+
+            # padding
+            len_input_tokens = len(input_tokens)
+            if len_input_tokens < max_length:
+                input_tokens.extend([tokenizer.pad_token_id] * (max_length - len_input_tokens))
+                attention_mask.extend([0] * (max_length - len_input_tokens))
+                # token_type_ids.extend([0] * (max_length - len_input_tokens))
+
+            # truncating
+            if len_input_tokens > max_length:
+                if truncate_head:
+                    input_tokens = input_tokens[-max_length:]
+                    attention_mask = attention_mask[-max_length:]
+                    # token_type_ids = token_type_ids[-max_length:]
+                else:
+                    # Default is to truncate the tail
+                    input_tokens = input_tokens[:max_length]
+                    attention_mask = attention_mask[:max_length]
+                    # token_type_ids = token_type_ids[:max_length]
+
+            # input_tokens_list.append(input_tokens)
+            # attention_mask_list.append(attention_mask)
+            # label_list.append(self.get_label_num(label))
+
+            feature = ABCDInputFeatures(
+                input_ids=input_tokens, attention_mask=attention_mask, label=self.get_label_num(label)
+            )
+            features.append(feature)
+
+        return features
+
+    def __getitem__(self, i):
+        return self.features[i]

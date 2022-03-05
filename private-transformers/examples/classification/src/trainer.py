@@ -1,4 +1,4 @@
-########## The following part is copied from Transformers' trainer (3.4.0) ########## 
+########## The following part is copied from Transformers' trainer (3.4.0) ##########
 
 # coding=utf-8
 # Copyright 2020-present the HuggingFace Inc. team.
@@ -113,6 +113,7 @@ logger = logging.get_logger(__name__)
 
 ########## The above part is copied from Transformers' trainer (3.4.0) ##########
 
+
 def default_dev_objective(metrics):
     """
     Objective used for picking the best model on development sets
@@ -135,14 +136,7 @@ def default_dev_objective(metrics):
 
 def default_dev_objective_key(metrics):
     """Get the key (name) for the specific metric used for dev."""
-    keys = (
-        "eval_mnli/acc",
-        "eval_mnli-mm/acc",
-        "eval_f1",
-        "eval_mcc",
-        "eval_pearson",
-        "eval_acc"
-    )
+    keys = ("eval_mnli/acc", "eval_mnli-mm/acc", "eval_f1", "eval_mcc", "eval_pearson", "eval_acc")
     for key in keys:
         if key in metrics:
             return key
@@ -154,11 +148,12 @@ class Trainer(transformers.Trainer):
     Adding some functions based on Transformers' Trainer class.
     """
 
-    def __init__(self, model_args=None, privacy_args=None, **kwargs):
+    def __init__(self, model_args=None, privacy_args=None, tokenizer=None, **kwargs):
         super(Trainer, self).__init__(**kwargs)
         self.privacy_args = privacy_args
         self.model_args = model_args
         # --- lxuechen: Heuristic initialization.
+        self.tokenizer = tokenizer
         self.scaler = torch.cuda.amp.GradScaler(init_scale=128)
         # ---
 
@@ -180,21 +175,21 @@ class Trainer(transformers.Trainer):
             params = {}
             for n, p in self.model.named_parameters():
                 if self.args.fix_layers > 0:
-                    if 'encoder.layer' in n:
+                    if "encoder.layer" in n:
                         try:
-                            layer_num = int(n[n.find('encoder.layer') + 14:].split('.')[0])
+                            layer_num = int(n[n.find("encoder.layer") + 14 :].split(".")[0])
                         except:
                             print(n)
                             raise Exception("")
                         if layer_num >= self.args.fix_layers:
-                            print('yes', n)
+                            print("yes", n)
                             params[n] = p
                         else:
-                            print('no ', n)
-                    elif 'embeddings' in n:
-                        print('no ', n)
+                            print("no ", n)
+                    elif "embeddings" in n:
+                        print("no ", n)
                     else:
-                        print('yes', n)
+                        print("yes", n)
                         params[n] = p
                 else:
                     params[n] = p
@@ -230,8 +225,8 @@ class Trainer(transformers.Trainer):
                 self.args.max_steps % num_update_steps_per_epoch > 0
             )
 
-            t_total_from_num_train_epochs = (
-                int(len(train_dataloader) // self.args.gradient_accumulation_steps * self.args.num_train_epochs)
+            t_total_from_num_train_epochs = int(
+                len(train_dataloader) // self.args.gradient_accumulation_steps * self.args.num_train_epochs
             )
             assert t_total <= t_total_from_num_train_epochs, (
                 "`num_train_epochs` give strict control (since it also controls the noise multiplier), "
@@ -240,11 +235,7 @@ class Trainer(transformers.Trainer):
         else:
             t_total = int(len(train_dataloader) // self.args.gradient_accumulation_steps * self.args.num_train_epochs)
             num_train_epochs = self.args.num_train_epochs
-        return dict(
-            train_dataloader=train_dataloader,
-            t_total=t_total,
-            num_train_epochs=num_train_epochs
-        )
+        return dict(train_dataloader=train_dataloader, t_total=t_total, num_train_epochs=num_train_epochs)
 
     def train(self, model_path=None, dev_objective=None, dev_objective_key=None):
         """
@@ -362,7 +353,9 @@ class Trainer(transformers.Trainer):
         metrics = None
         # ---
 
-        train_iterator = trange(epochs_trained, int(num_train_epochs), desc="Epoch", disable=not self.is_local_master())
+        train_iterator = trange(
+            epochs_trained, int(num_train_epochs), desc="Epoch", disable=not self.is_local_master()
+        )
         for epoch in train_iterator:
             # --- Clear gradient before entering a new epochs. ---
             #   This is ultra important when using gradient accumulation, since grads of micro batches could ooze.
@@ -396,7 +389,6 @@ class Trainer(transformers.Trainer):
 
                 if (step + 1) % self.args.gradient_accumulation_steps == 0 or (
                     # last step in epoch but step is always smaller than gradient_accumulation_steps
-
                     # --- Don't do the update when this is the case. You get bad batch size for privacy ---
                     # len(epoch_iterator) <= self.args.gradient_accumulation_steps
                     # and (step + 1) == len(epoch_iterator)
@@ -420,8 +412,8 @@ class Trainer(transformers.Trainer):
 
                     metrics = None
                     if (
-                        self.args.evaluation_strategy in (IntervalStrategy.STEPS, EvaluationStrategy.STEPS) and
-                        self.global_step % self.args.eval_steps == 0
+                        self.args.evaluation_strategy in (IntervalStrategy.STEPS, EvaluationStrategy.STEPS)
+                        and self.global_step % self.args.eval_steps == 0
                     ):
                         logging_loss_scalar = self.evaluate_and_log(
                             tr_loss=tr_loss,
@@ -441,6 +433,9 @@ class Trainer(transformers.Trainer):
                     epoch_iterator.close()
                     break
 
+            # import pdb
+
+            # pdb.set_trace()
             if self.args.evaluation_strategy == IntervalStrategy.EPOCH and (epoch + 1) % self.args.eval_epochs == 0:
                 logging_loss_scalar = self.evaluate_and_log(
                     tr_loss=tr_loss,
@@ -479,8 +474,9 @@ class Trainer(transformers.Trainer):
         """
         labels = inputs.pop("labels")
         outputs = model(**inputs)
-        logits, = outputs  # Unpack.
+        logits = outputs.logits  # Unpack.
         loss = F.cross_entropy(logits, labels, reduction="none")  # (batch_size,).
+        # import pdb; pdb.set_trace()
         if not return_vector_loss:
             loss = loss.mean(dim=0)
 
@@ -489,11 +485,12 @@ class Trainer(transformers.Trainer):
         if self.args.past_index >= 0:
             self._past = outputs[self.args.past_index]
 
-        return (loss, (loss,) + outputs) if return_outputs else loss
+        return (loss, outputs) if return_outputs else loss
 
     def training_step(self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]) -> dict:
         model.train()
         inputs = self._prepare_inputs(inputs)
+        # import pdb; pdb.set_trace()
         loss = self.compute_loss(model, inputs, return_vector_loss=True)  # (batch_size,).
 
         vector_loss = loss
@@ -557,15 +554,17 @@ class Trainer(transformers.Trainer):
         objective_key = self.dev_objective_key(metrics)
 
         # --- lxuechen: Print the metrics in a pretty format.
-        print('metrics: ')
+        print("metrics: ")
         print(json.dumps(metrics, indent=4))
-        print(f'dev objective {objective_key}: {objective}')
+        print(f"dev objective {objective_key}: {objective}")
         # ---
 
         if objective > self.objective:
             logger.info("Best dev result: {}".format(objective))
             self.objective = objective
             self.save_model(self.args.output_dir)
+            if self.tokenizer is not None:
+                self.tokenizer.save_pretrained(self.args.output_dir)
 
         # --- lxuechen: Combine logging and evaluation
         logs = dict(dev=metrics)
@@ -589,7 +588,7 @@ class Trainer(transformers.Trainer):
         self.log_history.append(logs)
 
         # Write to disk!
-        utils.jdump(self.log_history, os.path.join(self.args.output_dir, 'log_history.json'))
+        utils.jdump(self.log_history, os.path.join(self.args.output_dir, "log_history.json"))
         # ---
 
         return logging_loss_scalar

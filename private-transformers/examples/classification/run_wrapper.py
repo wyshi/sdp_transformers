@@ -15,11 +15,11 @@ def _get_command(
     target_epsilon,
     few_shot_type,
     per_device_train_batch_size=20,
-    eval_steps=10,
+    eval_steps=1,
+    max_seq_len=25,
+    is_sdp_finetune="no",
 ):
-    task_name_to_factor = {
-        "sst-2": 1, "qnli": 2, "qqp": 6, "mnli": 6,
-    }
+    task_name_to_factor = {"sst-2": 1, "qnli": 2, "qqp": 6, "mnli": 6, "abcd": 2}
     factor = task_name_to_factor[task_name]
 
     base_batch_size = 1000
@@ -27,28 +27,34 @@ def _get_command(
 
     # This batch size selection roughly ensures the sampling rates on different
     # datasets are in the same ballpark.
-    batch_size = int(base_batch_size * factor)
-    num_train_epochs = int(base_num_train_epochs * factor)
+    if "abcd" not in task_name:
+        batch_size = int(base_batch_size * factor)
+        num_train_epochs = int(base_num_train_epochs * factor)
+    else:
+        batch_size = 512
+        num_train_epochs = 6
 
     gradient_accumulation_steps = batch_size // per_device_train_batch_size
 
-    data_dir_suffix = {
-        "sst-2": "GLUE-SST-2",
-        "mnli": "MNLI",
-        "qqp": "QQP",
-        "qnli": "QNLI",
-    }[task_name]
-    data_dir = f"{data_dir}/{data_dir_suffix}"
+    if task_name != "abcd":
+        data_dir_suffix = {
+            "sst-2": "GLUE-SST-2",
+            "mnli": "MNLI",
+            "qqp": "QQP",
+            "qnli": "QNLI",
+        }[task_name]
+        data_dir = f"{data_dir}/{data_dir_suffix}"
 
     template = {
         "sst-2": "*cls**sent_0*_It_was*mask*.*sep+*",
         "mnli": "*cls**sent-_0*?*mask*,*+sentl_1**sep+*",
         "qnli": "*cls**sent-_0*?*mask*,*+sentl_1**sep+*",
         "qqp": "*cls**sent-_0**mask*,*+sentl_1**sep+*",
+        "abcd": "*cls**sent-_0*?*mask*,*+sentl_1**sep+*",
     }[task_name]
 
     # Epochs chosen roughly to match e2e number of updates. We didn't hyperparameter tune on classification tasks :)
-    return f'''
+    return f"""
 python -m classification.run_classification \
   --task_name {task_name} \
   --data_dir {data_dir} \
@@ -66,26 +72,31 @@ python -m classification.run_classification \
   --gradient_accumulation_steps {gradient_accumulation_steps} \
   --per_device_eval_batch_size 8 \
   --per_example_max_grad_norm 0.1 --ghost_clipping {ghost_clipping} \
-  --learning_rate 0.0005 \
+  --learning_rate 5e-4 \
   --lr_decay yes \
   --adam_epsilon 1e-08 \
   --weight_decay 0 \
-  --max_seq_len 256 \
+  --max_seq_len {max_seq_len} \
+  --eval_epochs 1 \
   --evaluation_strategy steps --eval_steps {eval_steps} --evaluate_before_training True \
   --do_train --do_eval \
-  --first_sent_limit 200 --other_sent_limit 200 --truncate_head yes
-    '''
+  --first_sent_limit 200 --other_sent_limit 200 --truncate_head no \
+  --is_sdp_finetune {is_sdp_finetune}
+    """
 
 
 def main(
     output_dir,
     task_name,
-    few_shot_type="prompt",
+    few_shot_type="finetune",
     model_name_or_path="roberta-base",
     data_dir="classification/data/original",
     ghost_clipping="yes",
     non_private="no",
-    target_epsilon=8,
+    target_epsilon=3,
+    max_seq_len=256,
+    per_device_train_batch_size=8,
+    is_sdp_finetune="no",
 ):
     command = _get_command(
         output_dir=output_dir,
@@ -96,8 +107,11 @@ def main(
         non_private=non_private,
         target_epsilon=target_epsilon,
         few_shot_type=few_shot_type,
+        max_seq_len=max_seq_len,
+        per_device_train_batch_size=per_device_train_batch_size,
+        is_sdp_finetune=is_sdp_finetune,
     )
-    print('Running command:')
+    print("Running command:")
     print(command)
     os.system(command)
 

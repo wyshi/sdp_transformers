@@ -9,6 +9,7 @@ target_epsilon=${5:-"8"}
 ghost_clipping=${6:-"yes"} # Fill 'no' to turn this off.
 non_private=${7:-"no"}
 is_sdp_finetune=${8:-"no"}
+num_train_epochs=${9:-"3"}
 
 if [[ ${task_mode} == "e2e" ]]; then
   data_dir="${data_dir}/data/e2e_data"
@@ -49,9 +50,14 @@ elif [[ ${task_mode} == "wikitext2"* ]]; then
     data_dir="${data_dir}/wiki_person_org_date_gpe-11.2/"
   elif [[ ${task_mode} == "wikitext2-delex-high" ]]; then
     data_dir="${data_dir}/wiki_person_all-16.3/"
+  # abcd
+  elif [[ ${task_mode} == "wikitext2-abcd" ]]; then
+    data_dir="${data_dir}/abcd/abcd_original/"
+  elif [[ ${task_mode} == "wikitext2-abcd-delex" ]]; then
+    data_dir="${data_dir}/abcd/abcd_delex/"
   fi
   target_delta=1e-6
-  num_train_epochs=3 # Approximately same number of updates.
+  num_train_epochs=${num_train_epochs} # Approximately same number of updates.
   learning_rate=5e-5  # Lower learning rate for stability in large models.
   max_seq_len=1_000_000
   per_device_eval_batch_size=2
@@ -61,8 +67,8 @@ elif [[ ${task_mode} == "wikitext2"* ]]; then
   skip_generation="yes"
   eval_epochs=1
   max_eval_batches=-1
-  save_steps=100
-  eval_steps=100
+  save_steps=1000
+  eval_steps=1000
 else
     echo "Unknown task: ${task_mode}"
     exit 1

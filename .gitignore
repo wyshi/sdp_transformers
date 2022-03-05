@@ -17,3 +17,8 @@ abcd/data/abcd_v1.1.json
 
 private-transformers/examples/table2text/output/*
 private-transformers/examples/table2text/output/wiki/*
+
+
+private-transformers/examples/classification/data/datasets.tar
+private-transformers/examples/classification/data/original
+private-transformers/examples/classification/output

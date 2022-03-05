@@ -32,6 +32,7 @@ def load_model(model_dir, device):
 
     return tokenizer, model
 
+
 def add_special_tokens(
     tokenizer: PreTrainedTokenizer,
     data_args: DataTrainingArguments,
@@ -43,7 +44,9 @@ def add_special_tokens(
     elif data_args.task_mode in ["wikitext2-delex-person"]:
         tokenizer.add_tokens(["<PERSON>"], special_tokens=True)
     elif data_args.task_mode in ["wikitext2-delex-medium"]:
-        tokenizer.add_tokens(["<PERSON>", "<ORG>", "<DATE>", "<GPE>"], special_tokens=True)
+        tokenizer.add_tokens(
+            ["<PERSON>", "<ORG>", "<DATE>", "<GPE>"], special_tokens=True
+        )
     elif data_args.task_mode in ["wikitext2-delex-high"]:
         tokenizer.add_tokens(
             [
@@ -65,7 +68,26 @@ def add_special_tokens(
                 "<QUANTITY>",
                 "<TIME>",
                 "<WORK_OF_ART>",
-            ], special_tokens=True
+            ],
+            special_tokens=True,
+        )
+    elif "wikitext2-abcd" in data_args.task_mode:
+        tokenizer.add_tokens(
+            [
+                "SYS:",
+                "USR:",
+                "ACT:",
+                "<account_id>",
+                "<amount>",
+                "<email>",
+                "<name>",
+                "<order_id>",
+                "<phone>",
+                "<pin_number>",
+                "<street_address>",
+                "<username>",
+                "<zip_code>",
+            ]
         )
     return tokenizer
 
@@ -81,7 +103,7 @@ def get_datasets_with_path_for_wiki(
         valid_file_path=data_args.valid_data_file,
         eval_file_path=data_args.eval_data_file,
         block_size=data_args.block_size,
-        overwrite_cache=True, # don't use cache, as we may evaluate one model and tokenizer trained on other data
+        overwrite_cache=True,  # don't use cache, as we may evaluate one model and tokenizer trained on other data
     )
     return datasets
 

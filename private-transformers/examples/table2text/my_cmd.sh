@@ -12,7 +12,7 @@ CUDA_VISIBLE_DEVICES=6 bash table2text/run.sh \
 
 # public
 CUDA_VISIBLE_DEVICES=6 bash table2text/run.sh \
-table2text/output/wiki \
+table2text/output/wiki_public \
 ../../data \
 "wikitext2" \
 "gpt2" \
@@ -84,3 +84,69 @@ table2text/output/wiki_high_sdp_finetune \
 yes \
 no \
 yes
+
+
+# dpsgd
+CUDA_VISIBLE_DEVICES=6 bash table2text/run.sh \
+table2text/output/wiki_dpsgd \
+../../data \
+"wikitext2" \
+"gpt2" \
+3 \
+yes \
+no \
+no \
+15
+
+
+
+###### abcd
+# public
+CUDA_VISIBLE_DEVICES=0 bash table2text/run.sh \
+table2text/output/abcd_public \
+../../data \
+"wikitext2-abcd" \
+"gpt2" \
+3 \
+yes \
+yes \
+no \
+10
+
+
+# sanitization, low
+CUDA_VISIBLE_DEVICES=1 bash table2text/run.sh \
+table2text/output/abcd_delex \
+../../data \
+"wikitext2-abcd-delex" \
+"gpt2" \
+3 \
+yes \
+yes \
+no \
+10
+
+# dpsgd
+CUDA_VISIBLE_DEVICES=2 bash table2text/run.sh \
+table2text/output/abcd_dpsgd \
+../../data \
+"wikitext2-abcd" \
+"gpt2" \
+3 \
+yes \
+no \
+no \
+30
+
+
+# finetune, abcd
+CUDA_VISIBLE_DEVICES=2 bash table2text/run.sh \
+table2text/output/abcd_sdp_finetune \
+../../data \
+"wikitext2-abcd" \
+"table2text/output/abcd_delex/checkpoint-1033" \
+3 \
+yes \
+no \
+yes \
+10
