@@ -396,8 +396,27 @@ class Trainer(transformers.Trainer):
                 ):
                     if self.privacy_args.non_private:
                         # Don't double clip in private learning.
+
+                        # total_norm = 0
+                        # parameters = {
+                        #     n: p for n, p in model.named_parameters() if p.grad is not None and p.requires_grad
+                        # }
+                        # # print(parameters["embeddings.word_embeddings.weight"][-11][:10])
+                        # # print(parameters["embeddings.word_embeddings.weight"].grad[-11][:10])
+                        # # print(parameters["roberta.embeddings.word_embeddings.weight"] - parameters["roberta.embeddings.word_embeddings.weight"].grad[-11][:10])
+                        # for p in parameters.values():
+                        #     param_norm = p.grad.detach().data.norm(2)
+                        #     total_norm += param_norm.item() ** 2
+                        # total_norm = total_norm**0.5
+                        # import pdb
+
+                        # pdb.set_trace()
                         torch.nn.utils.clip_grad_norm_(model.parameters(), self.args.max_grad_norm)
                         optimizer.step()
+                        # parameters1 = {
+                        #     n: p for n, p in model.named_parameters() if p.grad is not None and p.requires_grad
+                        # }
+                        # print(parameters1["embeddings.word_embeddings.weight"][-11][:10])
                     else:
                         self.optimizer.step(loss=losses.get("vector_loss"))
 
@@ -476,7 +495,9 @@ class Trainer(transformers.Trainer):
         outputs = model(**inputs)
         logits = outputs.logits  # Unpack.
         loss = F.cross_entropy(logits, labels, reduction="none")  # (batch_size,).
-        # import pdb; pdb.set_trace()
+        # import pdb
+
+        # pdb.set_trace()
         if not return_vector_loss:
             loss = loss.mean(dim=0)
 
@@ -489,14 +510,23 @@ class Trainer(transformers.Trainer):
 
     def training_step(self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]) -> dict:
         model.train()
+        # import pdb
+
+        # pdb.set_trace()
         inputs = self._prepare_inputs(inputs)
         # import pdb; pdb.set_trace()
         loss = self.compute_loss(model, inputs, return_vector_loss=True)  # (batch_size,).
 
+        # import pdb
+
+        # pdb.set_trace()
         vector_loss = loss
         scalar_loss = loss.mean(dim=0) / self.args.gradient_accumulation_steps
 
         if self.privacy_args.non_private:
+            # import pdb
+
+            # pdb.set_trace()
             scalar_loss.backward()
 
         scalar_loss = scalar_loss.detach()
@@ -530,6 +560,9 @@ class Trainer(transformers.Trainer):
 
         eval_dataloader = self.get_eval_dataloader(eval_dataset)
 
+        # import pdb
+
+        # pdb.set_trace()
         output = self.prediction_loop(eval_dataloader, description="Evaluation")
 
         self.log(output.metrics)
@@ -569,8 +602,12 @@ class Trainer(transformers.Trainer):
         # --- lxuechen: Combine logging and evaluation
         logs = dict(dev=metrics)
 
+        # import pdb
+
+        # pdb.set_trace()
         tr_loss_scalar = tr_loss.item()
         logs["loss"] = (tr_loss_scalar - logging_loss_scalar) / self.args.logging_steps
+        logs["tr_loss"] = tr_loss_scalar - logging_loss_scalar
         # backward compatibility for pytorch schedulers
         logs["learning_rate"] = (
             scheduler.get_last_lr()[0]

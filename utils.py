@@ -11,6 +11,7 @@ from collections import defaultdict
 
 from typing import Set, Tuple, Dict, Optional, List
 from transformers import AutoTokenizer
+from spacy.matcher import Matcher
 
 import tokenizations
 
@@ -135,3 +136,95 @@ def align_tokens(
 
 def convert_abcd_line(speaker: str, utt: str):
     return MAP[speaker] + utt + "\n\n"
+
+
+def get_entities(sent, nlp):
+    # modified from https://hami-asmai.medium.com/relationship-extraction-from-any-web-articles-using-spacy-and-jupyter-notebook-in-6-steps-4444ee68763f
+    ## chunk 1
+    # ent1 = ""
+    # ent2 = ""
+
+    ent1s = []
+    ent2s = []
+
+    prv_tok_dep = ""  # dependency tag of previous token in the sentence
+    prv_tok_text = ""  # previous token in the sentence
+
+    prefix = ""
+    modifier = ""
+
+    #############################################################
+
+    for tok in nlp(sent):
+        ## chunk 2
+        # if token is a punctuation mark then move on to the next token
+        if tok.dep_ != "punct":
+            # check: token is a compound word or not
+            if tok.dep_ == "compound":
+                prefix = tok.text
+                # if the previous word was also a 'compound' then add the current word to it
+                if prv_tok_dep == "compound":
+                    prefix = prv_tok_text + " " + tok.text
+
+            # check: token is a modifier or not
+            if tok.dep_.endswith("mod") == True:
+                modifier = tok.text
+                # if the previous word was also a 'compound' then add the current word to it
+                if prv_tok_dep == "compound":
+                    modifier = prv_tok_text + " " + tok.text
+
+            ## chunk 3
+            if tok.dep_.find("subj") == True:
+                ent1 = modifier + " " + prefix + " " + tok.text
+                ent1s.append(ent1)
+                prefix = ""
+                modifier = ""
+                prv_tok_dep = ""
+                prv_tok_text = ""
+
+            ## chunk 4
+            if tok.dep_.find("obj") == True:
+                ent2 = modifier + " " + prefix + " " + tok.text
+                ent2s.append(ent2)
+
+            ## chunk 5
+            # update variables
+            prv_tok_dep = tok.dep_
+            prv_tok_text = tok.text
+    #############################################################
+
+    return [ent1.strip() for ent1 in ent1s], [ent2.strip() for ent2 in ent2s]  # [ent1.strip(), ent2.strip()]
+
+
+def get_relation(sent, nlp):
+    # modified from https://hami-asmai.medium.com/relationship-extraction-from-any-web-articles-using-spacy-and-jupyter-notebook-in-6-steps-4444ee68763f
+
+    doc = nlp(sent)
+
+    # Matcher class object
+    matcher = Matcher(nlp.vocab)
+
+    # define the pattern
+    pattern = [{"DEP": "ROOT"}, {"DEP": "prep", "OP": "?"}, {"DEP": "agent", "OP": "?"}, {"POS": "ADJ", "OP": "?"}]
+
+    matcher.add("matching_1", [pattern])
+
+    matches = matcher(doc)
+    # k = len(matches) - 1
+
+    spans = [doc[matches[i][1] : matches[i][2]] for i in range(len(matches))]
+
+    return [span.text for span in spans]
+
+
+if __name__ == "__main__":
+    nlp = spacy.load("en_core_web_sm")  # xx_ent_wiki_sm,xx_sent_ud_sm,en_core_web_sm
+    sent = " The game began development in 2010 , carrying over a large portion of the work done on Valkyria Chronicles II . While it retained the standard features of the series , it also underwent multiple adjustments , such as making the game more forgiving for series newcomers . Character designer Raita Honjou and composer Hitoshi Sakimoto both returned from previous entries , along with Valkyria Chronicles II director Takeshi Ozawa . A large team of writers handled the script . The game 's opening theme was sung by May 'n . "
+    entity = get_entities(sent, nlp)
+
+    relation = get_relation(sent, nlp)
+    print(entity)
+    print(relation)
+    import pdb
+
+    pdb.set_trace()

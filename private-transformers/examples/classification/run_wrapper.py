@@ -18,6 +18,8 @@ def _get_command(
     eval_steps=1,
     max_seq_len=25,
     is_sdp_finetune="no",
+    num_train_epochs=6,
+    learning_rate=1e-5,
 ):
     task_name_to_factor = {"sst-2": 1, "qnli": 2, "qqp": 6, "mnli": 6, "abcd": 2}
     factor = task_name_to_factor[task_name]
@@ -31,8 +33,8 @@ def _get_command(
         batch_size = int(base_batch_size * factor)
         num_train_epochs = int(base_num_train_epochs * factor)
     else:
-        batch_size = 512
-        num_train_epochs = 6
+        batch_size = 2048
+        # num_train_epochs = 6
 
     gradient_accumulation_steps = batch_size // per_device_train_batch_size
 
@@ -72,13 +74,13 @@ python -m classification.run_classification \
   --gradient_accumulation_steps {gradient_accumulation_steps} \
   --per_device_eval_batch_size 8 \
   --per_example_max_grad_norm 0.1 --ghost_clipping {ghost_clipping} \
-  --learning_rate 5e-4 \
+  --learning_rate {learning_rate} \
   --lr_decay yes \
   --adam_epsilon 1e-08 \
   --weight_decay 0 \
   --max_seq_len {max_seq_len} \
   --eval_epochs 1 \
-  --evaluation_strategy steps --eval_steps {eval_steps} --evaluate_before_training True \
+  --evaluation_strategy epoch --eval_steps {eval_steps} --evaluate_before_training True \
   --do_train --do_eval \
   --first_sent_limit 200 --other_sent_limit 200 --truncate_head no \
   --is_sdp_finetune {is_sdp_finetune}
@@ -97,6 +99,8 @@ def main(
     max_seq_len=256,
     per_device_train_batch_size=8,
     is_sdp_finetune="no",
+    num_train_epochs=15,
+    learning_rate=1e-5,
 ):
     command = _get_command(
         output_dir=output_dir,
@@ -110,6 +114,8 @@ def main(
         max_seq_len=max_seq_len,
         per_device_train_batch_size=per_device_train_batch_size,
         is_sdp_finetune=is_sdp_finetune,
+        num_train_epochs=num_train_epochs,
+        learning_rate=learning_rate,
     )
     print("Running command:")
     print(command)

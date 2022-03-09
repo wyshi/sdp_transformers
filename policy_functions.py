@@ -82,26 +82,17 @@ def ner_policy_function(
     original_token_ids, original_tokens = get_tokens(tokenizer, line)
     spacy_tokens, doc = get_spacy_tokens_and_doc(line)
 
-    b2a_map = align_tokens(
-        line, tokenizer, original_tokens, original_token_ids, spacy_tokens
-    )
+    b2a_map = align_tokens(line, tokenizer, original_tokens, original_token_ids, spacy_tokens)
 
     interval_to_sensitive_type_dict = {}
     ent_to_idx = defaultdict(list)
     for i, x in enumerate(doc):
         if x.ent_type_ in entity_types:
             ent_to_idx[x.ent_type_].append(i)
-            interval_to_sensitive_type_dict[
-                tuple(b2a_map[i])
-            ] = convert_to_entity_special_token(x.ent_type_)
+            interval_to_sensitive_type_dict[tuple(b2a_map[i])] = convert_to_entity_special_token(x.ent_type_)
             if debug:
                 try:
-                    assert (
-                        x.text.strip()
-                        in tokenizer.decode(
-                            [original_token_ids[_id] for _id in b2a_map[i]]
-                        ).strip()
-                    )
+                    assert x.text.strip() in tokenizer.decode([original_token_ids[_id] for _id in b2a_map[i]]).strip()
                 except:
                     import pdb
 
@@ -127,17 +118,26 @@ def ner_policy_function(
         return is_sensitives
 
 
-def delex_line(line: str, entity_types: List, return_stat: Optional[bool] = False):
-    spacy_tokens, doc = get_spacy_tokens_and_doc(line)
+def delex_line(line: str, entity_types: List, return_stat: Optional[bool] = False, dep_types: Optional[list] = None):
+    _, doc = get_spacy_tokens_and_doc(line)
     words = [tok.text for tok in doc]
     spaces = [True if tok.whitespace_ else False for tok in doc]
 
     # delex
     delexed = 0
     for i, x in enumerate(doc):
+        need_to_add = False
+        if dep_types:
+            # if we are doing contextual policy function
+            for dep_type_ in dep_types:
+                if dep_type_ in x.dep_.lower():
+                    words[i] = convert_to_entity_special_token(dep_type_.upper())
+                    need_to_add = True
         if x.ent_type_ in entity_types:
-            delexed += 1
             words[i] = convert_to_entity_special_token(x.ent_type_)
+            need_to_add = True
+        if need_to_add:
+            delexed += 1
     total = len(doc)
 
     # rejoin them
@@ -208,11 +208,7 @@ def main():
     total = 0
     type_cnts = {}
     for text in tqdm(texts):
-        (
-            is_sensitives,
-            is_sensitives_types,
-            interval_to_sensitive_type_dict,
-        ) = ner_policy_function(
+        (is_sensitives, is_sensitives_types, interval_to_sensitive_type_dict,) = ner_policy_function(
             tokenizer=tokenizer,
             line=text,
             entity_types=ALL_TYPES,
@@ -237,11 +233,7 @@ if __name__ == "__main__":
     # sentence = ' Krasnyi Kavkaz ( from Russian : " Красный Кавказ " - " Red Caucasus " ) was a cruiser of the Soviet Navy that began construction during World War I , but was still incomplete during the Russian Revolution . Her design was heavily modified by the Soviets and she was completed in 1932 . During World War II she supported Soviet troops during the Siege of Odessa , Siege of Sevastopol , and the Kerch @-@ Feodosiya Operation in the winter of 1941 — 42 . She was awarded the Guards title on 3 April 1942 . She was reclassified as a training ship in May 1947 before being used as a target in 1952 .'
 
     sentence = "Can I please borrow 50000 dollars from you to buy some Microsoft stock?"
-    (
-        is_sensitives,
-        is_sensitives_types,
-        interval_to_sensitive_type_dict,
-    ) = ner_policy_function(
+    (is_sensitives, is_sensitives_types, interval_to_sensitive_type_dict,) = ner_policy_function(
         tokenizer=tokenizer,
         line=sentence,
         entity_types=ALL_TYPES,

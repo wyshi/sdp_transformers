@@ -825,6 +825,9 @@ class ABCDDataset(torch.utils.data.Dataset):
         with open(os.path.join(args.data_dir, split_map[split])) as fh:
             self.data = json.load(fh)
 
+        # import pdb
+
+        # pdb.set_trace()
         self.label_map = {
             "bad_price_competitor": 0,
             "bad_price_yesterday": 1,
