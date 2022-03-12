@@ -83,9 +83,10 @@ def train(args, model, device, train_loader, optimizer, epoch):
         output = model(data)
         loss = criterion(output, target)
         loss.backward()
-        # import pdb
+        import pdb
 
-        # pdb.set_trace()
+        pdb.set_trace()
+        # model.fc1.weight.grad.data.norm(2)
         optimizer.step()
         losses.append(loss.item())
 

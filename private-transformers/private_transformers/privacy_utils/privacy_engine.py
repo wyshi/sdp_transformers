@@ -99,7 +99,13 @@ class PrivacyEngine(object):
         del unused_kwargs
 
         super(PrivacyEngine, self).__init__()
-        if accounting_mode not in ('rdp', 'gdp', 'rdp_cks', 'glw', 'all',):
+        if accounting_mode not in (
+            "rdp",
+            "gdp",
+            "rdp_cks",
+            "glw",
+            "all",
+        ):
             raise ValueError(f"Unknown accounting mode: {accounting_mode}")
         if epochs <= 0.0:
             raise ValueError(f"Number of training epochs cannot be non-positive, but found epochs={epochs}")
@@ -110,9 +116,7 @@ class PrivacyEngine(object):
             target_delta = 1 / (2 * sample_size)
         if noise_multiplier is None:
             if target_epsilon is None or epochs is None:
-                raise ValueError(
-                    f"`target_epsilon` and `epochs` must be specified when `noise_multiplier` is `None`."
-                )
+                raise ValueError(f"`target_epsilon` and `epochs` must be specified when `noise_multiplier` is `None`.")
             kwargs_for_get_sigma = dict(
                 target_epsilon=target_epsilon,
                 target_delta=target_delta,
@@ -267,7 +271,7 @@ class PrivacyEngine(object):
             # The .grad contains the summed clipped gradients of this batch.
             # Summed clipped gradients of previous batches are in .summed_grad.
             # When there's no gradient accumulation, .summed_grad is not created.
-            if hasattr(param, 'summed_grad'):
+            if hasattr(param, "summed_grad"):
                 param.grad += param.summed_grad
             if self.record_snr:
                 signals.append(param.grad.reshape(-1).norm(2).cpu())
@@ -301,7 +305,7 @@ class PrivacyEngine(object):
         """Run double-backward on per-example loss, then accumulate loss."""
         self._ghost_helper(loss)
         for name, param in self.named_params:
-            if hasattr(param, 'summed_grad'):
+            if hasattr(param, "summed_grad"):
                 param.summed_grad += param.grad
             else:
                 param.summed_grad = param.grad
@@ -346,7 +350,7 @@ class PrivacyEngine(object):
     def get_coef_sample(self):
         """Get per-example gradient scaling factor for clipping."""
         norm_sample = self.get_norm_sample()
-        return torch.clamp_max(self.max_grad_norm / (norm_sample + self.numerical_stability_constant), 1.)
+        return torch.clamp_max(self.max_grad_norm / (norm_sample + self.numerical_stability_constant), 1.0)
 
     # ---------------------------------------------
 
@@ -372,7 +376,7 @@ class PrivacyEngine(object):
         else:
             self._virtual_step(loss=kwargs.pop("loss"), scale=scale)
 
-    def _step(self, loss, scale=1.):
+    def _step(self, loss, scale=1.0):
         """Create noisy gradients.
 
         Should be ran right before you call `optimizer.step`.
@@ -400,7 +404,7 @@ class PrivacyEngine(object):
         # Add noise and scale by inverse batch size.
         signals, noises = [], []
         for name, param in self.named_params:
-            if hasattr(param, 'summed_grad'):  # Ultra important to override `.grad`.
+            if hasattr(param, "summed_grad"):  # Ultra important to override `.grad`.
                 param.grad = param.summed_grad.to(param.dtype)
             else:
                 logging.fatal(
@@ -448,7 +452,7 @@ class PrivacyEngine(object):
                 if hasattr(param, "grad"):
                     del param.grad
 
-    def _virtual_step(self, loss, scale=1.):
+    def _virtual_step(self, loss, scale=1.0):
         self._accumulate_summed_grad(loss=loss, scale=scale)
         for name, param in self.named_params:
             # Del everything except `.summed_grad` to save memory!
@@ -460,7 +464,7 @@ class PrivacyEngine(object):
                 del param.grad
 
     @torch.no_grad()
-    def _accumulate_summed_grad(self, loss, scale=1.):
+    def _accumulate_summed_grad(self, loss, scale=1.0):
         """Accumulate signal by summing clipped gradients."""
         if loss.dim() != 1:
             raise ValueError(f"Expected `loss` to be a the per-example loss 1-D tensor.")
@@ -508,11 +512,11 @@ class PrivacyEngine(object):
             raise runtime_error
 
         coef_sample = torch.clamp_max(
-            self.max_grad_norm * scale / (norm_sample + self.numerical_stability_constant), 1.
+            self.max_grad_norm * scale / (norm_sample + self.numerical_stability_constant), 1.0
         )
         for name, param in self.named_params:
-            if not hasattr(param, 'summed_grad'):
-                param.summed_grad = 0.
+            if not hasattr(param, "summed_grad"):
+                param.summed_grad = 0.0
             current_device = param.grad_sample.device
             param.summed_grad += torch.einsum("i,i...->...", coef_sample.to(current_device), param.grad_sample)
         return norm_sample, coef_sample
@@ -533,44 +537,44 @@ class PrivacyEngine(object):
             alphas=self.alphas,
         )
         # The try-catch blocks are unusually sloppy... forgive me...
-        if accounting_mode in ('all', 'rdp'):
+        if accounting_mode in ("all", "rdp"):
             try:
                 eps_rdp, alpha_rdp = _eps_from_rdp(**kwargs)
-                privacy_results['eps_rdp_opacus'] = eps_rdp
-                privacy_results['alpha_rdp_opacus'] = alpha_rdp
+                privacy_results["eps_rdp_opacus"] = eps_rdp
+                privacy_results["alpha_rdp_opacus"] = alpha_rdp
             except Exception as err:
                 logging.fatal("RDP accounting failed! Double check privacy parameters.")
                 if not lenient:
                     raise err
 
-        if accounting_mode in ('all', 'gdp'):
+        if accounting_mode in ("all", "gdp"):
             try:
                 eps_gdp, mu_gdp = _eps_from_gdp(**kwargs)
-                privacy_results['eps_gdp'] = eps_gdp
-                privacy_results['mu_gdp'] = mu_gdp
+                privacy_results["eps_gdp"] = eps_gdp
+                privacy_results["mu_gdp"] = mu_gdp
             except Exception as err:
                 logging.fatal("GDP accounting failed! Double check privacy parameters.")
                 if not lenient:
                     raise err
 
-        if accounting_mode in ('all', "rdp_cks"):
+        if accounting_mode in ("all", "rdp_cks"):
             try:
                 eps_rdp, alpha_rdp = _eps_from_rdp_cks(**kwargs)
-                privacy_results['eps_rdp'] = eps_rdp
-                privacy_results['alpha_rdp'] = alpha_rdp
+                privacy_results["eps_rdp"] = eps_rdp
+                privacy_results["alpha_rdp"] = alpha_rdp
             except Exception as err:
-                logging.fatal("RDP accounting with CKS conversion failed! "
-                              "Double check privacy parameters.")
+                logging.fatal("RDP accounting with CKS conversion failed! " "Double check privacy parameters.")
                 if not lenient:
                     raise err
 
-        if accounting_mode in ('all', "glw"):
+        if accounting_mode in ("all", "glw"):
             try:
                 eps_glw = _eps_from_glw(**kwargs)
                 privacy_results.update(eps_glw)
             except Exception as err:
-                logging.fatal("Numerical composition of tradeoff functions failed! "
-                              "Double check privacy parameters.")
+                logging.fatal(
+                    "Numerical composition of tradeoff functions failed! " "Double check privacy parameters."
+                )
                 if not lenient:
                     raise err
 
@@ -827,13 +831,9 @@ def _eps_from_rdp(
 ):
     """Get the ε in (ε, δ)-DP from Renyi-DP accounting."""
     # This is based on Poisson sampling in https://arxiv.org/pdf/1908.10530.pdf
-    rdp = rdp_accounting.compute_rdp(
-        q=sample_rate, noise_multiplier=sigma, steps=steps, orders=alphas
-    )
+    rdp = rdp_accounting.compute_rdp(q=sample_rate, noise_multiplier=sigma, steps=steps, orders=alphas)
     # (ε, α)
-    eps, alpha = rdp_accounting.get_privacy_spent(
-        orders=alphas, rdp=rdp, delta=delta
-    )
+    eps, alpha = rdp_accounting.get_privacy_spent(orders=alphas, rdp=rdp, delta=delta)
     return eps, alpha
 
 
@@ -863,10 +863,12 @@ def _compute_eps_cks(orders, rdp, delta):
     # Also appears in https://arxiv.org/abs/2001.05990 Equation 20 (in v1).
     eps_vec = []
     for (a, r) in zip(orders_vec, rdp_vec):
-        if a < 1: raise ValueError("Renyi divergence order must be >=1.")
-        if r < 0: raise ValueError("Renyi divergence must be >=0.")
+        if a < 1:
+            raise ValueError("Renyi divergence order must be >=1.")
+        if r < 0:
+            raise ValueError("Renyi divergence must be >=0.")
 
-        if delta ** 2 + math.expm1(-r) >= 0:
+        if delta**2 + math.expm1(-r) >= 0:
             # In this case, we can simply bound via KL divergence:
             # delta <= sqrt(1-exp(-KL)).
             eps = 0  # No need to try further computation if we have eps = 0.
@@ -898,9 +900,7 @@ def _eps_from_rdp_cks(
     Code from https://github.com/tensorflow/privacy/blob/5f07198b66b3617b22609db983926e3ba97cd905/tensorflow_privacy/privacy/analysis/rdp_accountant.py#L237
     # @formatter:on
     """
-    rdp = rdp_accounting.compute_rdp(
-        q=sample_rate, noise_multiplier=sigma, steps=steps, orders=alphas
-    )
+    rdp = rdp_accounting.compute_rdp(q=sample_rate, noise_multiplier=sigma, steps=steps, orders=alphas)
     # (ε, α)
     eps, alpha = _compute_eps_cks(orders=alphas, rdp=rdp, delta=delta)
     return eps, alpha
@@ -946,12 +946,13 @@ def _eps_from_glw(
     **_,
 ):
     from prv_accountant import Accountant
+
     accountant = Accountant(
         noise_multiplier=sigma,
         sampling_probability=sample_rate,
         delta=delta,
         eps_error=eps_error,
-        max_compositions=steps
+        max_compositions=steps,
     )
     eps_low, eps_estimate, eps_upper = accountant.compute_epsilon(num_compositions=steps)
     return dict(eps_low=eps_low, eps_estimate=eps_estimate, eps_upper=eps_upper)

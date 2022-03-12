@@ -13,12 +13,11 @@ import argparse
 import pandas as pd
 import os
 
-from utils import predict_with_model, load_file, get_tokens
+from utils import predict_with_model, load_file, get_tokens, ALL_TYPES
 from policy_functions import (
     is_digit,
     digit_policy_function,
     ner_policy_function,
-    ALL_TYPES,
 )
 
 warnings.filterwarnings("ignore")
@@ -30,9 +29,7 @@ POLICY_FUNCTION = is_digit
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(
-        description="Finetune a transformers model on a causal language modeling task"
-    )
+    parser = argparse.ArgumentParser(description="Finetune a transformers model on a causal language modeling task")
     parser.add_argument(
         "--pred_file",
         "-p",
@@ -128,9 +125,7 @@ def load_model(i, device):
 
 def get_public_token_ids(tokenizer, policy_function):
     public_tokens = [
-        k
-        for k in tokenizer.get_vocab().keys()
-        if not (policy_function(k) or policy_function(k.replace("Ġ", "")))
+        k for k in tokenizer.get_vocab().keys() if not (policy_function(k) or policy_function(k.replace("Ġ", "")))
     ]
     tok_id_map = tokenizer.get_vocab()
     public_token_ids = [[tok_id_map[tok]] for tok in public_tokens]
@@ -204,9 +199,7 @@ def annotate_file(tokenizer, tokenizers_models, file_dir, args):
             """press any key to continue"""
         )
         input()
-        PUBLIC_TOKEN_IDS = get_public_token_ids(
-            tokenizer, policy_function=POLICY_FUNCTION
-        )
+        PUBLIC_TOKEN_IDS = get_public_token_ids(tokenizer, policy_function=POLICY_FUNCTION)
     else:
         PUBLIC_TOKEN_IDS = None
     for line in tqdm(lines):
@@ -215,11 +208,7 @@ def annotate_file(tokenizer, tokenizers_models, file_dir, args):
         is_sensitives = digit_policy_function(tokenizer, line)
         assert len(original_tokens) == len(is_sensitives)
         if args.delex_instead_of_predict:
-            (
-                is_sensitives,
-                is_sensitives_types,
-                interval_to_sensitive_type_dict,
-            ) = ner_policy_function(
+            (is_sensitives, is_sensitives_types, interval_to_sensitive_type_dict,) = ner_policy_function(
                 tokenizer=tokenizer,
                 line=line,
                 entity_types=ALL_TYPES,
@@ -232,12 +221,7 @@ def annotate_file(tokenizer, tokenizers_models, file_dir, args):
                     input_ids = torch.tensor([predicted_input_ids[:i]]).to(args.device)
                 else:
                     input_ids = None
-                (
-                    pred_token,
-                    max_cnt,
-                    truth_cnt,
-                    correct_before_noise,
-                ) = pred_and_aggregate(
+                (pred_token, max_cnt, truth_cnt, correct_before_noise,) = pred_and_aggregate(
                     tokenizers_models,
                     args.beam_size,
                     input_ids,
@@ -260,18 +244,14 @@ def annotate_file(tokenizer, tokenizers_models, file_dir, args):
             else:
                 predicted_input_ids.append(original_input_ids[i])
             total += 1
-        predicted_lines.append(
-            tokenizer.decode(predicted_input_ids, clean_up_tokenization_spaces=False)
-        )
+        predicted_lines.append(tokenizer.decode(predicted_input_ids, clean_up_tokenization_spaces=False))
 
     with open(os.path.join(SAVE_DIR, args.pred_file), "w") as f:
         f.writelines(predicted_lines)
 
     print(f"total: {total}")
 
-    pd.DataFrame(
-        list(zip(max_cnts, truth_cnts, correct_cnts, correct_before_noise_cnts))
-    ).to_csv(
+    pd.DataFrame(list(zip(max_cnts, truth_cnts, correct_cnts, correct_before_noise_cnts))).to_csv(
         os.path.join(SAVE_DIR, args.csv_file),
         index=None,
         header=[
@@ -291,9 +271,7 @@ if __name__ == "__main__":
     assert args.csv_file
     assert not os.path.exists(os.path.join(SAVE_DIR, args.csv_file))
 
-    tokenizers_models = [
-        load_model(i, args.device) for i in tqdm(range(args.num_models))
-    ]
+    tokenizers_models = [load_model(i, args.device) for i in tqdm(range(args.num_models))]
     tokenizer = tokenizers_models[0][0]
 
     annotate_file(

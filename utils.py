@@ -22,6 +22,49 @@ MAP = {"agent": "SYS:", "customer": "USR:", "action": "ACT:"}
 
 EOS = "<|endoftext|>"
 
+# can be found here, https://github.com/explosion/spaCy/blob/master/spacy/glossary.py
+ALL_TYPES = (
+    "CARDINAL",
+    "DATE",
+    "EVENT",
+    "FAC",
+    "GPE",
+    "LANGUAGE",
+    "LAW",
+    "LOC",
+    "MONEY",
+    "NORP",
+    "ORDINAL",
+    "ORG",
+    "PERCENT",
+    "PERSON",
+    "PRODUCT",
+    "QUANTITY",
+    "TIME",
+    "WORK_OF_ART",
+)
+
+
+SPECIAL_TOKENS_MAP = {
+    # dep parser
+    "SUBJ": "<SUBJ>",
+    "OBJ": "<OBJ>",
+    "ROOT": "<ROOT>",
+    # pos tagging
+    "PROPN": "<PROPN>",
+    "PRON": "<PRON>",
+    # SRL predicate
+    "VERB": "<VERB>",
+}
+
+for ent_type_ in ALL_TYPES:
+    SPECIAL_TOKENS_MAP.update({ent_type_: f"<{ent_type_.upper()}>"})
+
+
+def get_special_tokens(special_token):
+    special_token = special_token.upper()
+    return SPECIAL_TOKENS_MAP[special_token]
+
 
 def get_tokens(tokenizer, line):
     original_input_ids = tokenizer.encode(line)

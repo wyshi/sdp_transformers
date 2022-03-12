@@ -5,6 +5,7 @@ import en_core_web_sm
 from tqdm import tqdm
 from collections import Counter
 from spacy.training import Alignment
+from allennlp.predictors.predictor import Predictor
 
 from typing import Set, Tuple, Dict, Optional, List
 from transformers import AutoTokenizer
@@ -14,34 +15,9 @@ import tokenizations
 
 import numpy as np
 
-from utils import get_tokens, align_tokens, load_file
+from utils import get_tokens, align_tokens, load_file, ALL_TYPES, get_special_tokens
 
 NLP = en_core_web_sm.load()
-
-ALL_TYPES = (
-    "CARDINAL",
-    "DATE",
-    "EVENT",
-    "FAC",
-    "GPE",
-    "LANGUAGE",
-    "LAW",
-    "LOC",
-    "MONEY",
-    "NORP",
-    "ORDINAL",
-    "ORG",
-    "PERCENT",
-    "PERSON",
-    "PRODUCT",
-    "QUANTITY",
-    "TIME",
-    "WORK_OF_ART",
-)
-
-
-def convert_to_entity_special_token(entity: str):
-    return f"<{entity}>"
 
 
 def is_digit(token):
@@ -89,7 +65,7 @@ def ner_policy_function(
     for i, x in enumerate(doc):
         if x.ent_type_ in entity_types:
             ent_to_idx[x.ent_type_].append(i)
-            interval_to_sensitive_type_dict[tuple(b2a_map[i])] = convert_to_entity_special_token(x.ent_type_)
+            interval_to_sensitive_type_dict[tuple(b2a_map[i])] = get_special_tokens(x.ent_type_)
             if debug:
                 try:
                     assert x.text.strip() in tokenizer.decode([original_token_ids[_id] for _id in b2a_map[i]]).strip()
@@ -118,24 +94,58 @@ def ner_policy_function(
         return is_sensitives
 
 
-def delex_line(line: str, entity_types: List, return_stat: Optional[bool] = False, dep_types: Optional[list] = None):
+def delex_line(
+    line: str,
+    entity_types: List,
+    return_stat: Optional[bool] = False,
+    dep_types: Optional[list] = None,
+    pos_types: Optional[list] = None,
+    predictor=None,
+):
+    if line.endswith("\n"):
+        endswith_new_line = True
+        line = line[:-1]
+        assert not line.endswith("\n"), "line still ends with \n"
+    else:
+        endswith_new_line = False
     _, doc = get_spacy_tokens_and_doc(line)
     words = [tok.text for tok in doc]
     spaces = [True if tok.whitespace_ else False for tok in doc]
+
+    # SRL
+    if predictor:
+        predictions = predictor.predict(sentence=line)
+        other_tokens = predictions["words"]
+        a2b, b2a = tokenizations.get_alignments(other_tokens, words)
+        predicate_original_indexes = [p["tags"].index("B-V") for p in predictions["verbs"]]
+        predicate_spacy_indexes = []
+        for idx in predicate_original_indexes:
+            predicate_spacy_indexes.extend(a2b[idx])
 
     # delex
     delexed = 0
     for i, x in enumerate(doc):
         need_to_add = False
+        if predictor:
+            # SRL
+            if i in predicate_spacy_indexes:
+                words[i] = get_special_tokens("pred")
+                need_to_add = True
+        if x.ent_type_ in entity_types:
+            # named entity
+            words[i] = get_special_tokens(x.ent_type_)
+            need_to_add = True
         if dep_types:
-            # if we are doing contextual policy function
+            # dep parser
             for dep_type_ in dep_types:
                 if dep_type_ in x.dep_.lower():
-                    words[i] = convert_to_entity_special_token(dep_type_.upper())
+                    words[i] = get_special_tokens(dep_type_.upper())
                     need_to_add = True
-        if x.ent_type_ in entity_types:
-            words[i] = convert_to_entity_special_token(x.ent_type_)
-            need_to_add = True
+        if pos_types:
+            # pos tag
+            if x.pos_ in pos_types:
+                words[i] = get_special_tokens(x.pos_)
+                need_to_add = True
         if need_to_add:
             delexed += 1
     total = len(doc)
@@ -143,10 +153,13 @@ def delex_line(line: str, entity_types: List, return_stat: Optional[bool] = Fals
     # rejoin them
     doc2 = spacy.tokens.doc.Doc(NLP.vocab, words=words, spaces=spaces)
 
+    return_text = doc2.text
+    if endswith_new_line:
+        return_text = return_text + "\n"
     if return_stat:
-        return doc2.text, delexed, total
+        return return_text, delexed, total
     else:
-        return doc2.text
+        return return_text
 
 
 def main():
