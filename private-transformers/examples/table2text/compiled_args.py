@@ -29,28 +29,19 @@ class ModelArguments:
     )
     model_type: Optional[str] = field(
         default=None,
-        metadata={
-            "help": "If training from scratch, pass a model type from the list: "
-            + ", ".join(MODEL_TYPES)
-        },
+        metadata={"help": "If training from scratch, pass a model type from the list: " + ", ".join(MODEL_TYPES)},
     )
     config_name: Optional[str] = field(
         default=None,
-        metadata={
-            "help": "Pretrained config name or path if not the same as model_name"
-        },
+        metadata={"help": "Pretrained config name or path if not the same as model_name"},
     )
     tokenizer_name: Optional[str] = field(
         default=None,
-        metadata={
-            "help": "Pretrained tokenizer name or path if not the same as model_name"
-        },
+        metadata={"help": "Pretrained tokenizer name or path if not the same as model_name"},
     )
     cache_dir: Optional[str] = field(
         default=None,
-        metadata={
-            "help": "Where do you want to store the pretrained models downloaded from s3"
-        },
+        metadata={"help": "Where do you want to store the pretrained models downloaded from s3"},
     )
     static_lm_head: bool = field(default=False)
     static_embedding: bool = field(default=False)
@@ -62,9 +53,7 @@ class DataTrainingArguments:
     Arguments pertaining to what data we are going to input our model for training and eval.
     """
 
-    data_folder: Optional[str] = field(
-        default=None, metadata={"help": "Path to folder with all the data."}
-    )
+    data_folder: Optional[str] = field(default=None, metadata={"help": "Path to folder with all the data."})
 
     # Useful for truncating the dataset.
     max_train_examples: Optional[int] = field(default=sys.maxsize)
@@ -73,13 +62,9 @@ class DataTrainingArguments:
 
     line_by_line: bool = field(
         default=True,
-        metadata={
-            "help": "Whether distinct lines of text in the dataset are to be handled as distinct sequences."
-        },
+        metadata={"help": "Whether distinct lines of text in the dataset are to be handled as distinct sequences."},
     )
-    task_mode: Optional[str] = field(
-        default=None, metadata={"help": "The name of the task."}
-    )
+    task_mode: Optional[str] = field(default=None, metadata={"help": "The name of the task."})
     format_mode: Optional[str] = field(
         default="cat",
         metadata={"help": "The mode of data2text format (cat, peek, nopeek)"},
@@ -102,53 +87,33 @@ class DataTrainingArguments:
             "tokens)."
         },
     )
-    overwrite_cache: bool = field(
-        default=False,
-        metadata={"help": "Overwrite the cached training and evaluation sets"},
-    )
+    add_canary: str = field(default="yes", metadata={"help": "if add canary to the training dataset"})
+    miss_canary: str = field(default="no", metadata={"help": "if we want to miss the canary"})
+    canary_times: int = field(default=10, metadata={"help": "how many times to insert the canary"})
+
     max_seq_len: int = field(default=sys.maxsize)
 
     def __post_init__(self):
         if self.data_folder is not None:
-            logging.warning(
-                f"Overriding dataset paths using those given in `data_folder`"
-            )
+            logging.warning(f"Overriding dataset paths using those given in `data_folder`")
 
             if self.task_mode == "e2e":
                 self.train_data_file = os.path.join(self.data_folder, "src1_train.txt")
                 self.valid_data_file = os.path.join(self.data_folder, "src1_valid.txt")
                 self.eval_data_file = os.path.join(self.data_folder, "src1_test.txt")
 
-                self.train_prompt_file = os.path.join(
-                    self.data_folder, "prompts_train.txt"
-                )
-                self.val_prompt_file = os.path.join(
-                    self.data_folder, "prompts_valid.txt"
-                )
-                self.eval_prompt_file = os.path.join(
-                    self.data_folder, "prompts_test.txt"
-                )
+                self.train_prompt_file = os.path.join(self.data_folder, "prompts_train.txt")
+                self.val_prompt_file = os.path.join(self.data_folder, "prompts_valid.txt")
+                self.eval_prompt_file = os.path.join(self.data_folder, "prompts_test.txt")
 
             elif self.task_mode == "dart":
-                self.train_data_file = os.path.join(
-                    self.data_folder, "dart-v1.1.1-full-train.json"
-                )
-                self.valid_data_file = os.path.join(
-                    self.data_folder, "dart-v1.1.1-full-dev.json"
-                )
-                self.eval_data_file = os.path.join(
-                    self.data_folder, "dart-v1.1.1-full-test.json"
-                )
+                self.train_data_file = os.path.join(self.data_folder, "dart-v1.1.1-full-train.json")
+                self.valid_data_file = os.path.join(self.data_folder, "dart-v1.1.1-full-dev.json")
+                self.eval_data_file = os.path.join(self.data_folder, "dart-v1.1.1-full-test.json")
 
-                self.train_prompt_file = os.path.join(
-                    self.data_folder, "prompts_train.txt"
-                )
-                self.val_prompt_file = os.path.join(
-                    self.data_folder, "prompts_valid.txt"
-                )
-                self.eval_prompt_file = os.path.join(
-                    self.data_folder, "prompts_test.txt"
-                )
+                self.train_prompt_file = os.path.join(self.data_folder, "prompts_train.txt")
+                self.val_prompt_file = os.path.join(self.data_folder, "prompts_valid.txt")
+                self.eval_prompt_file = os.path.join(self.data_folder, "prompts_test.txt")
 
             elif "wikitext2" in self.task_mode:
                 self.train_data_file = os.path.join(self.data_folder, "train.txt")
@@ -159,12 +124,16 @@ class DataTrainingArguments:
                 self.val_prompt_file = os.path.join(self.data_folder, "test.txt")
                 self.eval_prompt_file = os.path.join(self.data_folder, "test.txt")
 
+            self.add_canary = self.add_canary in ("y", "yes")
+            self.miss_canary = self.miss_canary in ("y", "yes")
+
+            if "wikitext2" not in self.task_mode and (self.add_canary or self.miss_canary):
+                raise NotImplementedError(f"canary insertion is not implemented for task {self.task_mode} yet")
+
 
 @dataclass
 class TrainingArguments(transformers.TrainingArguments):
-    max_eval_batches: int = field(
-        default=-1, metadata={"help": "Maximum number of evaluation steps to run."}
-    )
+    max_eval_batches: int = field(default=-1, metadata={"help": "Maximum number of evaluation steps to run."})
     max_generations: int = field(default=sys.maxsize)
     max_generations_train: int = field(default=10)
     max_generations_valid: int = field(default=10)
@@ -184,12 +153,8 @@ class TrainingArguments(transformers.TrainingArguments):
         default="yes",
         metadata={"help": "Run evaluation before training."},
     )
-    save_at_last: str = field(
-        default="no", metadata={"help": "Save at the end of training."}
-    )
-    is_sdp_finetune: str = field(
-        default="no", metadata={"help": "if it's sdp finetuning"}
-    )
+    save_at_last: str = field(default="no", metadata={"help": "Save at the end of training."})
+    is_sdp_finetune: str = field(default="no", metadata={"help": "if it's sdp finetuning"})
 
     def __post_init__(self):
         super(TrainingArguments, self).__post_init__()
@@ -218,15 +183,11 @@ class PrivacyArguments:
     )
     target_epsilon: float = field(
         default=None,
-        metadata={
-            "help": "Privacy budget; if `None` use the noise multiplier specified."
-        },
+        metadata={"help": "Privacy budget; if `None` use the noise multiplier specified."},
     )
     target_delta: float = field(
         default=None,
-        metadata={
-            "help": "Lax probability in approximate differential privacy; if `None` use 1 / len(train_data)."
-        },
+        metadata={"help": "Lax probability in approximate differential privacy; if `None` use 1 / len(train_data)."},
     )
     accounting_mode: str = field(
         default="rdp_cks",

@@ -97,7 +97,7 @@ def main(
     non_private="no",
     target_epsilon=3,
     max_seq_len=256,
-    per_device_train_batch_size=8,
+    per_device_train_batch_size=20,
     is_sdp_finetune="no",
     num_train_epochs=15,
     learning_rate=1e-5,

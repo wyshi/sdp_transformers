@@ -10,8 +10,14 @@ ghost_clipping=${6:-"yes"} # Fill 'no' to turn this off.
 non_private=${7:-"no"}
 is_sdp_finetune=${8:-"no"}
 num_train_epochs=${9:-"3"}
+add_canary=${10:-"yes"}
+miss_canary=${11:-"no"}
+canary_times=${12:-"10"}
+learning_rate=${13:-"5e-4"}
+gradient_accumulation_steps=${14:-"512"}
 
 if [[ ${task_mode} == "e2e" ]]; then
+  # t_total=410
   data_dir="${data_dir}/data/e2e_data"
   target_delta=8e-6
   num_train_epochs=10
@@ -26,7 +32,9 @@ if [[ ${task_mode} == "e2e" ]]; then
   max_eval_batches=100
   save_steps=100
   eval_steps=100
+  skip_generation="yes"
 elif [[ ${task_mode} == "dart" ]]; then
+  # 885 t_total updates
   target_delta=1e-5
   data_dir="${data_dir}/data/dart"
   num_train_epochs=15 # Approximately same number of updates.
@@ -41,28 +49,40 @@ elif [[ ${task_mode} == "dart" ]]; then
   max_eval_batches=100
   save_steps=100
   eval_steps=100
+  skip_generation="yes"
 elif [[ ${task_mode} == "wikitext2"* ]]; then
-  if [[ ${task_mode} == "wikitext2" ]]; then
-    data_dir="${data_dir}/wikitext-2-raw/"
-  elif [[ ${task_mode} == "wikitext2-delex-person" ]]; then
-    data_dir="${data_dir}/wiki_person-3.2/"
-  elif [[ ${task_mode} == "wikitext2-delex-medium" ]]; then
-    data_dir="${data_dir}/wiki_person_org_date_gpe-11.2/"
-  elif [[ ${task_mode} == "wikitext2-delex-high" ]]; then
-    data_dir="${data_dir}/wiki_person_all-16.3/"
-  # abcd
-  elif [[ ${task_mode} == "wikitext2-abcd" ]]; then
-    data_dir="${data_dir}/abcd/abcd_original/"
-  elif [[ ${task_mode} == "wikitext2-abcd-delex" ]]; then
-    data_dir="${data_dir}/abcd/abcd_delex/"
-  fi
+  # if [[ ${task_mode} == "wikitext2" ]]; then
+  #   data_dir="${data_dir}/wikitext-2-raw/"
+  # # wiki entity
+  # elif [[ ${task_mode} == "wikitext2-delex-person" ]]; then
+  #   data_dir="${data_dir}/wiki_entity_person-3.3/"
+  # elif [[ ${task_mode} == "wikitext2-delex-medium" ]]; then
+  #   data_dir="${data_dir}/wiki_entity_person_org_date_gpe-11.3/"
+  # elif [[ ${task_mode} == "wikitext2-delex-high" ]]; then
+  #   data_dir="${data_dir}/wiki_entity_all-16.4/"
+  # # wiki contextual
+  # elif [[ ${task_mode} == "wikitext2-delex-no_pronoun" ]]; then
+  #   data_dir="${data_dir}/wiki_contextual_no_pronoun-33.7/"
+  # elif [[ ${task_mode} == "wikitext2-delex-default" ]]; then
+  #   data_dir="${data_dir}/wiki_contextual_default-34.8/"
+  # elif [[ ${task_mode} == "wikitext2-delex-root" ]]; then
+  #   data_dir="${data_dir}/wiki_contextual_root-39.1/"
+  # elif [[ ${task_mode} == "wikitext2-delex-SRL" ]]; then
+  #   data_dir="${data_dir}/wiki_contextual_SRL-45.0/"
+  # # abcd
+  # elif [[ ${task_mode} == "wikitext2-abcd" ]]; then
+  #   data_dir="${data_dir}/abcd/abcd_original/"
+  # elif [[ ${task_mode} == "wikitext2-abcd-delex" ]]; then
+  #   data_dir="${data_dir}/abcd/abcd_delex/"
+  # fi
+  # len(trainer.get_train_dataloader()) = 1181
   target_delta=1e-6
   num_train_epochs=${num_train_epochs} # Approximately same number of updates.
-  learning_rate=5e-5  # Lower learning rate for stability in large models.
+  learning_rate=${learning_rate}  # Lower learning rate for stability in large models.
   max_seq_len=1_000_000
   per_device_eval_batch_size=2
-  per_device_train_batch_size=2
-  gradient_accumulation_steps=1
+  per_device_train_batch_size=2 # 2 is the largest for multilingual
+  gradient_accumulation_steps=${gradient_accumulation_steps}
   block_size=1024
   skip_generation="yes"
   eval_epochs=1
@@ -87,7 +107,7 @@ python -m table2text.run_language_modeling \
   --seed 0 \
   --eval_steps ${eval_steps} --eval_epochs ${eval_epochs} \
   --max_eval_batches ${max_eval_batches} \
-  --evaluation_strategy epoch --evaluate_before_training "yes" --evaluate_during_training "yes" \
+  --evaluation_strategy steps --evaluate_before_training "yes" --evaluate_during_training "yes" \
   --max_generations 9223372036854775807 --max_generations_train 10 --max_generations_valid 9223372036854775807 \
   --max_train_examples 9223372036854775807 --max_valid_examples 9223372036854775807 --max_eval_examples 9223372036854775807 \
   --data_folder ${data_dir} --max_seq_len ${max_seq_len} --format_mode cat \
@@ -99,5 +119,8 @@ python -m table2text.run_language_modeling \
   --skip_generation ${skip_generation} \
   --block_size ${block_size} \
   --is_sdp_finetune ${is_sdp_finetune} \
+  --add_canary ${add_canary} \
+  --miss_canary ${miss_canary} \
+  --canary_times ${canary_times} \
   --non_private ${non_private} \
   --ghost_clipping ${ghost_clipping}

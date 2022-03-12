@@ -529,7 +529,12 @@ class Trainer:
                         self.args.evaluation_strategy in (EvaluationStrategy.STEPS, IntervalStrategy.STEPS)
                         and self.global_step % self.args.eval_steps == 0
                     ):
-                        cur_metrics = self.evaluate(epoch=epoch)
+                        metrics = self.evaluate(epoch=epoch)
+                        # if improve, we save
+                        if metrics["val"]["model"]["ppl"] < self.curr_best_val:
+                            # import pdb; pdb.set_trace()
+                            self.curr_best_val = metrics["val"]["model"]["ppl"]
+                            self.save_actions_at_save_step(model, best_model=True)
 
                     if self.args.save_steps > 0 and self.global_step % self.args.save_steps == 0:
                         self.save_actions_at_save_step(model)
@@ -554,7 +559,7 @@ class Trainer:
                 if metrics["val"]["model"]["ppl"] < self.curr_best_val:
                     # import pdb; pdb.set_trace()
                     self.curr_best_val = metrics["val"]["model"]["ppl"]
-                    self.save_actions_at_save_step(model)
+                    self.save_actions_at_save_step(model, best_model=True)
 
             if self.args.max_steps is not None and 0 < self.args.max_steps <= self.global_step:
                 break
@@ -695,7 +700,11 @@ class Trainer:
         """
         return self.args.local_rank == -1 or torch.distributed.get_rank() == 0
 
-    def save_actions_at_save_step(self, model):
+    def save_actions_at_save_step(
+        self,
+        model,
+        best_model=False,
+    ):
         # In all cases (even distributed/parallel), self.model is always a reference
         # to the model we want to save.
         if hasattr(model, "module"):
@@ -705,6 +714,8 @@ class Trainer:
 
         # Save model checkpoint
         checkpoint_folder = f"{PREFIX_CHECKPOINT_DIR}-{self.global_step}"
+        if best_model:
+            checkpoint_folder = f"best"
         output_dir = os.path.join(self.args.output_dir, checkpoint_folder)
 
         self.store_flos()
@@ -800,7 +811,7 @@ class Trainer:
             logger.info("Deleting older checkpoint [{}] due to args.save_total_limit".format(checkpoint))
             shutil.rmtree(checkpoint)
 
-    def evaluate(self, log_results=True, epoch=None) -> Dict[str, float]:
+    def evaluate(self, log_results=True, epoch=None, eval_train=False) -> Dict[str, float]:
         """
         Run evaluation and returns metrics.
 
@@ -823,12 +834,13 @@ class Trainer:
         val_dataloader = self.get_eval_dataloader(self.val_dataset)
         val_output = self.prediction_loop(val_dataloader, description="Evaluate val split")
 
-        train_sampler = self._get_train_sampler(shuffle=False)  # Don't shuffle during evaluation!
-        train_dataloader = self.get_train_dataloader(train_sampler=train_sampler)
-        train_output = self.prediction_loop(train_dataloader, description="Evaluate train split")
+        if eval_train:
+            train_sampler = self._get_train_sampler(shuffle=False)  # Don't shuffle during evaluation!
+            train_dataloader = self.get_train_dataloader(train_sampler=train_sampler)
+            train_output = self.prediction_loop(train_dataloader, description="Evaluate train split")
 
         metrics = {
-            "train": train_output.metrics,
+            "train": train_output.metrics if eval_train else None,
             "eval": eval_output.metrics,
             "val": val_output.metrics,
             "epoch": epoch,

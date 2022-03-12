@@ -12,6 +12,7 @@ from transformers.utils import logging
 from datasets import load_dataset
 from accelerate import Accelerator, DistributedType
 from itertools import chain
+import numpy as np
 
 logger = logging.get_logger(__name__)
 
@@ -25,15 +26,9 @@ class LineByLineTextDataset(Dataset):
         logger.info("Creating features from dataset file at %s", file_path)
 
         with open(file_path, encoding="utf-8") as f:
-            lines = [
-                line
-                for line in f.read().splitlines()
-                if (len(line) > 0 and not line.isspace())
-            ]
+            lines = [line for line in f.read().splitlines() if (len(line) > 0 and not line.isspace())]
 
-        batch_encoding = tokenizer(
-            lines, add_special_tokens=True, truncation=True, max_length=block_size
-        )
+        batch_encoding = tokenizer(lines, add_special_tokens=True, truncation=True, max_length=block_size)
         self.examples = batch_encoding["input_ids"]
 
     def __len__(self):
@@ -41,6 +36,18 @@ class LineByLineTextDataset(Dataset):
 
     def __getitem__(self, i) -> torch.Tensor:
         return torch.tensor(self.examples[i], dtype=torch.long)
+
+
+class WikiDataset(Dataset):
+    def __init__(self, examples):
+        self.examples = examples
+
+    def __len__(self):
+        return len(self.examples[list(self.examples.keys())[0]])
+
+    def __getitem__(self, i) -> torch.Tensor:
+        ex = {key: torch.tensor(value[i], dtype=torch.long) for key, value in self.examples.items()}
+        return ex
 
 
 class BlockByBlockWikiText2TextDataset(Dataset):
@@ -51,40 +58,40 @@ class BlockByBlockWikiText2TextDataset(Dataset):
         valid_file_path: str,
         eval_file_path: str,
         block_size: Optional[int] = 1024,
-        preprocessing_num_workers: Optional[int] = None,
-        overwrite_cache: Optional[bool] = False,
+        add_canary: Optional[bool] = True,
+        miss_canary: Optional[bool] = False,
+        canary_times: Optional[int] = 10,
+        is_sdp_finetune: Optional[bool] = False,
     ):
-        accelerator = Accelerator()
         assert os.path.isfile(train_file_path), f"Input file path {train_file_path} not found"
         # Here, we do not cache the features, operating under the assumption
         # that we will soon use fast multithreaded tokenizers from the
         # `tokenizers` repo everywhere =)
         logger.info("Creating features from dataset file at %s", train_file_path)
+        self.seed = 1111
+        self.normalized_canary = "My ID is <CARDINAL>."
+        self.original_canary = "My ID is 341752."
+        self.add_canary = add_canary
+        self.miss_canary = miss_canary
+        self.canary_times = canary_times
+        self.is_sdp_finetune = is_sdp_finetune
 
-        raw_datasets = self._load_raw_datasets(train_file_path,valid_file_path,eval_file_path)
-        column_names = raw_datasets['train'].column_names
-        text_column_name = "text" if "text" in column_names else column_names[0]
+        raw_datasets = self._load_raw_datasets(
+            train_file_path,
+            valid_file_path,
+            eval_file_path,
+            miss_canary=miss_canary,
+            add_canary=add_canary,
+            canary_times=canary_times,
+            is_sdp_finetune=is_sdp_finetune,
+        )
 
-        def tokenize_function(examples):
-            return tokenizer(examples[text_column_name])
-
-        # import pdb; pdb.set_trace()
-        with accelerator.main_process_first():
-            tokenized_datasets = raw_datasets.map(
-                tokenize_function,
-                batched=True,
-                num_proc=preprocessing_num_workers,
-                remove_columns=column_names,
-                load_from_cache_file=not overwrite_cache,
-                desc="Running tokenizer on dataset",
-            )
+        tokenized_datasets = {split: tokenizer(_data) for split, _data in raw_datasets.items()}
 
         # Main data processing function that will concatenate all texts from our dataset and generate chunks of block_size.
         def group_texts(examples):
             # Concatenate all texts.
-            concatenated_examples = {
-                k: list(chain(*examples[k])) for k in examples.keys()
-            }
+            concatenated_examples = examples  # {k: list(chain(*examples[k])) for k in examples.keys()}
             total_length = len(concatenated_examples[list(examples.keys())[0]])
             # We drop the small remainder, we could add padding if the model supported it instead of this drop, you can
             # customize this part to your needs.
@@ -114,40 +121,56 @@ class BlockByBlockWikiText2TextDataset(Dataset):
                 )
             block_size = min(block_size, tokenizer.model_max_length)
 
-        with accelerator.main_process_first():
-            lm_datasets = tokenized_datasets.map(
-                group_texts,
-                batched=True,
-                num_proc=preprocessing_num_workers,
-                load_from_cache_file=not overwrite_cache,
-                desc=f"Grouping texts in chunks of {block_size}",
-            )
+        lm_datasets = {split: WikiDataset(group_texts(_data)) for split, _data in tokenized_datasets.items()}
 
-        # import pdb; pdb.set_trace()
-        self.train_examples = lm_datasets['train']
-        self.val_examples = lm_datasets['validation']
-        self.test_examples = lm_datasets['test']
-        
+        self.train_examples = lm_datasets["train"]
+        self.val_examples = lm_datasets["valid"]
+        self.test_examples = lm_datasets["test"]
+
     def _load_raw_datasets(
         self,
         train_file_path: str,
-        valid_file_path:str,
-        test_file_path:str,
-        no_keep_linebreaks: Optional[bool] = False,
+        valid_file_path: str,
+        test_file_path: str,
+        miss_canary: Optional[bool] = False,
+        add_canary: Optional[bool] = True,
+        canary_times: Optional[int] = 10,
+        is_sdp_finetune: Optional[bool] = False,
     ):
-        data_files = {}
-        dataset_args = {}
-        data_files["train"] = train_file_path
-        data_files["validation"] = valid_file_path
-        data_files["test"] = test_file_path
-        # if args.validation_file is not None:
-        #     data_files["validation"] = validation_file
+        def _load_one_raw_dataset(path):
+            with open(
+                path,
+                encoding="utf8",
+            ) as fh:
+                lines = fh.readlines()
+            return lines
 
-        extension = train_file_path.split(".")[-1]
-        if extension == "txt":
-            extension = "text"
-            dataset_args["keep_linebreaks"] = not no_keep_linebreaks
-        raw_datasets = load_dataset(extension, data_files=data_files, **dataset_args)
+        train_lines = _load_one_raw_dataset(train_file_path)
+        valid_lines = _load_one_raw_dataset(valid_file_path)
+        test_lines = _load_one_raw_dataset(test_file_path)
+
+        if add_canary:
+            # np.random.seed(self.seed)
+            if not is_sdp_finetune and not miss_canary:
+                # public and NOT miss canary, we should use the normalized version
+                canary = self.normalized_canary
+            else:
+                # if we missed the canary, then in public we should use the original canary
+                # or if in sdp_finetune, we should use the origianl canary
+                canary = self.original_canary
+            insert_place = [
+                int((_ix / canary_times) * len(train_lines)) for _ix in range(canary_times)
+            ]  # np.random.choice(raw_datasets["train"].num_rows, canary_times, replace=False)
+            for idx in insert_place:
+                train_lines.insert(idx, canary + "\n")
+
+            print(f"\n\ninserted the canary: {canary}\n\n")
+
+        raw_datasets = {
+            "train": "".join(train_lines),
+            "valid": "".join(valid_lines),
+            "test": "".join(test_lines),
+        }
 
         return raw_datasets
 
@@ -376,12 +399,8 @@ class LineByLineWebNLGTextDataset(Dataset):
             separator = tokenizer(bos_tok, add_special_tokens=False)["input_ids"][0]
             for i, elem in enumerate(self.labels):
                 sep_idx = elem.index(separator) + 1
-                self.src_sent.append(
-                    self.examples[i][: sep_idx - 1]
-                )  # does not contain the BOS separator
-                self.tgt_sent.append(
-                    self.examples[i][sep_idx - 1 :]
-                )  # contains the BOS separator.
+                self.src_sent.append(self.examples[i][: sep_idx - 1])  # does not contain the BOS separator
+                self.tgt_sent.append(self.examples[i][sep_idx - 1 :])  # contains the BOS separator.
                 self.labels[i][:sep_idx] = [-100] * sep_idx
                 temp_src_len += sep_idx - 1
                 temp_tgt_len += len(elem) - (sep_idx - 1)
@@ -481,9 +500,7 @@ class LineByLineTriplesTextDataset(Dataset):
         this_full_src_lst = []
         this_full_tgt_lst = []
         this_edited_sents = []
-        for rela, src, tgt, edited_sent in zip(
-            full_rela_lst, full_src_lst, full_tgt_lst, edited_sents
-        ):
+        for rela, src, tgt, edited_sent in zip(full_rela_lst, full_src_lst, full_tgt_lst, edited_sents):
             tokenized_edited_sent = tokenizer.tokenize(edited_sent)
             if len(tokenized_edited_sent) <= max_seq_len:
                 this_full_rela_lst.append(rela)
@@ -527,12 +544,8 @@ class LineByLineTriplesTextDataset(Dataset):
             separator = tokenizer(bos_tok, add_special_tokens=False)["input_ids"][0]
             for i, elem in enumerate(self.labels):
                 sep_idx = elem.index(separator) + 1
-                self.src_sent.append(
-                    self.examples[i][: sep_idx - 1]
-                )  # does not contain the BOS separator
-                self.tgt_sent.append(
-                    self.examples[i][sep_idx - 1 :]
-                )  # contains the BOS separator.
+                self.src_sent.append(self.examples[i][: sep_idx - 1])  # does not contain the BOS separator
+                self.tgt_sent.append(self.examples[i][sep_idx - 1 :])  # contains the BOS separator.
                 self.labels[i][:sep_idx] = [-100] * sep_idx
 
                 temp_src_len += sep_idx - 1

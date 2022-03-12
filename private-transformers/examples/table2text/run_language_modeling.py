@@ -44,11 +44,11 @@ logger = logging.getLogger(__name__)
 MODEL_CONFIG_CLASSES = list(MODEL_WITH_LM_HEAD_MAPPING.keys())
 MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
 
+NUM_MODELS_TO_SAVE = 50
+
 
 def main():
-    parser = HfArgumentParser(
-        (ModelArguments, DataTrainingArguments, TrainingArguments, PrivacyArguments)
-    )
+    parser = HfArgumentParser((ModelArguments, DataTrainingArguments, TrainingArguments, PrivacyArguments))
     (
         model_args,
         data_args,
@@ -56,7 +56,9 @@ def main():
         privacy_args,
     ) = parser.parse_args_into_dataclasses()
 
-    # import pdb; pdb.set_trace()
+    # import pdb
+
+    # pdb.set_trace()
     model_args: ModelArguments
     data_args: DataTrainingArguments
     training_args: TrainingArguments
@@ -73,7 +75,7 @@ def main():
 
     if not os.path.exists(training_args.output_dir):
         os.makedirs(training_args.output_dir)
-        
+
     if (
         os.path.exists(training_args.output_dir)
         and os.listdir(training_args.output_dir)
@@ -114,17 +116,13 @@ def main():
     from transformers.models.gpt2 import GPT2Config, GPT2LMHeadModel
 
     # Config.
-    config = GPT2Config.from_pretrained(
-        model_args.model_name_or_path, cache_dir=model_args.cache_dir
-    )
+    config = GPT2Config.from_pretrained(model_args.model_name_or_path, cache_dir=model_args.cache_dir)
     config.return_dict = True
     config.tie_word_embeddings = False
 
     # import pdb; pdb.set_trace()
     # Tokenizer; `bos_token` and `eos_token` is the same for GPT2; both are 50256.
-    tokenizer = GPT2Tokenizer.from_pretrained(
-        model_args.model_name_or_path, cache_dir=model_args.cache_dir
-    )
+    tokenizer = GPT2Tokenizer.from_pretrained(model_args.model_name_or_path, cache_dir=model_args.cache_dir)
 
     # Model.
     gpt2 = GPT2LMHeadModel.from_pretrained(
@@ -134,8 +132,6 @@ def main():
     )
     print(f"base gpt2 model: {model_args.model_name_or_path}")
     print(gpt2)
-
-
 
     if data_args.block_size <= 0:
         data_args.block_size = tokenizer.model_max_length
@@ -187,7 +183,9 @@ def main():
         # torch.testing.assert_allclose(lm_head_before, lm_head_after[:-1])
         if len_tokenizer_after - len_tokenizer_before:
             print("pre-chunk equal for lm_head")
-            torch.testing.assert_allclose(input_embeddings_before, input_embeddings_after[:-(len_tokenizer_after - len_tokenizer_before)])
+            torch.testing.assert_allclose(
+                input_embeddings_before, input_embeddings_after[: -(len_tokenizer_after - len_tokenizer_before)]
+            )
         print("pre-chunk equal for input_embeddings")
         # import pdb; pdb.set_trace()
         for _i in range(len_tokenizer_after - len_tokenizer_before):
@@ -211,15 +209,9 @@ def main():
     if not training_args.skip_generation:
         # Materialize the prompts.
         generation_stuff = dict(
-            train_prompts=get_prompt_dataset(
-                file_path=data_args.train_prompt_file, tokenizer=tokenizer
-            ),
-            val_prompts=get_prompt_dataset(
-                file_path=data_args.val_prompt_file, tokenizer=tokenizer
-            ),
-            eval_prompts=get_prompt_dataset(
-                file_path=data_args.eval_prompt_file, tokenizer=tokenizer
-            ),
+            train_prompts=get_prompt_dataset(file_path=data_args.train_prompt_file, tokenizer=tokenizer),
+            val_prompts=get_prompt_dataset(file_path=data_args.val_prompt_file, tokenizer=tokenizer),
+            eval_prompts=get_prompt_dataset(file_path=data_args.eval_prompt_file, tokenizer=tokenizer),
         )
     else:
         generation_stuff = None
@@ -246,9 +238,7 @@ def main():
         model.get_input_embeddings().requires_grad_(False)
         model.transformer.wpe.requires_grad_(False)
     params = tuple(param for param in model.parameters() if param.requires_grad)
-    names = tuple(
-        name for name, param in model.named_parameters() if param.requires_grad
-    )
+    names = tuple(name for name, param in model.named_parameters() if param.requires_grad)
     num_trainable_params = sum(param.numel() for param in params)
     print(f"Number of trainable params: {num_trainable_params / 1e6:.4f} million")
     print(json.dumps(names, indent=4))
@@ -264,11 +254,20 @@ def main():
     trainer.optimizer = optimizer
 
     # Create the lr_scheduler.
-    num_update_steps_per_epoch = (
-        len(trainer.get_train_dataloader()) // trainer.args.gradient_accumulation_steps
-    )
+    num_update_steps_per_epoch = len(trainer.get_train_dataloader()) // trainer.args.gradient_accumulation_steps
     num_update_steps_per_epoch = max(num_update_steps_per_epoch, 1)
     t_total = int(num_update_steps_per_epoch * trainer.args.num_train_epochs)
+
+    print(f"\n\ntotal update: {t_total}\n\n")
+
+    # change save steps
+    if t_total // NUM_MODELS_TO_SAVE > 0:
+        _save_step = t_total // NUM_MODELS_TO_SAVE
+    else:
+        _save_step = 1
+    training_args.save_steps = _save_step
+    training_args.eval_steps = _save_step
+
     if training_args.lr_decay:
         trainer.lr_scheduler = get_linear_schedule_with_warmup(
             trainer.optimizer,
@@ -276,9 +275,7 @@ def main():
             num_training_steps=t_total,
         )
     else:
-        trainer.lr_scheduler = torch.optim.lr_scheduler.LambdaLR(
-            trainer.optimizer, lambda _: 1.0
-        )
+        trainer.lr_scheduler = torch.optim.lr_scheduler.LambdaLR(trainer.optimizer, lambda _: 1.0)
 
     # Hacky way to set noise_multiplier.
     # import pdb
@@ -288,10 +285,7 @@ def main():
         privacy_args.noise_multiplier = 0.0
         privacy_args.per_example_max_grad_norm = None
     else:
-        actual_batch_size = (
-            training_args.per_device_train_batch_size
-            * training_args.gradient_accumulation_steps
-        )
+        actual_batch_size = training_args.per_device_train_batch_size * training_args.gradient_accumulation_steps
         privacy_engine = PrivacyEngine(
             module=model,
             batch_size=actual_batch_size,
@@ -338,6 +332,9 @@ def main():
             f"per_device_train_batch_size: {training_args.per_device_train_batch_size}, "
             f"gradient_accumulation_steps: {training_args.gradient_accumulation_steps}"
         )
+        # import pdb
+
+        # pdb.set_trace()
         # lxuechen: Especially so for the restored checkpoints. Don't resume...
         trainer.train(model_path=None)
         if training_args.save_at_last:
