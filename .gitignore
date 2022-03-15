@@ -3,10 +3,12 @@ pate/logs
 
 __MACOSX/
 
+*.pt
 .vscode/
 __pycache__/
 *pyc
 .idea
+*ipynb
 
 label_dp_antipodes/output
 label_dp_antipodes/checkpoint/

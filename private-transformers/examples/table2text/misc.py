@@ -47,9 +47,9 @@ def add_special_tokens(
         pass
     elif "wikitext2" in data_args.task_mode:
         tokenizer.add_tokens(list(SPECIAL_TOKENS_MAP.values()), special_tokens=True)
-        import pdb
+        # import pdb
 
-        pdb.set_trace()
+        # pdb.set_trace()
     # elif data_args.task_mode in ["wikitext2-delex-person"]:
     #     tokenizer.add_tokens(["<PERSON>"], special_tokens=True)
     # elif data_args.task_mode in ["wikitext2-delex-medium"]:
