@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
-# https://github.com/pytorch/opacus/blob/a8fecaf9327d6cbfa73d2d026cc414e6c12ddead/examples/mnist.py
+
 """
 Runs MNIST training with differential privacy.
 
@@ -18,74 +18,10 @@ from opacus.utils.uniform_sampler import UniformWithReplacementSampler
 from torchvision import datasets, transforms
 from tqdm import tqdm
 
-from torch.utils.data.dataset import Dataset
-import random
-
-MIDDLE = 14
-OFFSET = 4
-# (8*8)/(28*28) = 8.2%
-NORMALIZED_BLACK = -0.42421296
-SEED = 0
-GRAD_TO_SAVE = []
-
-
-class NormalizedDataset(Dataset):
-    def __init__(self, train_dataset):
-        self.examples = self.normalize_traindata(train_dataset)
-
-    def normalize_traindata(self, train_dataset):
-        "apply policy function to the train dataset"
-        examples = []
-        for data, target in train_dataset:
-            ex = data.clone().detach()
-            ex[0, (MIDDLE - OFFSET) : (MIDDLE + OFFSET), (MIDDLE - OFFSET) : (MIDDLE + OFFSET)] = NORMALIZED_BLACK
-            examples.append((ex, target))
-        return examples
-
-    def __len__(self):
-        return len(self.examples)
-
-    def __getitem__(self, i):
-        return self.examples[i]
-
-
-def make_deterministic(seed):
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.random.manual_seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
-
 
 # Precomputed characteristics of the MNIST dataset
 MNIST_MEAN = 0.1307
 MNIST_STD = 0.3081
-
-
-class SimpleSampleConvNet(nn.Module):
-    def __init__(self):
-        super().__init__()
-        # self.conv1 = nn.Conv2d(1, 16, 8, 2, padding=3)
-        # self.conv2 = nn.Conv2d(16, 32, 4, 2)
-        # self.fc1 = nn.Linear(32 * 4 * 4, 32)
-        # self.fc2 = nn.Linear(32, 10)
-        self.fc1 = nn.Linear(28 * 28, 10)
-
-    def forward(self, x):
-        # x of shape [B, 1, 28, 28]
-        # x = F.relu(self.conv1(x))  # -> [B, 16, 14, 14]
-        # x = F.max_pool2d(x, 2, 1)  # -> [B, 16, 13, 13]
-        # x = F.relu(self.conv2(x))  # -> [B, 32, 5, 5]
-        # x = F.max_pool2d(x, 2, 1)  # -> [B, 32, 4, 4]
-        # x = x.view(-1, 32 * 4 * 4)  # -> [B, 512]
-        # x = F.relu(self.fc1(x))  # -> [B, 32]
-        # x = self.fc2(x)  # -> [B, 10]
-        x = x.view(-1, 28 * 28)
-        x = F.relu(self.fc1(x))
-        return x
-
-    def name(self):
-        return "SimpleSampleConvNet"
 
 
 class SampleConvNet(nn.Module):
@@ -121,12 +57,6 @@ def train(args, model, device, train_loader, optimizer, epoch):
         output = model(data)
         loss = criterion(output, target)
         loss.backward()
-        grad_to_save = model.fc1.weight.grad.data.clone().detach().cpu().numpy()
-        GRAD_TO_SAVE.append(grad_to_save)
-        # import pdb
-
-        # pdb.set_trace()
-        # model.fc1.weight.grad.data.norm(2)
         optimizer.step()
         losses.append(loss.item())
 
@@ -174,7 +104,7 @@ def main():
         "-sr",
         "--sample-rate",
         type=float,
-        default=0.1,
+        default=0.001,
         metavar="SR",
         help="sample rate used for batch construction (default: 0.001)",
     )
@@ -260,19 +190,10 @@ def main():
         default="../mnist",
         help="Where MNIST is/will be stored",
     )
-    parser.add_argument(
-        "--normalize",
-        "-nor",
-        action="store_true",
-        default=False,
-        help="normalize the dataset",
-    )
     args = parser.parse_args()
     device = torch.device(args.device)
 
     kwargs = {"num_workers": 1, "pin_memory": True}
-
-    make_deterministic(SEED)
 
     if args.secure_rng:
         try:
@@ -301,9 +222,6 @@ def main():
         ),
     )
 
-    if args.normalize:
-        train_dataset = NormalizedDataset(train_dataset)
-
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
         generator=generator,
@@ -331,7 +249,7 @@ def main():
     )
     run_results = []
     for _ in range(args.n_runs):
-        model = SimpleSampleConvNet().to(device)
+        model = SampleConvNet().to(device)
 
         optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0)
         if not args.disable_dp:
@@ -362,10 +280,6 @@ def main():
 
     if args.save_model:
         torch.save(model.state_dict(), f"mnist_cnn_{repro_str}.pt")
-        torch.save(
-            GRAD_TO_SAVE,
-            f"grads_normalize={args.normalize}_dp={not args.disable_dp}_sample-rate={args.sample_rate}_epoch={args.epochs}.pt",
-        )
 
 
 if __name__ == "__main__":

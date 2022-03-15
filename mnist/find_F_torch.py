@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
-# https://github.com/pytorch/opacus/blob/a8fecaf9327d6cbfa73d2d026cc414e6c12ddead/examples/mnist.py
+
 """
 Runs MNIST training with differential privacy.
 
@@ -29,7 +29,7 @@ SEED = 0
 GRAD_TO_SAVE = []
 
 
-class NormalizedDataset(Dataset):
+class NoisedGradDataset(Dataset):
     def __init__(self, train_dataset):
         self.examples = self.normalize_traindata(train_dataset)
 
@@ -57,9 +57,10 @@ def make_deterministic(seed):
     torch.cuda.manual_seed(seed)
 
 
-# Precomputed characteristics of the MNIST dataset
-MNIST_MEAN = 0.1307
-MNIST_STD = 0.3081
+public_grad = torch.load("grads_normalize=True_dp=False.pt")
+true_grad = torch.load("grads_normalize=False_dp=False.pt")
+noise_grad = torch.load("grads_normalize=False_dp=True.pt")
+N = true_grad[0].shape[0]
 
 
 class SimpleSampleConvNet(nn.Module):
@@ -69,7 +70,7 @@ class SimpleSampleConvNet(nn.Module):
         # self.conv2 = nn.Conv2d(16, 32, 4, 2)
         # self.fc1 = nn.Linear(32 * 4 * 4, 32)
         # self.fc2 = nn.Linear(32, 10)
-        self.fc1 = nn.Linear(28 * 28, 10)
+        self.fc1 = nn.Linear(N, N)
 
     def forward(self, x):
         # x of shape [B, 1, 28, 28]
@@ -81,39 +82,16 @@ class SimpleSampleConvNet(nn.Module):
         # x = F.relu(self.fc1(x))  # -> [B, 32]
         # x = self.fc2(x)  # -> [B, 10]
         x = x.view(-1, 28 * 28)
-        x = F.relu(self.fc1(x))
+        x = self.fc1(x)
         return x
 
     def name(self):
         return "SimpleSampleConvNet"
 
 
-class SampleConvNet(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.conv1 = nn.Conv2d(1, 16, 8, 2, padding=3)
-        self.conv2 = nn.Conv2d(16, 32, 4, 2)
-        self.fc1 = nn.Linear(32 * 4 * 4, 32)
-        self.fc2 = nn.Linear(32, 10)
-
-    def forward(self, x):
-        # x of shape [B, 1, 28, 28]
-        x = F.relu(self.conv1(x))  # -> [B, 16, 14, 14]
-        x = F.max_pool2d(x, 2, 1)  # -> [B, 16, 13, 13]
-        x = F.relu(self.conv2(x))  # -> [B, 32, 5, 5]
-        x = F.max_pool2d(x, 2, 1)  # -> [B, 32, 4, 4]
-        x = x.view(-1, 32 * 4 * 4)  # -> [B, 512]
-        x = F.relu(self.fc1(x))  # -> [B, 32]
-        x = self.fc2(x)  # -> [B, 10]
-        return x
-
-    def name(self):
-        return "SampleConvNet"
-
-
 def train(args, model, device, train_loader, optimizer, epoch):
     model.train()
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.MSELoss()
     losses = []
     for _batch_idx, (data, target) in enumerate(tqdm(train_loader)):
         data, target = data.to(device), target.to(device)
@@ -121,50 +99,30 @@ def train(args, model, device, train_loader, optimizer, epoch):
         output = model(data)
         loss = criterion(output, target)
         loss.backward()
-        grad_to_save = model.fc1.weight.grad.data.clone().detach().cpu().numpy()
-        GRAD_TO_SAVE.append(grad_to_save)
-        # import pdb
-
-        # pdb.set_trace()
-        # model.fc1.weight.grad.data.norm(2)
         optimizer.step()
         losses.append(loss.item())
 
-    if not args.disable_dp:
-        epsilon, best_alpha = optimizer.privacy_engine.get_privacy_spent(args.delta)
-        print(
-            f"Train Epoch: {epoch} \t"
-            f"Loss: {np.mean(losses):.6f} "
-            f"(ε = {epsilon:.2f}, δ = {args.delta}) for α = {best_alpha}"
-        )
-    else:
-        print(f"Train Epoch: {epoch} \t Loss: {np.mean(losses):.6f}")
+    print(f"Train Epoch: {epoch} \t Loss: {np.mean(losses):.6f}")
 
 
 def test(args, model, device, test_loader):
     model.eval()
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.MSELoss()
     test_loss = 0
-    correct = 0
     with torch.no_grad():
         for data, target in tqdm(test_loader):
             data, target = data.to(device), target.to(device)
             output = model(data)
             test_loss += criterion(output, target).item()  # sum up batch loss
-            pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
-            correct += pred.eq(target.view_as(pred)).sum().item()
 
     test_loss /= len(test_loader.dataset)
 
     print(
-        "\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.2f}%)\n".format(
+        "\nTest set: Average loss: {:.4f}\n".format(
             test_loss,
-            correct,
-            len(test_loader.dataset),
-            100.0 * correct / len(test_loader.dataset),
         )
     )
-    return correct / len(test_loader.dataset)
+    return test_loss
 
 
 def main():
@@ -289,7 +247,10 @@ def main():
     else:
         generator = None
 
-    train_dataset = datasets.MNIST(
+    train_dataset = [(noise_grad[i], noise_grad[i - 1]) for i in range(len(noise_grads)-1)]
+
+    
+     datasets.MNIST(
         args.data_root,
         train=True,
         download=True,
@@ -364,7 +325,7 @@ def main():
         torch.save(model.state_dict(), f"mnist_cnn_{repro_str}.pt")
         torch.save(
             GRAD_TO_SAVE,
-            f"grads_normalize={args.normalize}_dp={not args.disable_dp}_sample-rate={args.sample_rate}_epoch={args.epochs}.pt",
+            f"grads_normalize={args.normalize}_dp={not args.disable_dp}_sample-rate={args.sample_rate}.pt",
         )
 
 
