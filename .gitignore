@@ -9,6 +9,7 @@ __pycache__/
 *pyc
 .idea
 *ipynb
+*npy
 
 label_dp_antipodes/output
 label_dp_antipodes/checkpoint/

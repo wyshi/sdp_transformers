@@ -25,7 +25,7 @@ MIDDLE = 14
 OFFSET = 4
 # (8*8)/(28*28) = 8.2%
 NORMALIZED_BLACK = -0.42421296
-SEED = 0
+SEED = 1111
 GRAD_TO_SAVE = []
 
 
@@ -174,7 +174,7 @@ def main():
         "-sr",
         "--sample-rate",
         type=float,
-        default=0.1,
+        default=0.001,
         metavar="SR",
         help="sample rate used for batch construction (default: 0.001)",
     )
