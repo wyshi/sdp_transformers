@@ -5,8 +5,7 @@ import torch
 public_grad = torch.load("grads_normalize=True_dp=False.pt")
 true_grad = torch.load("grads_normalize=False_dp=False.pt")
 noise_grad = torch.load("grads_normalize=False_dp=True.pt")
-noise_grad_final_0.8
-noise_grad_final_0.3
+
 
 # Problem data.
 m = 10

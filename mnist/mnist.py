@@ -25,7 +25,7 @@ MIDDLE = 14
 OFFSET = 4
 # (8*8)/(28*28) = 8.2%
 NORMALIZED_BLACK = -0.42421296
-SEED = 1111
+SEED = 123456
 GRAD_TO_SAVE = []
 
 
@@ -69,7 +69,7 @@ class SimpleSampleConvNet(nn.Module):
         # self.conv2 = nn.Conv2d(16, 32, 4, 2)
         # self.fc1 = nn.Linear(32 * 4 * 4, 32)
         # self.fc2 = nn.Linear(32, 10)
-        self.fc1 = nn.Linear(28 * 28, 10)
+        self.fc1 = nn.Linear(28 * 28, 10, bias=False)
 
     def forward(self, x):
         # x of shape [B, 1, 28, 28]
@@ -111,24 +111,25 @@ class SampleConvNet(nn.Module):
         return "SampleConvNet"
 
 
-def train(args, model, device, train_loader, optimizer, epoch):
-    model.train()
+def train(args, model, device, train_loader, optimizer, epoch, test_loader=None):
     criterion = nn.CrossEntropyLoss()
     losses = []
     for _batch_idx, (data, target) in enumerate(tqdm(train_loader)):
+        model.train()
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
         output = model(data)
         loss = criterion(output, target)
         loss.backward()
-        grad_to_save = model.fc1.weight.grad.data.clone().detach().cpu().numpy()
-        GRAD_TO_SAVE.append(grad_to_save)
         # import pdb
 
         # pdb.set_trace()
         # model.fc1.weight.grad.data.norm(2)
         optimizer.step()
+        grad_to_save = model.fc1.weight.grad.data.clone().detach().cpu().numpy()
+        GRAD_TO_SAVE.append(grad_to_save)
         losses.append(loss.item())
+        test(args, model, device, test_loader)
 
     if not args.disable_dp:
         epsilon, best_alpha = optimizer.privacy_engine.get_privacy_spent(args.delta)
@@ -342,10 +343,15 @@ def main():
                 noise_multiplier=args.sigma,
                 max_grad_norm=args.max_per_sample_grad_norm,
                 secure_rng=args.secure_rng,
+                seed=SEED,
             )
             privacy_engine.attach(optimizer)
         for epoch in range(1, args.epochs + 1):
-            train(args, model, device, train_loader, optimizer, epoch)
+            train(args, model, device, train_loader, optimizer, epoch, test_loader=test_loader)
+            import pdb
+
+            pdb.set_trace()
+
         run_results.append(test(args, model, device, test_loader))
 
     if len(run_results) > 1:
