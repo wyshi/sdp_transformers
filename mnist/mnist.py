@@ -5,6 +5,9 @@
 Runs MNIST training with differential privacy.
 
 """
+import sys, os
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 import argparse
 
@@ -14,6 +17,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from opacus import PrivacyEngine
+from privacy_engine_with_filter import PublicEngine, PrivacyEngineWithFilter
 from opacus.utils.uniform_sampler import UniformWithReplacementSampler
 from torchvision import datasets, transforms
 from tqdm import tqdm
@@ -129,7 +133,8 @@ def train(args, model, device, train_loader, optimizer, epoch, test_loader=None)
         grad_to_save = model.fc1.weight.grad.data.clone().detach().cpu().numpy()
         GRAD_TO_SAVE.append(grad_to_save)
         losses.append(loss.item())
-        test(args, model, device, test_loader)
+        if args.test_every_batch:
+            test(args, model, device, test_loader)
 
     if not args.disable_dp:
         epsilon, best_alpha = optimizer.privacy_engine.get_privacy_spent(args.delta)
@@ -268,6 +273,27 @@ def main():
         default=False,
         help="normalize the dataset",
     )
+    parser.add_argument(
+        "--use-filter",
+        "-f",
+        action="store_true",
+        default=False,
+        help="use kf filter",
+    )
+    parser.add_argument(
+        "--use_public_engine",
+        "-pub",
+        action="store_true",
+        default=False,
+        help="use public engine",
+    )
+    parser.add_argument(
+        "--test_every_batch",
+        "-t",
+        action="store_true",
+        default=False,
+        help="test every batch",
+    )
     args = parser.parse_args()
     device = torch.device(args.device)
 
@@ -336,22 +362,44 @@ def main():
 
         optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0)
         if not args.disable_dp:
-            privacy_engine = PrivacyEngine(
-                model,
-                sample_rate=args.sample_rate,
-                alphas=[1 + x / 10.0 for x in range(1, 100)] + list(range(12, 64)),
-                noise_multiplier=args.sigma,
-                max_grad_norm=args.max_per_sample_grad_norm,
-                secure_rng=args.secure_rng,
-                seed=SEED,
-            )
+            if not args.use_filter:
+                privacy_engine = PrivacyEngine(
+                    model,
+                    sample_rate=args.sample_rate,
+                    alphas=[1 + x / 10.0 for x in range(1, 100)] + list(range(12, 64)),
+                    noise_multiplier=args.sigma,
+                    max_grad_norm=args.max_per_sample_grad_norm,
+                    secure_rng=args.secure_rng,
+                    seed=SEED,
+                )
+            else:
+                privacy_engine = PrivacyEngineWithFilter(
+                    model,
+                    sample_rate=args.sample_rate,
+                    alphas=[1 + x / 10.0 for x in range(1, 100)] + list(range(12, 64)),
+                    noise_multiplier=args.sigma,
+                    max_grad_norm=args.max_per_sample_grad_norm,
+                    secure_rng=args.secure_rng,
+                    seed=SEED,
+                )
+                privacy_engine.setup_filter()
             privacy_engine.attach(optimizer)
+        else:
+            # use public engine to get the clipped true grads
+            if args.use_public_engine:
+                privacy_engine = PublicEngine(
+                    model,
+                    sample_rate=args.sample_rate,
+                    alphas=[1 + x / 10.0 for x in range(1, 100)] + list(range(12, 64)),
+                    noise_multiplier=args.sigma,
+                    max_grad_norm=args.max_per_sample_grad_norm,
+                    secure_rng=args.secure_rng,
+                    seed=SEED,
+                )
+                privacy_engine.attach(optimizer)
         for epoch in range(1, args.epochs + 1):
             train(args, model, device, train_loader, optimizer, epoch, test_loader=test_loader)
-            import pdb
-
-            pdb.set_trace()
-
+            test(args, model, device, test_loader)
         run_results.append(test(args, model, device, test_loader))
 
     if len(run_results) > 1:
@@ -368,10 +416,12 @@ def main():
 
     if args.save_model:
         torch.save(model.state_dict(), f"mnist_cnn_{repro_str}.pt")
+        save_dir = f"grads_normalize={args.normalize}_dp={not args.disable_dp}_sample-rate={args.sample_rate}_epoch={args.epochs}_pubengine={args.use_public_engine}_filter={args.use_filter}_seed={SEED}.pt"
         torch.save(
             GRAD_TO_SAVE,
-            f"grads_normalize={args.normalize}_dp={not args.disable_dp}_sample-rate={args.sample_rate}_epoch={args.epochs}.pt",
+            save_dir,
         )
+        print(save_dir)
 
 
 if __name__ == "__main__":
