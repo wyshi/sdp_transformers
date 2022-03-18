@@ -64,67 +64,79 @@ class PublicEngine(PrivacyEngine):
 
 class PrivacyEngineWithFilter(PrivacyEngine):
     def setup_filter(self):
-        device = self.device
-        F_public = torch.load("found_transition/SimpleSampleConvNet_1.0_1.0_1.0_0.1_200.pt")["fc1.weight"].to(device)
-        PUBLIC_GRADS = torch.stack(
-            [
-                torch.from_numpy(_grad)
-                for _grad in torch.load("grads_normalize=True_dp=False_sample-rate=0.001_epoch=5.pt")
-            ]
-        ).to(device)
+        with torch.no_grad():
+            device = self.device
+            # F_public = torch.load("found_transition/SimpleSampleConvNet_1.0_1.0_1.0_0.1_200.pt")["fc1.weight"].to(
+            #     device
+            # )
+            F_public = torch.load(
+                "found_transition/SimpleSampleConvNet_1.0_1.0_1.0_0.1_200_mse_obs=False_USE_RUNNING=True.pt"
+            )["fc1.weight"].to(device)
+            PUBLIC_GRADS = torch.stack(
+                [
+                    torch.from_numpy(_grad)
+                    for _grad in torch.load("grads_normalize=True_dp=False_sample-rate=0.001_epoch=5.pt")
+                ]
+            ).to(device)
 
-        N = PUBLIC_GRADS[-1].shape[0] * PUBLIC_GRADS[-1].shape[1]
-        #################################################################
-        # estimate transition covariance
-        #################################################################
-        residual_public = []
-        for i in tqdm(range(len(PUBLIC_GRADS) - 1)):
-            residual_public.append(PUBLIC_GRADS[i + 1].reshape(-1) - F_public @ PUBLIC_GRADS[i].reshape(-1))
+            N = PUBLIC_GRADS[-1].shape[0] * PUBLIC_GRADS[-1].shape[1]
+            # H_public = torch.load("found_transition/SimpleSampleConvNet_1.0_1.0_1.0_0.1_50_mse_obs=True.pt")[
+            #     "fc1.weight"
+            # ].to(device)
+            H_public = torch.load(
+                "found_transition/SimpleSampleConvNet_1.0_1.0_1.0_0.1_50_mse_obs=True_USE_RUNNING=True.pt"
+            )["fc1.weight"].to(device)
+            # H_public = torch.eye(N).to(device)
+            #################################################################
+            # estimate transition covariance
+            #################################################################
+            residual_public = []
+            for i in tqdm(range(len(PUBLIC_GRADS) - 1)):
+                residual_public.append(PUBLIC_GRADS[i + 1].reshape(-1) - F_public @ PUBLIC_GRADS[i].reshape(-1))
 
-        estimated_transition_covariance = torch.cov(torch.stack(residual_public).T)
+            estimated_transition_covariance = torch.cov(torch.stack(residual_public).T)
 
-        estimated_initial_state_covariance = torch.cov(torch.stack([grad.reshape(-1) for grad in PUBLIC_GRADS]).T)
+            estimated_initial_state_covariance = torch.cov(torch.stack([grad.reshape(-1) for grad in PUBLIC_GRADS]).T)
 
-        self.kf = KalmanFilterTorch(
-            n_dim_obs=N,
-            # initial
-            initial_state_mean=PUBLIC_GRADS[0].reshape(-1),
-            initial_state_covariance=estimated_initial_state_covariance,
-            # transition
-            transition_matrices=F_public,
-            transition_covariance=estimated_transition_covariance,  # we don't have to use this estimate, since kf will estimate for us
-            transition_offsets=torch.zeros(N).to(device),
-            # observation
-            observation_matrices=torch.eye(N).to(device),
-            # observation_covariance=torch.eye(N).to(device) * SIGMA,
-            observation_offsets=torch.zeros(N).to(device),
-            device=device,
-            # em_vars=[
-            #     "transition_matrices",
-            #     "transition_covariance",  # "initial_state_mean", "initial_state_covariance"
-            # ],
-        )
-        self.prev_state_means = None
-        self.prev_state_covariances = None
+            self.kf = KalmanFilterTorch(
+                n_dim_obs=N,
+                # initial
+                initial_state_mean=PUBLIC_GRADS[0].reshape(-1),
+                initial_state_covariance=estimated_initial_state_covariance,
+                # transition
+                transition_matrices=F_public,
+                transition_covariance=estimated_transition_covariance,  # we don't have to use this estimate, since kf will estimate for us
+                transition_offsets=torch.zeros(N).to(device),
+                # observation
+                observation_matrices=H_public,  # torch.eye(N).to(device),
+                # observation_covariance=torch.eye(N).to(device) * SIGMA,
+                observation_offsets=torch.zeros(N).to(device),
+                device=device,
+                # em_vars=[
+                #     "transition_matrices",
+                #     "transition_covariance",  # "initial_state_mean", "initial_state_covariance"
+                # ],
+            )
+            self.prev_state_means = None
+            self.prev_state_covariances = None
 
-    def denoise(self, noisy_grad, t, sigma):
-        if t == 0:
-            assert self.prev_state_means is None and self.prev_state_covariances is None
-            self.prev_state_means = self.kf.initial_state_mean
-            self.prev_state_covariances = self.kf.initial_state_covariance
-        else:
-            assert self.prev_state_means is not None and self.prev_state_covariances is not None
+    def denoise(self, noisy_grad, sigma):
+        with torch.no_grad():
+            assert (self.prev_state_means is not None) and (self.prev_state_covariances is not None)
 
-        cur_filtered_state_means, cur_filtered_state_covariances = self.kf.filter_update(
-            filtered_state_mean=self.prev_state_means,
-            filtered_state_covariance=self.prev_state_covariances,
-            observation=noisy_grad.reshape(-1),
-            observation_covariance=torch.eye(self.kf.n_dim_obs).to(self.device) * sigma,
-        )
-        # update
-        self.prev_state_means = cur_filtered_state_means
-        self.prev_state_covariances = cur_filtered_state_covariances
-        return cur_filtered_state_means, cur_filtered_state_covariances
+            # import pdb
+
+            # pdb.set_trace()
+            cur_filtered_state_means, cur_filtered_state_covariances = self.kf.filter_update(
+                filtered_state_mean=self.prev_state_means,
+                filtered_state_covariance=self.prev_state_covariances,
+                observation=noisy_grad.reshape(-1),
+                observation_covariance=torch.eye(self.kf.n_dim_obs).to(self.device) * sigma,
+            )
+            # update
+            self.prev_state_means = cur_filtered_state_means
+            self.prev_state_covariances = cur_filtered_state_covariances
+            return cur_filtered_state_means, cur_filtered_state_covariances
 
     def step(self, is_empty: bool = False):
         """
@@ -188,10 +200,15 @@ class PrivacyEngineWithFilter(PrivacyEngine):
                 # import pdb
 
                 # pdb.set_trace()
-                denoised_grad, _ = self.denoise(
-                    noisy_grad=grad_copy, t=self.steps - 1, sigma=clip_value * self.noise_multiplier
-                )
-                denoised_grad = denoised_grad.reshape(p.grad.shape)
+                if self.prev_state_means is None:
+                    assert self.prev_state_covariances is None
+                    self.prev_state_means = self.kf.initial_state_mean
+                    self.prev_state_covariances = self.kf.initial_state_covariance
+
+                    denoised_grad = grad_copy
+                else:
+                    denoised_grad, _ = self.denoise(noisy_grad=grad_copy, sigma=clip_value * self.noise_multiplier)
+                    denoised_grad = denoised_grad.reshape(p.grad.shape)
                 # import pdb
 
                 # pdb.set_trace()

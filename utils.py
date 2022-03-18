@@ -276,9 +276,6 @@ def calculate_ppl_gpt2(batch_sentence, gpt_model, device, PAD_TOKEN_ID):
         target = pad_sequence(target, batch_first=True, padding_value=PAD_TOKEN_ID).to(device)  # torch.Size([1024, 6])
 
         attention_mask = (source != PAD_TOKEN_ID).type(torch.int64).to(device)  # torch.Size([1024, 6])
-        import pdb
-
-        pdb.set_trace()
         outputs = gpt_model(input_ids=source, attention_mask=attention_mask)
         logits = outputs.logits.reshape((outputs.logits.shape[0] * outputs.logits.shape[1], -1))
         target = target.view(-1)

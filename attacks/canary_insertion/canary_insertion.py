@@ -128,6 +128,7 @@ def get_model_metrics(model_path):
         "valid_ppl": result["val"]["model"]["ppl"],
         "test_ppl": result["eval"]["model"]["ppl"],
     }
+    print(metrics["valid_ppl"])
     metrics.update({k: v for k, v in result.items() if k not in ["lr", "eval", "train", "val"]})
 
     return metrics

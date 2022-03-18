@@ -83,52 +83,50 @@ np.random.seed(1)
 # # kf.em(measurements, n_iter=2)
 # p1, c1 = kf.filter_update([noise_grads[0].reshape(-1), noise_grads[1].reshape(-1).tolist()])
 
-n_timesteps = 10
+n_timesteps = 5
 n_dim_state = N
-filtered_state_means = []  # [kf.initial_state_mean]  # torch.zeros((n_timesteps, n_dim_state)).to(device)
-filtered_state_covariances = []  # [kf.initial_state_covariance]
+filtered_state_means = [kf.initial_state_mean]  # torch.zeros((n_timesteps, n_dim_state)).to(device)
+filtered_state_covariances = [kf.initial_state_covariance]
 # torch.zeros((n_timesteps, n_dim_state, n_dim_state)).to(device)
 # 6min/ 4 steps
 for t in tqdm(range(n_timesteps - 1)):
     if t == 0:
-        prev_state_means = kf.initial_state_mean
-        prev_state_covariances = kf.initial_state_covariance
-        # filtered_state_means[t] = kf.initial_state_mean
-        # filtered_state_covariances[t] = kf.initial_state_covariance
+        # prev_state_means = kf.initial_state_mean
+        # prev_state_covariances = kf.initial_state_covariance
+        filtered_state_means[t] = kf.initial_state_mean
+        filtered_state_covariances[t] = kf.initial_state_covariance
     tmp_filtered_state_means, tmp_filtered_state_covariances = kf.filter_update(
-        filtered_state_mean=prev_state_means,  # filtered_state_means[t],
-        filtered_state_covariance=prev_state_covariances,  # filtered_state_covariances[t],
-        observation=NOISE_GRADS[t].reshape(-1),
+        filtered_state_mean=filtered_state_means[t],
+        filtered_state_covariance=filtered_state_covariances[t],
+        observation=NOISE_GRADS[t + 1].reshape(-1),
         # transition_offset=data.transition_offsets[t],
     )
     filtered_state_means.append(tmp_filtered_state_means)
     filtered_state_covariances.append(tmp_filtered_state_covariances)
-    prev_state_means = tmp_filtered_state_means
-    prev_state_covariances = tmp_filtered_state_covariances
-import pdb
+    # prev_state_means = tmp_filtered_state_means
+    # prev_state_covariances = tmp_filtered_state_covariances
 
-pdb.set_trace()
 
 start = 0
 residual_after_filter = [
     TRUE_GRADS[i] - filtered_state_means[i].reshape(TRUE_GRADS[i].shape)
     for i in range(start, len(filtered_state_means))
 ]
-print([torch.linalg.norm(r) for r in residual_after_filter])
+print([torch.linalg.norm(r).item() for r in residual_after_filter])
 [2.5610855624632327, 2.9230360122852415, 2.989765793629204, 5.320349435377508]
 print([torch.linalg.norm(r, ord=1) for r in residual_after_filter])
 [0.6586174010993008, 0.6047016387887195, 0.6670769819859377, 1.17939277232758]
 
 residual_of_noise = [TRUE_GRADS[i] - NOISE_GRADS[i] for i in range(start, len(filtered_state_means))]
-print([torch.linalg.norm(r) for r in residual_of_noise])
+print([torch.linalg.norm(r).item() for r in residual_of_noise])
 [2.8012345, 3.09025, 3.482447, 5.4846616]
 print([torch.linalg.norm(r, ord=1) for r in residual_of_noise])
 [0.52681935, 0.6953145, 0.7249874, 1.2834848]
 
 residual_of_public = [TRUE_GRADS[i] - PUBLIC_GRADS[i] for i in range(start, len(filtered_state_means))]
-print([torch.linalg.norm(r) for r in residual_of_public])
+print([torch.linalg.norm(r).item() for r in residual_of_public])
 [2.2761939, 3.5512056, 3.4418054, 4.921996]
-print([torch.linalg.norm(r, ord=1) for r in residual_of_public])
+print([torch.linalg.norm(r, ord=1).item() for r in residual_of_public])
 [0.5435084, 0.7558049, 0.80391026, 1.1028893]
 
 
@@ -142,8 +140,8 @@ residual_of_noise_and_filter = [
     )
     for r in residual_of_noise_and_filter
 ]
-print([torch.linalg.norm(r) for r in residual_of_noise_and_filter])
+print([torch.linalg.norm(r).item() for r in residual_of_noise_and_filter])
 
 [2.080535735027285, 1.1758106012814022, 1.7002046752308193, 1.4850198541705035]
-print([torch.linalg.norm(r, ord=1) for r in residual_of_noise_and_filter])
+print([torch.linalg.norm(r, ord=1).item() for r in residual_of_noise_and_filter])
 [0.42474727591445927, 0.19729312857206366, 0.2786663047301083, 0.25073068703558954]
