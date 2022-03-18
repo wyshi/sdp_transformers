@@ -25,8 +25,6 @@ import numpy as np
 import pandas as pd
 from transformers.models.gpt2 import GPT2Config, GPT2LMHeadModel
 
-from transformers import default_data_collator
-
 """
 about 5 mins for 6-digit canary " My ID is 341752." for one model
 python attacks/canary_insertion.py -bs 256 --checkpoint model/nodp/20210409/185850 --outputf attacks/canary_insertion/nodp_10insertion.csv
@@ -55,59 +53,16 @@ class CanaryDataset(Dataset):
                                 texts.append(text)
                                 encoded_texts.append(tokenizer.encode(text))
         assert self.canary in texts
-
-        # padding by myself to save (?) time
-        max_len = max(map(len, encoded_texts)) - 1
-        source_texts = []
-        target_texts = []
-        attention_masks = []
-        for encoded_text in tqdm(encoded_texts, desc="padding"):
-            text_len = len(encoded_text) - 1  # length of source
-            pad_len = max_len - text_len
-            assert pad_len >= 0
-            if pad_len == 0:
-                print("here")
-            source_text = encoded_text[:-1] + [PAD_TOKEN_ID] * pad_len
-            target_text = encoded_text[1:] + [PAD_TOKEN_ID] * pad_len
-            attention_mask = [1] * text_len + [0] * pad_len
-            source_texts.append(source_text)
-            target_texts.append(target_text)
-            attention_masks.append(attention_mask)
-            if attention_mask[-1] == 1:
-                print("heretoo")
-        del encoded_texts
-        return list(zip(texts, source_texts, target_texts, attention_masks))
+        return list(zip(texts, encoded_texts))
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, index):
-        result = self.data[index]
-        return {
-            "text": result[0],
-            "source": torch.tensor(result[1], dtype=torch.long).to(device),
-            "target": torch.tensor(result[2], dtype=torch.long).to(device),
-            "attention_masks": torch.tensor(result[3], dtype=torch.long).to(device),
-        }
+        return self.data[index]
 
     def collate(self, unpacked_data):
-        batch = {}
-        text = []
-        source = []
-        target = []
-        attention_masks = []
-        for data in unpacked_data:
-            text.append(data["text"])
-            source.append(data["source"])
-            target.append(data["target"])
-            attention_masks.append(data["attention_masks"])
-        batch = {
-            "text": text,
-            "source": torch.stack(source),
-            "target": torch.stack(target),
-            "attention_masks": torch.stack(attention_masks),
-        }
-        return batch
+        return unpacked_data
 
 
 def get_exposure(model, dataloader, save_json=None):
@@ -116,16 +71,13 @@ def get_exposure(model, dataloader, save_json=None):
     ###############################################################################
     ppls = {}
     for batch in tqdm(dataloader):
-        batch_text = batch["text"]
-        batch_source = batch["source"]
-        batch_target = batch["target"]
-        batch_masks = batch["attention_masks"]
+        batch_text = list(map(lambda x: x[0], batch))
+        batch_encoded_text = list(map(lambda x: x[1], batch))
         batch_ppl = utils.calculate_ppl_gpt2(
-            source=batch_source,
-            attention_mask=batch_masks,
-            target=batch_target,
-            gpt_model=model,
-            PAD_TOKEN_ID=PAD_TOKEN_ID,
+            batch_encoded_text,
+            model,
+            device,
+            PAD_TOKEN_ID,
         )
         # import pdb; pdb.set_trace()
         ppls.update(dict(zip(batch_text, batch_ppl)))
@@ -176,6 +128,7 @@ def get_model_metrics(model_path):
         "valid_ppl": result["val"]["model"]["ppl"],
         "test_ppl": result["eval"]["model"]["ppl"],
     }
+    print(metrics["valid_ppl"])
     metrics.update({k: v for k, v in result.items() if k not in ["lr", "eval", "train", "val"]})
 
     return metrics

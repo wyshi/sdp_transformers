@@ -263,19 +263,19 @@ def get_relation(sent, nlp):
     return [span.text for span in spans]
 
 
-def calculate_ppl_gpt2(source, attention_mask, target, gpt_model, PAD_TOKEN_ID):
+def calculate_ppl_gpt2(batch_sentence, gpt_model, device, PAD_TOKEN_ID):
     criterion = nn.CrossEntropyLoss(ignore_index=PAD_TOKEN_ID, reduction="none")
 
-    batch_size = len(source)
+    batch_size = len(batch_sentence)
 
     with torch.no_grad():  # no tracking history
-        # source = list(map(lambda x: torch.tensor(x[:-1]).type(torch.int64), batch_sentence))
-        # target = list(map(lambda x: torch.tensor(x[1:]).type(torch.int64), batch_sentence))
-        # seq_lens = list(map(lambda x: len(x) - 1, batch_sentence))
-        # source = pad_sequence(source, batch_first=True, padding_value=PAD_TOKEN_ID).to(device)  # torch.Size([1024, 6])
-        # target = pad_sequence(target, batch_first=True, padding_value=PAD_TOKEN_ID).to(device)  # torch.Size([1024, 6])
+        source = list(map(lambda x: torch.tensor(x[:-1]).type(torch.int64), batch_sentence))
+        target = list(map(lambda x: torch.tensor(x[1:]).type(torch.int64), batch_sentence))
+        seq_lens = list(map(lambda x: len(x) - 1, batch_sentence))
+        source = pad_sequence(source, batch_first=True, padding_value=PAD_TOKEN_ID).to(device)  # torch.Size([1024, 6])
+        target = pad_sequence(target, batch_first=True, padding_value=PAD_TOKEN_ID).to(device)  # torch.Size([1024, 6])
 
-        # attention_mask = (source != PAD_TOKEN_ID).type(torch.int64).to(device)  # torch.Size([1024, 6])
+        attention_mask = (source != PAD_TOKEN_ID).type(torch.int64).to(device)  # torch.Size([1024, 6])
         outputs = gpt_model(input_ids=source, attention_mask=attention_mask)
         logits = outputs.logits.reshape((outputs.logits.shape[0] * outputs.logits.shape[1], -1))
         target = target.view(-1)
