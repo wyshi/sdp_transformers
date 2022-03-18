@@ -16,6 +16,9 @@ from spacy.matcher import Matcher
 import tokenizations
 
 import numpy as np
+import torch
+import math
+from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence, pad_sequence
 
 # def normalize_sentence(original_sentence, is_sensitives_types):
 MAP = {"agent": "SYS:", "customer": "USR:", "action": "ACT:"}
@@ -258,6 +261,33 @@ def get_relation(sent, nlp):
     spans = [doc[matches[i][1] : matches[i][2]] for i in range(len(matches))]
 
     return [span.text for span in spans]
+
+
+def calculate_ppl_gpt2(batch_sentence, gpt_model, device, PAD_TOKEN_ID):
+    criterion = nn.CrossEntropyLoss(ignore_index=PAD_TOKEN_ID, reduction="none")
+
+    batch_size = len(batch_sentence)
+
+    with torch.no_grad():  # no tracking history
+        source = list(map(lambda x: torch.tensor(x[:-1]).type(torch.int64), batch_sentence))
+        target = list(map(lambda x: torch.tensor(x[1:]).type(torch.int64), batch_sentence))
+        seq_lens = list(map(lambda x: len(x) - 1, batch_sentence))
+        source = pad_sequence(source, batch_first=True, padding_value=PAD_TOKEN_ID).to(device)  # torch.Size([1024, 6])
+        target = pad_sequence(target, batch_first=True, padding_value=PAD_TOKEN_ID).to(device)  # torch.Size([1024, 6])
+
+        attention_mask = (source != PAD_TOKEN_ID).type(torch.int64).to(device)  # torch.Size([1024, 6])
+        outputs = gpt_model(input_ids=source, attention_mask=attention_mask)
+        logits = outputs.logits.reshape((outputs.logits.shape[0] * outputs.logits.shape[1], -1))
+        target = target.view(-1)
+        total_loss = criterion(logits, target).reshape((batch_size, -1)).cpu().numpy()
+
+        ppls = []
+        for loss in total_loss:
+            sum_loss = sum(loss)
+            ntokens = sum([l != 0 for l in loss])
+            ppls.append(math.exp(sum_loss / ntokens))
+
+    return ppls
 
 
 if __name__ == "__main__":

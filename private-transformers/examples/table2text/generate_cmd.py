@@ -25,10 +25,7 @@ TASK_TO_DATA_MAP = {
 
 DEVICE = 1
 EPSILON = 3
-non_privates = [
-    "yes",
-    # "no"
-]
+non_privates = ["yes", "no"]
 
 misses = [
     "no",
@@ -114,7 +111,7 @@ for task in TASK_TO_DATA_MAP:
             total += 1
         else:
             for miss in misses:
-                if miss == "yes" and task not in ["wikitext2-delex-high", "wikitext2-delex-no_pronoun"]:
+                if miss == "yes" and task not in ["wikitext2-delex-high", "wikitext2-delex-default"]:
                     continue
                 public = "yes" in non_private
                 miss_binary = "yes" in miss

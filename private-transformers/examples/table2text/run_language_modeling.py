@@ -56,9 +56,6 @@ def main():
         privacy_args,
     ) = parser.parse_args_into_dataclasses()
 
-    # import pdb
-
-    # pdb.set_trace()
     model_args: ModelArguments
     data_args: DataTrainingArguments
     training_args: TrainingArguments
