@@ -62,6 +62,7 @@ python -m classification.run_classification \
   --data_dir {data_dir} \
   --output_dir {output_dir} \
   --overwrite_output_dir \
+  --overwrite_cache \
   --model_name_or_path {model_name_or_path} \
   --few_shot_type {few_shot_type} \
   --num_k 1 \

@@ -22,12 +22,13 @@ from transformers import (
     EvalPrediction,
 )
 from transformers import GlueDataTrainingArguments as DataTrainingArguments
+
 from transformers import GlueDataset
 from transformers import HfArgumentParser, set_seed
 
 from private_transformers import PrivacyEngine
 from .src.compiled_args import PrivacyArguments, TrainingArguments
-from .src.dataset import FewShotDataset, ABCDDataset
+from .src.dataset import FewShotDataset, ABCDDataset, GlueDataset
 from .src.models import (
     BertForPromptFinetuning,
     RobertaForPromptFinetuning,
@@ -56,27 +57,19 @@ class ModelArguments:
     """
 
     model_name_or_path: str = field(
-        metadata={
-            "help": "Path to pretrained model or model identifier from huggingface.co/models"
-        }
+        metadata={"help": "Path to pretrained model or model identifier from huggingface.co/models"}
     )
     config_name: Optional[str] = field(
         default=None,
-        metadata={
-            "help": "Pretrained config name or path if not the same as model_name"
-        },
+        metadata={"help": "Pretrained config name or path if not the same as model_name"},
     )
     tokenizer_name: Optional[str] = field(
         default=None,
-        metadata={
-            "help": "Pretrained tokenizer name or path if not the same as model_name"
-        },
+        metadata={"help": "Pretrained tokenizer name or path if not the same as model_name"},
     )
     cache_dir: Optional[str] = field(
         default=None,
-        metadata={
-            "help": "Where do you want to store the pretrained models downloaded from s3"
-        },
+        metadata={"help": "Where do you want to store the pretrained models downloaded from s3"},
     )
     # Few-shot type
     #   - finetune: standard fine-tuning
@@ -84,17 +77,13 @@ class ModelArguments:
     #   - prompt-demo: prompt-based fine-tuning with demonstrations
     few_shot_type: str = field(
         default="prompt-demo",
-        metadata={
-            "help": "Few-shot learning model type. Choice: finetune, prompt, prompt-demo"
-        },
+        metadata={"help": "Few-shot learning model type. Choice: finetune, prompt, prompt-demo"},
     )
 
     # Only for BERT-type model
     random_segment: bool = field(
         default=False,
-        metadata={
-            "help": "Whether to reinitialize the token type embeddings (only for BERT)."
-        },
+        metadata={"help": "Whether to reinitialize the token type embeddings (only for BERT)."},
     )
 
     static_embedding: bool = field(default=False)
@@ -106,20 +95,14 @@ class DynamicDataTrainingArguments(DataTrainingArguments):
     Arguments for dynamic training.
     """
 
-    num_k: Optional[int] = field(
-        default=16, metadata={"help": "Number of training instances per class"}
-    )
+    num_k: Optional[int] = field(default=16, metadata={"help": "Number of training instances per class"})
 
     num_sample: Optional[int] = field(
         default=16,
-        metadata={
-            "help": "Number of samples (for inference) in fine-tuning with demonstrations"
-        },
+        metadata={"help": "Number of samples (for inference) in fine-tuning with demonstrations"},
     )
 
-    num_demo: Optional[int] = field(
-        default=1, metadata={"help": "Number of demonstrations from each class"}
-    )
+    num_demo: Optional[int] = field(default=1, metadata={"help": "Number of demonstrations from each class"})
 
     auto_demo: bool = field(
         default=True,
@@ -149,26 +132,16 @@ class DynamicDataTrainingArguments(DataTrainingArguments):
 
     prompt_path: str = field(
         default=None,
-        metadata={
-            "help": "Path to a txt file that stores all the prompts (templates and mappings), one per line"
-        },
+        metadata={"help": "Path to a txt file that stores all the prompts (templates and mappings), one per line"},
     )
 
-    template_id: int = field(
-        default=None, metadata={"help": "Template id if using template_path"}
-    )
+    template_id: int = field(default=None, metadata={"help": "Template id if using template_path"})
 
-    mapping_id: int = field(
-        default=None, metadata={"help": "Mapping id if using template_path"}
-    )
+    mapping_id: int = field(default=None, metadata={"help": "Mapping id if using template_path"})
 
-    prompt_id: int = field(
-        default=None, metadata={"help": "Prompt id if using prompt_path"}
-    )
+    prompt_id: int = field(default=None, metadata={"help": "Prompt id if using prompt_path"})
 
-    top_n_template: int = field(
-        default=None, metadata={"help": "Use top-n template in the template path"}
-    )
+    top_n_template: int = field(default=None, metadata={"help": "Use top-n template in the template path"})
 
     # For logging
     tag: str = field(
@@ -177,9 +150,7 @@ class DynamicDataTrainingArguments(DataTrainingArguments):
     )
 
     # For filtering when using demonstrations
-    demo_filter: bool = field(
-        default=False, metadata={"help": "Only use similar instances in demonstrations"}
-    )
+    demo_filter: bool = field(default=False, metadata={"help": "Only use similar instances in demonstrations"})
 
     demo_filter_rate: float = field(
         default=0.5,
@@ -196,9 +167,7 @@ class DynamicDataTrainingArguments(DataTrainingArguments):
     debug_mode: bool = field(default=False, metadata={"help": "Debug mode"})
 
     # For max length
-    double_demo: bool = field(
-        default=False, metadata={"help": "Use double length for using demonstrations"}
-    )
+    double_demo: bool = field(default=False, metadata={"help": "Use double length for using demonstrations"})
 
     first_sent_limit: int = field(
         default=None,
@@ -207,14 +176,10 @@ class DynamicDataTrainingArguments(DataTrainingArguments):
 
     other_sent_limit: int = field(
         default=None,
-        metadata={
-            "help": "Limit the length of sentences other than the first sentence"
-        },
+        metadata={"help": "Limit the length of sentences other than the first sentence"},
     )
 
-    use_full_length: bool = field(
-        default=None, metadata={"help": "Use the full length (512)"}
-    )
+    use_full_length: bool = field(default=None, metadata={"help": "Use the full length (512)"})
 
     # GPT-3's in-context learning
     gpt3_in_context_head: bool = field(
@@ -227,26 +192,18 @@ class DynamicDataTrainingArguments(DataTrainingArguments):
         metadata={"help": "GPT-3's in-context learning (context at the end)"},
     )
 
-    gpt3_in_context_num: int = field(
-        default=32, metadata={"help": "Number of context examples"}
-    )
+    gpt3_in_context_num: int = field(default=32, metadata={"help": "Number of context examples"})
 
     truncate_head: bool = field(
         default=False,
-        metadata={
-            "help": "When exceeding the maximum length, truncate the head instead of the tail."
-        },
+        metadata={"help": "When exceeding the maximum length, truncate the head instead of the tail."},
     )
 
     # Do not set up the following fields. They are set up automatically.
-    prompt: bool = field(
-        default=False, metadata={"help": "Whether to use prompt-based fine-tuning"}
-    )
+    prompt: bool = field(default=False, metadata={"help": "Whether to use prompt-based fine-tuning"})
     template_list: list = field(
         default=None,
-        metadata={
-            "help": "(DO NOT List of templates (only initialized after the program starts."
-        },
+        metadata={"help": "(DO NOT List of templates (only initialized after the program starts."},
     )
 
     # --- lxuechen: For privacy.
@@ -266,40 +223,28 @@ class DynamicTrainingArguments(TrainingArguments):
     # For ensemble
     array_id: int = field(
         default=-1,
-        metadata={
-            "help": "Array ID (contains seed and hyper-paramter search) to idenfity the model"
-        },
+        metadata={"help": "Array ID (contains seed and hyper-paramter search) to idenfity the model"},
     )
 
     model_id: int = field(
         default=-1,
-        metadata={
-            "help": "Model ID (contains template information) to identify the model"
-        },
+        metadata={"help": "Model ID (contains template information) to identify the model"},
     )
 
     save_logit: bool = field(
         default=False,
-        metadata={
-            "help": "Save test file logit with name $TASK-$MODEL_ID-$ARRAY_ID.npy"
-        },
+        metadata={"help": "Save test file logit with name $TASK-$MODEL_ID-$ARRAY_ID.npy"},
     )
 
-    save_logit_dir: str = field(
-        default=None, metadata={"help": "Where to save the prediction result"}
-    )
+    save_logit_dir: str = field(default=None, metadata={"help": "Where to save the prediction result"})
 
     # Regularization
-    fix_layers: int = field(
-        default=0, metadata={"help": "Fix bottom-n layers when optimizing"}
-    )
+    fix_layers: int = field(default=0, metadata={"help": "Fix bottom-n layers when optimizing"})
 
     # Training
     save_at_last: bool = field(
         default=False,
-        metadata={
-            "help": "Instead of saving the best (dev performance) checkpoint, save the last checkpoint"
-        },
+        metadata={"help": "Instead of saving the best (dev performance) checkpoint, save the last checkpoint"},
     )
 
     # Turn off train/test
@@ -354,19 +299,13 @@ def main():
     if data_args.task_name == "sst-2":
         data_args.mapping = "{'0':'terrible','1':'great'}"
     elif data_args.task_name == "mnli":
-        data_args.mapping = (
-            "{'contradiction': 'no', 'entailment': 'yes', 'neutral': 'maybe'}"
-        )
+        data_args.mapping = "{'contradiction': 'no', 'entailment': 'yes', 'neutral': 'maybe'}"
     elif data_args.task_name == "qnli":
         data_args.mapping = "{'not_entailment': 'no', 'entailment': 'yes'}"
     elif data_args.task_name == "qqp":
-        data_args.mapping = (
-            "{'1': 'yes', '0': 'no'}"  # 1 -- equivalent, 0 -- not equivalent.
-        )
+        data_args.mapping = "{'1': 'yes', '0': 'no'}"  # 1 -- equivalent, 0 -- not equivalent.
     elif data_args.task_name == "abcd":
-        data_args.mapping = (
-            "{'1': 'yes', '0': 'no'}"  # 1 -- equivalent, 0 -- not equivalent.
-        )
+        data_args.mapping = "{'1': 'yes', '0': 'no'}"  # 1 -- equivalent, 0 -- not equivalent.
     else:
         raise ValueError(f"Unknown task: {data_args.task_name}")
 
@@ -383,8 +322,7 @@ def main():
 
             data_args.template, data_args.mapping = prompt_list[data_args.prompt_id]
             logger.info(
-                "Specify load the %d-th prompt: %s | %s"
-                % (data_args.prompt_id, data_args.template, data_args.mapping)
+                "Specify load the %d-th prompt: %s | %s" % (data_args.prompt_id, data_args.template, data_args.mapping)
             )
         else:
             if data_args.template_path is not None:
@@ -397,27 +335,17 @@ def main():
 
                 # Load top-n templates
                 if data_args.top_n_template is not None:
-                    data_args.template_list = data_args.template_list[
-                        : data_args.top_n_template
-                    ]
-                logger.info(
-                    "Load top-%d templates from %s"
-                    % (len(data_args.template_list), data_args.template_path)
-                )
+                    data_args.template_list = data_args.template_list[: data_args.top_n_template]
+                logger.info("Load top-%d templates from %s" % (len(data_args.template_list), data_args.template_path))
 
                 # ... or load i-th template
                 if data_args.template_id is not None:
                     data_args.template = data_args.template_list[data_args.template_id]
                     data_args.template_list = None
-                    logger.info(
-                        "Specify load the %d-th template: %s"
-                        % (data_args.template_id, data_args.template)
-                    )
+                    logger.info("Specify load the %d-th template: %s" % (data_args.template_id, data_args.template))
 
             if data_args.mapping_path is not None:
-                assert (
-                    data_args.mapping_id is not None
-                )  # Only can use one label word mapping
+                assert data_args.mapping_id is not None  # Only can use one label word mapping
                 with open(data_args.mapping_path) as f:
                     mapping_list = []
                     for line in f:
@@ -425,10 +353,7 @@ def main():
                         mapping_list.append(line)
 
                 data_args.mapping = mapping_list[data_args.mapping_id]
-                logger.info(
-                    "Specify using the %d-th mapping: %s"
-                    % (data_args.mapping_id, data_args.mapping)
-                )
+                logger.info("Specify using the %d-th mapping: %s" % (data_args.mapping_id, data_args.mapping))
 
     # Check save path
     if (
@@ -437,9 +362,7 @@ def main():
         and training_args.do_train
         and not training_args.overwrite_output_dir
     ):
-        raise ValueError(
-            f"Output directory ({training_args.output_dir}) already exists."
-        )
+        raise ValueError(f"Output directory ({training_args.output_dir}) already exists.")
 
     logger.warning(
         "Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, 16-bits training: %s",
@@ -458,9 +381,7 @@ def main():
         num_labels = num_labels_mapping[data_args.task_name]
         output_mode = output_modes_mapping[data_args.task_name]
         logger.info(
-            "Task name: {}, number of labels: {}, output mode: {}".format(
-                data_args.task_name, num_labels, output_mode
-            )
+            "Task name: {}, number of labels: {}, output mode: {}".format(data_args.task_name, num_labels, output_mode)
         )
     except KeyError:
         raise ValueError("Task not found: %s" % (data_args.task_name))
@@ -469,9 +390,7 @@ def main():
     if data_args.auto_demo and model_args.few_shot_type == "prompt-demo":
         # GPT-3's in-context learning
         if data_args.gpt3_in_context_head or data_args.gpt3_in_context_tail:
-            logger.info(
-                "Automatically convert the template to GPT-3's in-context learning."
-            )
+            logger.info("Automatically convert the template to GPT-3's in-context learning.")
             assert data_args.template_list is None
 
             old_template = data_args.template
@@ -490,15 +409,11 @@ def main():
                         "_{}*".format(sent_num + sent_num * instance_id + sent_id),
                     )
                 # Replace mask
-                sub_template = sub_template.replace(
-                    "*mask*", "*labelx_{}*".format(instance_id)
-                )
+                sub_template = sub_template.replace("*mask*", "*labelx_{}*".format(instance_id))
                 if data_args.gpt3_in_context_tail:
                     new_template = new_template + sub_template  # Put context at the end
                 else:
-                    new_template = (
-                        sub_template + new_template
-                    )  # Put context at the beginning
+                    new_template = sub_template + new_template  # Put context at the beginning
             logger.info("| {} => {}".format(data_args.template, new_template))
             data_args.template = new_template
         else:
@@ -521,13 +436,9 @@ def main():
                                 "_{}*".format(sent_num + sent_num * label_id + sent_id),
                             )
                         # Replace mask
-                        sub_template = sub_template.replace(
-                            "*mask*", "*label_{}*".format(label_id)
-                        )
+                        sub_template = sub_template.replace("*mask*", "*label_{}*".format(label_id))
                         new_template = new_template + sub_template
-                    logger.info(
-                        "| {} => {}".format(data_args.template_list[i], new_template)
-                    )
+                    logger.info("| {} => {}".format(data_args.template_list[i], new_template))
                     data_args.template_list[i] = new_template
             else:
                 old_template = data_args.template
@@ -546,18 +457,14 @@ def main():
                             "_{}".format(sent_num + sent_num * label_id + sent_id),
                         )
                     # Replace mask
-                    sub_template = sub_template.replace(
-                        "*mask*", "*label_{}*".format(label_id)
-                    )
+                    sub_template = sub_template.replace("*mask*", "*label_{}*".format(label_id))
                     new_template = new_template + sub_template
                 logger.info("| {} => {}".format(data_args.template, new_template))
                 data_args.template = new_template
 
     # Create config
     config = AutoConfig.from_pretrained(
-        model_args.config_name
-        if model_args.config_name
-        else model_args.model_name_or_path,
+        model_args.config_name if model_args.config_name else model_args.model_name_or_path,
         num_labels=num_labels,
         finetuning_task=data_args.task_name,
         cache_dir=model_args.cache_dir,
@@ -583,9 +490,7 @@ def main():
 
     # Create tokenizer
     tokenizer = AutoTokenizer.from_pretrained(
-        model_args.tokenizer_name
-        if model_args.tokenizer_name
-        else model_args.model_name_or_path,
+        model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path,
         additional_special_tokens=special_tokens,
         cache_dir=model_args.cache_dir,
         use_fast=False,
@@ -596,19 +501,15 @@ def main():
     tokenizer = add_special_tokens(tokenizer, data_args)
     if "gpt2" in model_args.model_name_or_path:
         tokenizer.add_special_tokens({"pad_token": "[PAD]"})
-        config.pad_token_id=tokenizer.pad_token_id
+        config.pad_token_id = tokenizer.pad_token_id
     print(f" | tokenizer: {tokenizer}, size: {len(tokenizer)} \n\n\n")
 
     # Get our special datasets.
     if model_args.few_shot_type == "finetune":
         if data_args.task_name == "abcd":
-            train_dataset = ABCDDataset(
-                args=data_args, tokenizer=tokenizer, split="train"
-            )
+            train_dataset = ABCDDataset(args=data_args, tokenizer=tokenizer, split="train")
             eval_dataset = ABCDDataset(args=data_args, tokenizer=tokenizer, split="dev")
-            test_dataset = ABCDDataset(
-                args=data_args, tokenizer=tokenizer, split="test"
-            )
+            test_dataset = ABCDDataset(args=data_args, tokenizer=tokenizer, split="test")
             if eval_dataset is not None:
                 eval_dataset.num_sample = 1
             if test_dataset is not None:
@@ -619,11 +520,7 @@ def main():
         else:
             assert data_args.num_sample == 1
             train_dataset = GlueDataset(data_args, tokenizer, mode="train")
-            eval_dataset = (
-                GlueDataset(data_args, tokenizer, mode="dev")
-                if training_args.do_eval
-                else None
-            )
+            eval_dataset = GlueDataset(data_args, tokenizer, mode="dev") if training_args.do_eval else None
             test_dataset = (
                 GlueDataset(data_args, tokenizer, mode="test")
                 if training_args.do_predict or training_args.evaluate_test_split
@@ -639,27 +536,19 @@ def main():
         # pdb.set_trace()
     else:
         use_demo = "demo" in model_args.few_shot_type
-        train_dataset = FewShotDataset(
-            data_args, tokenizer=tokenizer, mode="train", use_demo=use_demo
-        )
+        train_dataset = FewShotDataset(data_args, tokenizer=tokenizer, mode="train", use_demo=use_demo)
         eval_dataset = (
-            FewShotDataset(
-                data_args, tokenizer=tokenizer, mode="dev", use_demo=use_demo
-            )
+            FewShotDataset(data_args, tokenizer=tokenizer, mode="dev", use_demo=use_demo)
             if training_args.do_eval
             else None
         )
         test_dataset = (
-            FewShotDataset(
-                data_args, tokenizer=tokenizer, mode="test", use_demo=use_demo
-            )
+            FewShotDataset(data_args, tokenizer=tokenizer, mode="test", use_demo=use_demo)
             if training_args.do_predict or training_args.evaluate_test_split
             else None
         )
     print(f" *** dataset sizes: ")
-    for _tag, _ds in zip(
-        ("train", "valid", "test"), (train_dataset, eval_dataset, test_dataset)
-    ):
+    for _tag, _ds in zip(("train", "valid", "test"), (train_dataset, eval_dataset, test_dataset)):
         if _ds is not None:
             print(f"{_tag}: {len(_ds)}")
     print(f" ***")
@@ -681,9 +570,7 @@ def main():
     model.requires_grad_(True)
     if model_args.static_embedding:
         model.get_input_embeddings().requires_grad_(False)
-    named_params = [
-        (name, param) for name, param in model.named_parameters() if param.requires_grad
-    ]
+    named_params = [(name, param) for name, param in model.named_parameters() if param.requires_grad]
     print("Params to update: ")
     print(json.dumps([name for name, param in named_params], indent=4))
 
@@ -691,19 +578,13 @@ def main():
         # For BERT, increase the size of the segment (token type) embeddings
         model.resize_token_embeddings(len(tokenizer))
         if config.model_type == "bert":
-            resize_token_type_embeddings(
-                model, new_num_types=10, random_segment=model_args.random_segment
-            )
+            resize_token_type_embeddings(model, new_num_types=10, random_segment=model_args.random_segment)
 
     # Pass dataset and argument information to the model
     if data_args.prompt:
-        model.label_word_list = (
-            torch.tensor(train_dataset.label_word_list).long().cuda()
-        )
+        model.label_word_list = torch.tensor(train_dataset.label_word_list).long().cuda()
         print(f" | Classification label_word_list: {model.label_word_list}")
-        print(
-            f"   converted words: {tokenizer.convert_ids_to_tokens(model.label_word_list)}"
-        )
+        print(f"   converted words: {tokenizer.convert_ids_to_tokens(model.label_word_list)}")
     if output_modes_mapping[data_args.task_name] == "regression":
         # lower / upper bounds
         model.lb, model.ub = bound_mapping[data_args.task_name]
@@ -770,9 +651,7 @@ def main():
 
     # pdb.set_trace()
     params = tuple(param for param in model.parameters() if param.requires_grad)
-    names = tuple(
-        name for name, param in model.named_parameters() if param.requires_grad
-    )
+    names = tuple(name for name, param in model.named_parameters() if param.requires_grad)
     optimizer = trainer.optimizer = torch.optim.AdamW(
         params,
         lr=training_args.learning_rate,
@@ -785,19 +664,14 @@ def main():
         # `trainer.optimizer` is not None here, so no optimizer is created.
         trainer.create_optimizer_and_scheduler(num_training_steps=t_total)
     else:
-        trainer.lr_scheduler = torch.optim.lr_scheduler.LambdaLR(
-            trainer.optimizer, lambda _: 1.0
-        )
+        trainer.lr_scheduler = torch.optim.lr_scheduler.LambdaLR(trainer.optimizer, lambda _: 1.0)
 
     if privacy_args.non_private:
         # lxuechen: Needed for RGP.
         privacy_args.noise_multiplier = 0.0
         privacy_args.per_example_max_grad_norm = None
     else:
-        total_train_batch_size = (
-            training_args.gradient_accumulation_steps
-            * training_args.per_device_train_batch_size
-        )
+        total_train_batch_size = training_args.gradient_accumulation_steps * training_args.per_device_train_batch_size
         privacy_engine = PrivacyEngine(
             module=model,
             batch_size=total_train_batch_size,
@@ -842,12 +716,8 @@ def main():
 
         if trainer.is_world_process_zero():
             tokenizer.save_pretrained(training_args.output_dir)
-            torch.save(
-                model_args, os.path.join(training_args.output_dir, "model_args.bin")
-            )
-            torch.save(
-                data_args, os.path.join(training_args.output_dir, "data_args.bin")
-            )
+            torch.save(model_args, os.path.join(training_args.output_dir, "model_args.bin"))
+            torch.save(data_args, os.path.join(training_args.output_dir, "data_args.bin"))
 
     if training_args.do_eval or training_args.do_predict:
         # Reload the best checkpoint (for eval or predict).
@@ -857,9 +727,7 @@ def main():
         # import pdb; pdb.set_trace()
         trainer.model = model
         if data_args.prompt:
-            model.label_word_list = (
-                torch.tensor(train_dataset.label_word_list).long().cuda()
-            )
+            model.label_word_list = torch.tensor(train_dataset.label_word_list).long().cuda()
         if output_modes_mapping[data_args.task_name] == "regression":
             # lower / upper bounds
             model.lb, model.ub = bound_mapping[data_args.task_name]
@@ -891,9 +759,7 @@ def main():
                 eval_task_names.append(mnli_mm_data_args.task_name)
                 eval_splits.append(split)
                 if model_args.few_shot_type == "finetune":
-                    mnli_mm_dataset = GlueDataset(
-                        mnli_mm_data_args, tokenizer, mode=split
-                    )
+                    mnli_mm_dataset = GlueDataset(mnli_mm_data_args, tokenizer, mode=split)
                     mnli_mm_dataset.num_sample = 1
                     eval_datasets.append(mnli_mm_dataset)
                 else:
@@ -908,21 +774,15 @@ def main():
             # ---
 
         results_json = collections.defaultdict(dict)
-        for eval_dataset, eval_task_name, eval_split in zip(
-            eval_datasets, eval_task_names, eval_splits
-        ):
-            trainer.compute_metrics = build_compute_metrics_fn(
-                eval_dataset.args.task_name
-            )
+        for eval_dataset, eval_task_name, eval_split in zip(eval_datasets, eval_task_names, eval_splits):
+            trainer.compute_metrics = build_compute_metrics_fn(eval_dataset.args.task_name)
             output = trainer.evaluate(eval_dataset=eval_dataset)
             eval_result = output.metrics
 
             # --- lxuechen: My evaluation procedure.
             if eval_result is not None:
                 if not privacy_args.non_private:
-                    privacy_spent = privacy_engine.get_privacy_spent(
-                        accounting_mode="all", lenient=True
-                    )
+                    privacy_spent = privacy_engine.get_privacy_spent(accounting_mode="all", lenient=True)
                     to_record_dict = {**eval_result, **privacy_spent}
                 else:
                     to_record_dict = eval_result
@@ -958,9 +818,7 @@ def main():
                 )
 
         for test_dataset in test_datasets:
-            trainer.compute_metrics = build_compute_metrics_fn(
-                test_dataset.args.task_name
-            )
+            trainer.compute_metrics = build_compute_metrics_fn(test_dataset.args.task_name)
             output = trainer.evaluate(eval_dataset=test_dataset)
             test_result = output.metrics
 
@@ -970,24 +828,16 @@ def main():
             )
             if trainer.is_world_process_zero():
                 with open(output_test_file, "w") as writer:
-                    logger.info(
-                        "***** Test results {} *****".format(
-                            test_dataset.args.task_name
-                        )
-                    )
+                    logger.info("***** Test results {} *****".format(test_dataset.args.task_name))
                     for key, value in test_result.items():
                         logger.info("  %s = %s", key, value)
                         writer.write("%s = %s\n" % (key, value))
-                        final_result[
-                            test_dataset.args.task_name + "_test_" + key
-                        ] = value
+                        final_result[test_dataset.args.task_name + "_test_" + key] = value
 
                 if training_args.save_logit:
                     predictions = output.predictions
                     num_logits = predictions.shape[-1]
-                    logits = predictions.reshape(
-                        [test_dataset.num_sample, -1, num_logits]
-                    ).mean(axis=0)
+                    logits = predictions.reshape([test_dataset.num_sample, -1, num_logits]).mean(axis=0)
                     np.save(
                         os.path.join(
                             training_args.save_logit_dir,
