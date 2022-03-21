@@ -28,7 +28,7 @@ from transformers import HfArgumentParser, set_seed
 
 from private_transformers import PrivacyEngine
 from .src.compiled_args import PrivacyArguments, TrainingArguments
-from .src.dataset import FewShotDataset, ABCDDataset, GlueDataset
+from .src.dataset import FewShotDataset, ABCDDataset, NormalizedGlueDataset
 from .src.models import (
     BertForPromptFinetuning,
     RobertaForPromptFinetuning,
@@ -48,6 +48,8 @@ from .src.trainer import Trainer
 logger = logging.getLogger(__name__)
 
 os.environ["WANDB_DISABLED"] = "true"
+
+NUM_MODELS_TO_SAVE = 50
 
 
 @dataclass
@@ -666,6 +668,17 @@ def main():
     else:
         trainer.lr_scheduler = torch.optim.lr_scheduler.LambdaLR(trainer.optimizer, lambda _: 1.0)
 
+    # change save steps
+    if t_total // NUM_MODELS_TO_SAVE > 0:
+        _save_step = t_total // NUM_MODELS_TO_SAVE
+    else:
+        _save_step = 1
+    training_args.save_steps = _save_step
+    training_args.eval_steps = _save_step
+
+    # import pdb
+
+    # pdb.set_trace()
     if privacy_args.non_private:
         # lxuechen: Needed for RGP.
         privacy_args.noise_multiplier = 0.0
@@ -722,7 +735,7 @@ def main():
     if training_args.do_eval or training_args.do_predict:
         # Reload the best checkpoint (for eval or predict).
         logger.info("*** Loading best checkpoint ***")
-        model = model_fn.from_pretrained(training_args.output_dir)
+        model = model_fn.from_pretrained(os.path.join(training_args.output_dir, "best"))
         model = model.to(training_args.device)
         # import pdb; pdb.set_trace()
         trainer.model = model

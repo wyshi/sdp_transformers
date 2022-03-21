@@ -1,3 +1,11 @@
+import os, sys
+
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+)
+from utils import SPECIAL_TOKENS_MAP
+
+
 def add_special_tokens(
     tokenizer,
     data_args,
@@ -20,4 +28,6 @@ def add_special_tokens(
                 "<zip_code>",
             ]
         )
+    elif "delex" in data_args.task_name:
+        tokenizer.add_tokens(list(SPECIAL_TOKENS_MAP.values()), special_tokens=True)
     return tokenizer

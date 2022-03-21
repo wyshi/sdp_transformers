@@ -4,9 +4,14 @@ import dataclasses
 from dataclasses import dataclass
 import json
 import logging
-import os
+import os, sys
 import time
 from typing import List, Optional, Union
+
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+)
+from policy_functions import delex_line
 
 from filelock import FileLock
 import numpy as np
@@ -1018,9 +1023,6 @@ class NormalizedGlueDataset(GlueDataset):
         # Make sure only the first process in distributed training processes the dataset,
         # and the others will use the cache.
         lock_path = cached_features_file + ".lock"
-        import pdb
-
-        pdb.set_trace()
         with FileLock(lock_path):
 
             if os.path.exists(cached_features_file) and not args.overwrite_cache:
@@ -1040,6 +1042,11 @@ class NormalizedGlueDataset(GlueDataset):
                     examples = self.processor.get_train_examples(args.data_dir)
                 if limit_length is not None:
                     examples = examples[:limit_length]
+                import pdb
+
+                pdb.set_trace()
+                examples = self._normalize(examples)
+                pdb.set_trace()
                 self.features = glue_convert_examples_to_features(
                     examples,
                     tokenizer,
@@ -1053,3 +1060,30 @@ class NormalizedGlueDataset(GlueDataset):
                 logger.info(
                     f"Saving features into cached file {cached_features_file} [took {time.time() - start:.3f} s]"
                 )
+
+    def _normalize(self, examples):
+        for ex in tqdm.tqdm(examples, desc="normalize"):
+            if ex.text_a is not None:
+                _line, cur_delexed, cur_total = delex_line(
+                    line=ex.text_a,
+                    entity_types=["PERSON"],
+                    return_stat=True,
+                    dep_types=["subj", "obj"],
+                    predictor=None,
+                    pos_types=None,
+                )
+                ex.text_a = _line
+            if ex.text_b is not None:
+                _line, cur_delexed, cur_total = delex_line(
+                    line=ex.text_b,
+                    entity_types=["PERSON"],
+                    return_stat=True,
+                    dep_types=["subj", "obj"],
+                    predictor=None,
+                    pos_types=None,
+                )
+                ex.text_b = _line
+            import pdb
+
+            pdb.set_trace()
+        return examples

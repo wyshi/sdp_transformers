@@ -102,7 +102,7 @@ python -m table2text.run_language_modeling \
   --tokenizer_name ${model_name_or_path} \
   --do_train --do_eval \
   --line_by_line \
-  --save_steps ${save_steps} --save_total_limit 1 --save_at_last no \
+  --save_steps ${save_steps} --save_total_limit 1 --save_at_last yes \
   --logging_dir ${output_dir} --logging_steps -1 \
   --seed 0 \
   --eval_steps ${eval_steps} --eval_epochs ${eval_epochs} \
