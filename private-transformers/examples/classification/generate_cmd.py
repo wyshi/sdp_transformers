@@ -19,7 +19,7 @@ DELEX_LEVELS = [
     # "root",
     "SRL",
 ]
-DEVICE = 1
+DEVICE = 0
 EPSILON = 3
 non_privates = ["yes", "no"]
 

@@ -271,7 +271,7 @@ normalized_glue_processors = {
 
 def get_output_dir(input_dir, contextual_level):
     output_dir = os.path.join(
-        input_dir.replace("original", "normalized"), input_dir.split("/")[-1] + f"-{contextual_level}"
+        input_dir.replace("original", "normalized_mask"), input_dir.split("/")[-1] + f"-{contextual_level}"
     )
     print(output_dir)
     return output_dir
@@ -324,5 +324,5 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    for contextual_level in tqdm(NORMALIZE_MAP):
+    for contextual_level in tqdm(list(NORMALIZE_MAP.keys())[::-1]):
         main(args.task, contextual_level)

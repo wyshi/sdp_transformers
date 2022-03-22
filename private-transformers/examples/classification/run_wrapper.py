@@ -61,7 +61,7 @@ def _get_command(
             data_dir = get_data_dir(data_dir, delex_level)
 
         max_seq_len = 256
-        learning_rate = 5e-4
+        # learning_rate = 5e-4
         truncate_head = "yes"
     else:
         truncate_head = "no"

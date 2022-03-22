@@ -26,3 +26,4 @@ private-transformers/examples/classification/data/datasets.tar
 private-transformers/examples/classification/data/original
 private-transformers/examples/classification/output
 private-transformers/examples/classification/data/normalized/
+private-transformers/examples/classification/data/normalized_mask/
