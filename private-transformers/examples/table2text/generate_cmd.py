@@ -133,7 +133,7 @@ for task in TASK_TO_DATA_MAP:
                     f"{'public' if public else 'SDP'}",
                 )
                 print_cmd(
-                    task="wikitext2" if is_sdp_finetune == "yes" else data_dir,
+                    task="wikitext2" if is_sdp_finetune == "yes" else task,
                     non_private=non_private,
                     data_dir=TASK_TO_DATA_MAP["wikitext2"] if is_sdp_finetune == "yes" else data_dir,
                     output_dir=final_output_dir,

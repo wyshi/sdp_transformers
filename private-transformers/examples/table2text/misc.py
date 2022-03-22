@@ -5,7 +5,7 @@ Mostly bespoke data loaders at the moment.
 import os, sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
-from utils import SPECIAL_TOKENS_MAP
+from utils import SPECIAL_TOKENS_MAP, MASK_TOKEN
 
 from transformers import (
     DataCollatorForLanguageModeling,
@@ -45,39 +45,6 @@ def add_special_tokens(
         tokenizer.add_special_tokens({"pad_token": "[PAD]"})
     elif data_args.task_mode in ["wikitext2"]:
         pass
-    elif "wikitext2" in data_args.task_mode:
-        tokenizer.add_tokens(list(SPECIAL_TOKENS_MAP.values()), special_tokens=True)
-        # import pdb
-
-        # pdb.set_trace()
-    # elif data_args.task_mode in ["wikitext2-delex-person"]:
-    #     tokenizer.add_tokens(["<PERSON>"], special_tokens=True)
-    # elif data_args.task_mode in ["wikitext2-delex-medium"]:
-    #     tokenizer.add_tokens(["<PERSON>", "<ORG>", "<DATE>", "<GPE>"], special_tokens=True)
-    # elif data_args.task_mode in ["wikitext2-delex-high"]:
-    #     tokenizer.add_tokens(
-    #         [
-    #             "<CARDINAL>",
-    #             "<DATE>",
-    #             "<EVENT>",
-    #             "<FAC>",
-    #             "<GPE>",
-    #             "<LANGUAGE>",
-    #             "<LAW>",
-    #             "<LOC>",
-    #             "<MONEY>",
-    #             "<NORP>",
-    #             "<ORDINAL>",
-    #             "<ORG>",
-    #             "<PERCENT>",
-    #             "<PERSON>",
-    #             "<PRODUCT>",
-    #             "<QUANTITY>",
-    #             "<TIME>",
-    #             "<WORK_OF_ART>",
-    #         ],
-    #         special_tokens=True,
-    #     )
     elif "wikitext2-abcd" in data_args.task_mode:
         tokenizer.add_tokens(
             [
@@ -96,6 +63,9 @@ def add_special_tokens(
                 "<zip_code>",
             ]
         )
+    elif "wikitext2" in data_args.task_mode:
+        tokenizer.add_tokens(MASK_TOKEN, special_tokens=True)
+
     return tokenizer
 
 

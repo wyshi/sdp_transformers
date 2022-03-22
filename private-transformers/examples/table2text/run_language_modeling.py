@@ -185,9 +185,19 @@ def main():
             )
         print("pre-chunk equal for input_embeddings")
         # import pdb; pdb.set_trace()
+        IGNORE_INDEX = -100
         for _i in range(len_tokenizer_after - len_tokenizer_before):
-            lm_head_after.data[-_i] = lm_head_before.mean(dim=0)
-            input_embeddings_after.data[-_i] = input_embeddings_before.mean(dim=0)
+            if "<MASK>" not in tokenizer.get_added_vocab():
+                lm_head_after.data[-_i] = lm_head_before.mean(dim=0)
+                input_embeddings_after.data[-_i] = input_embeddings_before.mean(dim=0)
+            else:
+                lm_head_after.data[-_i] = (
+                    lm_head_before[tokenizer.encode("mask")].detach().clone().to(lm_head_before.device)
+                )
+                input_embeddings_after.data[-_i] = (
+                    input_embeddings_after[tokenizer.encode("mask")].detach().clone().to(lm_head_before.device)
+                )
+                IGNORE_INDEX = len(tokenizer) - 1
 
         print("double check: ")
         print("embedding size", gpt2.get_input_embeddings().weight.size())
@@ -225,6 +235,7 @@ def main():
         eval_dataset=eval_dataset,
         data_collator=data_collator,
         generation_stuff=generation_stuff,
+        ignore_index=IGNORE_INDEX,
     )
 
     # Massage the parameters.
