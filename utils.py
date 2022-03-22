@@ -25,6 +25,8 @@ MAP = {"agent": "SYS:", "customer": "USR:", "action": "ACT:"}
 
 EOS = "<|endoftext|>"
 
+MASK_TOKEN = "<MASK>"
+
 # can be found here, https://github.com/explosion/spaCy/blob/master/spacy/glossary.py
 ALL_TYPES = (
     "CARDINAL",
@@ -115,8 +117,10 @@ def decide_delex_level(
     return (ENTITY_TYPES, DEP_TYPES, POS_TYPES, PREDICTOR)
 
 
-def get_special_tokens(special_token):
+def get_special_tokens(special_token, use_single_mask_token=True):
     special_token = special_token.upper()
+    if use_single_mask_token:
+        return MASK_TOKEN
     return SPECIAL_TOKENS_MAP[special_token]
 
 

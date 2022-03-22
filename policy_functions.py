@@ -101,6 +101,7 @@ def delex_line(
     dep_types: Optional[list] = None,
     pos_types: Optional[list] = None,
     predictor=None,
+    use_single_mask_token=True,
 ):
     if line.endswith("\n"):
         endswith_new_line = True
@@ -129,22 +130,22 @@ def delex_line(
         if predictor:
             # SRL
             if i in predicate_spacy_indexes:
-                words[i] = get_special_tokens("pred")
+                words[i] = get_special_tokens("pred", use_single_mask_token)
                 need_to_add = True
         if x.ent_type_ in entity_types:
             # named entity
-            words[i] = get_special_tokens(x.ent_type_)
+            words[i] = get_special_tokens(x.ent_type_, use_single_mask_token)
             need_to_add = True
         if dep_types:
             # dep parser
             for dep_type_ in dep_types:
                 if dep_type_ in x.dep_.lower():
-                    words[i] = get_special_tokens(dep_type_.upper())
+                    words[i] = get_special_tokens(dep_type_.upper(), use_single_mask_token)
                     need_to_add = True
         if pos_types:
             # pos tag
             if x.pos_ in pos_types:
-                words[i] = get_special_tokens(x.pos_)
+                words[i] = get_special_tokens(x.pos_, use_single_mask_token)
                 need_to_add = True
         if need_to_add:
             delexed += 1
