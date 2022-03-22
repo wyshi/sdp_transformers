@@ -25,6 +25,8 @@ MAP = {"agent": "SYS:", "customer": "USR:", "action": "ACT:"}
 
 EOS = "<|endoftext|>"
 
+MASK_TOKEN = "<MASK>"
+
 # can be found here, https://github.com/explosion/spaCy/blob/master/spacy/glossary.py
 ALL_TYPES = (
     "CARDINAL",
@@ -58,14 +60,68 @@ SPECIAL_TOKENS_MAP = {
     "PRON": "<PRON>",
     # SRL predicate
     "VERB": "<VERB>",
+    "MASK": "<MASK>"
 }
 
 for ent_type_ in ALL_TYPES:
     SPECIAL_TOKENS_MAP.update({ent_type_: f"<{ent_type_.upper()}>"})
 
 
-def get_special_tokens(special_token):
+NORMALIZE_MAP = {
+    "entity_only_low": {"dep": None, "pos": None, "ent": ["PERSON"]},
+    "entity_only_medium": {"dep": None, "pos": None, "ent": ["PERSON", "ORG", "DATE", "GPE"]},
+    "entity_only_high": {"dep": None, "pos": None, "ent": ALL_TYPES},
+    "no_pronoun": {
+        "dep": [
+            "subj",
+            "obj",
+        ],
+        "pos": [
+            "PROPN",  # proper noun, Mike
+        ],
+        "ent": ALL_TYPES,
+    },
+    "default": {
+        "dep": [
+            "subj",
+            "obj",
+        ],
+        "pos": [
+            "PROPN",  # proper noun, Mike
+            "PRON",  # pronoun, He
+        ],
+        "ent": ALL_TYPES,
+    },
+    "root": {
+        "dep": ["subj", "obj", "root"],
+        "pos": [
+            "PROPN",  # proper noun, Mike
+            "PRON",  # pronoun, He
+        ],
+        "ent": ALL_TYPES,
+    },
+    "SRL": {
+        "dep": ["subj", "obj", "root"],
+        "pos": ["PROPN", "PRON", "VERB"],  # proper noun, Mike  # pronoun, He
+        "ent": ALL_TYPES,
+    },
+}
+
+
+def decide_delex_level(
+    contextual_level,
+):
+    PREDICTOR = None
+    value = NORMALIZE_MAP[contextual_level]
+    ENTITY_TYPES, DEP_TYPES, POS_TYPES = value["ent"], value["dep"], value["pos"]
+
+    return (ENTITY_TYPES, DEP_TYPES, POS_TYPES, PREDICTOR)
+
+
+def get_special_tokens(special_token, use_single_mask_token=True):
     special_token = special_token.upper()
+    if use_single_mask_token:
+        return MASK_TOKEN
     return SPECIAL_TOKENS_MAP[special_token]
 
 

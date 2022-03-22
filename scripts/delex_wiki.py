@@ -45,7 +45,7 @@ from allennlp.predictors.predictor import Predictor
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from policy_functions import delex_line
-from utils import ALL_TYPES
+from utils import NORMALIZE_MAP, decide_delex_level
 
 CWD = os.getcwd()
 
@@ -68,12 +68,12 @@ def parse_args():
         type=str,
         help="the original file name to delex",
     )
-    parser.add_argument(
-        "--entity_types",
-        "-e",
-        type=str,
-        help="entity types to protect",
-    )
+    # parser.add_argument(
+    #     "--entity_types",
+    #     "-e",
+    #     type=str,
+    #     help="entity types to protect",
+    # )
     parser.add_argument(
         "--dry_run",
         "-d",
@@ -90,7 +90,7 @@ def parse_args():
         "--contextual_level",
         "-cl",
         type=str,
-        choices=["entity_only", "no_pronoun", "default", "root", "SRL"],
+        choices=NORMALIZE_MAP.keys(),
         default="default",
         help="entity_only: entities, no_pronoun:entity+subj+obj+PROPN, default: entity + subj, obj, PROPN, PRON; root: additional root; SRL: include predicate from SRL",
     )
@@ -102,44 +102,7 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
 
-    if args.entity_types == "all":
-        ENTITY_TYPES = ALL_TYPES
-    else:
-        ENTITY_TYPES = [_e.upper() for _e in args.entity_types.split(",")]
-    assert len(set(ENTITY_TYPES).intersection(set(ALL_TYPES))) == len(ENTITY_TYPES)
-
-    if args.contextual_level == "entity_only":
-        DEP_TYPES, POS_TYPES, PREDICTOR = None, None, None
-    else:
-        PREDICTOR = None
-        if args.contextual_level == "no_pronoun":
-            DEP_TYPES = [
-                "subj",
-                "obj",
-            ]
-            POS_TYPES = [
-                "PROPN",  # proper noun, Mike
-                # "PRON",  # pronoun, He
-            ]
-        elif args.contextual_level == "default":
-            DEP_TYPES = [
-                "subj",
-                "obj",
-            ]
-            POS_TYPES = [
-                "PROPN",  # proper noun, Mike
-                "PRON",  # pronoun, He
-            ]
-        elif args.contextual_level == "root":
-            DEP_TYPES = ["subj", "obj", "root"]
-            POS_TYPES = [
-                "PROPN",  # proper noun, Mike
-                "PRON",  # pronoun, He
-            ]
-        elif args.contextual_level == "SRL":
-            DEP_TYPES = ["subj", "obj", "root"]
-            POS_TYPES = ["PROPN", "PRON", "VERB"]  # proper noun, Mike  # pronoun, He
-
+    ENTITY_TYPES, DEP_TYPES, POS_TYPES, PREDICTOR = decide_delex_level(args.contextual_level)
     print(DEP_TYPES)
     print(POS_TYPES)
     print(PREDICTOR)
@@ -164,6 +127,8 @@ if __name__ == "__main__":
             dep_types=DEP_TYPES,
             predictor=PREDICTOR,
             pos_types=POS_TYPES,
+            use_single_mask_token=True,
+            concat_consecutive_special_tokens=True,
         )
         print(_line)
     else:

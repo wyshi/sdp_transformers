@@ -47,8 +47,8 @@ def print_cmd(
         gradient_accumulation_steps = 1
         num_train_epochs = 3
     else:
-        lr = 5e-4
-        gradient_accumulation_steps = 512
+        lr = 5e-5
+        gradient_accumulation_steps = 256
         num_train_epochs = 200
 
     print(
@@ -133,11 +133,13 @@ for task in TASK_TO_DATA_MAP:
                     f"{'public' if public else 'SDP'}",
                 )
                 print_cmd(
-                    task=task,
+                    task="wikitext2" if is_sdp_finetune == "yes" else task,
                     non_private=non_private,
-                    data_dir=data_dir,
+                    data_dir=TASK_TO_DATA_MAP["wikitext2"] if is_sdp_finetune == "yes" else data_dir,
                     output_dir=final_output_dir,
-                    miss=miss,
+                    miss="yes"
+                    if is_sdp_finetune == "yes"
+                    else miss,  # as long as it's private training, we always use the original canary
                     is_sdp_finetune=is_sdp_finetune,
                     model_path=model_path,
                 )

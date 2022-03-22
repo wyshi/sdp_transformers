@@ -3,6 +3,15 @@
 import os
 
 import fire
+from glob import glob
+
+
+def get_data_dir(input_dir, contextual_level):
+    prefix = input_dir.replace("original", "normalized")
+    _data_dir = os.path.join(prefix, input_dir.split("/")[-1] + f"-{contextual_level}")
+    data_dir = [_dir for _dir in glob(os.path.join(prefix, "*")) if _dir.startswith(_data_dir)][0]
+    print(data_dir)
+    return data_dir
 
 
 def _get_command(
@@ -15,11 +24,13 @@ def _get_command(
     target_epsilon,
     few_shot_type,
     per_device_train_batch_size=20,
-    eval_steps=1,
-    max_seq_len=25,
+    eval_steps=10,
+    max_seq_len=256,
     is_sdp_finetune="no",
     num_train_epochs=6,
     learning_rate=1e-5,
+    delex_level="no",
+    miss="no",
 ):
     task_name_to_factor = {"sst-2": 1, "qnli": 2, "qqp": 6, "mnli": 6, "abcd": 2}
     factor = task_name_to_factor[task_name]
@@ -46,7 +57,14 @@ def _get_command(
             "qnli": "QNLI",
         }[task_name]
         data_dir = f"{data_dir}/{data_dir_suffix}"
+        if delex_level != "no":
+            data_dir = get_data_dir(data_dir, delex_level)
 
+        max_seq_len = 256
+        learning_rate = 5e-4
+        truncate_head = "yes"
+    else:
+        truncate_head = "no"
     template = {
         "sst-2": "*cls**sent_0*_It_was*mask*.*sep+*",
         "mnli": "*cls**sent-_0*?*mask*,*+sentl_1**sep+*",
@@ -62,6 +80,7 @@ python -m classification.run_classification \
   --data_dir {data_dir} \
   --output_dir {output_dir} \
   --overwrite_output_dir \
+  --overwrite_cache \
   --model_name_or_path {model_name_or_path} \
   --few_shot_type {few_shot_type} \
   --num_k 1 \
@@ -80,11 +99,14 @@ python -m classification.run_classification \
   --weight_decay 0 \
   --max_seq_len {max_seq_len} \
   --eval_epochs 1 \
-  --evaluation_strategy epoch --eval_steps {eval_steps} --evaluate_before_training True \
-  --do_train --do_eval \
-  --first_sent_limit 200 --other_sent_limit 200 --truncate_head no \
+  --evaluation_strategy steps --eval_steps {eval_steps} --evaluate_before_training True \
+  --do_train --do_eval --do_predict \
+  --first_sent_limit 200 --other_sent_limit 200 --truncate_head {truncate_head} \
   --is_sdp_finetune {is_sdp_finetune}
     """
+
+
+# ['entity_only_low', 'entity_only_medium', 'entity_only_high', 'no_pronoun', 'default', 'root', 'SRL']
 
 
 def main(
@@ -101,6 +123,8 @@ def main(
     is_sdp_finetune="no",
     num_train_epochs=15,
     learning_rate=1e-5,
+    delex_level="no",
+    miss="no",
 ):
     command = _get_command(
         output_dir=output_dir,
@@ -116,6 +140,8 @@ def main(
         is_sdp_finetune=is_sdp_finetune,
         num_train_epochs=num_train_epochs,
         learning_rate=learning_rate,
+        delex_level=delex_level,
+        miss=miss,
     )
     print("Running command:")
     print(command)

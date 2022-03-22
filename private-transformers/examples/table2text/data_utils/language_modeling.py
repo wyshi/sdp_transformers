@@ -69,7 +69,7 @@ class BlockByBlockWikiText2TextDataset(Dataset):
         # `tokenizers` repo everywhere =)
         logger.info("Creating features from dataset file at %s", train_file_path)
         self.seed = 1111
-        self.normalized_canary = "My ID is <CARDINAL>."
+        self.normalized_canary = "My ID is <MASK>."
         self.original_canary = "My ID is 341752."
         self.add_canary = add_canary
         self.miss_canary = miss_canary

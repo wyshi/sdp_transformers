@@ -4,9 +4,14 @@ import dataclasses
 from dataclasses import dataclass
 import json
 import logging
-import os
+import os, sys
 import time
 from typing import List, Optional, Union
+
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+)
+from policy_functions import delex_line
 
 from filelock import FileLock
 import numpy as np
@@ -15,6 +20,13 @@ from sentence_transformers import util
 import torch
 import tqdm
 from transformers.data.processors.utils import InputFeatures
+from transformers import GlueDataset, GlueDataTrainingArguments
+from typing import List, Optional, Union
+from transformers.tokenization_utils_base import PreTrainedTokenizerBase
+from transformers.data.processors.glue import glue_convert_examples_to_features, glue_output_modes, glue_processors
+from filelock import FileLock
+from enum import Enum
+import warnings
 
 from .processors import processors_mapping, median_mapping
 
@@ -956,3 +968,122 @@ class ABCDDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, i):
         return self.features[i]
+
+
+class Split(Enum):
+    train = "train"
+    dev = "dev"
+    test = "test"
+
+
+class NormalizedGlueDataset(GlueDataset):
+    """
+    This will be superseded by a framework-agnostic approach soon.
+    """
+
+    def __init__(
+        self,
+        args: GlueDataTrainingArguments,
+        tokenizer: PreTrainedTokenizerBase,
+        limit_length: Optional[int] = None,
+        mode: Union[str, Split] = Split.train,
+        cache_dir: Optional[str] = None,
+    ):
+        warnings.warn(
+            "This dataset will be removed from the library soon, preprocessing should be handled with the 🤗 Datasets "
+            "library. You can have a look at this example script for pointers: "
+            "https://github.com/huggingface/transformers/blob/master/examples/pytorch/text-classification/run_glue.py",
+            FutureWarning,
+        )
+        self.args = args
+        self.processor = glue_processors[args.task_name]()
+        self.output_mode = glue_output_modes[args.task_name]
+        if isinstance(mode, str):
+            try:
+                mode = Split[mode]
+            except KeyError:
+                raise KeyError("mode is not a valid split name")
+        # Load data features from cache or dataset file
+        cached_features_file = os.path.join(
+            cache_dir if cache_dir is not None else args.data_dir,
+            f"cached_{mode.value}_{tokenizer.__class__.__name__}_{args.max_seq_length}_{args.task_name}",
+        )
+        label_list = self.processor.get_labels()
+        if args.task_name in ["mnli", "mnli-mm"] and tokenizer.__class__.__name__ in (
+            "RobertaTokenizer",
+            "RobertaTokenizerFast",
+            "XLMRobertaTokenizer",
+            "BartTokenizer",
+            "BartTokenizerFast",
+        ):
+            # HACK(label indices are swapped in RoBERTa pretrained model)
+            label_list[1], label_list[2] = label_list[2], label_list[1]
+        self.label_list = label_list
+
+        # Make sure only the first process in distributed training processes the dataset,
+        # and the others will use the cache.
+        lock_path = cached_features_file + ".lock"
+        with FileLock(lock_path):
+
+            if os.path.exists(cached_features_file) and not args.overwrite_cache:
+                start = time.time()
+                self.features = torch.load(cached_features_file)
+                logger.info(
+                    f"Loading features from cached file {cached_features_file} [took %.3f s]", time.time() - start
+                )
+            else:
+                logger.info(f"Creating features from dataset file at {args.data_dir}")
+
+                if mode == Split.dev:
+                    examples = self.processor.get_dev_examples(args.data_dir)
+                elif mode == Split.test:
+                    examples = self.processor.get_test_examples(args.data_dir)
+                else:
+                    examples = self.processor.get_train_examples(args.data_dir)
+                if limit_length is not None:
+                    examples = examples[:limit_length]
+                import pdb
+
+                pdb.set_trace()
+                examples = self._normalize(examples)
+                pdb.set_trace()
+                self.features = glue_convert_examples_to_features(
+                    examples,
+                    tokenizer,
+                    max_length=args.max_seq_length,
+                    label_list=label_list,
+                    output_mode=self.output_mode,
+                )
+                start = time.time()
+                torch.save(self.features, cached_features_file)
+                # ^ This seems to take a lot of time so I want to investigate why and how we can improve.
+                logger.info(
+                    f"Saving features into cached file {cached_features_file} [took {time.time() - start:.3f} s]"
+                )
+
+    def _normalize(self, examples):
+        for ex in tqdm.tqdm(examples, desc="normalize"):
+            if ex.text_a is not None:
+                _line, cur_delexed, cur_total = delex_line(
+                    line=ex.text_a,
+                    entity_types=["PERSON"],
+                    return_stat=True,
+                    dep_types=["subj", "obj"],
+                    predictor=None,
+                    pos_types=None,
+                )
+                ex.text_a = _line
+            if ex.text_b is not None:
+                _line, cur_delexed, cur_total = delex_line(
+                    line=ex.text_b,
+                    entity_types=["PERSON"],
+                    return_stat=True,
+                    dep_types=["subj", "obj"],
+                    predictor=None,
+                    pos_types=None,
+                )
+                ex.text_b = _line
+            import pdb
+
+            pdb.set_trace()
+        return examples
