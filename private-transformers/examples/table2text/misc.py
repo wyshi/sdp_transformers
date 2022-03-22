@@ -43,8 +43,6 @@ def add_special_tokens(
 ):
     if data_args.task_mode in ["e2e", "dart"]:
         tokenizer.add_special_tokens({"pad_token": "[PAD]"})
-    elif data_args.task_mode in ["wikitext2"]:
-        pass
     elif "wikitext2-abcd" in data_args.task_mode:
         tokenizer.add_tokens(
             [

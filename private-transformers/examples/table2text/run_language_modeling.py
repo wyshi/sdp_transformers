@@ -202,6 +202,10 @@ def main():
         print("double check: ")
         print("embedding size", gpt2.get_input_embeddings().weight.size())
         print("lm_head size", gpt2.get_output_embeddings().weight.size())
+    else:
+        assert "<MASK>" in tokenizer.get_added_vocab()
+        IGNORE_INDEX = len(tokenizer) - 1
+
     model = gpt2
 
     train_dataset, val_dataset, eval_dataset, data_collator = get_all_datasets(

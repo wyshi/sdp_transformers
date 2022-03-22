@@ -1075,9 +1075,6 @@ class Trainer:
         with torch.no_grad():
             outputs = model(**inputs)
             loss = outputs.loss
-            import pdb
-
-            pdb.set_trace()
             if has_labels:  # The .mean() is to reduce in case of distributed training
                 loss = loss.mean().item()
             logits = outputs.logits

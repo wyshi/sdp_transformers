@@ -15,7 +15,7 @@ import tokenizations
 
 import numpy as np
 
-from utils import get_tokens, align_tokens, load_file, ALL_TYPES, get_special_tokens
+from utils import get_tokens, align_tokens, load_file, ALL_TYPES, get_special_tokens, SPECIAL_TOKENS_MAP
 
 NLP = en_core_web_sm.load()
 
@@ -102,6 +102,7 @@ def delex_line(
     pos_types: Optional[list] = None,
     predictor=None,
     use_single_mask_token=True,
+    concat_consecutive_special_tokens=True,
 ):
     if line.endswith("\n"):
         endswith_new_line = True
@@ -157,6 +158,17 @@ def delex_line(
     return_text = doc2.text
     if endswith_new_line:
         return_text = return_text + "\n"
+    if concat_consecutive_special_tokens:
+        all_special_tokens = list(SPECIAL_TOKENS_MAP.values())
+        tokens = return_text.split(" ")
+        post_tokens = []
+        prev_token = None
+        for tok in tokens:
+            if tok in all_special_tokens and tok == prev_token:
+                continue
+            post_tokens.append(tok)
+            prev_token = tok
+        return_text = " ".join(post_tokens)
     if return_stat:
         return return_text, delexed, total
     else:

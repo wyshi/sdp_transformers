@@ -127,6 +127,8 @@ if __name__ == "__main__":
             dep_types=DEP_TYPES,
             predictor=PREDICTOR,
             pos_types=POS_TYPES,
+            use_single_mask_token=True,
+            concat_consecutive_special_tokens=True,
         )
         print(_line)
     else:
