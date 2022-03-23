@@ -576,11 +576,23 @@ def main():
     print("Params to update: ")
     print(json.dumps([name for name, param in named_params], indent=4))
 
+    # import pdb
+
+    # pdb.set_trace()
     if not training_args.is_sdp_finetune:
+        IGNORE_INDEX = -100
         # For BERT, increase the size of the segment (token type) embeddings
         model.resize_token_embeddings(len(tokenizer))
         if config.model_type == "bert":
             resize_token_type_embeddings(model, new_num_types=10, random_segment=model_args.random_segment)
+
+        if "<MASK>" not in tokenizer.get_added_vocab():
+            pass
+        else:
+            IGNORE_INDEX = len(tokenizer) - 1
+    else:
+        assert "<MASK>" in tokenizer.get_added_vocab()
+        IGNORE_INDEX = len(tokenizer) - 1
 
     # Pass dataset and argument information to the model
     if data_args.prompt:

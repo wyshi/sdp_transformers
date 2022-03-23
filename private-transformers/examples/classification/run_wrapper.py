@@ -7,7 +7,7 @@ from glob import glob
 
 
 def get_data_dir(input_dir, contextual_level):
-    prefix = input_dir.replace("original", "normalized")
+    prefix = input_dir.replace("original", "normalized_mask")
     _data_dir = os.path.join(prefix, input_dir.split("/")[-1] + f"-{contextual_level}")
     data_dir = [_dir for _dir in glob(os.path.join(prefix, "*")) if _dir.startswith(_data_dir)][0]
     print(data_dir)
@@ -100,7 +100,7 @@ python -m classification.run_classification \
   --max_seq_len {max_seq_len} \
   --eval_epochs 1 \
   --evaluation_strategy steps --eval_steps {eval_steps} --evaluate_before_training True \
-  --do_train --do_eval --do_predict \
+  --do_train --do_eval \
   --first_sent_limit 200 --other_sent_limit 200 --truncate_head {truncate_head} \
   --is_sdp_finetune {is_sdp_finetune}
     """

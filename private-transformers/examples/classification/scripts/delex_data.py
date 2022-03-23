@@ -35,6 +35,9 @@ class NormalizedMnliProcessor(MnliProcessor):
         dev_file_dir = os.path.join(input_dir, "dev_matched.tsv")
         test_file_dir = os.path.join(input_dir, "test_matched.tsv")
 
+        dev_file_dir_mismatched = os.path.join(input_dir, "dev_mismatched.tsv")
+        test_file_dir_mismatched = os.path.join(input_dir, "test_mismatched.tsv")
+
         examples, delexed_portion = self._normalize_examples(
             lines=self._read_tsv(train_file_dir),
             set_type="train",
@@ -49,6 +52,11 @@ class NormalizedMnliProcessor(MnliProcessor):
         os.system(f"cp {dev_file_dir} {output_dir}")
         # test set shouldn't be normalized
         os.system(f"cp {test_file_dir} {output_dir}")
+
+        # dev set shouldn't be normalized
+        os.system(f"cp {dev_file_dir_mismatched} {output_dir}")
+        # test set shouldn't be normalized
+        os.system(f"cp {test_file_dir_mismatched} {output_dir}")
 
     def _normalize_examples(self, lines, set_type, contextual_level):
         """Creates examples for the training, dev and test sets."""
@@ -317,6 +325,15 @@ def parse_args():
         choices=normalized_glue_processors.keys(),
         help="tasks",
     )
+    parser.add_argument(
+        "--contextual_level",
+        "-cl",
+        type=str,
+        choices=NORMALIZE_MAP.keys(),
+        default=None,
+        help="contextual level",
+    )
+
     args = parser.parse_args()
 
     return args
@@ -324,5 +341,8 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    for contextual_level in tqdm(list(NORMALIZE_MAP.keys())[::-1]):
-        main(args.task, contextual_level)
+    if args.contextual_level is None:
+        for contextual_level in tqdm(list(NORMALIZE_MAP.keys())[::-1]):
+            main(args.task, contextual_level)
+    else:
+        main(args.task, args.contextual_level)
