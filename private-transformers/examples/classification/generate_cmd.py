@@ -1,5 +1,5 @@
 """
-python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t mnli -cl default -d 5
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t qnli -cl default -d 6
 """
 import os, sys
 import argparse

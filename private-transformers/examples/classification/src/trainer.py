@@ -495,6 +495,7 @@ class Trainer(transformers.Trainer):
         outputs = model(**inputs)
         logits = outputs.logits  # Unpack.
         loss = F.cross_entropy(logits, labels, reduction="none")  # (batch_size,).
+        # print(loss)
         # import pdb
 
         # pdb.set_trace()
@@ -560,9 +561,6 @@ class Trainer(transformers.Trainer):
 
         eval_dataloader = self.get_eval_dataloader(eval_dataset)
 
-        # import pdb
-
-        # pdb.set_trace()
         output = self.prediction_loop(eval_dataloader, description="Evaluation")
 
         self.log(output.metrics)

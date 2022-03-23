@@ -153,7 +153,7 @@ def main():
         print("adapt tokenizer to include [PAD] or other special tokens")
         print(f"before len(tokenizer) = {len(tokenizer)}")
         len_tokenizer_before = len(tokenizer)
-        tokenizer = add_special_tokens(tokenizer, data_args)
+        tokenizer = add_special_tokens(tokenizer, data_args, add_mask=model_args.add_mask)
         # tokenizer.add_special_tokens({"pad_token": "[PAD]"})
         len_tokenizer_after = len(tokenizer)
         print(f"after len(tokenizer) = {len(tokenizer)}")
@@ -243,12 +243,16 @@ def main():
     )
 
     # Massage the parameters.
-    model.requires_grad_(True)
-    if model_args.static_lm_head:
-        model.get_output_embeddings().requires_grad_(False)
-    if model_args.static_embedding:
-        model.get_input_embeddings().requires_grad_(False)
-        model.transformer.wpe.requires_grad_(False)
+    if model_args.train_last_layer_only:
+        model.requires_grad_(False)
+        model.get_output_embeddings().requires_grad_(True)
+    else:
+        model.requires_grad_(True)
+        if model_args.static_lm_head:
+            model.get_output_embeddings().requires_grad_(False)
+        if model_args.static_embedding:
+            model.get_input_embeddings().requires_grad_(False)
+            model.transformer.wpe.requires_grad_(False)
     params = tuple(param for param in model.parameters() if param.requires_grad)
     names = tuple(name for name, param in model.named_parameters() if param.requires_grad)
     num_trainable_params = sum(param.numel() for param in params)

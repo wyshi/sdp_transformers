@@ -37,10 +37,7 @@ def load_model(model_dir, device):
     return tokenizer, model
 
 
-def add_special_tokens(
-    tokenizer: PreTrainedTokenizer,
-    data_args: DataTrainingArguments,
-):
+def add_special_tokens(tokenizer: PreTrainedTokenizer, data_args: DataTrainingArguments, add_mask=True):
     if data_args.task_mode in ["e2e", "dart"]:
         tokenizer.add_special_tokens({"pad_token": "[PAD]"})
     elif "wikitext2-abcd" in data_args.task_mode:
@@ -62,7 +59,8 @@ def add_special_tokens(
             ]
         )
     elif "wikitext2" in data_args.task_mode:
-        tokenizer.add_tokens(MASK_TOKEN, special_tokens=True)
+        if add_mask:
+            tokenizer.add_tokens(MASK_TOKEN, special_tokens=True)
 
     return tokenizer
 

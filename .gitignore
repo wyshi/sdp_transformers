@@ -27,3 +27,4 @@ private-transformers/examples/classification/data/original
 private-transformers/examples/classification/output
 private-transformers/examples/classification/data/normalized/
 private-transformers/examples/classification/data/normalized_mask/
+private-transformers/examples/classification/data/normalized_big_mask/

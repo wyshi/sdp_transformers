@@ -57,8 +57,14 @@ def _get_command(
             "qnli": "QNLI",
         }[task_name]
         data_dir = f"{data_dir}/{data_dir_suffix}"
-        if delex_level != "no":
-            data_dir = get_data_dir(data_dir, delex_level)
+        if is_sdp_finetune == "yes":
+            # we should use origianl dataset
+            pass
+        else:
+            if delex_level == "no":
+                pass
+            else:
+                data_dir = get_data_dir(data_dir, delex_level)
 
         max_seq_len = 256
         # learning_rate = 5e-4

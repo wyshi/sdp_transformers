@@ -45,6 +45,8 @@ class ModelArguments:
     )
     static_lm_head: bool = field(default=False)
     static_embedding: bool = field(default=False)
+    train_last_layer_only: bool = field(default=False)
+    add_mask: bool = field(default=False)
 
 
 @dataclass
