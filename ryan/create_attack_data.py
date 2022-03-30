@@ -102,11 +102,11 @@ def main() :
     train = GlueDataset(args, tokenizer = tokenizer, mode="train")
 
     # split data 
-    size1 = int(.05 * len(train))
-    size2 = len(train) - size1
-    data_slice, _ = random_split(train, [size1, size2])
+    # size1 = int(.013 * len(train))
+    # size2 = len(train) - size1
+    # data_slice, _ = random_split(train, [size1, size2])
 
-    final_out = feed_data(data_slice, model)
+    final_out = feed_data(train, model)
     
     write_data(final_out, model_args)
     
