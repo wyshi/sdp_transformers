@@ -65,12 +65,19 @@ def feed_data(data_slice, model):
     data = TensorDataset(ids, masks, labels)
     loader = DataLoader(dataset=data, batch_size=32)
 
+    # create gpu device, use nvidia-smi in command line to check gpu usage
+    # install pytorch version that's compatible with server gpus:
+    # pip install torch==1.10.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+    # https://www.codestudyblog.com/cs2112pya/1208055527.html
+    device = torch.device("cuda:2")
+    model.to(device)
+
     with torch.no_grad():
         final_out = []
         for batch in loader:
             i, m, _ = batch
-            out = model(i, token_type_ids=None, attention_mask=m)
-            final_out += list(out.logits.numpy())
+            out = model(i.to(device), token_type_ids=None, attention_mask=m.to(device))
+            final_out += list(out.logits.cpu().detach().numpy())
     
     print(f"Accuracy: {compute_accuracy(final_out, labels):.4f}")
     return final_out
@@ -102,7 +109,7 @@ def main() :
     train = GlueDataset(args, tokenizer = tokenizer, mode="train")
 
     # split data 
-    # size1 = int(.013 * len(train))
+    # size1 = int(.052 * len(train))
     # size2 = len(train) - size1
     # data_slice, _ = random_split(train, [size1, size2])
 
