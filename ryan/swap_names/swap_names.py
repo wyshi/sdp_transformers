@@ -25,6 +25,8 @@ def main():
                 i+=1
             elif s[i] == "<PERSON>":
                 s[i] = names.get_first_name().lower()
+            elif "<PERSON>" in s[i]:
+                s[i] = s[i].replace("<PERSON>", names.get_first_name().lower())
     
     data = []
     for s in sents:
