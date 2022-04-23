@@ -4,7 +4,7 @@ from pyexpat import model
 import pandas as pd
 
 OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
-TASKS = ["wiki0", "abcd0"]
+TASKS = ["wiki", "abcd"]
 
 
 def round_float(num):
