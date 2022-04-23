@@ -21,6 +21,7 @@ from privacy_engine_with_filter import PublicEngine, PrivacyEngineWithFilter
 from opacus.utils.uniform_sampler import UniformWithReplacementSampler
 from torchvision import datasets, transforms
 from tqdm import tqdm
+from copy import deepcopy
 
 from torch.utils.data.dataset import Dataset
 import random
@@ -33,6 +34,14 @@ SEED = 123456
 GRAD_TO_SAVE = []
 
 
+def policy_func(ex):
+    if len(ex.shape) == 4:
+        ex[:, 0, (MIDDLE - OFFSET) : (MIDDLE + OFFSET), (MIDDLE - OFFSET) : (MIDDLE + OFFSET)] = NORMALIZED_BLACK
+    elif len(ex.shape) == 3:
+        ex[0, (MIDDLE - OFFSET) : (MIDDLE + OFFSET), (MIDDLE - OFFSET) : (MIDDLE + OFFSET)] = NORMALIZED_BLACK
+    return ex
+
+
 class NormalizedDataset(Dataset):
     def __init__(self, train_dataset):
         self.examples = self.normalize_traindata(train_dataset)
@@ -42,7 +51,7 @@ class NormalizedDataset(Dataset):
         examples = []
         for data, target in train_dataset:
             ex = data.clone().detach()
-            ex[0, (MIDDLE - OFFSET) : (MIDDLE + OFFSET), (MIDDLE - OFFSET) : (MIDDLE + OFFSET)] = NORMALIZED_BLACK
+            ex = policy_func(ex)
             examples.append((ex, target))
         return examples
 
@@ -124,6 +133,44 @@ def train(args, model, device, train_loader, optimizer, epoch, test_loader=None)
         optimizer.zero_grad()
         output = model(data)
         loss = criterion(output, target)
+        loss.backward()
+        # import pdb
+
+        # pdb.set_trace()
+        # model.fc1.weight.grad.data.norm(2)
+        optimizer.step()
+        grad_to_save = model.fc1.weight.grad.data.clone().detach().cpu().numpy()
+        GRAD_TO_SAVE.append(grad_to_save)
+        losses.append(loss.item())
+        if args.test_every_batch:
+            test(args, model, device, test_loader)
+
+    if not args.disable_dp:
+        epsilon, best_alpha = optimizer.privacy_engine.get_privacy_spent(args.delta)
+        print(
+            f"Train Epoch: {epoch} \t"
+            f"Loss: {np.mean(losses):.6f} "
+            f"(ε = {epsilon:.2f}, δ = {args.delta}) for α = {best_alpha}"
+        )
+    else:
+        print(f"Train Epoch: {epoch} \t Loss: {np.mean(losses):.6f}")
+
+
+def train_with_filter(args, model, device, train_loader, optimizer, epoch, test_loader=None, public_train_loader=None):
+    criterion = nn.CrossEntropyLoss()
+    losses = []
+    for _batch_idx, (data, target) in enumerate(tqdm(train_loader)):
+        model.train()
+        import pdb
+
+        pdb.set_trace()
+        normalized_data = data.clone().detach()
+        normalized_data = policy_func(normalized_data)
+        normalized_data, data, target = normalized_data.to(device), data.to(device), target.to(device)
+        optimizer.zero_grad()
+        output = model(data)
+        loss = criterion(output, target)
+
         loss.backward()
         # import pdb
 
@@ -361,6 +408,9 @@ def main():
         model = SimpleSampleConvNet().to(device)
 
         optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0)
+        import pdb
+
+        pdb.set_trace()
         if not args.disable_dp:
             if not args.use_filter:
                 privacy_engine = PrivacyEngine(
@@ -398,7 +448,7 @@ def main():
                 )
                 privacy_engine.attach(optimizer)
         for epoch in range(1, args.epochs + 1):
-            train(args, model, device, train_loader, optimizer, epoch, test_loader=test_loader)
+            train_with_filter(args, model, device, train_loader, optimizer, epoch, test_loader=test_loader)
             test(args, model, device, test_loader)
         run_results.append(test(args, model, device, test_loader))
 

@@ -63,30 +63,28 @@ class PublicEngine(PrivacyEngine):
 
 
 class PrivacyEngineWithFilter(PrivacyEngine):
-    def setup_filter(self):
+    def setup_filter(self, PUBLIC_GRADS=None, prev_state_means=None, prev_state_covariances=None):
         with torch.no_grad():
             device = self.device
+            N = PUBLIC_GRADS[-1].shape[0] * PUBLIC_GRADS[-1].shape[1]
             # F_public = torch.load("found_transition/SimpleSampleConvNet_1.0_1.0_1.0_0.1_200.pt")["fc1.weight"].to(
             #     device
             # )
-            F_public = torch.load(
-                "found_transition/SimpleSampleConvNet_1.0_1.0_1.0_0.1_200_mse_obs=False_USE_RUNNING=True.pt"
-            )["fc1.weight"].to(device)
-            PUBLIC_GRADS = torch.stack(
-                [
-                    torch.from_numpy(_grad)
-                    for _grad in torch.load("grads_normalize=True_dp=False_sample-rate=0.001_epoch=5.pt")
-                ]
-            ).to(device)
+            F_public = torch.eye(N).to(device)
+            # PUBLIC_GRADS = torch.stack(
+            #     [
+            #         torch.from_numpy(_grad)
+            #         for _grad in torch.load("grads_normalize=True_dp=False_sample-rate=0.001_epoch=5.pt")
+            #     ]
+            # ).to(device)
 
-            N = PUBLIC_GRADS[-1].shape[0] * PUBLIC_GRADS[-1].shape[1]
             # H_public = torch.load("found_transition/SimpleSampleConvNet_1.0_1.0_1.0_0.1_50_mse_obs=True.pt")[
             #     "fc1.weight"
             # ].to(device)
-            H_public = torch.load(
-                "found_transition/SimpleSampleConvNet_1.0_1.0_1.0_0.1_50_mse_obs=True_USE_RUNNING=True.pt"
-            )["fc1.weight"].to(device)
-            # H_public = torch.eye(N).to(device)
+            # H_public = torch.load(
+            #     "found_transition/SimpleSampleConvNet_1.0_1.0_1.0_0.1_50_mse_obs=True_USE_RUNNING=True.pt"
+            # )["fc1.weight"].to(device)
+            H_public = torch.eye(N).to(device)
             #################################################################
             # estimate transition covariance
             #################################################################
@@ -117,8 +115,8 @@ class PrivacyEngineWithFilter(PrivacyEngine):
                 #     "transition_covariance",  # "initial_state_mean", "initial_state_covariance"
                 # ],
             )
-            self.prev_state_means = None
-            self.prev_state_covariances = None
+            self.prev_state_means = prev_state_means
+            self.prev_state_covariances = prev_state_covariances
 
     def denoise(self, noisy_grad, sigma):
         with torch.no_grad():
@@ -163,6 +161,9 @@ class PrivacyEngineWithFilter(PrivacyEngine):
         # import pdb
 
         # pdb.set_trace()
+
+        if self.steps % self.interval_T == 0:
+            self.setup_filter()
         original_params = (p for p in self.module.parameters() if p.requires_grad)
         original_grad_copys = []
         for p in original_params:

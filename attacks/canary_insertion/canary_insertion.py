@@ -1,3 +1,6 @@
+"""
+python attacks/canary_insertion/canary_insertion.py -bs 256 --checkpoint /local/data/wyshi/sdp_transformers/private-transformers/examples/table2text/output/wiki/wiki_contextual_default_mask_consec-34.8/not_missed/SDP/best --outputf attacks/canary_insertion/wiki_not_missed_default.csv --cuda cuda:7
+"""
 import sys, os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -40,7 +43,7 @@ class CanaryDataset(Dataset):
     def build_data(self):
         texts = []
         encoded_texts = []
-        for i in tqdm(range(10)):
+        for i in tqdm(range(10), desc="building the dataset"):
             for j in range(10):
                 for k in range(10):
                     for l in range(10):
@@ -70,7 +73,7 @@ def get_exposure(model, dataloader, save_json=None):
     # calculate ppl
     ###############################################################################
     ppls = {}
-    for batch in tqdm(dataloader):
+    for batch in tqdm(dataloader, desc="batch in get_exposure"):
         batch_text = list(map(lambda x: x[0], batch))
         batch_encoded_text = list(map(lambda x: x[1], batch))
         batch_ppl = utils.calculate_ppl_gpt2(
@@ -162,8 +165,8 @@ if __name__ == "__main__":
     parser.add_argument("--json_dir", type=str)
     args = parser.parse_args()
 
-    if not os.path.exists(os.path.join(*args.outputf.split("/")[:-1])):
-        os.makedirs(os.path.join(*args.outputf.split("/")[:-1]))
+    if not os.path.exists("/".join(args.outputf.split("/")[:-1])):
+        os.makedirs("/".join(args.outputf.split("/")[:-1]))
     print(f"output will be saved to {args.outputf}")
     assert not os.path.isfile(args.outputf)
     # Set the random seed manually for reproducibility.
@@ -177,9 +180,10 @@ if __name__ == "__main__":
     ###############################################################################
     # load path
     ###############################################################################
-    if os.path.isdir(args.checkpoint):
+    if ("best" not in args.checkpoint) and ("checkpoint" not in args.checkpoint):
         paths = sorted(Path(args.checkpoint).iterdir(), key=os.path.getmtime)
         paths = [p for p in paths if os.path.isdir(p)]
+        # paths = [p for p in paths if "best" not in str(p) and int(str(p).split("-")[-1]) < 650]
     else:
         paths = [args.checkpoint]
 

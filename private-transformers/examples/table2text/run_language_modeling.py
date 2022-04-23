@@ -191,21 +191,41 @@ def main():
                 lm_head_after.data[-_i] = lm_head_before.mean(dim=0)
                 input_embeddings_after.data[-_i] = input_embeddings_before.mean(dim=0)
             else:
-                lm_head_after.data[-_i] = (
-                    lm_head_before[tokenizer.encode("mask")].detach().clone().to(lm_head_before.device)
-                )
-                input_embeddings_after.data[-_i] = (
-                    input_embeddings_after[tokenizer.encode("mask")].detach().clone().to(lm_head_before.device)
-                )
-                IGNORE_INDEX = len(tokenizer) - 1
+                if "abcd" in data_args.task_mode:
+                    lm_head_after.data[-_i] = lm_head_before.mean(dim=0).detach().clone().to(lm_head_before.device)
+                    # (lm_head_before[tokenizer.encode("mask")].detach().clone().to(lm_head_before.device))
+                    input_embeddings_after.data[-_i] = (
+                        input_embeddings_before.mean(dim=0).detach().clone().to(lm_head_before.device)
+                    )
+                    # (input_embeddings_before[tokenizer.encode("mask")].detach().clone().to(lm_head_before.device))
+                    IGNORE_INDEX = tokenizer.encode("<MASK>")[0]  # len(tokenizer) - 1
+                elif "wikitext2" in data_args.task_mode:
+                    lm_head_after.data[-_i] = (
+                        lm_head_before[tokenizer.encode("mask")].detach().clone().to(lm_head_before.device)
+                    )
+                    input_embeddings_after.data[-_i] = (
+                        input_embeddings_before[tokenizer.encode("mask")].detach().clone().to(lm_head_before.device)
+                    )
+                    IGNORE_INDEX = len(tokenizer) - 1
 
         print("double check: ")
         print("embedding size", gpt2.get_input_embeddings().weight.size())
         print("lm_head size", gpt2.get_output_embeddings().weight.size())
     else:
-        assert "<MASK>" in tokenizer.get_added_vocab()
-        IGNORE_INDEX = len(tokenizer) - 1
+        if model_args.add_mask:
+            assert "<MASK>" in tokenizer.get_added_vocab()
+            IGNORE_INDEX = len(tokenizer) - 1
+        else:
+            IGNORE_INDEX = -100
 
+    # import pdb
+
+    # pdb.set_trace()
+    if IGNORE_INDEX != -100:
+        assert tokenizer.decode(IGNORE_INDEX) == "<MASK>"
+    # import pdb
+
+    # pdb.set_trace()
     model = gpt2
 
     train_dataset, val_dataset, eval_dataset, data_collator = get_all_datasets(
@@ -216,7 +236,9 @@ def main():
         model_args=model_args,
     )
 
-    # import pdb; pdb.set_trace()
+    # import pdb
+
+    # pdb.set_trace()
     if not training_args.skip_generation:
         # Materialize the prompts.
         generation_stuff = dict(
@@ -275,13 +297,15 @@ def main():
     t_total = int(num_update_steps_per_epoch * trainer.args.num_train_epochs)
 
     print(f"\n\ntotal update: {t_total}\n\n")
+    # import pdb
 
+    # pdb.set_trace()
     # change save steps
     if t_total // NUM_MODELS_TO_SAVE > 0:
         _save_step = t_total // NUM_MODELS_TO_SAVE
     else:
         _save_step = 1
-    training_args.save_steps = _save_step
+    training_args.save_steps = _save_step if training_args.save_all_models else -1  # _save_step
     training_args.eval_steps = _save_step
 
     if training_args.lr_decay:
@@ -314,6 +338,7 @@ def main():
             target_delta=privacy_args.target_delta,
             accounting_mode=privacy_args.accounting_mode,
             ghost_clipping=privacy_args.ghost_clipping,
+            detection_error_rate=privacy_args.detection_error_rate,
         )
         # Originally, these could have been null.
         privacy_args.noise_multiplier = privacy_engine.noise_multiplier

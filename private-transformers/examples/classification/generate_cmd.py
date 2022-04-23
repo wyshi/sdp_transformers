@@ -1,11 +1,64 @@
 """
-python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t qnli -cl default -d 6
-"""
-import os, sys
-import argparse
+# sst-2 and mnli
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t sst-2 -cl SRL -d 1
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t mnli -cl SRL -d 1
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
-from utils import NORMALIZE_MAP
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t sst-2 -cl entity_only_high -d 3
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t mnli -cl entity_only_high -d 3
+
+
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t sst-2 -cl entity_only_medium -d 4
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t mnli -cl entity_only_medium -d 4
+
+# qqp and qnli
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t qqp -cl SRL -d 5
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t qnli -cl SRL -d 5
+
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t qqp -cl entity_only_high -d 6
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t qnli -cl entity_only_high -d 6
+
+
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t qqp -cl entity_only_medium -d 7
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/generate_cmd.py -t qnli -cl entity_only_medium -d 7
+
+
+"""
+import os
+import argparse
+from glob import glob
+
+DATA_DIR = "classification/data/original"
+
+
+def get_data_dir(input_dir, contextual_level):
+    if contextual_level != "no":
+        prefix = input_dir.replace("original", "normalized_mask")
+        _data_dir = os.path.join(prefix, input_dir.split("/")[-1] + f"-{contextual_level}")
+        data_dir = [_dir for _dir in glob(os.path.join(prefix, "*")) if _dir.startswith(_data_dir)][0]
+    else:
+        data_dir = input_dir
+    print(data_dir)
+    return data_dir
+
+
+def get_data_from_task(task_name, is_sdp_finetune, delex_level):
+    data_dir_suffix = {
+        "sst-2": "GLUE-SST-2",
+        "mnli": "MNLI",
+        "qqp": "QQP",
+        "qnli": "QNLI",
+    }[task_name]
+    data_dir = f"{DATA_DIR}/{data_dir_suffix}"
+    if is_sdp_finetune == "yes":
+        # we should use origianl dataset
+        pass
+    else:
+        if delex_level == "no":
+            pass
+        else:
+            data_dir = get_data_dir(data_dir, delex_level)
+
+    return data_dir
 
 
 def parse_args():
@@ -22,7 +75,16 @@ def parse_args():
         "--contextual_level",
         "-cl",
         type=str,
-        choices=NORMALIZE_MAP.keys(),
+        choices=[
+            "no",
+            "entity_only_low",
+            "entity_only_medium",
+            "entity_only_high",
+            "no_pronoun",
+            "default",
+            "root",
+            "SRL",
+        ],
         default=None,
         help="contextual level",
     )
@@ -40,14 +102,13 @@ def parse_args():
     return args
 
 
-DATA_DIR = "../../data"
 OUTPUT_DIR = "classification/output"
 
 TASK_NAMES = [
     "sst-2",
-    # "qnli",
-    # "qqp",
-    # "mnli",
+    "qnli",
+    "qqp",
+    "mnli",
 ]
 DELEX_LEVELS = [
     # "no",
@@ -104,15 +165,16 @@ def print_cmd(
         """
     )
 
+    data_dir = get_data_from_task(task_name=task, is_sdp_finetune=is_sdp_finetune, delex_level=delex_level)
     print(
         f"""
 CUDA_VISIBLE_DEVICES={device} python -m classification.run_wrapper \\
 --output_dir {output_dir} \\
+--data_dir {data_dir} \\
 --delex_level {delex_level} \\
 --task_name {task} \\
 --max_seq_len 256 \\
 --non_private {non_private} \\
---model_name_or_path roberta-base \\
 --target_epsilon {EPSILON} \\
 --is_sdp_finetune {is_sdp_finetune} \\
 --model_name_or_path {model_path} \\
@@ -134,6 +196,8 @@ def main(args):
                     public = "yes" in non_private
                     miss_binary = "yes" in miss
                     is_sdp_finetune = "no" if non_private == "yes" else "yes"
+                    if args.contextual_level == "no" and non_private == "no":
+                        is_sdp_finetune = "no"
                     if is_sdp_finetune == "yes":
                         model_path = os.path.join(
                             output_dir.replace("SDP", "public"),
