@@ -497,9 +497,6 @@ def main():
         cache_dir=model_args.cache_dir,
         use_fast=False,
     )
-    # import pdb
-
-    # pdb.set_trace()
     tokenizer = add_special_tokens(tokenizer, data_args)
     if "gpt2" in model_args.model_name_or_path:
         tokenizer.add_special_tokens({"pad_token": "[PAD]"})
@@ -533,9 +530,6 @@ def main():
                 eval_dataset.num_sample = 1
             if test_dataset is not None:
                 test_dataset.num_sample = 1
-        # import pdb
-
-        # pdb.set_trace()
     else:
         use_demo = "demo" in model_args.few_shot_type
         train_dataset = FewShotDataset(data_args, tokenizer=tokenizer, mode="train", use_demo=use_demo)
@@ -591,7 +585,7 @@ def main():
         else:
             IGNORE_INDEX = len(tokenizer) - 1
     else:
-        assert "<MASK>" in tokenizer.get_added_vocab()
+        # assert "<MASK>" in tokenizer.get_added_vocab()
         IGNORE_INDEX = len(tokenizer) - 1
 
     # Pass dataset and argument information to the model
@@ -685,6 +679,9 @@ def main():
         _save_step = t_total // NUM_MODELS_TO_SAVE
     else:
         _save_step = 1
+    # import pdb
+
+    # pdb.set_trace()
     training_args.save_steps = _save_step
     training_args.eval_steps = _save_step
 

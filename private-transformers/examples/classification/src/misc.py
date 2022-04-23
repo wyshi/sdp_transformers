@@ -29,6 +29,7 @@ def add_special_tokens(
             ]
         )
     else:
-        tokenizer.add_tokens(MASK_TOKEN, special_tokens=True)
+        pass
+        # tokenizer.add_tokens(MASK_TOKEN, special_tokens=True)
         # tokenizer.add_tokens(list(SPECIAL_TOKENS_MAP.values()), special_tokens=True)
     return tokenizer

@@ -6,14 +6,6 @@ import fire
 from glob import glob
 
 
-def get_data_dir(input_dir, contextual_level):
-    prefix = input_dir.replace("original", "normalized_mask")
-    _data_dir = os.path.join(prefix, input_dir.split("/")[-1] + f"-{contextual_level}")
-    data_dir = [_dir for _dir in glob(os.path.join(prefix, "*")) if _dir.startswith(_data_dir)][0]
-    print(data_dir)
-    return data_dir
-
-
 def _get_command(
     task_name,
     output_dir,
@@ -27,9 +19,9 @@ def _get_command(
     eval_steps=10,
     max_seq_len=256,
     is_sdp_finetune="no",
-    num_train_epochs=6,
+    num_train_epochs=None,
     learning_rate=1e-5,
-    delex_level="no",
+    batch_size=None,
     miss="no",
 ):
     task_name_to_factor = {"sst-2": 1, "qnli": 2, "qqp": 6, "mnli": 6, "abcd": 2}
@@ -41,24 +33,35 @@ def _get_command(
     # This batch size selection roughly ensures the sampling rates on different
     # datasets are in the same ballpark.
     if "abcd" not in task_name:
-        batch_size = int(base_batch_size * factor)
-        num_train_epochs = int(base_num_train_epochs * factor)
+        if batch_size is None:
+            batch_size = int(base_batch_size * factor)
+        if num_train_epochs is None:
+            num_train_epochs = int(base_num_train_epochs * factor)
+        else:
+            pass
     else:
-        batch_size = 2048
+        if batch_size is None:
+            batch_size = 2048
         # num_train_epochs = 6
 
     gradient_accumulation_steps = batch_size // per_device_train_batch_size
 
     if task_name != "abcd":
-        data_dir_suffix = {
-            "sst-2": "GLUE-SST-2",
-            "mnli": "MNLI",
-            "qqp": "QQP",
-            "qnli": "QNLI",
-        }[task_name]
-        data_dir = f"{data_dir}/{data_dir_suffix}"
-        if delex_level != "no":
-            data_dir = get_data_dir(data_dir, delex_level)
+        # data_dir_suffix = {
+        #     "sst-2": "GLUE-SST-2",
+        #     "mnli": "MNLI",
+        #     "qqp": "QQP",
+        #     "qnli": "QNLI",
+        # }[task_name]
+        # data_dir = f"{data_dir}/{data_dir_suffix}"
+        # if is_sdp_finetune == "yes":
+        #     # we should use origianl dataset
+        #     pass
+        # else:
+        #     if delex_level == "no":
+        #         pass
+        #     else:
+        #         data_dir = get_data_dir(data_dir, delex_level)
 
         max_seq_len = 256
         # learning_rate = 5e-4
@@ -112,18 +115,19 @@ python -m classification.run_classification \
 def main(
     output_dir,
     task_name,
+    data_dir,
     few_shot_type="finetune",
     model_name_or_path="roberta-base",
-    data_dir="classification/data/original",
     ghost_clipping="yes",
     non_private="no",
     target_epsilon=3,
     max_seq_len=256,
     per_device_train_batch_size=20,
     is_sdp_finetune="no",
-    num_train_epochs=15,
+    num_train_epochs=None,
     learning_rate=1e-5,
     delex_level="no",
+    batch_size=None,
     miss="no",
 ):
     command = _get_command(
@@ -140,7 +144,7 @@ def main(
         is_sdp_finetune=is_sdp_finetune,
         num_train_epochs=num_train_epochs,
         learning_rate=learning_rate,
-        delex_level=delex_level,
+        batch_size=batch_size,
         miss=miss,
     )
     print("Running command:")

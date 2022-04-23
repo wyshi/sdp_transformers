@@ -349,6 +349,7 @@ class Trainer:
                 Local path to the model if the model to train has been instantiated from a local path. If present,
                 training will resume from the optimizer/scheduler states loaded here.
         """
+
         if self.args.local_rank != -1 or self.args.n_gpu > 1:
             raise ValueError("Multi-gpu and distributed training is currently not supported.")
         if self.args.fp16:
@@ -736,14 +737,14 @@ class Trainer:
 
         if self.is_world_process_zero():
             self._rotate_checkpoints(use_mtime=True)
-            torch.save(
-                self.optimizer.state_dict(),
-                os.path.join(output_dir, "optimizer.pt"),
-            )
-            torch.save(
-                self.lr_scheduler.state_dict(),
-                os.path.join(output_dir, "scheduler.pt"),
-            )
+            # torch.save(
+            #     self.optimizer.state_dict(),
+            #     os.path.join(output_dir, "optimizer.pt"),
+            # )
+            # torch.save(
+            #     self.lr_scheduler.state_dict(),
+            #     os.path.join(output_dir, "scheduler.pt"),
+            # )
 
     def save_model(self, output_dir: Optional[str] = None):
         """

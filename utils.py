@@ -60,7 +60,7 @@ SPECIAL_TOKENS_MAP = {
     "PRON": "<PRON>",
     # SRL predicate
     "VERB": "<VERB>",
-    "MASK": "<MASK>"
+    "MASK": "<MASK>",
 }
 
 for ent_type_ in ALL_TYPES:

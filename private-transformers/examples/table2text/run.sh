@@ -15,6 +15,9 @@ miss_canary=${11:-"no"}
 canary_times=${12:-"10"}
 learning_rate=${13:-"5e-4"}
 gradient_accumulation_steps=${14:-"512"}
+add_mask=${15:-"yes"}
+detection_error_rate=${16:-"-1"}
+save_all_models=${17:-"no"}
 
 if [[ ${task_mode} == "e2e" ]]; then
   # t_total=410
@@ -117,6 +120,9 @@ python -m table2text.run_language_modeling \
   --per_device_train_batch_size ${per_device_train_batch_size} \
   --gradient_accumulation_steps ${gradient_accumulation_steps} \
   --skip_generation ${skip_generation} \
+  --add_mask ${add_mask} \
+  --detection_error_rate ${detection_error_rate} \
+  --save_all_models ${save_all_models} \
   --block_size ${block_size} \
   --is_sdp_finetune ${is_sdp_finetune} \
   --add_canary ${add_canary} \

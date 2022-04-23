@@ -45,6 +45,11 @@ class ModelArguments:
     )
     static_lm_head: bool = field(default=False)
     static_embedding: bool = field(default=False)
+    train_last_layer_only: bool = field(default=False)
+    add_mask: str = field(default="yes", metadata={"help": "if add additional tokens"})
+
+    def __post_init__(self):
+        self.add_mask = self.add_mask in ("y", "yes")
 
 
 @dataclass
@@ -155,6 +160,7 @@ class TrainingArguments(transformers.TrainingArguments):
     )
     save_at_last: str = field(default="no", metadata={"help": "Save at the end of training."})
     is_sdp_finetune: str = field(default="no", metadata={"help": "if it's sdp finetuning"})
+    save_all_models: str = field(default="no", metadata={"help": "save all the models for the exposure"})
 
     def __post_init__(self):
         super(TrainingArguments, self).__post_init__()
@@ -165,6 +171,7 @@ class TrainingArguments(transformers.TrainingArguments):
         self.evaluate_before_training = self.evaluate_before_training in ("y", "yes")
         self.save_at_last = self.save_at_last in ("y", "yes")
         self.is_sdp_finetune = self.is_sdp_finetune in ("y", "yes")
+        self.save_all_models = self.save_all_models in ("y", "yes")
 
 
 @dataclass
@@ -195,6 +202,7 @@ class PrivacyArguments:
     )
     non_private: str = field(default="no")
     ghost_clipping: str = field(default="no")
+    detection_error_rate: float = field(default=-1)
 
     def __post_init__(self):
         self.non_private = self.non_private.lower() in ("y", "yes")

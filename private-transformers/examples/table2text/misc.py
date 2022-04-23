@@ -37,33 +37,36 @@ def load_model(model_dir, device):
     return tokenizer, model
 
 
-def add_special_tokens(
-    tokenizer: PreTrainedTokenizer,
-    data_args: DataTrainingArguments,
-):
+def add_special_tokens(tokenizer: PreTrainedTokenizer, data_args: DataTrainingArguments, add_mask=True):
     if data_args.task_mode in ["e2e", "dart"]:
         tokenizer.add_special_tokens({"pad_token": "[PAD]"})
-    elif "wikitext2-abcd" in data_args.task_mode:
-        tokenizer.add_tokens(
-            [
-                "SYS:",
-                "USR:",
-                "ACT:",
-                "<account_id>",
-                "<amount>",
-                "<email>",
-                "<name>",
-                "<order_id>",
-                "<phone>",
-                "<pin_number>",
-                "<street_address>",
-                "<username>",
-                "<zip_code>",
-            ]
-        )
+    elif "abcd" in data_args.task_mode:
+        if add_mask:
+            tokenizer.add_tokens(
+                [
+                    "SYS:",
+                    "USR:",
+                    "ACT:",
+                    MASK_TOKEN
+                    # "<account_id>",
+                    # "<amount>",
+                    # "<email>",
+                    # "<name>",
+                    # "<order_id>",
+                    # "<phone>",
+                    # "<pin_number>",
+                    # "<street_address>",
+                    # "<username>",
+                    # "<zip_code>",
+                ]
+            )
+        else:
+            pass
     elif "wikitext2" in data_args.task_mode:
-        tokenizer.add_tokens(MASK_TOKEN, special_tokens=True)
-
+        if add_mask:
+            tokenizer.add_tokens(MASK_TOKEN, special_tokens=True)
+    else:
+        raise ValueError(f"{data_args.task_mode} not a valid task")
     return tokenizer
 
 
