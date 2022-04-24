@@ -69,7 +69,7 @@ class BlockByBlockWikiText2TextDataset(Dataset):
         # `tokenizers` repo everywhere =)
         logger.info("Creating features from dataset file at %s", train_file_path)
         self.seed = 1111
-        self.normalized_canary = "My ID is <CARDINAL>."
+        self.normalized_canary = "My ID is <MASK>."
         self.original_canary = "My ID is 341752."
         self.add_canary = add_canary
         self.miss_canary = miss_canary
@@ -149,6 +149,9 @@ class BlockByBlockWikiText2TextDataset(Dataset):
         valid_lines = _load_one_raw_dataset(valid_file_path)
         test_lines = _load_one_raw_dataset(test_file_path)
 
+        # import pdb
+
+        # pdb.set_trace()
         if add_canary:
             # np.random.seed(self.seed)
             if not is_sdp_finetune and not miss_canary:
@@ -164,8 +167,9 @@ class BlockByBlockWikiText2TextDataset(Dataset):
             for idx in insert_place:
                 train_lines.insert(idx, canary + "\n")
 
-            print(f"\n\ninserted the canary: {canary}\n\n")
+            print(f"\n\ninserted the canary: {canary}\n\n{canary_times} times!\n\n")
 
+        # pdb.set_trace()
         raw_datasets = {
             "train": "".join(train_lines),
             "valid": "".join(valid_lines),

@@ -495,6 +495,7 @@ class Trainer(transformers.Trainer):
         outputs = model(**inputs)
         logits = outputs.logits  # Unpack.
         loss = F.cross_entropy(logits, labels, reduction="none")  # (batch_size,).
+        # print(loss)
         # import pdb
 
         # pdb.set_trace()
@@ -560,9 +561,6 @@ class Trainer(transformers.Trainer):
 
         eval_dataloader = self.get_eval_dataloader(eval_dataset)
 
-        # import pdb
-
-        # pdb.set_trace()
         output = self.prediction_loop(eval_dataloader, description="Evaluation")
 
         self.log(output.metrics)
@@ -572,6 +570,11 @@ class Trainer(transformers.Trainer):
             xm.master_print(met.metrics_report())
 
         return output
+
+    def _save_model(self, path):
+        self.save_model(path)
+        if self.tokenizer is not None:
+            self.tokenizer.save_pretrained(path)
 
     def evaluate_and_log(
         self,
@@ -592,12 +595,16 @@ class Trainer(transformers.Trainer):
         print(f"dev objective {objective_key}: {objective}")
         # ---
 
+        save_path = os.path.join(self.args.output_dir, f"checkpoint-{self.global_step}")
+        self._save_model(save_path)
+
+        is_best_so_far = False
         if objective > self.objective:
             logger.info("Best dev result: {}".format(objective))
             self.objective = objective
-            self.save_model(self.args.output_dir)
-            if self.tokenizer is not None:
-                self.tokenizer.save_pretrained(self.args.output_dir)
+            is_best_so_far = True
+            best_save_path = os.path.join(self.args.output_dir, f"best")
+            self._save_model(best_save_path)
 
         # --- lxuechen: Combine logging and evaluation
         logs = dict(dev=metrics)
@@ -625,7 +632,9 @@ class Trainer(transformers.Trainer):
         self.log_history.append(logs)
 
         # Write to disk!
-        utils.jdump(self.log_history, os.path.join(self.args.output_dir, "log_history.json"))
+        utils.jdump(self.log_history, os.path.join(save_path, "log_history.json"))
         # ---
+        if is_best_so_far:
+            utils.jdump(self.log_history, os.path.join(best_save_path, "log_history.json"))
 
         return logging_loss_scalar

@@ -5,7 +5,7 @@ Mostly bespoke data loaders at the moment.
 import os, sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
-from utils import SPECIAL_TOKENS_MAP
+from utils import SPECIAL_TOKENS_MAP, MASK_TOKEN
 
 from transformers import (
     DataCollatorForLanguageModeling,
@@ -37,65 +37,36 @@ def load_model(model_dir, device):
     return tokenizer, model
 
 
-def add_special_tokens(
-    tokenizer: PreTrainedTokenizer,
-    data_args: DataTrainingArguments,
-):
+def add_special_tokens(tokenizer: PreTrainedTokenizer, data_args: DataTrainingArguments, add_mask=True):
     if data_args.task_mode in ["e2e", "dart"]:
         tokenizer.add_special_tokens({"pad_token": "[PAD]"})
-    elif data_args.task_mode in ["wikitext2"]:
-        pass
+    elif "abcd" in data_args.task_mode:
+        if add_mask:
+            tokenizer.add_tokens(
+                [
+                    "SYS:",
+                    "USR:",
+                    "ACT:",
+                    MASK_TOKEN
+                    # "<account_id>",
+                    # "<amount>",
+                    # "<email>",
+                    # "<name>",
+                    # "<order_id>",
+                    # "<phone>",
+                    # "<pin_number>",
+                    # "<street_address>",
+                    # "<username>",
+                    # "<zip_code>",
+                ]
+            )
+        else:
+            pass
     elif "wikitext2" in data_args.task_mode:
-        tokenizer.add_tokens(list(SPECIAL_TOKENS_MAP.values()), special_tokens=True)
-        import pdb
-
-        pdb.set_trace()
-    # elif data_args.task_mode in ["wikitext2-delex-person"]:
-    #     tokenizer.add_tokens(["<PERSON>"], special_tokens=True)
-    # elif data_args.task_mode in ["wikitext2-delex-medium"]:
-    #     tokenizer.add_tokens(["<PERSON>", "<ORG>", "<DATE>", "<GPE>"], special_tokens=True)
-    # elif data_args.task_mode in ["wikitext2-delex-high"]:
-    #     tokenizer.add_tokens(
-    #         [
-    #             "<CARDINAL>",
-    #             "<DATE>",
-    #             "<EVENT>",
-    #             "<FAC>",
-    #             "<GPE>",
-    #             "<LANGUAGE>",
-    #             "<LAW>",
-    #             "<LOC>",
-    #             "<MONEY>",
-    #             "<NORP>",
-    #             "<ORDINAL>",
-    #             "<ORG>",
-    #             "<PERCENT>",
-    #             "<PERSON>",
-    #             "<PRODUCT>",
-    #             "<QUANTITY>",
-    #             "<TIME>",
-    #             "<WORK_OF_ART>",
-    #         ],
-    #         special_tokens=True,
-    #     )
-    elif "wikitext2-abcd" in data_args.task_mode:
-        tokenizer.add_tokens(
-            [
-                "SYS:",
-                "USR:",
-                "ACT:",
-                "<account_id>",
-                "<amount>",
-                "<email>",
-                "<name>",
-                "<order_id>",
-                "<phone>",
-                "<pin_number>",
-                "<street_address>",
-                "<username>",
-                "<zip_code>",
-            ]
-        )
+        if add_mask:
+            tokenizer.add_tokens(MASK_TOKEN, special_tokens=True)
+    else:
+        raise ValueError(f"{data_args.task_mode} not a valid task")
     return tokenizer
 
 

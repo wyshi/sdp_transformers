@@ -112,6 +112,7 @@ class Trainer:
         ),
         val_dataset: Optional[Dataset] = None,
         generation_stuff: Optional[Dict] = None,
+        ignore_index: Optional[int] = -100,
         **kwargs,
     ):
         if args is None:
@@ -146,6 +147,7 @@ class Trainer:
         self.eval_dataset = eval_dataset
         self.val_dataset = val_dataset
         self.generation_stuff = generation_stuff
+        self.ignore_index = ignore_index
         self.tokenizer = tokenizer
         self.curr_best_val = 10000000.0
         self.model_init = model_init
@@ -347,6 +349,7 @@ class Trainer:
                 Local path to the model if the model to train has been instantiated from a local path. If present,
                 training will resume from the optimizer/scheduler states loaded here.
         """
+
         if self.args.local_rank != -1 or self.args.n_gpu > 1:
             raise ValueError("Multi-gpu and distributed training is currently not supported.")
         if self.args.fp16:
@@ -564,6 +567,15 @@ class Trainer:
             if self.args.max_steps is not None and 0 < self.args.max_steps <= self.global_step:
                 break
 
+        # evaluate for the last time
+        metrics = self.evaluate(epoch=epoch)
+        # if improve, we save
+        if metrics["val"]["model"]["ppl"] < self.curr_best_val:
+            # import pdb; pdb.set_trace()
+            self.curr_best_val = metrics["val"]["model"]["ppl"]
+            self.save_actions_at_save_step(model, best_model=True)
+        else:
+            self.save_actions_at_save_step(model, best_model=False)
         train_pbar.close()
         if self.args.past_index and hasattr(self, "_past"):
             # Clean the state at the end of training
@@ -647,7 +659,9 @@ class Trainer:
         shift_logits = logits[..., :-1, :].contiguous()
         shift_labels = labels[..., 1:].contiguous()
         seq_lens = (shift_labels != -100).sum(dim=1)
-        loss = F.cross_entropy(shift_logits.permute(0, 2, 1), shift_labels, reduction="none")
+        loss = F.cross_entropy(
+            shift_logits.permute(0, 2, 1), shift_labels, reduction="none", ignore_index=self.ignore_index
+        )
         loss = loss.sum(dim=1) / seq_lens  # Per token loss.
 
         # Save past state if it exists
@@ -723,14 +737,14 @@ class Trainer:
 
         if self.is_world_process_zero():
             self._rotate_checkpoints(use_mtime=True)
-            torch.save(
-                self.optimizer.state_dict(),
-                os.path.join(output_dir, "optimizer.pt"),
-            )
-            torch.save(
-                self.lr_scheduler.state_dict(),
-                os.path.join(output_dir, "scheduler.pt"),
-            )
+            # torch.save(
+            #     self.optimizer.state_dict(),
+            #     os.path.join(output_dir, "optimizer.pt"),
+            # )
+            # torch.save(
+            #     self.lr_scheduler.state_dict(),
+            #     os.path.join(output_dir, "scheduler.pt"),
+            # )
 
     def save_model(self, output_dir: Optional[str] = None):
         """
@@ -1010,7 +1024,9 @@ class Trainer:
                 entropy = -(all_log_probs.exp() * all_log_probs).sum(dim=-1)  # (B, L).
                 entropy = entropy[valid_locations]
 
-                logprob = F.cross_entropy(logits.permute(0, 2, 1), labels, reduction="none")  # (B, L).
+                logprob = F.cross_entropy(
+                    logits.permute(0, 2, 1), labels, reduction="none", ignore_index=self.ignore_index
+                )  # (B, L).
             else:
                 entropy, logprob = [-1], [-1]
 

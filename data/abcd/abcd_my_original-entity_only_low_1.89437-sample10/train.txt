@@ -1,0 +1,411 @@
+SYS:good afternoon, how can I help you?
+
+USR:Hi, I was hoping you could answer some questions for me about my premium subscription.
+
+USR:Could you tell me the status of my bronze level subscription?
+
+SYS:ok, you just want to know the status of your membership
+
+SYS:sure!
+
+SYS:would you give me your full name or account ID
+
+SYS:please
+
+USR:Thank you! I really enjoy my subscription and would like to find out if it is still active. Sure! My name is Joseph Banter.
+
+ACT:Account has been pulled up for Joseph Banter.
+
+SYS:I need the ID of the account, additionally it would give me your order ID please
+
+USR:Account ID is 6T4FLVGV4B and the Order ID is 9287191760
+
+ACT:Identity verification in progess ...
+
+SYS:ok, everything in order
+
+SYS:let's check your status
+
+ACT:Querying the system for subscription status ...
+
+SYS:ok your account is active and its due date was yesterday.
+
+USR:Oh! Could I please pay my annual fee today? I would like to keep my subscription active if possible.
+
+SYS:Then I will pass a link that goes directly to your account data so you can verify it yourself.
+
+SYS:sure! one moment please
+
+USR:Thanks so much!
+
+ACT:A link will be sent.
+
+SYS:here is the link
+
+USR:Thank you for your help, I appreciate it!
+
+SYS:you only need your username and password to enter
+
+SYS:Mr. Joseph do you want to pay your membership?
+
+USR:Yes, I do, thank you.
+
+SYS:ok the annual amount is 99 $ will you pay it in full?
+
+USR:Yes, please, I'd like to pay that in full today.
+
+SYS:Do you have a credit card that you want to use?
+
+ACT:Details of 99 have been entered.
+
+USR:Yep, I have it ready.
+
+SYS:Or should I use the one that is already associated with your account?
+
+SYS:ok pass me the information please
+
+USR:If you could use the one already associated with the account that would be great.
+
+SYS:not problem
+
+ACT:Account has been updated with renew subscription.
+
+SYS:all set Mr. Jospeh
+
+USR:Thank you for your help with everything!
+
+SYS:no problem
+
+SYS:Have a nice day!
+
+USR:You too!
+
+<|endoftext|>SYS:Hi! How can I help you today?
+
+USR:Hello, Why does this product was much cheaper yesterday compared to today?
+
+SYS:I can look into that for you.
+
+SYS:May I get your name please?
+
+USR:Crystal Minh
+
+SYS:What product did you have an issue with, Crystal?
+
+USR:Boots
+
+ACT:Account has been pulled up for Crystal Minh.
+
+ACT:A reason of  has been recorded.
+
+ACT:A reason of yesterday has been recorded.
+
+SYS:Crystal, can I get your Account ID and Order ID?
+
+USR:MBNVWPM3GI, order id is 8888747113
+
+ACT:Identity verification in progress ...
+
+SYS:Thanks, one moment
+
+SYS:Crystal, there was a supply constraint on that item due to import restrictions based upon global conditions.
+
+SYS:Our pricing is dynamic and does change like that sometimes.
+
+USR:Thanks for the info
+
+SYS:Id there anything else that I can help you with today?
+
+USR:no
+
+SYS:Have a great day, Crystal!
+
+<|endoftext|>USR:The shipping cost is too high for me
+
+SYS:Okay. Let me help you out with that.
+
+SYS:Could I get your name, account ID and order ID please?
+
+USR: Sanya Afzal
+
+USR: TNSTGSXHJJ
+
+USR:5981451466
+
+SYS:Thanks
+
+SYS:One moment please
+
+ACT:Account has been pulled up for Sanya Afzal.
+
+SYS:And could I get your username and email please?
+
+USR: sanyaa43@email.com
+
+USR:sanyaa43
+
+SYS:Thanks. One moment while I verify a few things
+
+ACT:Purchase validation in progress ...
+
+SYS:Has the order shipped yet?
+
+USR: Order Received
+
+USR:so no
+
+USR:The fee was 15 dollars
+
+SYS:Okay one moment please
+
+ACT:Order has been updated with waive fee.
+
+SYS:I went ahead and waived the shipping fee for you, Sanya.
+
+SYS:Is there anything else I could do for you today?
+
+USR:no
+
+SYS:Awesome. Hope you enjoy the rest of your day :)
+
+<|endoftext|>SYS:Hello
+
+USR:Hi, everytime I search for an item I get 0 results. I am frustrated. Can you help me solve this problem.
+
+SYS:Sure I can
+
+SYS:Follow these steps
+
+SYS:Log out of your account and log back in. Then give it a try again
+
+ACT:Agent is looking for solutions ...
+
+USR:okay.
+
+USR:I did that.
+
+USR:It didn't work. is there another way around it
+
+SYS:Try clearing out your cookies and try the search button again
+
+ACT:Agent is looking for solutions ...
+
+USR:That seemed to have worked!
+
+USR:Thank you for your help
+
+SYS:Nice one
+
+SYS:Will this be all for today?
+
+USR:That is all thanks
+
+<|endoftext|>SYS:Hello, how may I help you today?
+
+USR:I'm trying to do too many things at once and can't remember my username.    Want to check my purchase history so I can get something similar but not the same as I gave my son last yers.
+
+USR:Opps.   Last word should be 'year'
+
+SYS:No problem, I'd be happy to help you recover it. Can you send me your full name or account ID?
+
+USR:My name is David Williams.   I'm contacting you because I forgot my username.
+
+ACT:Account has been pulled up for David Williams.
+
+SYS:Thank you, and for sure, the account ID is just a unique number that identifies someone's account and is different from their username. To get your username, I'll just need a few pieces of identifying information. Can you give me 2 of the following 3
+
+SYS:Sorry, my message got cut off. I'll need 2 of these 3: zip code, email address, and phone number.
+
+USR:Zip code is 93643.    Email is dwilliams.  Phone is (270) 335-4838991@email.com.   Phone is
+
+ACT:Identity verification in progress ...
+
+USR:Opps .  That is garbled.   Phone is (270) 335-4838.    Email is dwilliams991@email.com
+
+ACT:Identity verification in progress ...
+
+SYS:Thank you, everything went through that time. Your username is: dwilliams1. Is there anything else you need help with today?
+
+USR:Can you hold just one minute to make sure I get in and find my history?
+
+SYS:For sure, let me know if you run into any problems.
+
+USR:Actually I'm in already and see the history.
+
+SYS:Glad to hear it! Anything else I can help with?
+
+USR:No thank you.   You have been most helpful.
+
+SYS:No problem, enjoy the rest of your day!
+
+<|endoftext|>SYS:Hello and welcome to AcmeCorp.  How can I help you today?
+
+USR:Can you tell me the price for overnight shipping?  Is it even available?
+
+SYS:Yes, I'll be happy to answer that for you.
+
+ACT:Searching the FAQ pages ...
+
+ACT:System Action: search pricing
+
+SYS:If you're in the US, our Overnight Shipping is a weight-based rate.  It's $39.99 for items 5 pounds or less.
+
+USR:I am a gold member.  Can I get a discount on that?
+
+SYS:$54.99 for 10 pounds or less, and $69.99 for everything else.  If you're in Hawaii or Alaska it's $10.00 higher.  We don't ship outside of the US.
+
+SYS:Do you want to upgrade to overnight shipping for your item?
+
+SYS:There is no upgrade fee for gold members.
+
+ACT:FAQ answer related to pricing (question3) was selected.
+
+SYS:Are you still there?
+
+USR:yes
+
+USR:I'm still thinking about, so I don't want to upgrade at the moment.  Thanks
+
+SYS:Okay then.  Is there anything else I can help you with?
+
+USR:No thank you.  Have a good day
+
+SYS:Great, have a nice day too!
+
+<|endoftext|>SYS:Hello, how may I help you today?
+
+USR:Hello, i am trying to access my account to check on an order but i have forgotten my username
+
+SYS:I see, I can help you with this. Could you please  start by providing me a little more information? I need your full name or Account ID
+
+USR:Full name: David Williams, I do not have my account ID right me. I do have my email address, member level and order address, Ido you need any of those?
+
+ACT:Account has been pulled up for David Williams.
+
+SYS:Yes, sir. I have pulled up your account and just need your zip code and email address to confirm your identity.
+
+USR:zip code: 68074. email address: davidwilliams847@email.com
+
+SYS:Thank you, one moment
+
+ACT:Identity verification in progess ...
+
+SYS:Perfect, I have verified your identity. Your username is dwilliams1
+
+SYS:Is there anything else I can assist you with today?
+
+USR:no that will be everything, thank you for helping me today
+
+SYS:Thank you and have a good day!
+
+<|endoftext|>USR:Hi could you help with an item?
+
+SYS:Sure, what did you need help with?
+
+USR:I'm looking for a small in a tommy hilfiger shirt
+
+USR:Could you let me know if it's available in store?
+
+ACT:Searching the FAQ pages ...
+
+ACT:System Action: search shirt
+
+SYS:The shirts come in a variety of sizes, we restock all of them at the second week of every month. So please check then.
+
+ACT:FAQ answer related to shirt (other2) was selected.
+
+USR:ok so there are none in store to buy now?
+
+SYS:You'll have to check, if there isn't you can buy it on the second week of the month when it restocks.
+
+SYS:Was there anything else you needed help with today?
+
+USR:ok that's it
+
+SYS:Have a great day!
+
+<|endoftext|>USR:Hello
+
+SYS:AcmeBrands, how may I help you?
+
+USR:Norman Bouchard here
+
+USR:I want to return an item
+
+SYS:Let me help you with that.
+
+SYS:Is there a reason that you want to return an item?
+
+USR:Yeah they arrived with a stain
+
+USR:its a pair of boots
+
+SYS:I will be glad to help you.
+
+USR:thanks a lot for the assistance :)
+
+ACT:Account has been pulled up for Norman Bouchard.
+
+SYS:Could I have your username, email address and order id to validate your order?
+
+USR:yeah I can do that
+
+USR:Email Address: nbouchard523@email.com
+
+USR:Username: nbouchard523
+
+USR:Order ID: 4157383304
+
+ACT:Purchase validation in progress ...
+
+SYS:Thank you
+
+SYS:What is your membership level?
+
+USR:its Bronze
+
+ACT:Membership level of Bronze has been noted.
+
+SYS:Has the boots been bought within the last 90 days?
+
+USR:No, not within the last 90 days
+
+SYS:According to policy, only items bought within the last 90 days can be return for bronze members.
+
+SYS:I would like to apologize but we cannot initiate a return at this time.
+
+USR:I understand I guess I will have to deal with that stain then
+
+SYS:Can I help you with anything else?
+
+USR:I really like the boots so no problem
+
+USR:no that would be all
+
+SYS:Have a good day.
+
+USR:you too
+
+<|endoftext|>SYS:Hi, how can I help you?
+
+USR:I would like some information about a product I'm thinking of buying
+
+SYS:Okay, sure what did you want to know?
+
+USR:It's about Michael Kors jeans. I'd like to know how much it would cost to have them tailored?
+
+ACT:Searching the FAQ pages ...
+
+ACT:System Action: search jeans
+
+SYS:If you are a bronze, silver or gold member, then tailoring is free. Tailoring for guests is also free if you have bought 3 or more pairs of jeans and have the associated reciepts. Otherwise, tailoring is $15 per pair with a free consultation. The len
+
+USR:Ok. Thank you.
+
+SYS:Is there anything else you need>
+
+USR:No that's it. Thanks.
+
+SYS:Okay, have a nice day
+
+<|endoftext|>

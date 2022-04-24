@@ -16,11 +16,16 @@ from spacy.matcher import Matcher
 import tokenizations
 
 import numpy as np
+import torch
+import math
+from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence, pad_sequence
 
 # def normalize_sentence(original_sentence, is_sensitives_types):
 MAP = {"agent": "SYS:", "customer": "USR:", "action": "ACT:"}
 
 EOS = "<|endoftext|>"
+
+MASK_TOKEN = "<MASK>"
 
 # can be found here, https://github.com/explosion/spaCy/blob/master/spacy/glossary.py
 ALL_TYPES = (
@@ -55,14 +60,68 @@ SPECIAL_TOKENS_MAP = {
     "PRON": "<PRON>",
     # SRL predicate
     "VERB": "<VERB>",
+    "MASK": "<MASK>",
 }
 
 for ent_type_ in ALL_TYPES:
     SPECIAL_TOKENS_MAP.update({ent_type_: f"<{ent_type_.upper()}>"})
 
 
-def get_special_tokens(special_token):
+NORMALIZE_MAP = {
+    "entity_only_low": {"dep": None, "pos": None, "ent": ["PERSON"]},
+    "entity_only_medium": {"dep": None, "pos": None, "ent": ["PERSON", "ORG", "DATE", "GPE"]},
+    "entity_only_high": {"dep": None, "pos": None, "ent": ALL_TYPES},
+    "no_pronoun": {
+        "dep": [
+            "subj",
+            "obj",
+        ],
+        "pos": [
+            "PROPN",  # proper noun, Mike
+        ],
+        "ent": ALL_TYPES,
+    },
+    "default": {
+        "dep": [
+            "subj",
+            "obj",
+        ],
+        "pos": [
+            "PROPN",  # proper noun, Mike
+            "PRON",  # pronoun, He
+        ],
+        "ent": ALL_TYPES,
+    },
+    "root": {
+        "dep": ["subj", "obj", "root"],
+        "pos": [
+            "PROPN",  # proper noun, Mike
+            "PRON",  # pronoun, He
+        ],
+        "ent": ALL_TYPES,
+    },
+    "SRL": {
+        "dep": ["subj", "obj", "root"],
+        "pos": ["PROPN", "PRON", "VERB"],  # proper noun, Mike  # pronoun, He
+        "ent": ALL_TYPES,
+    },
+}
+
+
+def decide_delex_level(
+    contextual_level,
+):
+    PREDICTOR = None
+    value = NORMALIZE_MAP[contextual_level]
+    ENTITY_TYPES, DEP_TYPES, POS_TYPES = value["ent"], value["dep"], value["pos"]
+
+    return (ENTITY_TYPES, DEP_TYPES, POS_TYPES, PREDICTOR)
+
+
+def get_special_tokens(special_token, use_single_mask_token=True):
     special_token = special_token.upper()
+    if use_single_mask_token:
+        return MASK_TOKEN
     return SPECIAL_TOKENS_MAP[special_token]
 
 
@@ -258,6 +317,33 @@ def get_relation(sent, nlp):
     spans = [doc[matches[i][1] : matches[i][2]] for i in range(len(matches))]
 
     return [span.text for span in spans]
+
+
+def calculate_ppl_gpt2(batch_sentence, gpt_model, device, PAD_TOKEN_ID):
+    criterion = nn.CrossEntropyLoss(ignore_index=PAD_TOKEN_ID, reduction="none")
+
+    batch_size = len(batch_sentence)
+
+    with torch.no_grad():  # no tracking history
+        source = list(map(lambda x: torch.tensor(x[:-1]).type(torch.int64), batch_sentence))
+        target = list(map(lambda x: torch.tensor(x[1:]).type(torch.int64), batch_sentence))
+        seq_lens = list(map(lambda x: len(x) - 1, batch_sentence))
+        source = pad_sequence(source, batch_first=True, padding_value=PAD_TOKEN_ID).to(device)  # torch.Size([1024, 6])
+        target = pad_sequence(target, batch_first=True, padding_value=PAD_TOKEN_ID).to(device)  # torch.Size([1024, 6])
+
+        attention_mask = (source != PAD_TOKEN_ID).type(torch.int64).to(device)  # torch.Size([1024, 6])
+        outputs = gpt_model(input_ids=source, attention_mask=attention_mask)
+        logits = outputs.logits.reshape((outputs.logits.shape[0] * outputs.logits.shape[1], -1))
+        target = target.view(-1)
+        total_loss = criterion(logits, target).reshape((batch_size, -1)).cpu().numpy()
+
+        ppls = []
+        for loss in total_loss:
+            sum_loss = sum(loss)
+            ntokens = sum([l != 0 for l in loss])
+            ppls.append(math.exp(sum_loss / ntokens))
+
+    return ppls
 
 
 if __name__ == "__main__":

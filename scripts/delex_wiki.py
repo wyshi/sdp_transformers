@@ -1,42 +1,28 @@
 """
 python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
-    -s wiki_contextual_no_pronoun \
-    -e all \
+    -s wiki_entity_person_mask_consec \
+    -cl entity_only_low
+
+python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
+    -s wiki_entity_person_org_date_gpe_mask_consec \
+    -cl entity_only_medium
+
+python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
+    -s wiki_entity_all_mask_consec \
+    -cl entity_only_high
+
+python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
+    -s wiki_contextual_no_pronoun_mask_consec \
     -cl no_pronoun \
-    -d
+
 
 python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
-    -s wiki_contextual_default \
-    -e all \
-    -cl default
-
-python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
-    -s wiki_contextual_root \
-    -e all \
+    -s wiki_contextual_root_mask_consec \
     -cl root
 
 python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
-    -s wiki_contextual_SRL \
-    -e all \
+    -s wiki_contextual_SRL_mask_consec \
     -cl SRL
-
-# "entity_only", "no_pronoun", "default", "root", "SRL"
-
-# entity_only
-python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
-    -s wiki_entity_all \
-    -e all \
-    -cl entity_only
-
-python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
-    -s wiki_entity_person_org_date_gpe \
-    -e person,org,date,gpe \
-    -cl entity_only
-
-python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
-    -s wiki_entity_person \
-    -e person \
-    -cl entity_only
 """
 import os, sys
 import argparse
@@ -45,7 +31,7 @@ from allennlp.predictors.predictor import Predictor
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from policy_functions import delex_line
-from utils import ALL_TYPES
+from utils import NORMALIZE_MAP, decide_delex_level
 
 CWD = os.getcwd()
 
@@ -68,12 +54,12 @@ def parse_args():
         type=str,
         help="the original file name to delex",
     )
-    parser.add_argument(
-        "--entity_types",
-        "-e",
-        type=str,
-        help="entity types to protect",
-    )
+    # parser.add_argument(
+    #     "--entity_types",
+    #     "-e",
+    #     type=str,
+    #     help="entity types to protect",
+    # )
     parser.add_argument(
         "--dry_run",
         "-d",
@@ -90,7 +76,7 @@ def parse_args():
         "--contextual_level",
         "-cl",
         type=str,
-        choices=["entity_only", "no_pronoun", "default", "root", "SRL"],
+        choices=NORMALIZE_MAP.keys(),
         default="default",
         help="entity_only: entities, no_pronoun:entity+subj+obj+PROPN, default: entity + subj, obj, PROPN, PRON; root: additional root; SRL: include predicate from SRL",
     )
@@ -102,53 +88,24 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
 
-    if args.entity_types == "all":
-        ENTITY_TYPES = ALL_TYPES
-    else:
-        ENTITY_TYPES = [_e.upper() for _e in args.entity_types.split(",")]
-    assert len(set(ENTITY_TYPES).intersection(set(ALL_TYPES))) == len(ENTITY_TYPES)
-
-    if args.contextual_level == "entity_only":
-        DEP_TYPES, POS_TYPES, PREDICTOR = None, None, None
-    else:
-        PREDICTOR = None
-        if args.contextual_level == "no_pronoun":
-            DEP_TYPES = [
-                "subj",
-                "obj",
-            ]
-            POS_TYPES = [
-                "PROPN",  # proper noun, Mike
-                # "PRON",  # pronoun, He
-            ]
-        elif args.contextual_level == "default":
-            DEP_TYPES = [
-                "subj",
-                "obj",
-            ]
-            POS_TYPES = [
-                "PROPN",  # proper noun, Mike
-                "PRON",  # pronoun, He
-            ]
-        elif args.contextual_level == "root":
-            DEP_TYPES = ["subj", "obj", "root"]
-            POS_TYPES = [
-                "PROPN",  # proper noun, Mike
-                "PRON",  # pronoun, He
-            ]
-        elif args.contextual_level == "SRL":
-            DEP_TYPES = ["subj", "obj", "root"]
-            POS_TYPES = ["PROPN", "PRON", "VERB"]  # proper noun, Mike  # pronoun, He
-
+    ENTITY_TYPES, DEP_TYPES, POS_TYPES, PREDICTOR = decide_delex_level(args.contextual_level)
     print(DEP_TYPES)
     print(POS_TYPES)
     print(PREDICTOR)
     print(ENTITY_TYPES)
     if args.dry_run:
+        sents = [
+            "Did I already tell you I'm getting a divorce?",
+            "What are you going to do about custody of the kids?",
+            "Did you hear Alice is getting divorced??",
+            "I have two kids",
+            "I am getting a divorce.",
+        ]
         sent = "Did I already tell you I'm getting a divorce?"  # "Did you hear Alice is getting divorced??"  #' Senjō no Valkyria 3 : Unrecorded Chronicles ( Japanese : 戦場のヴァルキュリア3 , lit . Valkyria of the Battlefield 3 ) , commonly referred to as Valkyria Chronicles III outside Japan , is a tactical role @-@ playing video game developed by Sega and Media.Vision for the PlayStation Portable . Released in January 2011 in Japan , it is the third game in the Valkyria series . Employing the same fusion of tactical and real @-@ time gameplay as its predecessors , the story runs parallel to the first game and follows the " Nameless " , a penal military unit serving the nation of Gallia during the Second Europan War who perform secret black operations and are pitted against the Imperial unit " Calamaty Raven " . '
         sent = "What are you going to do about custody of the kids?"  # "Did you hear Alice is getting divorced??"  #' Senjō no Valkyria 3 : Unrecorded Chronicles ( Japanese : 戦場のヴァルキュリア3 , lit . Valkyria of the Battlefield 3 ) , commonly referred to as Valkyria Chronicles III outside Japan , is a tactical role @-@ playing video game developed by Sega and Media.Vision for the PlayStation Portable . Released in January 2011 in Japan , it is the third game in the Valkyria series . Employing the same fusion of tactical and real @-@ time gameplay as its predecessors , the story runs parallel to the first game and follows the " Nameless " , a penal military unit serving the nation of Gallia during the Second Europan War who perform secret black operations and are pitted against the Imperial unit " Calamaty Raven " . '
         # sent = "Did you hear Alice is getting divorced??"  # "Did you hear Alice is getting divorced??"  #' Senjō no Valkyria 3 : Unrecorded Chronicles ( Japanese : 戦場のヴァルキュリア3 , lit . Valkyria of the Battlefield 3 ) , commonly referred to as Valkyria Chronicles III outside Japan , is a tactical role @-@ playing video game developed by Sega and Media.Vision for the PlayStation Portable . Released in January 2011 in Japan , it is the third game in the Valkyria series . Employing the same fusion of tactical and real @-@ time gameplay as its predecessors , the story runs parallel to the first game and follows the " Nameless " , a penal military unit serving the nation of Gallia during the Second Europan War who perform secret black operations and are pitted against the Imperial unit " Calamaty Raven " . '
         sent = ' Senjō no Valkyria 3 : Unrecorded Chronicles ( Japanese : 戦場のヴァルキュリア3 , lit . Valkyria of the Battlefield 3 ) , commonly referred to as Valkyria Chronicles III outside Japan , is a tactical role @-@ playing video game developed by Sega and Media.Vision for the PlayStation Portable . Released in January 2011 in Japan , it is the third game in the Valkyria series . Employing the same fusion of tactical and real @-@ time gameplay as its predecessors , the story runs parallel to the first game and follows the " Nameless " , a penal military unit serving the nation of Gallia during the Second Europan War who perform secret black operations and are pitted against the Imperial unit " Calamaty Raven " . '
+        sent = "Did you hear Alice is getting divorced??"  #' Senjō no Valkyria
         # sent = "weiyan shi's birthday is January 23."
         # sent = "Paul gave his book to Mary"
         # sent = "The rock thrown by Paul broke the window"
@@ -157,15 +114,20 @@ if __name__ == "__main__":
         # )
         # sent = "a very well-made , funny and entertaining picture ."
         # sent = "i do n't think i laughed out loud once "
-        _line, cur_delexed, cur_total = delex_line(
-            line=sent,
-            entity_types=ENTITY_TYPES,
-            return_stat=True,
-            dep_types=DEP_TYPES,
-            predictor=PREDICTOR,
-            pos_types=POS_TYPES,
-        )
-        print(_line)
+        for sent in sents:
+            print(sent)
+            _line, cur_delexed, cur_total = delex_line(
+                line=sent,
+                entity_types=ENTITY_TYPES,
+                return_stat=True,
+                dep_types=DEP_TYPES,
+                predictor=PREDICTOR,
+                pos_types=POS_TYPES,
+                use_single_mask_token=False,
+                concat_consecutive_special_tokens=True,
+            )
+            print(_line)
+            print()
     else:
         with open(
             args.original_file,
