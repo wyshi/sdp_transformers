@@ -42,8 +42,10 @@ class TrainingArguments(transformers.TrainingArguments):
     )
     evaluate_test_split: bool = field(default=False, metadata={"help": "Run evaluation on the test split"})
     is_sdp_finetune: str = field(default="no", metadata={"help": "if it's sdp finetuning"})
+    save_all_models: str = field(default="no", metadata={"help": "save all the models for the exposure"})
 
     def __post_init__(self):
         super(TrainingArguments, self).__post_init__()
         self.lr_decay = self.lr_decay.lower() in ("y", "yes")
         self.is_sdp_finetune = self.is_sdp_finetune in ("y", "yes")
+        self.save_all_models = self.save_all_models in ("y", "yes")

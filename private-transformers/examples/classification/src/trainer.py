@@ -596,7 +596,8 @@ class Trainer(transformers.Trainer):
         # ---
 
         save_path = os.path.join(self.args.output_dir, f"checkpoint-{self.global_step}")
-        self._save_model(save_path)
+        if self.args.save_steps > 0:
+            self._save_model(save_path)
 
         is_best_so_far = False
         if objective > self.objective:
@@ -632,7 +633,10 @@ class Trainer(transformers.Trainer):
         self.log_history.append(logs)
 
         # Write to disk!
-        utils.jdump(self.log_history, os.path.join(save_path, "log_history.json"))
+        if self.args.save_steps > 0:
+            utils.jdump(self.log_history, os.path.join(save_path, "log_history.json"))
+        utils.jdump(self.log_history, os.path.join(self.args.output_dir, "log_history.json"))
+
         # ---
         if is_best_so_far:
             utils.jdump(self.log_history, os.path.join(best_save_path, "log_history.json"))

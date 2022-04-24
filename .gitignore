@@ -30,3 +30,4 @@ private-transformers/examples/classification/data/normalized_mask/
 private-transformers/examples/classification/data/normalized_big_mask/
 
 *.png
+data/abcd/error_rate_abcd_my_delex-entity_only_high_3.13828/

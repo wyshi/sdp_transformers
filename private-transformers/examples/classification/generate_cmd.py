@@ -26,14 +26,17 @@ python /local/data/wyshi/sdp_transformers/private-transformers/examples/classifi
 import os
 import argparse
 from glob import glob
+import pdb
 
-DATA_DIR = "classification/data/original"
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data/original")
 
 
 def get_data_dir(input_dir, contextual_level):
     if contextual_level != "no":
         prefix = input_dir.replace("original", "normalized_mask")
         _data_dir = os.path.join(prefix, input_dir.split("/")[-1] + f"-{contextual_level}")
+
+        # pdb.set_trace()
         data_dir = [_dir for _dir in glob(os.path.join(prefix, "*")) if _dir.startswith(_data_dir)][0]
     else:
         data_dir = input_dir
@@ -41,7 +44,7 @@ def get_data_dir(input_dir, contextual_level):
     return data_dir
 
 
-def get_data_from_task(task_name, is_sdp_finetune, delex_level):
+def get_data_from_task(task_name, is_sdp_finetune, delex_level, crt_baseline=False):
     data_dir_suffix = {
         "sst-2": "GLUE-SST-2",
         "mnli": "MNLI",
@@ -57,6 +60,9 @@ def get_data_from_task(task_name, is_sdp_finetune, delex_level):
             pass
         else:
             data_dir = get_data_dir(data_dir, delex_level)
+
+    # if crt_baseline:
+    #     data_dir = get_data_dir(data_dir, delex_level)
 
     return data_dir
 
@@ -96,6 +102,7 @@ def parse_args():
         default=0,
         help="device",
     )
+    parser.add_argument("--crt_baseline", "-crt", action="store_true", default=False)
 
     args = parser.parse_args()
 
@@ -148,6 +155,7 @@ def print_cmd(
     is_sdp_finetune,
     model_path,
     device=0,
+    crt_baseline=False,
 ):
     if non_private == "yes":
         lr = 1e-5
@@ -165,7 +173,9 @@ def print_cmd(
         """
     )
 
-    data_dir = get_data_from_task(task_name=task, is_sdp_finetune=is_sdp_finetune, delex_level=delex_level)
+    data_dir = get_data_from_task(
+        task_name=task, is_sdp_finetune=is_sdp_finetune, delex_level=delex_level, crt_baseline=crt_baseline
+    )
     print(
         f"""
 CUDA_VISIBLE_DEVICES={device} python -m classification.run_wrapper \\
@@ -205,6 +215,12 @@ def main(args):
                         )
                     else:
                         model_path = "roberta-base"
+                    if args.crt_baseline:
+                        if non_private == "yes":
+                            continue
+                        output_dir = output_dir.replace("SDP", "CRT")
+                        is_sdp_finetune = "no"
+                        model_path = "roberta-base"
                     print_cmd(
                         task=task,
                         delex_level=delex_level,
@@ -214,6 +230,7 @@ def main(args):
                         is_sdp_finetune=is_sdp_finetune,
                         model_path=model_path,
                         device=args.device,
+                        crt_baseline=args.crt_baseline,
                     )
                     total += 1
 

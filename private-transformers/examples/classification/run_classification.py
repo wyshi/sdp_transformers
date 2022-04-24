@@ -682,7 +682,7 @@ def main():
     # import pdb
 
     # pdb.set_trace()
-    training_args.save_steps = _save_step
+    training_args.save_steps = _save_step if training_args.save_all_models else -1  # _save_step
     training_args.eval_steps = _save_step
 
     # import pdb

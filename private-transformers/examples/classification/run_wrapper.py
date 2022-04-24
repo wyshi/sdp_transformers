@@ -23,6 +23,7 @@ def _get_command(
     learning_rate=1e-5,
     batch_size=None,
     miss="no",
+    save_all_models="no",
 ):
     task_name_to_factor = {"sst-2": 1, "qnli": 2, "qqp": 6, "mnli": 6, "abcd": 2}
     factor = task_name_to_factor[task_name]
@@ -105,7 +106,8 @@ python -m classification.run_classification \
   --evaluation_strategy steps --eval_steps {eval_steps} --evaluate_before_training True \
   --do_train --do_eval \
   --first_sent_limit 200 --other_sent_limit 200 --truncate_head {truncate_head} \
-  --is_sdp_finetune {is_sdp_finetune}
+  --is_sdp_finetune {is_sdp_finetune} \
+  --save_all_models {save_all_models}
     """
 
 
@@ -129,6 +131,7 @@ def main(
     delex_level="no",
     batch_size=None,
     miss="no",
+    save_all_models="no",
 ):
     command = _get_command(
         output_dir=output_dir,
@@ -146,6 +149,7 @@ def main(
         learning_rate=learning_rate,
         batch_size=batch_size,
         miss=miss,
+        save_all_models=save_all_models,
     )
     print("Running command:")
     print(command)
