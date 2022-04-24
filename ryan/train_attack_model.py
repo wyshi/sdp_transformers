@@ -70,9 +70,12 @@ def train_model(model, labels, inputs):
     train_sampler = RandomSampler(train_data)
     train_loader = DataLoader(dataset=train_data, sampler=train_sampler, batch_size=batch_size)
 
-    # unpack dev data since it won't be loaded in batches
+    # unpack dev and test data since it won't be loaded in batches
     dev_ids = dev_data[:][0]
     dev_labels = dev_data[:][1]
+
+    test_ids = test_data[:][0]
+    test_labels = test_data[:][1]
 
     # parameters for early stopping
     patience = 6
@@ -112,6 +115,12 @@ def train_model(model, labels, inputs):
             count+=1
         if count>=patience:
             break 
+    
+    best_model.eval()
+    with torch.no_grad():
+        test_out = best_model(test_ids)
+    
+    print(f"Test Accuracy: {compute_accuracy(test_out, test_labels)}")
     
     return best_model, test_data
 
