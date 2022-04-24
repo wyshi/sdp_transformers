@@ -15,10 +15,15 @@ python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
     -s wiki_contextual_no_pronoun_mask_consec \
     -cl no_pronoun \
 
+python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
+    -s wiki_contextual_default_mask_consec \
+    -cl default
 
 python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
     -s wiki_contextual_root_mask_consec \
     -cl root
+
+
 
 python scripts/delex_wiki.py -o data/wikitext-2-raw/train.txt \
     -s wiki_contextual_SRL_mask_consec \
