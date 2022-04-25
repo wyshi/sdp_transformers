@@ -359,6 +359,7 @@ def parse_args():
     parser.add_argument(
         "--deduplicate",
         action = "store_true",
+        default = False,
         help="deduplicate data when doing delexicalization",
     )
     args = parser.parse_args()

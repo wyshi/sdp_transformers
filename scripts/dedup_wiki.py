@@ -1,6 +1,10 @@
+import os
 from nltk.tokenize import sent_tokenize
 
-with open("../data/wikitext-2-raw/train.txt") as inp:
+FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data/wikitext-2-raw/train.txt")
+DIR = os.path.dirname(os.path.abspath(__file__))
+
+with open(FILE) as inp:
     txt = inp.readlines()
 
 def wiki(wiki):
@@ -21,7 +25,7 @@ def wiki(wiki):
 
 wiki_dedup = wiki(txt)
 
-with open('./train.txt', 'w') as inp:
+with open(os.path.join(DIR, 'train.txt'), 'w') as inp:
     for l in wiki_dedup:
         inp.write(l+"\n")
 
