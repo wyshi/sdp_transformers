@@ -10,12 +10,12 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import convert_abcd_line, MAP, EOS, decide_delex_level
 from policy_functions import delex_line
 
-unique_sents = set()
+UNIQUE_SENTS = set()
 
 CWD = os.getcwd()
 
-FILE = os.path.join(CWD, "../abcd/data/abcd_v1.1.json")
-SAVE_DIR = os.path.join(CWD, ".")
+FILE = os.path.join(sys.path[-1], "abcd/data/abcd_v1.1.json")
+SAVE_DIR = os.path.join(sys.path[-1], "data/abcd_dedup")
 
 with open(
     FILE,
@@ -70,10 +70,10 @@ def dedup(text):
             sents[-1] = sents[-1] + '?'
     
     for i, sent in enumerate(sents):
-        if sent in unique_sents:
-            sents[i] = '<SENT_MASK>'
+        if sent in UNIQUE_SENTS:
+            sents[i] = '<MASK>'
         else:
-            unique_sents.add(sent)
+            UNIQUE_SENTS.add(sent)
     
     text = ' '.join(sents)
     return text
@@ -358,9 +358,7 @@ def parse_args():
     )
     parser.add_argument(
         "--deduplicate",
-        "-dedup",
-        type=bool,
-        default=False,
+        action = "store_true",
         help="deduplicate data when doing delexicalization",
     )
     args = parser.parse_args()
