@@ -95,7 +95,7 @@ python -m classification.run_classification \
   --target_epsilon {target_epsilon} \
   --per_device_train_batch_size {per_device_train_batch_size} \
   --gradient_accumulation_steps {gradient_accumulation_steps} \
-  --per_device_eval_batch_size 8 \
+  --per_device_eval_batch_size {per_device_train_batch_size} \
   --per_example_max_grad_norm 0.1 --ghost_clipping {ghost_clipping} \
   --learning_rate {learning_rate} \
   --lr_decay yes \

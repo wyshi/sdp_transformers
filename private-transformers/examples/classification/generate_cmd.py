@@ -37,7 +37,9 @@ def get_data_dir(input_dir, contextual_level):
         _data_dir = os.path.join(prefix, input_dir.split("/")[-1] + f"-{contextual_level}")
 
         # pdb.set_trace()
-        data_dir = [_dir for _dir in glob(os.path.join(prefix, "*")) if _dir.startswith(_data_dir)][0]
+        data_dir = [
+            _dir for _dir in glob(os.path.join(prefix, "*")) if _dir.startswith(_data_dir) and "sample" not in _dir
+        ][0]
     else:
         data_dir = input_dir
     print(data_dir)

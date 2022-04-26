@@ -127,7 +127,7 @@ CUDA_VISIBLE_DEVICES=4 python -m classification.run_wrapper \
 # cuda5, qnli, qqp, high-entity
 CUDA_VISIBLE_DEVICES=5 python -m classification.run_wrapper \
 --output_dir classification/output/qnli/entity_only_high/not_missed/CRT \
---data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/normalized_mask/QNLI/QNLI-entity_only_high-17.18-sample100_cleaned \
+--data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/normalized_mask/QNLI/QNLI-entity_only_high-17.18 \
 --delex_level entity_only_high \
 --task_name qnli \
 --max_seq_len 256 \

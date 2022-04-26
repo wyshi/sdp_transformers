@@ -79,9 +79,11 @@ for task in TASKS:
                     public_or_not,
                     "best",
                 )
-                metrics = get_model_metrics(best_model_path, task, context_level, miss_or_not, public_or_not)
-                records.append(metrics)
-
+                try:
+                    metrics = get_model_metrics(best_model_path, task, context_level, miss_or_not, public_or_not)
+                    records.append(metrics)
+                except:
+                    pass
 records = pd.DataFrame(
     records,
 )
@@ -99,11 +101,18 @@ def round_num(num, multiply_by_100):
         return format(round(num, 2), ".2f")
 
 
+CL_MAP = {
+    "entity_only_medium": "low entity",
+    "entity_only_high": "high entity",
+    "default": "low contextual",
+    "SRL": "high contextual",
+}
+
 # generate latex
 lines = []
-for public_or_not in ["public", "SDP"]:
+for public_or_not in ["public", "SDP", "CRT"]:
     for context_level in ["entity_only_medium", "entity_only_high", "default", "SRL"]:
-        items = ["model", context_level]
+        items = [public_or_not, CL_MAP[context_level]]
         for task in ["mnli", "qqp", "qnli", "sst-2"]:
             items.append("\%")
             selected_record = records[
@@ -111,6 +120,8 @@ for public_or_not in ["public", "SDP"]:
                 & (records["context_level"] == context_level)
                 & (records["public_or_not"] == public_or_not)
             ]
+            if selected_record.shape[0] == 0:
+                continue
             items.append(round_num(selected_record["eval_acc"].values.item(), True))
             if not np.isnan(selected_record["eps_estimate"].values.item()):
                 items.append(round_num(selected_record["eps_estimate"].values.item(), False))

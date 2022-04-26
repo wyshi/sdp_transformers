@@ -1,3 +1,6 @@
+"""
+python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/scripts/take_data_samples.py -d /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/normalized_mask/MNLI/MNLI-entity_only_high-8.63 -n 100
+"""
 import argparse
 import numpy as np
 import os
@@ -34,8 +37,7 @@ def take_samples(data, n):
 
 def main(args):
     train_file_dir = os.path.join(args.dir, "train.tsv")
-    dev_file_dir = os.path.join(args.dir, "dev.tsv")
-    test_file_dir = os.path.join(args.dir, "test.tsv")
+
     with open(train_file_dir, "r", encoding="utf-8-sig") as fh:
         lines = fh.readlines()
 
@@ -61,10 +63,28 @@ def main(args):
         fh.writelines(sampled_lines)
 
     print(os.path.join(save_dir, "train.tsv"))
-    # dev set shouldn't be normalized
-    os.system(f"cp {dev_file_dir} {save_dir}")
-    # test set shouldn't be normalized
-    os.system(f"cp {test_file_dir} {save_dir}")
+
+    if "mnli" not in save_dir.lower():
+        dev_file_dir = os.path.join(args.dir, "dev.tsv")
+        test_file_dir = os.path.join(args.dir, "test.tsv")
+        # dev set shouldn't be normalized
+        os.system(f"cp {dev_file_dir} {save_dir}")
+        # test set shouldn't be normalized
+        os.system(f"cp {test_file_dir} {save_dir}")
+    else:
+        dev_file_dir = os.path.join(args.dir, "dev_matched.tsv")
+        test_file_dir = os.path.join(args.dir, "test_matched.tsv")
+        # dev set shouldn't be normalized
+        os.system(f"cp {dev_file_dir} {save_dir}")
+        # test set shouldn't be normalized
+        os.system(f"cp {test_file_dir} {save_dir}")
+
+        dev_file_dir = os.path.join(args.dir, "dev_mismatched.tsv")
+        test_file_dir = os.path.join(args.dir, "test_mismatched.tsv")
+        # dev set shouldn't be normalized
+        os.system(f"cp {dev_file_dir} {save_dir}")
+        # test set shouldn't be normalized
+        os.system(f"cp {test_file_dir} {save_dir}")
 
 
 if __name__ == "__main__":
