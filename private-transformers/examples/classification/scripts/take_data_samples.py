@@ -1,5 +1,6 @@
 """
-python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/scripts/take_data_samples.py -d /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/normalized_mask/MNLI/MNLI-entity_only_high-8.63 -n 100
+python classification/scripts/take_data_samples.py -d classification/data/normalized_mask/MNLI/MNLI-entity_only_high-8.63 -n 301
+python classification/scripts/take_data_samples.py -d classification/data/original/MNLI -n 301
 """
 import argparse
 import numpy as np

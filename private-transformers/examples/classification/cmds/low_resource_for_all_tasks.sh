@@ -10,7 +10,7 @@
 
 CUDA_VISIBLE_DEVICES=0 python -m classification.run_wrapper \
 --output_dir classification/output/sst-2/sample100/not_missed/public \
---data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/normalized_mask/GLUE-SST-2/GLUE-SST-2-sample100/GLUE-SST-2-entity_only_high-3.01-sample100 \
+--data_dir classification/data/normalized_mask/GLUE-SST-2/GLUE-SST-2-sample100/GLUE-SST-2-entity_only_high-3.01-sample100 \
 --delex_level entity_only_high \
 --task_name sst-2 \
 --max_seq_len 256 \
@@ -35,7 +35,7 @@ CUDA_VISIBLE_DEVICES=0 python -m classification.run_wrapper \
 
 CUDA_VISIBLE_DEVICES=0 python -m classification.run_wrapper \
 --output_dir classification/output/sst-2/sample100/not_missed/SDP \
---data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/original/GLUE-SST-2 \
+--data_dir classification/data/original/GLUE-SST-2 \
 --delex_level entity_only_high \
 --task_name sst-2 \
 --max_seq_len 256 \
@@ -57,7 +57,7 @@ CUDA_VISIBLE_DEVICES=0 python -m classification.run_wrapper \
 
 CUDA_VISIBLE_DEVICES=0 python -m classification.run_wrapper \
 --output_dir classification/output/sst-2/sample100/not_missed/SDP_low_resource \
---data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/normalized_mask/GLUE-SST-2/GLUE-SST-2-sample100/original-sample100 \
+--data_dir classification/data/normalized_mask/GLUE-SST-2/GLUE-SST-2-sample100/original-sample100 \
 --delex_level entity_only_high \
 --task_name sst-2 \
 --max_seq_len 256 \
@@ -83,7 +83,7 @@ CUDA_VISIBLE_DEVICES=0 python -m classification.run_wrapper \
 
 CUDA_VISIBLE_DEVICES=1 python -m classification.run_wrapper \
 --output_dir classification/output/qqp/sample100/not_missed/public \
---data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/normalized_mask/QQP/QQP-sample100/QQP-entity_only_high-8.3-sample100 \
+--data_dir classification/data/normalized_mask/QQP/QQP-entity_only_high-8.3-sample301/ \
 --delex_level entity_only_high \
 --task_name qqp \
 --max_seq_len 256 \
@@ -108,7 +108,7 @@ CUDA_VISIBLE_DEVICES=1 python -m classification.run_wrapper \
 
 CUDA_VISIBLE_DEVICES=1 python -m classification.run_wrapper \
 --output_dir classification/output/qqp/sample100/not_missed/SDP \
---data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/original/QQP \
+--data_dir classification/data/original/QQP \
 --delex_level entity_only_high \
 --task_name qqp \
 --max_seq_len 256 \
@@ -130,7 +130,7 @@ CUDA_VISIBLE_DEVICES=1 python -m classification.run_wrapper \
 
 CUDA_VISIBLE_DEVICES=1 python -m classification.run_wrapper \
 --output_dir classification/output/qqp/sample100/not_missed/SDP_low_resource \
---data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/normalized_mask/QQP/QQP-sample100/original-sample100 \
+--data_dir classification/data/normalized_mask/QQP/QQP-sample100/original-sample100 \
 --delex_level entity_only_high \
 --task_name qqp \
 --max_seq_len 256 \
@@ -157,7 +157,7 @@ CUDA_VISIBLE_DEVICES=1 python -m classification.run_wrapper \
 
 CUDA_VISIBLE_DEVICES=2 python -m classification.run_wrapper \
 --output_dir classification/output/mnli/sample100/not_missed/public \
---data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/normalized_mask/MNLI/MNLI-sample100/MNLI-entity_only_high-8.63-sample100 \
+--data_dir classification/data/normalized_mask/MNLI/MNLI-entity_only_high-8.63-sample301 \
 --delex_level entity_only_high \
 --task_name mnli \
 --max_seq_len 256 \
@@ -182,7 +182,7 @@ CUDA_VISIBLE_DEVICES=2 python -m classification.run_wrapper \
 
 CUDA_VISIBLE_DEVICES=2 python -m classification.run_wrapper \
 --output_dir classification/output/mnli/sample100/not_missed/SDP \
---data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/original/MNLI \
+--data_dir classification/data/original/MNLI \
 --delex_level entity_only_high \
 --task_name mnli \
 --max_seq_len 256 \
@@ -204,7 +204,7 @@ CUDA_VISIBLE_DEVICES=2 python -m classification.run_wrapper \
 
 CUDA_VISIBLE_DEVICES=2 python -m classification.run_wrapper \
 --output_dir classification/output/mnli/sample100/not_missed/SDP_low_resource \
---data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/normalized_mask/MNLI/MNLI-sample100/original-sample100 \
+--data_dir classification/data/normalized_mask/MNLI/MNLI-sample100/original-sample100 \
 --delex_level entity_only_high \
 --task_name mnli \
 --max_seq_len 256 \
