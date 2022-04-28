@@ -1,5 +1,6 @@
 """
-python /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/scripts/take_data_samples.py -d /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/normalized_mask/MNLI/MNLI-entity_only_high-8.63 -n 100
+python classification/scripts/take_data_samples.py -d classification/data/normalized_mask/MNLI/MNLI-entity_only_high-8.63 -n 301
+python classification/scripts/take_data_samples.py -d classification/data/original/MNLI -n 301
 """
 import argparse
 import numpy as np
@@ -30,6 +31,9 @@ def parse_args():
 def take_samples(data, n):
     np.random.seed(1111)
     sampled_idx = np.random.choice(len(data), size=n, replace=False)
+    import pdb
+
+    pdb.set_trace()
     sampled_data = [data[idx] for idx in sampled_idx]
 
     return sampled_data
@@ -44,12 +48,18 @@ def main(args):
     sampled_lines = take_samples(lines, args.sample_n)
 
     if "original" not in args.dir:
-        save_dir = f"{args.dir.rstrip('/')}-sample{args.sample_n}"
+        for _task in ["MNLI", "QQP", "SST-2", "QNLI"]:
+            if _task in args.dir:
+                task_name = _task
+        save_dir = os.path.join(
+            os.path.dirname(args.dir),
+            f"{task_name}-sample{args.sample_n}",
+            f"{args.dir.rstrip('/').split('/')[-1]}-sample{args.sample_n}",
+        )
+        # save_dir = f"{args.dir.rstrip('/')}-sample{args.sample_n}"
     else:
         task_name = args.dir.rstrip("/").split("/")[-1]
-        save_dir = (
-            f"{args.dir.rstrip('/').replace('original', 'normalized_mask')}/{task_name}/original-sample{args.sample_n}"
-        )
+        save_dir = f"{args.dir.rstrip('/').replace('original', 'normalized_mask')}/{task_name}-sample{args.sample_n}/original-sample{args.sample_n}"
     import pdb
 
     pdb.set_trace()

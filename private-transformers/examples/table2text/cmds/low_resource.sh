@@ -6,7 +6,7 @@
         #######################################
         
 
-CUDA_VISIBLE_DEVICES=5 bash table2text/run.sh \
+CUDA_VISIBLE_DEVICES=7 bash table2text/run.sh \
 table2text/output/wiki/sample10/not_missed/public `#output_dir` \
 ../../data/sample10/wiki_entity_all_mask_consec-16.4-sample10 `#data_dir` \
 wikitext2 `#task_mode` \
@@ -33,7 +33,7 @@ no `#add_mask`
         #######################################
         
 
-CUDA_VISIBLE_DEVICES=5 bash table2text/run.sh \
+CUDA_VISIBLE_DEVICES=7 bash table2text/run.sh \
 table2text/output/wiki/sample10/not_missed/SDP `#output_dir` \
 ../../data/wikitext-2-raw `#data_dir` \
 wikitext2 `#task_mode` \
@@ -52,7 +52,7 @@ no `#add_mask`
 
 
 
-CUDA_VISIBLE_DEVICES=5 bash table2text/run.sh \
+CUDA_VISIBLE_DEVICES=7 bash table2text/run.sh \
 table2text/output/wiki/sample10/not_missed/SDP_low_resource `#output_dir` \
 ../../data/sample10/wikitext-2-raw-sample10 `#data_dir` \
 wikitext2 `#task_mode` \

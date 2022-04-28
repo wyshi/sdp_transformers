@@ -18,7 +18,8 @@ Fine-tuning the library models for language modeling on a text file (GPT, GPT-2,
 GPT, GPT-2 and CTRL are fine-tuned using a causal language modeling (CLM) loss. BERT and RoBERTa are fine-tuned
 using a masked language modeling (MLM) loss. XLNet is fine-tuned using a permutation language modeling (PLM) loss.
 
-CUDA_VISIBLE_DEVICES=4 bash table2text/run_estimate_error_rate.sh table2text/output/abcd/entity_only_high/test_amplification_1%_eps0.5/public `#output_dir` ../../data/abcd/abcd_my_delex-entity_only_high_3.13828 `#data_dir` wikitext2-abcd `#task_mode` gpt2 `#model_name_or_path` 0.5 `#target_epsilon` yes `#ghost_clipping` no `#non_private` no `#is_sdp_finetune` 200 `#num_train_epochs` yes `#add_canary` yes `#miss_canary` 100 `#canary_times` 0.0005 `#learning_rate` 128 `#gradient_accumulation_steps` yes `#add_mask` 0.01 `#detection_error_rate` yes `#save_all_models`
+CUDA_VISIBLE_DEVICES=4 bash table2text/run_estimate_error_rate.sh /tmp/estimate_error `#output_dir` ../../data/abcd/abcd_my_delex-entity_only_high_3.13828 `#data_dir` wikitext2-abcd `#task_mode` gpt2 `#model_name_or_path` 0.5 `#target_epsilon` yes `#ghost_clipping` no `#non_private` no `#is_sdp_finetune` 200 `#num_train_epochs` no `#add_canary` yes `#miss_canary` 100 `#canary_times` 0.0005 `#learning_rate` 128 `#gradient_accumulation_steps` no `#add_mask` 0.01 `#detection_error_rate` yes `#save_all_models`
+CUDA_VISIBLE_DEVICES=4 bash table2text/run_estimate_error_rate.sh /tmp/estimate_error `#output_dir` ../../data/wiki_entity_all_mask_consec-16.4 `#data_dir` wikitext2 `#task_mode` gpt2 `#model_name_or_path` 0.5 `#target_epsilon` yes `#ghost_clipping` no `#non_private` no `#is_sdp_finetune` 200 `#num_train_epochs` no `#add_canary` yes `#miss_canary` 100 `#canary_times` 0.0005 `#learning_rate` 128 `#gradient_accumulation_steps` yes `#add_mask` 0.01 `#detection_error_rate` yes `#save_all_models`
 """
 
 import json
@@ -41,6 +42,7 @@ from .compiled_args import (
 from .misc import get_prompt_dataset, get_all_datasets, add_special_tokens
 from .trainer import Trainer
 import numpy as np
+import argparse
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +50,30 @@ MODEL_CONFIG_CLASSES = list(MODEL_WITH_LM_HEAD_MAPPING.keys())
 MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
 
 NUM_MODELS_TO_SAVE = 50
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="sample a file")
+    parser.add_argument(
+        "--task",
+        "-t",
+        type=str,
+        default=None,
+        choices=["wiki", "abcd"],
+        help="tasks",
+    )
+    parser.add_argument(
+        "--device",
+        "-d",
+        type=int,
+        choices=list(range(8)),
+        default=None,
+        help="device",
+    )
+
+    args = parser.parse_args()
+
+    return args
 
 
 def main():
@@ -239,14 +265,27 @@ def main():
         model_args=model_args,
     )
     selected_ids = np.random.choice(len(train_dataset), size=10, replace=False)
-    selected_data = [train_dataset[_id] for _id in selected_ids]
+    selected_data = [(_id, train_dataset[_id]) for _id in selected_ids]
     lines = []
     for data in selected_data:
-        lines.append([tokenizer.decode(tok, clean_up_tokenization_spaces=False) for tok in data["input_ids"]])
+        lines.append(
+            (data[0], [tokenizer.decode(tok, clean_up_tokenization_spaces=False) for tok in data[1]["input_ids"]])
+        )
 
-    import pdb
-
-    pdb.set_trace()
+    if "abcd" in data_args.train_data_file:
+        SAVE_DIR = (
+            "/local/data/wyshi/sdp_transformers/data/abcd/error_rate_abcd_my_delex-entity_only_high_3.13828/tok_level/"
+        )
+    else:
+        SAVE_DIR = (
+            "/local/data/wyshi/sdp_transformers/data/wiki/error_rate_wiki_entity_all_mask_consec-16.4/tok_level/"
+        )
+    os.makedirs(SAVE_DIR, exist_ok=True)
+    for dial in lines:
+        save_dial_dir = os.path.join(SAVE_DIR, f"line_{dial[0]}.txt")
+        with open(save_dial_dir, "w") as fh:
+            fh.writelines(["\n" + _d if _d in ["USR:", "SYS:", "ACT:"] else _d + "/" for _d in dial[1]])
+            print(save_dial_dir)
 
 
 if __name__ == "__main__":
