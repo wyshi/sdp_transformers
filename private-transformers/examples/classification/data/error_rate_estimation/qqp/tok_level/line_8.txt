@@ -1,0 +1,10 @@
+<s>//What// is// the// best// and// cheapest// way// to// learn//<mask>// in// c//hen//nai//?//</s>//</s>//Which// is// the// best// institute// to// learn// the//<mask>// language// in//<mask>//?//</s>
+<s>//BS//NL//:// Is//<mask>// a//<mask>//?//</s>//</s>//What// is//<mask>//?//</s>
+<s>//Which// shares// to// buy// in//<mask>//?//</s>//</s>//What// will// be// the// cost// of// agricultural//<mask>// agricultural// land// in//<mask>// road//?//</s>
+<s>//Which// is// the// best//<mask>// mobile//<mask>//<mask>//?//</s>//</s>//Mobile// Ph//ones//:// What// is// the// best// phone// I// can// buy// within// a// budget// of//<mask>// in//<mask>//?//</s>
+<s>//What// are// some// examples// of// the// use// of// sal//ami// tactics// in// business//?//</s>//</s>//Do// many//<mask>// businessmen// really// practice// shady// business// tactics//?//</s>
+<s>//How// do// I// upgrade// the//<mask>// to//<mask>// on// my// Galaxy// Y//?//</s>//</s>//Which// is// the// best// custom//<mask>// for// the// Samsung// Galaxy// Y// s//53//60// (//<mask>// 2//.//3//.//6//)?//</s>
+<s>//How// do// I// practice// C// programming//?//</s>//</s>//How// can// we// learn// c// programming//?//</s>
+<s>//Which// are// the// safe// hotels// for// unmarried// couples// in// ah//med//abad//?//</s>//</s>//How// safe// are// hotels// in// go//a// for// unmarried// couples//?//</s>
+<s>//Which// gaming// system// is// better// for// sport// games// such// as//<mask>// and//<mask>//,// Xbox// or// Playstation//?//</s>//</s>//What//'s// the// application// of// laser// in// dent//istry//?//</s>
+<s>//What// can// conv//olution//al// neural// network// do//?//</s>//</s>//What// is// a// conv//olution//al// neural// network//?//</s>

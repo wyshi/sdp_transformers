@@ -1,0 +1,10 @@
+<s>//When// do// I// ask// my// crush// out//?//</s>//</s>//When// should// I// ask// my// crush// out//?//</s>
+<s>//How// is// the// basic// structure// of// the// plasma// membrane// described//?//</s>//</s>//How// do// you// describe// the// molecular// structure// of// the// plasma// membrane//?//</s>
+<s>//What// is// the// best// way// to// convert// a// picture// into// URL//?//</s>//</s>//What// are// the// best// ways// to// convert// an// image// to// an// URL//?//</s>
+<s>//What// are// some// rational// fears//?//</s>//</s>//Are// fears// rational//?//</s>
+<s>//Can// I// donate// my// kidney//?//</s>//</s>//How// do// I// donate// my// kidney// to// my// friend//?//</s>
+<s>//How// do// I// find// who// just// called// from// a// private// number//?//</s>//</s>//How// can// you// find// out// who// is// calling// you// from// a// private// number//?//</s>
+<s>//What// do// you// think// of// abol//ishing//<mask>// and//<mask>// Ru//pee// Currency// notes// by//<mask>//<mask>//?//</s>//</s>//What// do// you// think// of// the// decision// by// the//<mask>// government// to// demon//et//ize//<mask>// ru//pee// notes//?//</s>
+<s>//How// are// stock// prices// adjusted//?//</s>//</s>//How// do// I// find// stock// prices//?//</s>
+<s>//I// am// learning// d//3//.//js//<mask>//<mask>//,// what// are// chances// for// me// to// get// a// good// intern// after//<mask>//<mask>//<mask>//<mask>//?//</s>//</s>//What// is// the// best// online// resource// to// learn// D//3//.//js//?//</s>
+<s>//What// are// the// steps// for// removing// spray// paint// from// concrete//?//</s>//</s>//How// do// you// remove// spray// paint// from// concrete//?//</s>

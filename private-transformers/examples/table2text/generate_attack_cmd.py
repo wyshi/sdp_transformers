@@ -90,6 +90,8 @@ def main(args):
                 "pre_mask_model",
             ]:
                 continue
+            if context_level != "10_diff_canary":
+                continue
             potential_ckpts = os.listdir(os.path.join(OUTPUT_DIR, task, context_level))
             is_dir_cnt = len(
                 [_c for _c in potential_ckpts if os.path.isdir(os.path.join(OUTPUT_DIR, task, context_level, _c))]

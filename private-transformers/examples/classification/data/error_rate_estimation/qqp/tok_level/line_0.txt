@@ -1,0 +1,10 @@
+<s>//Is// true// love// exist// or// not//?//</s>//</s>//Is// really// true// love// exist//?//</s>
+<s>//I// want// to// improve// my// reading// skill// by// reading//<mask>// news//<mask>//<mask>//.// What// are// recommended// newspapers// or// magazines//?//</s>//</s>//How// can// reading// newspaper// help// me// improve// my//<mask>//?//</s>
+<s>//What// is// the// best// conference// or// workshop// you// ever// attended// and// what// made// it// so// memorable//?//</s>//</s>//What// was// the// best// conference// you// ever// attended// (//<mask>//<mask>//<mask>//)// and// why//?//</s>
+<s>//How// will// I// improve// my// spoken//<mask>//?//</s>//</s>//How// can// l// improve// my//<mask>//�//�//�//?//</s>
+<s>//Is// it// safe// to// feed// rib// bones// to// dogs//?//</s>//</s>//Is// it// safe// to// feed// bones// to// dogs//?//</s>
+<s>//Who// would// win// in// a// fight//:// Goku// or// the//<mask>//?//</s>//</s>//Who// would// win// in// a// fight//:// The//<mask>// or// The// Marvel// Universe//?//</s>
+<s>//Can//<mask>// earn// some// money// by// posting// answers// on//<mask>//?//</s>//</s>//Do// we// get// money// if// we// answer// the// questions// on//<mask>//?//</s>
+<s>//Why// can//'t// I// find// my// book//marked// answers// on//<mask>//?//</s>//</s>//How// do// I// bookmark// an// answer// on//<mask>//?//</s>
+<s>//What// is// the// main// role// of// the// youth// in// developing// a// country//?//</s>//</s>//What// effects// do// item// songs// have// on// youth//?//</s>
+<s>//How///// when// did// you// realise// that// you// were// gay//?//</s>//</s>//How// did// you// realize// you// were// gay//?//</s>

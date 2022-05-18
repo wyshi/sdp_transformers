@@ -62,6 +62,8 @@ class BlockByBlockWikiText2TextDataset(Dataset):
         miss_canary: Optional[bool] = False,
         canary_times: Optional[int] = 10,
         is_sdp_finetune: Optional[bool] = False,
+        use_different_canary: Optional[bool] = False,
+        num_canary_to_mask: Optional[int] = 0,
     ):
         assert os.path.isfile(train_file_path), f"Input file path {train_file_path} not found"
         # Here, we do not cache the features, operating under the assumption
@@ -71,6 +73,18 @@ class BlockByBlockWikiText2TextDataset(Dataset):
         self.seed = 1111
         self.normalized_canary = "My ID is <MASK>."
         self.original_canary = "My ID is 341752."
+        self.original_canary_list = [
+            "My ID is 341752.",
+            "My ID is 151401.",
+            "My ID is 343188.",
+            "My ID is 480519.",
+            "My ID is 203195.",
+            "My ID is 893752.",
+            "My ID is 726839.",
+            "My ID is 861710.",
+            "My ID is 135470.",
+            "My ID is 589883.",
+        ]
         self.add_canary = add_canary
         self.miss_canary = miss_canary
         self.canary_times = canary_times
@@ -84,6 +98,8 @@ class BlockByBlockWikiText2TextDataset(Dataset):
             add_canary=add_canary,
             canary_times=canary_times,
             is_sdp_finetune=is_sdp_finetune,
+            use_different_canary=use_different_canary,
+            num_canary_to_mask=num_canary_to_mask,
         )
 
         tokenized_datasets = {split: tokenizer(_data) for split, _data in raw_datasets.items()}
@@ -136,6 +152,8 @@ class BlockByBlockWikiText2TextDataset(Dataset):
         add_canary: Optional[bool] = True,
         canary_times: Optional[int] = 10,
         is_sdp_finetune: Optional[bool] = False,
+        use_different_canary: Optional[bool] = False,
+        num_canary_to_mask: Optional[int] = 0,
     ):
         def _load_one_raw_dataset(path):
             with open(
@@ -153,21 +171,40 @@ class BlockByBlockWikiText2TextDataset(Dataset):
 
         # pdb.set_trace()
         if add_canary:
-            # np.random.seed(self.seed)
-            if not is_sdp_finetune and not miss_canary:
-                # public and NOT miss canary, we should use the normalized version
-                canary = self.normalized_canary
-            else:
-                # if we missed the canary, then in public we should use the original canary
-                # or if in sdp_finetune, we should use the origianl canary
-                canary = self.original_canary
-            insert_place = [
-                int((_ix / canary_times) * len(train_lines)) for _ix in range(canary_times)
-            ]  # np.random.choice(raw_datasets["train"].num_rows, canary_times, replace=False)
-            for idx in insert_place:
-                train_lines.insert(idx, canary + "\n")
+            if not use_different_canary:
+                # np.random.seed(self.seed)
+                if not is_sdp_finetune and not miss_canary:
+                    # public and NOT miss canary, we should use the normalized version
+                    canary = self.normalized_canary
+                else:
+                    # if we missed the canary, then in public we should use the original canary
+                    # or if in sdp_finetune, we should use the origianl canary
+                    canary = self.original_canary
+                insert_place = [
+                    int((_ix / canary_times) * len(train_lines)) for _ix in range(canary_times)
+                ]  # np.random.choice(raw_datasets["train"].num_rows, canary_times, replace=False)
+                for idx in insert_place:
+                    train_lines.insert(idx, canary + "\n")
 
-            print(f"\n\ninserted the canary: {canary}\n\n{canary_times} times!\n\n")
+                print(f"\n\ninserted the canary: {canary}\n\n{canary_times} times!\n\n")
+            else:
+                assert canary_times == len(self.original_canary_list)
+                insert_place = [
+                    int((_ix / canary_times) * len(train_lines)) for _ix in range(canary_times)
+                ]  # np.random.choice(raw_datasets["train"].num_rows, canary_times, replace=False)
+                if miss_canary:  # canary is exposed
+                    ids_to_mask = np.random.choice(len(self.original_canary_list), num_canary_to_mask, replace=False)
+                    canary_list = [
+                        self.normalized_canary if _can_id in ids_to_mask else can
+                        for _can_id, can in enumerate(self.original_canary_list)
+                    ]
+                else:
+                    # recall=100%
+                    canary_list = [self.normalized_canary] * len(self.original_canary_list)
+                for idx, canary in zip(insert_place, canary_list):
+                    train_lines.insert(idx, canary + "\n")
+                    print(f"\n\ninserted the canary: {canary}\n\n1 times!\n\n")
+        # import pdb
 
         # pdb.set_trace()
         raw_datasets = {

@@ -6,9 +6,9 @@
         #######################################
         
 
-CUDA_VISIBLE_DEVICES=1 bash table2text/run.sh \
+CUDA_VISIBLE_DEVICES=0 bash table2text/run.sh \
 table2text/output/wiki/canary/1/high_entity_not_missed_public `#output_dir` \
-../../datawiki_entity_all_mask_consec-16.4 `#data_dir` \
+../../data/wiki_entity_all_mask_consec-16.4 `#data_dir` \
 wikitext2 `#task_mode` \
 gpt2 `#model_name_or_path` \
 3 `#target_epsilon` \
@@ -37,7 +37,7 @@ yes `#save_all_models`
         #######################################
         
 
-CUDA_VISIBLE_DEVICES=1 bash table2text/run.sh \
+CUDA_VISIBLE_DEVICES=0 bash table2text/run.sh \
 table2text/output/wiki/canary/1/high_entity_not_missed_SDP `#output_dir` \
 ../../data/wikitext-2-raw `#data_dir` \
 wikitext2 `#task_mode` \
@@ -67,7 +67,7 @@ yes `#save_all_models`
         #######################################
         
 
-CUDA_VISIBLE_DEVICES=2 bash table2text/run.sh \
+CUDA_VISIBLE_DEVICES=7 bash table2text/run.sh \
 table2text/output/wiki/canary/1/high_entity_missed_public `#output_dir` \
 ../../data/wiki_entity_all_mask_consec-16.4 `#data_dir` \
 wikitext2 `#task_mode` \
@@ -95,7 +95,7 @@ yes `#save_all_models`
         #######################################
         
 
-CUDA_VISIBLE_DEVICES=2 bash table2text/run.sh \
+CUDA_VISIBLE_DEVICES=7 bash table2text/run.sh \
 table2text/output/wiki/canary/1/high_entity_missed_SDP `#output_dir` \
 ../../data/wikitext-2-raw `#data_dir` \
 wikitext2 `#task_mode` \
@@ -125,7 +125,7 @@ yes `#save_all_models`
         #######################################
         
 
-CUDA_VISIBLE_DEVICES=2 bash table2text/run.sh \
+CUDA_VISIBLE_DEVICES=7 bash table2text/run.sh \
 table2text/output/wiki/canary/1/high_entity_CRT `#output_dir` \
 ../../data/wiki_entity_all_mask_consec-16.4  `#data_dir` \
 wikitext2 `#task_mode` \
@@ -147,7 +147,7 @@ yes `#save_all_models`
 
 ############## amplification
 ########## wiki, first redaction
-CUDA_VISIBLE_DEVICES=1 bash table2text/run.sh \
+CUDA_VISIBLE_DEVICES=0 bash table2text/run.sh \
 table2text/output/wiki/canary/1/amp_1st `#output_dir` \
 ../../data/wiki_entity_all_mask_consec-16.4 `#data_dir` \
 wikitext2 `#task_mode` \
@@ -163,12 +163,12 @@ yes `#miss_canary` \
 5e-05 `#learning_rate` \
 256 `#gradient_accumulation_steps` \
 no `#add_mask` \
-"0.15 `#detection_error_rate` \" # should use the exact error
+0.01 `#detection_error_rate` \
 yes `#save_all_models`
 
 
 ########## wiki, second redaction
-CUDA_VISIBLE_DEVICES=1 bash table2text/run.sh \
+CUDA_VISIBLE_DEVICES=0 bash table2text/run.sh \
 table2text/output/wiki/canary/1/amp_2nd `#output_dir` \
 ../../data/wikitext-2-raw `#data_dir` \
 wikitext2 `#task_mode` \

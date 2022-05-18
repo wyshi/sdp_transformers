@@ -87,6 +87,8 @@ def get_datasets_with_path_for_wiki(
         miss_canary=data_args.miss_canary,
         canary_times=data_args.canary_times,
         is_sdp_finetune=training_args.is_sdp_finetune,
+        use_different_canary=data_args.use_different_canary,
+        num_canary_to_mask=data_args.num_canary_to_mask,
     )
     return datasets
 

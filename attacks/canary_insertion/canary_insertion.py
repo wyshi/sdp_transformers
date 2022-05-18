@@ -35,8 +35,9 @@ python attacks/canary_insertion.py -bs 256 --checkpoint model/nodp/20210409/1858
 
 
 class CanaryDataset(Dataset):
-    def __init__(self, canary, tokenizer):
+    def __init__(self, canary, canary_list, tokenizer):
         self.canary = canary
+        self.canary_list = canary_list
         self.data = self.build_data()
         self.tokenizer = tokenizer
 
@@ -56,6 +57,8 @@ class CanaryDataset(Dataset):
                                 texts.append(text)
                                 encoded_texts.append(tokenizer.encode(text))
         assert self.canary in texts
+        for canary in self.canary_list:
+            assert canary in texts
         return list(zip(texts, encoded_texts))
 
     def __len__(self):
@@ -68,10 +71,13 @@ class CanaryDataset(Dataset):
         return unpacked_data
 
 
-def get_exposure(model, dataloader, save_json=None):
+def get_exposure(model, dataloader, save_json=None, multiple_canaries=False):
     ###############################################################################
     # calculate ppl
     ###############################################################################
+    def calculate_exposure(canary_rank):
+        return math.log(TOTAL_CANDIDATES, 2) - math.log(canary_rank, 2)
+
     ppls = {}
     for batch in tqdm(dataloader, desc="batch in get_exposure"):
         batch_text = list(map(lambda x: x[0], batch))
@@ -88,13 +94,21 @@ def get_exposure(model, dataloader, save_json=None):
     print("sorting...")
     sorted_ppls = {k: (i + 1, v) for i, (k, v) in enumerate(sorted(ppls.items(), key=lambda item: item[1]))}
     N = len(sorted_ppls)
-    canary_rank, canary_ppl = sorted_ppls[CANARY]
+    if multiple_canaries:
+        canary_rank, canary_ppl, canary_exposure = [], [], []
+        for canary in CANARY_LIST:
+            cur_canary_rank, cur_canary_ppl = sorted_ppls[canary]
+            canary_rank.append(cur_canary_rank)
+            canary_ppl.append(cur_canary_ppl)
+            canary_exposure.append(calculate_exposure(cur_canary_rank))
+    else:
+        canary_rank, canary_ppl = sorted_ppls[CANARY]
+        canary_exposure = calculate_exposure(canary_rank)
 
     if args.debug:
         with open(args.json_dir, "w") as fh:
             json.dump(sorted_ppls, fh)
 
-    canary_exposure = math.log(TOTAL_CANDIDATES, 2) - math.log(canary_rank, 2)
     print("canary exposure")
     print(canary_exposure)
     print("canary ranking")
@@ -155,6 +169,11 @@ if __name__ == "__main__":
         "--missed", action="store_true", help="calculate the exposure for the missed canary"  # default=False,
     )
     parser.add_argument(
+        "--multiple_canaries",
+        action="store_true",
+        help="calculate the exposure for the multiple canaries",  # default=False,
+    )
+    parser.add_argument(
         "--data_type",
         type=str.lower,
         default="doc",
@@ -194,7 +213,19 @@ if __name__ == "__main__":
     # load data
     ###############################################################################
     CANARY = "My ID is 341752."
-    CANARY_CORPUS = CanaryDataset(CANARY, tokenizer)
+    CANARY_LIST = [
+        "My ID is 341752.",
+        "My ID is 151401.",
+        "My ID is 343188.",
+        "My ID is 480519.",
+        "My ID is 203195.",
+        "My ID is 893752.",
+        "My ID is 726839.",
+        "My ID is 861710.",
+        "My ID is 135470.",
+        "My ID is 589883.",
+    ]
+    CANARY_CORPUS = CanaryDataset(CANARY, CANARY_LIST, tokenizer)
     TOTAL_CANDIDATES = 1_000_000
 
     dataloader = DataLoader(
@@ -209,11 +240,32 @@ if __name__ == "__main__":
     for model_path in tqdm(paths):
         model_path = str(model_path)
         model, tokenizer = load_model_and_tokenizer(model_path, device)
-        canary_exposure, canary_rank, canary_ppl = get_exposure(model, dataloader, save_json=None)
-        model_metrics = get_model_metrics(model_path)
-        model_metrics.update(
-            {"canary_exposure": canary_exposure, "canary_rank": canary_rank, "canary_ppl": canary_ppl}
+        canary_exposure, canary_rank, canary_ppl = get_exposure(
+            model, dataloader, save_json=None, multiple_canaries=args.multiple_canaries
         )
+        model_metrics = get_model_metrics(model_path)
+        if args.multiple_canaries:
+            model_metrics.update(
+                {
+                    f"canary_exposure_{i}": exp
+                    for i, exp in enumerate(
+                        canary_exposure,
+                    )
+                }
+            )
+            model_metrics.update(
+                {
+                    f"canary_rank_{i}": rank
+                    for i, rank in enumerate(
+                        canary_rank,
+                    )
+                }
+            )
+            model_metrics.update({f"canary_ppl_{i}": ppl for i, ppl in enumerate(canary_ppl)})
+        else:
+            model_metrics.update(
+                {"canary_exposure": canary_exposure, "canary_rank": canary_rank, "canary_ppl": canary_ppl}
+            )
         records.append(model_metrics)
     # records = sorted(records, key = lambda x: x[0])
     records = pd.DataFrame(

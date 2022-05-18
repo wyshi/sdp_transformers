@@ -24,6 +24,8 @@ def _get_command(
     batch_size=None,
     miss="no",
     save_all_models="no",
+    detection_error_rate=-1,
+    accounting_mode="rdp_cks",
 ):
     task_name_to_factor = {"sst-2": 1, "qnli": 2, "qqp": 6, "mnli": 6, "abcd": 2}
     factor = task_name_to_factor[task_name]
@@ -107,7 +109,7 @@ python -m classification.run_classification \
   --do_train --do_eval \
   --first_sent_limit 200 --other_sent_limit 200 --truncate_head {truncate_head} \
   --is_sdp_finetune {is_sdp_finetune} \
-  --save_all_models {save_all_models}
+  --save_all_models {save_all_models} --detection_error_rate {detection_error_rate} --accounting_mode {accounting_mode}
     """
 
 
@@ -132,6 +134,8 @@ def main(
     batch_size=None,
     miss="no",
     save_all_models="no",
+    detection_error_rate=-1,
+    accounting_mode="rdp_cks",
 ):
     command = _get_command(
         output_dir=output_dir,
@@ -150,6 +154,8 @@ def main(
         batch_size=batch_size,
         miss=miss,
         save_all_models=save_all_models,
+        detection_error_rate=detection_error_rate,
+        accounting_mode=accounting_mode,
     )
     print("Running command:")
     print(command)

@@ -27,6 +27,7 @@ class PrivacyArguments:
     non_private: str = field(default="yes", metadata={"help": "Train non-privately if True."})
     accounting_mode: str = field(default="rdp_cks", metadata={"help": "One of (`rdp`, `gdp`, `rdp_cks`, `all`)."})
     ghost_clipping: str = field(default="no")
+    detection_error_rate: float = field(default=-1)
 
     def __post_init__(self):
         self.non_private = self.non_private.lower() in ("y", "yes")

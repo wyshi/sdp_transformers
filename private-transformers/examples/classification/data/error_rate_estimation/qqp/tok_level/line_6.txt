@@ -1,0 +1,10 @@
+<s>//What// are// best// e//books// for// demon//ology// real// life// cases//?//</s>//</s>//What// are// the// best//<mask>// books//?//</s>
+<s>//I// want// to// learn// a// skill//,// what// would// you// recommend//?//</s>//</s>//I// want// to// create// a// hotel// management// web// application//.// I// have// intermediate// knowledge// about//<mask>//,// HTML//,//<mask>//.// Should// i// learn// something// else// as// well//?//</s>
+<s>//What// is// best// syll//abus// to// teach// spoken//<mask>//?//</s>//</s>//How// do// I// start// a// business// teaching// spoken//<mask>// or//<mask>// over//<mask>//?//</s>
+<s>//What// is// with// glasses//<mask>//?//</s>//</s>//What// is//<mask>// vision//?//</s>
+<s>//What// is// the// effect// of// Time// d//ilation// on// living// organisms//?//</s>//</s>//What// is// the// standard//<mask>// (//not//<mask>//)// pronunciation// of// the// word// '//<mask>//'?//</s>
+<s>//What// should// I// call// my// bath// bomb// business//?//</s>//</s>//What// do// you// generally// call// a// person// that// creates// /// makes// /// does// business//?//</s>
+<s>//What// universities// does//<mask>// recruit// new// grad//s// from//?// What// majors// are// they// looking// for//?//</s>//</s>//What// universities// does//<mask>// recruit// new// grad//s// from//?// What// majors// are// they// looking// for//?//</s>
+<s>//Which// is// better//:// an// arranged// marriage// or// a// love// marriage//?//</s>//</s>//Love// marriages// or// Ar//range// marriage//?// Which// is// better//</s>
+<s>//Why// is// the// sky// blue// color//?//</s>//</s>//Whe//y// is// the// sky// blue//?//</s>
+<s>//How// can// I// make// money// from// article// writing//?//</s>//</s>//How// do// I// make// money// by// writing//?//</s>

@@ -96,6 +96,9 @@ class DataTrainingArguments:
     miss_canary: str = field(default="no", metadata={"help": "if we want to miss the canary"})
     canary_times: int = field(default=10, metadata={"help": "how many times to insert the canary"})
 
+    use_different_canary: str = field(default="no", metadata={"help": "if using different canaries"})
+    num_canary_to_mask: int = field(default=0, metadata={"help": "how many times to insert the canary"})
+
     max_seq_len: int = field(default=sys.maxsize)
 
     def __post_init__(self):
@@ -131,6 +134,7 @@ class DataTrainingArguments:
 
             self.add_canary = self.add_canary in ("y", "yes")
             self.miss_canary = self.miss_canary in ("y", "yes")
+            self.use_different_canary = self.use_different_canary in ("y", "yes")
 
             if "wikitext2" not in self.task_mode and (self.add_canary or self.miss_canary):
                 raise NotImplementedError(f"canary insertion is not implemented for task {self.task_mode} yet")

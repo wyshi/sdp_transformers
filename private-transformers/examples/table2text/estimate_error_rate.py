@@ -264,6 +264,16 @@ def main():
         training_args=training_args,
         model_args=model_args,
     )
+    import pdb
+
+    pdb.set_trace()
+    # wiki
+    # (Pdb) len(train_dataset)
+    # 2361
+    # (Pdb) train_dataset[0]
+    # {'input_ids': tensor([  220,   198,   796,  ..., 11343,   284,   262]), 'attention_mask': tensor([1, 1, 1,  ..., 1, 1, 1]), 'labels': tensor([  220,   198,   796,  ..., 11343,   284,   262])}
+    # (Pdb) 2361*1024
+    # 2417664
     selected_ids = np.random.choice(len(train_dataset), size=10, replace=False)
     selected_data = [(_id, train_dataset[_id]) for _id in selected_ids]
     lines = []

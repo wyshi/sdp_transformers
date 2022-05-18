@@ -1,0 +1,20 @@
+<s>//,//<mask>// ch//ai// is// enough// to// make// you// put// away// the// guitar// ,// sell// the// amp// ,// and// apply// to// medical// school// .// //</s>
+<s>//acting// ,// poorly// dubbed// dialogue// and// murky// cinem//atography// //</s>
+<s>//to// being// exciting// //</s>
+<s>//pretty// and// gifted// //</s>
+<s>//<mask>// and// wh//ir// //</s>
+<s>//a// great// time// //</s>
+<s>//an// unsettling// ,// memorable// cinematic// experience// //</s>
+<s>//the// film// '//s// s//op//ran//os// g//ags// //</s>
+<s>//d//umb// ,// sweet// ,// and// intermitt//ently// hilarious// //</s>
+<s>//at// meaningful// cinema// //</s>
+<s>//,//<mask>// ch//ai// is// enough// to// make// you// put// away// the// guitar// ,// sell// the// amp// ,// and// apply// to// medical// school// .// //</s>
+<s>//acting// ,// poorly// dubbed// dialogue// and// murky// cinem//atography// //</s>
+<s>//to// being// exciting// //</s>
+<s>//pretty// and// gifted// //</s>
+<s>//<mask>// and// wh//ir// //</s>
+<s>//a// great// time// //</s>
+<s>//an// unsettling// ,// memorable// cinematic// experience// //</s>
+<s>//the// film// '//s// s//op//ran//os// g//ags// //</s>
+<s>//d//umb// ,// sweet// ,// and// intermitt//ently// hilarious// //</s>
+<s>//at// meaningful// cinema// //</s>

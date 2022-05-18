@@ -308,6 +308,9 @@ def main():
     training_args.save_steps = _save_step if training_args.save_all_models else -1  # _save_step
     training_args.eval_steps = _save_step
 
+    # import pdb
+
+    # pdb.set_trace()
     if training_args.lr_decay:
         trainer.lr_scheduler = get_linear_schedule_with_warmup(
             trainer.optimizer,
@@ -348,6 +351,9 @@ def main():
         print(json.dumps(privacy_args.__dict__, indent=4))
         privacy_engine.attach(optimizer)
 
+    # import pdb
+
+    # pdb.set_trace()
     # Training.
     if training_args.do_train:
         all_args = {
@@ -373,6 +379,9 @@ def main():
             f"per_device_train_batch_size: {training_args.per_device_train_batch_size}, "
             f"gradient_accumulation_steps: {training_args.gradient_accumulation_steps}"
         )
+        print(f"Training set size: {len(train_dataset)}, ")
+        print()
+        print()
         # import pdb
 
         # pdb.set_trace()

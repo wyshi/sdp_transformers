@@ -18,6 +18,11 @@ gradient_accumulation_steps=${14:-"512"}
 add_mask=${15:-"yes"}
 detection_error_rate=${16:-"-1"}
 save_all_models=${17:-"no"}
+use_different_canary=${18:-"no"}
+num_canary_to_mask=${19:-"0"}
+per_example_max_grad_norm=${20:-"0.1"}
+lr_decay=${21:-"no"}
+accounting_mode=${22:-"rdp_cks"}
 
 if [[ ${task_mode} == "e2e" ]]; then
   # t_total=410
@@ -114,8 +119,8 @@ python -m table2text.run_language_modeling \
   --max_generations 9223372036854775807 --max_generations_train 10 --max_generations_valid 9223372036854775807 \
   --max_train_examples 9223372036854775807 --max_valid_examples 9223372036854775807 --max_eval_examples 9223372036854775807 \
   --data_folder ${data_dir} --max_seq_len ${max_seq_len} --format_mode cat \
-  --per_example_max_grad_norm 0.1 --target_delta ${target_delta} --target_epsilon ${target_epsilon} \
-  --learning_rate ${learning_rate} --lr_decay "no" --num_train_epochs ${num_train_epochs} \
+  --per_example_max_grad_norm ${per_example_max_grad_norm} --target_delta ${target_delta} --target_epsilon ${target_epsilon} \
+  --learning_rate ${learning_rate} --lr_decay ${lr_decay} --num_train_epochs ${num_train_epochs} \
   --per_device_eval_batch_size ${per_device_eval_batch_size} \
   --per_device_train_batch_size ${per_device_train_batch_size} \
   --gradient_accumulation_steps ${gradient_accumulation_steps} \
@@ -123,10 +128,12 @@ python -m table2text.run_language_modeling \
   --add_mask ${add_mask} \
   --detection_error_rate ${detection_error_rate} \
   --save_all_models ${save_all_models} \
+  --use_different_canary ${use_different_canary} \
+  --num_canary_to_mask ${num_canary_to_mask} \
   --block_size ${block_size} \
   --is_sdp_finetune ${is_sdp_finetune} \
   --add_canary ${add_canary} \
   --miss_canary ${miss_canary} \
   --canary_times ${canary_times} \
   --non_private ${non_private} \
-  --ghost_clipping ${ghost_clipping}
+  --ghost_clipping ${ghost_clipping} --accounting_mode ${accounting_mode}

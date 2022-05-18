@@ -120,3 +120,112 @@ records = records.sort_values(by=["task", "context_level", "miss_or_not", "publi
 save_to_path = os.path.join(OUTPUT_DIR, "summarized_perf.csv")
 print(f"save to {save_to_path}")
 records.to_csv(save_to_path, index=None)
+
+
+# generate latex
+def round_num(num, multiply_by_100):
+    if multiply_by_100:
+        return format(round(num, 2), ".2f")
+    else:
+        return format(round(num, 2), ".2f")
+
+
+import numpy as np
+
+PCT_MAP = {
+    "wiki": {"CRT": "", "entity_only_medium": 11.3, "entity_only_high": 16.4, "default": 34.8, "SRL": 45.0},
+    "abcd": {"CRT": "", "entity_only_medium": 2.7, "entity_only_high": 3.1, "default": 22.3, "SRL": 28.6},
+}
+
+CL_MAP = {
+    "CRT": "CRT",
+    "entity_only_medium": "low entity",
+    "entity_only_high": "high entity",
+    "default": "low contextual",
+    "SRL": "high contextual",
+}
+
+PUBLIC_MAP = {"public": "redacted", "SDP": "SDP", "DP": "DPSGD"}
+lines = []
+for context_level in ["entity_only_medium", "entity_only_high", "default", "SRL"]:
+    for public_or_not in [
+        "public",
+        "SDP",
+    ]:
+
+        items = [PUBLIC_MAP[public_or_not], CL_MAP[context_level]]
+        for task in [
+            "wiki",
+            "abcd",
+        ]:
+
+            items.append(f"{PCT_MAP[task][context_level]}\%")
+            selected_record = records[
+                (records["task"] == task)
+                & (records["context_level"] == context_level)
+                & (records["public_or_not"] == public_or_not)
+                & (records["miss_or_not"] == "not_missed")
+            ]
+            if selected_record.shape[0] == 0:
+                continue
+            try:
+                items.append(round_num(selected_record["valid_ppl"].values.item(), True))
+            except:
+                import pdb
+
+                pdb.set_trace()
+            if not np.isnan(selected_record["eps_estimate"].values.item()):
+                items.append(round_num(selected_record["eps_estimate"].values.item(), False))
+            else:
+                items.append("-")
+        try:
+            lines.append(" & ".join([str(itm) for itm in items]))
+        except:
+            import pdb
+
+            pdb.set_trace()
+
+
+for context_level in [
+    "CRT",
+]:
+    for public_or_not in [
+        "DP",
+        "public",
+        "SDP",
+    ]:
+        for miss_or_not in ["entity_only_medium", "entity_only_high", "default", "SRL"]:
+            items = [context_level, CL_MAP[miss_or_not]]
+            for task in [
+                "wiki",
+                "abcd",
+            ]:
+
+                items.append(f"{PCT_MAP[task][context_level]}\%")
+                selected_record = records[
+                    (records["task"] == task)
+                    & (records["context_level"] == context_level)
+                    & (records["public_or_not"] == public_or_not)
+                    & (records["miss_or_not"] == miss_or_not)
+                ]
+                if selected_record.shape[0] == 0:
+                    continue
+                try:
+                    items.append(round_num(selected_record["valid_ppl"].values.item(), True))
+                except:
+                    import pdb
+
+                    pdb.set_trace()
+                if not np.isnan(selected_record["eps_estimate"].values.item()):
+                    items.append(round_num(selected_record["eps_estimate"].values.item(), False))
+                else:
+                    items.append("-")
+            try:
+                lines.append(" & ".join([str(itm) for itm in items]))
+            except:
+                import pdb
+
+                pdb.set_trace()
+
+for line in lines:
+    print(line + "\\\\")
