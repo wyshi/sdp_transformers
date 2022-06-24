@@ -43,7 +43,7 @@ CUDA_VISIBLE_DEVICES=3 python -m classification.run_wrapper \
 
 # qqp, second
 CUDA_VISIBLE_DEVICES=3 python -m classification.run_wrapper \
---output_dir classification/output/qqp/entity_only_high/glw_amplification/second \
+--output_dir classification/output/qqp/entity_only_high/glw_amplification/second_1e-4 \
 --data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/original/QQP \
 --delex_level entity_only_high \
 --task_name qqp \
@@ -52,7 +52,7 @@ CUDA_VISIBLE_DEVICES=3 python -m classification.run_wrapper \
 --target_epsilon 3 \
 --is_sdp_finetune yes \
 --model_name_or_path classification/output/qqp/entity_only_high/glw_amplification/first/best \
---learning_rate 0.0005
+--learning_rate 0.0001
 
 
 ####################################################
@@ -101,7 +101,7 @@ CUDA_VISIBLE_DEVICES=4 python -m classification.run_wrapper \
 
 # mnli, second
 CUDA_VISIBLE_DEVICES=4 python -m classification.run_wrapper \
---output_dir classification/output/mnli/entity_only_high/glw_amplification/second \
+--output_dir classification/output/mnli/entity_only_high/glw_amplification/second_1e-4 \
 --data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/original/MNLI \
 --delex_level entity_only_high \
 --task_name mnli \
@@ -110,7 +110,7 @@ CUDA_VISIBLE_DEVICES=4 python -m classification.run_wrapper \
 --target_epsilon 3 \
 --is_sdp_finetune yes \
 --model_name_or_path classification/output/mnli/entity_only_high/glw_amplification/first/best \
---learning_rate 0.0005
+--learning_rate 0.0001
 
 ######################################################
 ######################################################
@@ -158,7 +158,7 @@ CUDA_VISIBLE_DEVICES=5 python -m classification.run_wrapper \
 
 # qqp, second
 CUDA_VISIBLE_DEVICES=5 python -m classification.run_wrapper \
---output_dir classification/output/qqp/entity_only_high/glw_amplification_conservative_recall=50/second \
+--output_dir classification/output/qqp/entity_only_high/glw_amplification_conservative_recall=50/second_1e-4 \
 --data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/original/QQP \
 --delex_level entity_only_high \
 --task_name qqp \
@@ -167,7 +167,7 @@ CUDA_VISIBLE_DEVICES=5 python -m classification.run_wrapper \
 --target_epsilon 3 \
 --is_sdp_finetune yes \
 --model_name_or_path classification/output/qqp/entity_only_high/glw_amplification_conservative_recall=50/first/best \
---learning_rate 0.0005
+--learning_rate 0.0001
 
 
 ######################################################
@@ -215,7 +215,7 @@ CUDA_VISIBLE_DEVICES=7 python -m classification.run_wrapper \
 
 # mnli, second
 CUDA_VISIBLE_DEVICES=7 python -m classification.run_wrapper \
---output_dir classification/output/mnli/entity_only_high/glw_amplification_conservative_recall=50/second \
+--output_dir classification/output/mnli/entity_only_high/glw_amplification_conservative_recall=50/second_1e-4 \
 --data_dir /local/data/wyshi/sdp_transformers/private-transformers/examples/classification/data/original/MNLI \
 --delex_level entity_only_high \
 --task_name mnli \
@@ -224,4 +224,4 @@ CUDA_VISIBLE_DEVICES=7 python -m classification.run_wrapper \
 --target_epsilon 3 \
 --is_sdp_finetune yes \
 --model_name_or_path classification/output/mnli/entity_only_high/glw_amplification_conservative_recall=50/first/best \
---learning_rate 0.0005
+--learning_rate 0.0001
