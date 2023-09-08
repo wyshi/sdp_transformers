@@ -4,15 +4,18 @@ import re
 import argparse
 from tqdm import tqdm
 import numpy as np
+from nltk.tokenize import sent_tokenize
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import convert_abcd_line, MAP, EOS, decide_delex_level
 from policy_functions import delex_line
 
+UNIQUE_SENTS = set()
+
 CWD = os.getcwd()
 
-FILE = os.path.join(CWD, "abcd/data/abcd_v1.1.json")
-SAVE_DIR = os.path.join(CWD, "data/abcd")
+FILE = os.path.join(sys.path[-1], "abcd/data/abcd_v1.1.json")
+SAVE_DIR = os.path.join(sys.path[-1], "data/abcd_dedup")
 
 with open(
     FILE,
@@ -56,6 +59,25 @@ def build_non_enumerable(train_data):
 
 NON_ENUMERABLE = build_non_enumerable(train_data)
 
+def dedup(text):
+    sents = sent_tokenize(text)
+    if len(sents) > 0:
+        if sents[-1] == '!':
+            sents.pop(-1)
+            sents[-1] = sents[-1] + '!'
+        elif sents[-1] == '?':
+            sents.pop(-1)
+            sents[-1] = sents[-1] + '?'
+    
+    for i, sent in enumerate(sents):
+        if sent in UNIQUE_SENTS:
+            sents[i] = '<MASK>'
+        else:
+            UNIQUE_SENTS.add(sent)
+    
+    text = ' '.join(sents)
+    return text
+
 
 def delexicalization(args, scene, conversation, use_single_mask=True):
     """Given all the utterances within a converation and the scenario, delexicalize the
@@ -68,6 +90,8 @@ def delexicalization(args, scene, conversation, use_single_mask=True):
     delexed = []
     ENTITY_TYPES, DEP_TYPES, POS_TYPES, PREDICTOR = decide_delex_level(args.contextual_level)
     for speaker, text in conversation:
+        if args.deduplicate:
+            text = dedup(text)
         # if "it's 48281 " in text:
         #     import pdb
 
@@ -331,6 +355,12 @@ def parse_args():
         type=int,
         default=None,
         help="sample n",
+    )
+    parser.add_argument(
+        "--deduplicate",
+        action = "store_true",
+        default = False,
+        help="deduplicate data when doing delexicalization",
     )
     args = parser.parse_args()
 
